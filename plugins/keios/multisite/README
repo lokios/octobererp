@@ -1,0 +1,8 @@
+Keios Multisite Plugin
+===========================
+
+Domain-based multisite plugin for OctoberCMS
+
+Features:
+- Register themes for different domains
+- Filter which domains can use backend

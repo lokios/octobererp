@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: olabs.oims::lang.products.menu_label_single
+
+# Model Form Field configuration
+form: $/olabs/oims/models/product/fields.yaml
+
+# Model Class name
+modelClass: Olabs\Oims\Models\Product
+
+# Default redirect location
+defaultRedirect: olabs/oims/products
+
+# Create page
+create:
+    title: olabs.oims::lang.products.create
+    redirect: olabs/oims/products/update/:id
+    redirectClose: olabs/oims/products
+
+# Update page
+update:
+    title: olabs.oims::lang.products.edit
+    redirect: olabs/oims/products
+    redirectClose: olabs/oims/products
+
+# Preview page
+preview:
+    title: olabs.oims::lang.products.preview

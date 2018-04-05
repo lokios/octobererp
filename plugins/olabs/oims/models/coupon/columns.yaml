@@ -1,0 +1,45 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    code:
+        label: olabs.oims::lang.coupons.code
+        searchable: true
+        
+    active:
+        label: olabs.oims::lang.coupons.active
+        type: switch
+        
+    valid_from:
+        label: olabs.oims::lang.coupons.valid_from
+        type: datetime
+
+    valid_to:
+        label: olabs.oims::lang.coupons.valid_to
+        type: datetime
+
+    count:
+        label: olabs.oims::lang.coupons.count
+        type: number
+        searchable: true
+        
+    used_count:
+        label: olabs.oims::lang.coupons.used_count
+        type: number
+        searchable: true
+        
+    minimum_value_basket:
+        label: olabs.oims::lang.coupons.minimum_value_basket
+        type: number
+        searchable: true
+        
+    value:
+        label: olabs.oims::lang.coupons.value
+        searchable: false
+        type: partial
+        path: ~/plugins/olabs/oims/models/coupon/_value_column.htm
+        
+    created_at:
+        label: olabs.oims::lang.coupons.created_at
+        type: datetime        

@@ -1,0 +1,16 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    price:
+        label: olabs.oims::lang.products.individual_price
+        searchable: true
+        type: number
+        
+    user_id:
+        label: olabs.oims::lang.products.customer
+        comment: olabs.oims::lang.products.customer_comment
+        span: full 
+        type: dropdown
+        options: getUserOptions

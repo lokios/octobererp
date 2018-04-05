@@ -1,0 +1,200 @@
+<div class="product-detail">
+{% if not product %}
+    <div class="row">
+        <div class="col-sm-12">
+            Product not found
+        </div>
+    </div>
+
+{% else %}
+
+
+    <div class="row product-detail-left">
+        <div class="col-sm-5">
+            {% if product.getMainImage %}
+            <div class="product-detail-main-image" id="product-detail-main-image">
+                <img src="{{ product.getMainImagePath }}" class="img-responsive cursor-pointer" >
+            </div>
+            {% endif %}
+            <div class="product-detail-list-of-images">
+                {% for image in product.images %}
+                <a href="{{ image.path }}" rel="galery1">
+                    <img src="{{ image.thumb(60,60, { extension: 'png' }) }}" class="cursor-pointer" >
+                </a>
+                {% else %}
+                <a href="{{ product.getMainImagePath }}" rel="galery1">
+                    <img src="{{ product.getMainImage.thumb(60,60, { extension: 'png' }) }}" class="cursor-pointer" >
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-sm-7 product-detail-right">
+            <h1 id="product-title">
+                {{ product.title }}
+                <span id="product-option-title"></span>
+            </h1>
+            <div class="product-detail-description">
+                {{ product.description|raw }}
+                <div id="product-option-description">
+                    
+                </div>
+            </div>
+            
+            {% if product.customization|length > 0 %}
+            <div>
+                {% for custField in product.customization %}
+                <div>
+                    {{ custField.label }}: <strong>{{ custField.value }}</strong>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            {% if product.brand %}
+            <div>
+                <div>
+                    Brand: 
+                    {% if (product.brand.url) %}
+                    <strong><a href="{{product.brand.url}}">{{ product.brand.title }}</a></strong>
+                    {% else %}
+                    <strong>{{ product.brand.title }}</strong>
+                    {% endif %}
+                    
+                </div>
+            </div>
+            {% endif %}            
+            
+            <h4 id="product-price">
+                {{ product.getFinalPriceFormated }}
+            </h4>
+            <div class="text-uppercase row-border">
+                {% if product.on_sale %}
+                <span class="label label-success">On Sale</span>
+                {% endif %}
+                
+                
+                {% if (product.quantity / product.minimum_quantity > 1) %}
+                    <span class="label label-success">In stock</span>
+                {% else %}
+                    <span class="label label-danger">Sold out</span>
+                    <smal>{{ product.availability_date ? '(availability '~product.availability_date|date("d.m.Y")~')' : '' }}</smal>
+                {% endif %}
+                
+                <span class="label label-default">{{ product.getConditionLabel }}</span>                
+            </div>
+            <div>
+                
+
+                
+                {% if product.isAllowOrder %}
+                <form data-request="onAddToBasket" id="form-add-to-basket">
+                    <input type="hidden" name="id" value="{{ product.id }}">
+                
+                    {# ------------------------------- #}
+                    {# Properties for product #}
+                    {# ------------------------------- #}
+                    {% if product.properties %}
+                        <div class="product-properties">
+                        {% for property in product.getFullProperties %}
+                        <div class="product-property-row">
+                            {% partial __SELF__ ~'::property-input' property = property product = product %}
+                            </div>
+                        {% endfor %}
+                        </div>
+                    {% endif %}
+                    {# ------------------------------- #}                
+                
+                    
+                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to Cart</button>
+                    
+                </form>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+
+    {% if product.attachments|length > 0 %}
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Attachments</h3>
+            {% for file in product.attachments %}
+            <a href="{{ file.path }}" target="_blank">{{ file.title ?  file.title : file.file_name }}</a><br />
+            {% endfor %}
+        </div>
+
+        <div class="clearfix"></div>    
+    </div>
+    {% endif  %}
+
+
+
+    {% if accessories|length > 0 %}
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Accessories</h3>
+            <div class="row">
+
+                {% for accessoriesProduct in accessories %}
+                <div class="col-sm-3">
+                    <h4 class="cursor-pointer" onclick="location.href = '{{ accessoriesProduct.url}}'">{{ accessoriesProduct.title }}</h4>
+                    <div class="product-description">{{ accessoriesProduct.short_description ? accessoriesProduct.short_description|raw : accessoriesProduct.description|raw }}</div>
+                    <div class="text-center">
+                        {% if accessoriesProduct.images|length > 0 %}
+                        <img src="{{ accessoriesProduct.images[0].thumb(auto,150, { extension: 'png' }) }}" class="img-responsive cursor-pointer" onclick="location.href = '{{ accessoriesProduct.url}}'" >
+                        {% endif %}
+                    </div>
+                    <h4>
+                        {{ accessoriesProduct.getFinalPriceFormated }}
+                    </h4>
+                </div>        
+                {% endfor %}
+
+            </div>
+        </div>
+
+        <div class="clearfix"></div>    
+    </div>
+    {% endif  %}
+
+    {% if featured|length > 0 %}
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Featured Products</h3>
+            <div class="row">
+
+                {% for featuredOProduct in featured %}
+                    <div class="col-sm-3">
+                        <h4 class="cursor-pointer" onclick="location.href = '{{ featuredOProduct.url}}'">{{ featuredOProduct.title }}</h4>
+                        <div class="product-description">{{ featuredOProduct.short_description ? featuredOProduct.short_description|raw : featuredOProduct.description|raw }}</div>
+                        <div class="text-center">
+                            {% if featuredOProduct.images|length > 0 %}
+                            <img src="{{ featuredOProduct.images[0].thumb(auto,150, { extension: 'png' }) }}" class="img-responsive cursor-pointer" onclick="location.href = '{{ featuredOProduct.url}}'" >
+                            {% endif %}
+                        </div>
+                        <h4>
+                            {{ featuredOProduct.getFinalPriceFormated }}
+                        </h4>
+                    </div>        
+                {% endfor %}
+
+            </div>
+        </div>
+
+        <div class="clearfix"></div>    
+    </div>
+    {% endif  %}
+
+{% endif %}
+</div>
+
+<script>
+$( document ).ready(function() {
+    $("#form-add-to-basket select:first").change();
+});
+    
+</script>
+    

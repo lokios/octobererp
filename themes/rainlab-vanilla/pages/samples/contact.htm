@@ -1,0 +1,142 @@
+title = "Contact"
+url = "/contact"
+layout = "default"
+==
+<?php
+use Olabs\Tenant\Classes\Tenant;
+use Olabs\Tenant\Models\Contents;
+function onInit()
+{
+
+  }
+
+function onMailCotact()
+{
+$value1 = post('value1');
+$value2 = post('value2');
+
+$vars = Input::all();
+
+Mail::send('olabs.tenant::mail.contact', $vars, function($messageSer) {
+
+ $org = Tenant::getOrg();
+
+$messageSer->to($org->email, 'Admin Person');
+//$message->cc('lokendra@opaclabscom','Support');
+$messageSer->subject('Contact '.post('name'));
+
+
+
+});
+//return 'Mail Sent!';
+$this['result'] = 'Message Sent!';
+$this['client'] = post('client');
+}
+function onStart()
+{
+
+//$currentHostUrl = Request::getHost();
+$this['currentHostUrl'] = Tenant::getHost();
+$this['org'] = Tenant::getOrg();
+$this['page_sections'] = Contents::where('tags','home')->orderBy('name', 'asc')->get();
+$this['slides'] = Contents::where('tags','home_slider')->orderBy('name', 'asc')->get();
+}
+?>
+==
+{% framework extras %}
+
+<script>
+    function onStatus(client){
+        $('#form').addClass('hide');
+    }
+</script>
+<section id="layout-title">
+    <div class="container">
+        <h3>Contact us</h3>
+    </div>
+</section>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-7">
+            <p>{{org.name}} </p>
+            <div id="result"></div>
+            <div id="form">
+            <form role="form" data-request="onMailCotact"  data-request-update="status_callback: '#result'">
+                <input type="hidden" class="form-control"  name="client" value="contacts">
+                <div class="form-group">
+                    <label for="email">Your email address</label>
+                    <input type="email" class="form-control" id="email" name="from_email" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label for="name">Your name</label>
+                    <input type="text" class="form-control" id="name" name="from_name" placeholder="Enter name">
+                </div>
+                <div class="form-group">
+                    <label for="message">Your message</label>
+                    <textarea class="form-control" rows="7" id="message"  name="content" placeholder="Enter message" style="resize: none"></textarea>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <button type="submit" class="btn btn-lg btn-info">Send message</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="checkbox pull-right" for="checkbox1">
+                            <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox">
+                            Send a copy to myself
+                        </label>
+                    </div>
+                </div>
+            </form>
+                </div>
+            <br /><br />
+
+        </div>
+
+        <div class="col-md-5">
+            <div class="contact-banner">
+                <h3 class="banner-title">Our location</h3>
+                <ul>
+                    {% if org.address_1 %}
+                    <li>{{org.address_1}}</li>
+                    {% endif %}
+                    {% if org.address_2 %}
+                    <li>{{org.address_2}}</li>
+                    {% endif %}
+                    <li> {% if org.city %}{{org.city}} {% endif %} {% if org.state %}{{org.state}}{% endif %} {% if org.country %}{{org.country}}{% endif %}</li>
+                    {% if org.phone_1 %}
+                    <li>Phone: {{org.phone_1}}</li>
+                    {% endif %}
+                    {% if org.phone_2 %}
+                    <li>Phone: {{org.phone_2}}</li>
+                    {% endif %}
+                    {% if org.fax %}
+                    <li>Fax: {{org.fax}}</li>
+                    {% endif %}
+                    {% if org.email %}
+                    <li>Email: <a href="mailto:{{org.email}}">{{org.email}}</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+
+           <!-- <div class="google-maps">
+              <iframe
+                width="500"
+                height="450"
+                frameborder="0"
+                scrolling="no"
+                marginheight="0"
+                marginwidth="0"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52978.975064878534!2d151.21417105100554!3d-33.910613674462084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b129838f39a743f%3A0x3017d681632a850!2sSydney+NSW%2C+Australia!5e0!3m2!1sen!2sus!4v1406012463524"></iframe>
+            </div>-->
+            {% if org.map %}
+            <div class="google-maps">
+              {{org.map|raw}}
+            </div>
+            {% endif %}
+        </div>
+
+    </div>
+</div>

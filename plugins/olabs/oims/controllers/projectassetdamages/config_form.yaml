@@ -1,0 +1,10 @@
+name: ProjectAssetDamages
+form: $/olabs/oims/models/projectassetdamage/fields.yaml
+modelClass: Olabs\Oims\Models\ProjectAssetDamage
+defaultRedirect: olabs/oims/projectassetdamages
+create:
+    redirect: 'olabs/oims/projectassetdamages/update/:id'
+    redirectClose: olabs/oims/projectassetdamages
+update:
+    redirect: olabs/oims/projectassetdamages
+    redirectClose: olabs/oims/projectassetdamages

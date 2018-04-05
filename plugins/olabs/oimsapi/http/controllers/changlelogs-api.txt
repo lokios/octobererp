@@ -1,0 +1,25 @@
+Checked-in API Branch
+===================
+Branch: oimsprodappv1
+
+Added :
+  .env
+  .env.prodapp
+  .env.prod
+
+.htaccess
+  .htaccess.prodapp
+  .htaccess.prod
+
+deploy.sh must replace .env /.htaccess during each deploys
+
+Mostly these new/existing plugins are impacted:
+  plugins/autumn
+  plugins/olabs/app
+  plugins/olabs/oimsapi
+
+
+  olabs/tenant has:
+    - new config folders and files for each env
+    - /home/oimsprodapp/oims/oims/plugins/olabs/tenant/models/BaseModel.php
+  

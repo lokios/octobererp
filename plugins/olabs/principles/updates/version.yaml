@@ -1,0 +1,17 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table olabs_principles_'
+    - builder_table_create_olabs_principles_.php
+1.0.3:
+    - 'Created table olabs_principles_categories'
+    - builder_table_create_olabs_principles_categories.php
+1.0.4:
+    - 'Updated table olabs_principles_'
+    - builder_table_update_olabs_principles_principles.php
+1.0.5:
+    - 'Updated table olabs_principles_principles'
+    - builder_table_update_olabs_principles_principles_2.php
+1.0.6:
+    - 'Updated table olabs_principles_principles'
+    - builder_table_update_olabs_principles_.php

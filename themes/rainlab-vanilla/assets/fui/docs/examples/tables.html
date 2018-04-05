@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Flat UI Pro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Loading Bootstrap -->
+    <link href="../../dist/css/vendor/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Loading Flat UI -->
+    <link href="../../dist/css/flat-ui-pro.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="../../dist/img/favicon.ico">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="../../dist/js/vendor/html5shiv.js"></script>
+      <script src="../../dist/js/vendor/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <div class="container">
+
+      <h4>Tables</h4>
+      <h6>Basic Example</h6>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h6>Striped rows</h6>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h6>Bordered table</h6>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="2">1</td>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@TwBootstrap</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td colspan="2">Larry the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h6>Hover rows</h6>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td colspan="2">Larry the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h6>Condensed table</h6>
+      <table class="table table-condensed">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td colspan="2">Larry the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h6>Contextual classes</h6>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Column heading</th>
+            <th>Column heading</th>
+            <th>Column heading</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="active">
+            <td>1</td>
+            <td>Column content</td>
+            <td>Column content</td>
+            <td>Column content</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Column content</td>
+            <td>Column content</td>
+            <td>Column content</td>
+          </tr>
+          <tr class="success">
+            <td>3</td>
+            <td>Column content</td>
+            <td>Column content</td>
+            <td>Column content</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Column content</td>
+            <td>Column content</td>
+            <td>Column content</td>
+          </tr>
+          <tr class="info">
+            <td>5</td>
+            <td>Column content</td>
+            <td>Column content</td>
+            <td>Column content</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Column content</td>
+            <td>Column content</td>
+            <td>Column content</td>
+          </tr>
+          <tr class="warning">
+            <td>7</td>
+            <td>Column content</td>
+            <td>Column content</td>
+            <td>Column content</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>Column content</td>
+            <td>Column content</td>
+            <td>Column content</td>
+          </tr>
+          <tr class="danger">
+            <td>9</td>
+            <td>Column content</td>
+            <td>Column content</td>
+            <td>Column content</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h6>Responsive tables</h6>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h6>Panels with tables</h6>
+      <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Panel heading</div>
+        <div class="panel-body">
+          <p>Some default panel content here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+        </div>
+
+        <!-- Table -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Username</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Panel heading</div>
+
+        <!-- Table -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Username</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h6>Table with Icons</h6>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Year</th>
+            <th>Rating</th>
+            <th>Votes</th>
+            <th>&nbsp;</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>The Shawshank Redemption</td>
+            <td>1994</td>
+            <td>9.2</td>
+            <td>923,629</td>
+            <td class="text-center"><span class="fui-check-circle text-primary"></span></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>The Godfather</td>
+            <td>1972</td>
+            <td>9.2</td>
+            <td>663,133</td>
+            <td class="text-center"><span class="fui-cross-circle text-primary"></span></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>The Godfather: Part II</td>
+            <td>1974</td>
+            <td>9.0</td>
+            <td>427,132</td>
+            <td class="text-center"><span class="fui-cross-circle text-primary"></span></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Pulp Fiction</td>
+            <td>1994</td>
+            <td>8.9</td>
+            <td>719,280</td>
+            <td class="text-center"><span class="fui-check-circle text-primary"></span></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>The Good, the Bad and the Ugly</td>
+            <td>1966</td>
+            <td>8.9</td>
+            <td>218,887</td>
+            <td class="text-center"><span class="fui-check-circle text-primary"></span></td>
+          </tr>
+        </table>
+      </div>
+
+      <h6>Table with Checkboxes</h6>
+
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th class="text-center" width="20px"><label class="checkbox no-label toggle-all" for="checkbox-table-1"><input type="checkbox" value="" id="checkbox-table-1" data-toggle="checkbox"></label></th>
+              <th>Rank</th>
+              <th>Name</th>
+              <th>Genre</th>
+              <th>Votes</th>
+              <th>Year</th>
+              <th>Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center"><label class="checkbox no-label" for="checkbox-table-2"><input type="checkbox" value="" id="checkbox-table-2" data-toggle="checkbox"></label></td>
+              <td>1</td>
+              <td>The Shawshank Redemption</td>
+              <td>Crime, Drama</td>
+              <td>923,629</td>
+              <td>1994</td>
+              <td class="text-center">9.2</td>
+            </tr>
+            <tr class="selected-row">
+              <td class="text-center"><label class="checkbox no-label" for="checkbox-table-3"><input type="checkbox" checked="checked" value="" id="checkbox-table-3" data-toggle="checkbox"></label></td>
+              <td>2</td>
+              <td>The Godfather</td>
+              <td>Crime, Drama</td>
+              <td>663,133</td>
+              <td>1972</td>
+              <td class="text-center">9.2</td>
+            </tr>
+            <tr class="selected-row">
+              <td class="text-center"><label class="checkbox no-label" for="checkbox-table-4"><input type="checkbox" checked="checked" value="" id="checkbox-table-4" data-toggle="checkbox"></label></td>
+              <td>3</td>
+              <td>The Godfather: Part II</td>
+              <td>Crime, Drama</td>
+              <td>427,132</td>
+              <td>1974</td>
+              <td class="text-center">9.0</td>
+            </tr>
+            <tr>
+              <td class="text-center"><label class="checkbox no-label" for="checkbox-table-5"><input type="checkbox" value="" id="checkbox-table-5" data-toggle="checkbox"></label></td>
+              <td>4</td>
+              <td>Pulp Fiction</td>
+              <td>Crime, Drama</td>
+              <td>719,280</td>
+              <td>1994</td>
+              <td class="text-center">8.9</td>
+            </tr>
+            <tr>
+              <td class="text-center"><label class="checkbox no-label" for="checkbox-table-6"><input type="checkbox" value="" id="checkbox-table-6" data-toggle="checkbox"></label></td>
+              <td>5</td>
+              <td>The Good, the Bad and the Ugly</td>
+              <td>Adventure, Western</td>
+              <td>218,887</td>
+              <td>1966</td>
+              <td class="text-center">8.9</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../../dist/js/vendor/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../../dist/js/flat-ui-pro.min.js"></script>
+
+    <script src="../assets/js/application.js"></script>
+
+  </body>
+</html>

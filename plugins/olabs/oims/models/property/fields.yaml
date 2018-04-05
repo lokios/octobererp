@@ -1,0 +1,29 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    
+    type:
+        label: olabs.oims::lang.properties.type
+        type: dropdown
+        span: full
+        
+    title:
+        label: olabs.oims::lang.properties.title
+        span: auto
+
+    placeholder:
+        label: olabs.oims::lang.properties.placeholder
+        span: auto
+        
+    required:
+        label: olabs.oims::lang.properties.required
+        type: switch
+        span: full
+        
+    options:
+        label: olabs.oims::lang.properties.options
+        type: partial
+        path: $/olabs/oims/models/property/_oprions_relation.htm        
+

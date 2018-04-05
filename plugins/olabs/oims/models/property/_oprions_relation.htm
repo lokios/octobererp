@@ -1,0 +1,35 @@
+
+<?php
+
+    if (in_array('create', explode("/", $_SERVER['REQUEST_URI']))) {
+        echo "(".Lang::get("olabs.oims::lang.properties.first_create_property").")";
+        return;
+    }
+?>
+
+<?= $this->relationRender('options') ?>
+
+
+<script>
+    $( document ).ready(function () {
+        changeType();
+    });
+    
+    $("#Form-field-Property-type").change(function () {
+        changeType();
+    })
+    
+    function changeType() {
+        type = $("#Form-field-Property-type").val();
+        if ((type=="1") || (type=="2")) {
+            // show options
+            $("#Form-field-Property-options-group").show();
+        }
+        else {
+            // hode options
+            $("#Form-field-Property-options-group").hide();
+        }
+        
+    }
+    
+</script>    

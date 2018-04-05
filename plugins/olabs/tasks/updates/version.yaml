@@ -1,0 +1,14 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table olabs_tasks_logs'
+    - builder_table_create_olabs_tasks_logs.php
+1.0.3:
+    - 'Created table olabs_tasks_tasks'
+    - builder_table_create_olabs_tasks_tasks.php
+1.0.4:
+    - 'Updated table olabs_tasks_tasks'
+    - builder_table_update_olabs_tasks_tasks.php
+1.0.5:
+    - 'Updated table olabs_tasks_tasks'
+    - builder_table_update_olabs_tasks_tasks_2.php

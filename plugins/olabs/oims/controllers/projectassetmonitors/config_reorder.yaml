@@ -1,0 +1,4 @@
+title: ProjectAssetMonitors
+modelClass: Olabs\Oims\Models\ProjectAssetMonitor
+toolbar:
+    buttons: reorder_toolbar

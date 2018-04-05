@@ -1,0 +1,5 @@
+<?php
+
+echo "<span style='background-color: ".($record->expenseonpcstatus ? $record->expenseonpcstatus->color : "#FFF" )."; bexpenseonpc: 5px solid ".($record->expenseonpcstatus ? $record->expenseonpcstatus->color : "#FFF" )."; bexpenseonpc-radius: 3px;'>".($record->expenseonpcstatus ? $record->expenseonpcstatus->title : "n/a" )."</span>";
+
+?>

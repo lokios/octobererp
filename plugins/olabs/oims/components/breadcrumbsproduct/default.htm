@@ -1,0 +1,12 @@
+{% if product %}
+<ol class="breadcrumb">
+    
+    {% for child in children %}
+        <li class="breadcrumb-item"><a href="{{child.url}}">{{child.title}}</a></li>
+    {% endfor %}
+    <li class="breadcrumb-item active">{{product.title}}</li>
+</ol>
+
+{% else %}
+<span>Product not found</span>
+{% endif %}

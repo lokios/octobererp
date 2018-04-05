@@ -1,0 +1,10 @@
+name: Principles
+form: $/olabs/principles/models/principles/fields.yaml
+modelClass: Olabs\Principles\Models\Principles
+defaultRedirect: olabs/principles/principles
+create:
+    redirect: 'olabs/principles/principles/update/:id'
+    redirectClose: olabs/principles/principles
+update:
+    redirect: olabs/principles/principles
+    redirectClose: olabs/principles/principles

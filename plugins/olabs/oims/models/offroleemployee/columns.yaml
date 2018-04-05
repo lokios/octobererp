@@ -1,0 +1,81 @@
+columns:
+    id:
+        label: id
+        type: number
+    name:
+        label: name
+        type: text
+    father_name:
+        label: father_name
+        type: text
+    daily_wages:
+        label: daily_wages
+        type: text
+    monthly_wages:
+        label: monthly_wages
+        type: text
+    working_hour:
+        label: Working Hour
+        type: number
+        sortable: true    
+        invisible: true
+    lunch_hour:
+        label: Lunch Hour
+        type: number
+        sortable: true    
+        invisible: true
+    supplier_id:
+        label: supplier
+        type: partial
+        path: ~/plugins/olabs/oims/models/offroleemployee/_supplier_column.htm
+        searchable: true
+    project_id:
+        label: Project
+        relation: project
+        select: name
+        searchable: false
+        sortable: false
+    employee_type:
+        label: employee_type
+        relation: employee_types
+        select: name
+        searchable: false
+        sortable: false
+    employee_code:
+        label: Employee Code
+        type: text
+        sortable: true    
+        invisible: true
+    aadhaar_number:
+        label: aadhaar_number
+        type: text
+        sortable: true    
+        invisible: true
+    pan_number:
+        label: pan_number
+        type: text
+        invisible: true
+    date_of_birth:
+        label: date_of_birth
+        type: date
+        searchable: true
+        sortable: true    
+        invisible: true
+    status:
+        label: status
+        type: switch
+        searchable: true
+        sortable: true
+    joining_date:
+        label: joining_date
+        type: date
+        searchable: true
+        sortable: true   
+        invisible: true
+    last_working_date:
+        label: last_working_date
+        type: date
+        searchable: true
+        sortable: true    
+        invisible: true
+    

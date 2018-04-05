@@ -1,0 +1,4 @@
+title: Organizations
+modelClass: Olabs\Tenant\Models\Organizations
+toolbar:
+    buttons: reorder_toolbar

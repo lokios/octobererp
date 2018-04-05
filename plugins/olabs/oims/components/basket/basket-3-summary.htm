@@ -1,0 +1,151 @@
+<div class="basket-content-wrapper" id="basket-content-wrapper">
+    <div class="basket-breadcrumbs">
+        <span>1 Cart</span><span class="glyphicon glyphicon-chevron-right"></span>
+        <span>2 Shipping & Payment</span><span class="glyphicon glyphicon-chevron-right"></span>
+        <span>3 Address </span><span class="glyphicon glyphicon-chevron-right"></span>
+        <strong>4 Summary</strong>
+    </div>
+    
+    {% if (basket.products|length == 0) %}
+        <div>
+            Cart is empty
+        </div>
+    {% else %}
+    
+    <div class="row basket-summary-payment-contact-wrapper">
+        <div class="col-sm-6 basket-summary-payment-wrapper">
+            <h2>Payment method</h2>
+            {{ basket.payment_method }}
+        </div>
+        <div class="col-sm-6 basket-summary-contact-wrapper">
+            <h2>Contact</h2>
+            {{ basket.contact_email }}<br>
+            {{ basket.contact_phone }}
+        </div>
+        <div class="clearfix"></div>
+    </div>    
+    
+    <div class="row  basket-summary-addresses-wrapper">
+        <div class="col-sm-6" id="delivery_address_group">
+            <h2>Delivery address</h2>
+            {{ basket.ds_first_name }} {{ basket.ds_last_name }}<br>
+            {{ basket.ds_address }} {{ basket.ds_address_2 }}<br>
+            {{ basket.ds_postcode }} {{ basket.ds_city }}<br>
+            {{ basket.ds_county }}<br>
+            {{ basket.ds_country }}
+        </div>
+        <div class="col-sm-6" id="billing_address_group">
+            <h2>Billing Address</h2>
+            {{ basket.is_first_name }} {{ basket.is_last_name }}<br>
+            {{ basket.is_address }} {{ basket.is_address_2 }}<br>
+            {{ basket.is_postcode }} {{ basket.is_city }}<br>
+            {{ basket.is_county }}<br>
+            {{ basket.is_country }}
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    
+    {% if (basket.note) %}
+    <div class="row  basket-summary-note-wrapper">
+        <div class="col-sm-12">
+            <h2>Note</h2>
+            <div>
+                {{ basket.note|nl2br }}
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>    
+    {% endif %}
+    
+    <div class="basket-product-row-wrapper">
+        <h2>Products</h2>
+        {% for productJson in basket.products  %}
+        <div class="row basket-product-row">
+            <div class="col-sm-8 basket-product-row-info">
+                <div class="row">
+                    <div class="col-sm-2">
+                        {% if productJson.product.images|length > 0 %}
+                        <img src="{{ productJson.product.images[0].thumb(55,55) }}" class="cursor-pointer img-responsive" onclick="location.href = '{{ productJson.product.url}}'" >
+                        {% endif %}
+                    </div>
+                    <div class="col-sm-10">
+                        <a class="cursor-pointer" onclick="location.href = '{{ productJson.product.url}}'">{{ productJson.product.title }}</a>
+                        <div>{{productJson.options_text}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                
+            </div>
+            <div class="col-sm-1 basket-product-row-qty">
+                <strong>{{ productJson.basket_quantity }} &nbsp;</strong>
+            </div>
+            <div class="col-sm-3 basket-product-row-price">
+                {{ jkshopSetting.getPriceFormatted(productJson.price+productJson.current_discount) }}/ pc 
+                &nbsp;&nbsp; 
+                {% if productJson.current_discount > 0 %}
+                    (-{{ jkshopSetting.getPriceFormatted(productJson.current_discount) }}/ pc )
+                    &nbsp;&nbsp; 
+                {% endif %}
+                
+                <strong>{{ jkshopSetting.getPriceFormatted(productJson.total_price)  }}</strong>
+            </div>
+        </div>
+        {% endfor  %}
+        
+        
+        {% if (basket.shipping.getCurrentPrice(basket) > 0)  %}
+        <div class="row basket-product-row">
+            <div class="col-sm-8 basket-product-row-info">
+                <strong>Transport: {{ basket.shipping.title }}</strong>
+            </div>
+            <div class="col-sm-1 basket-product-row-qty">
+                <strong>1</strong>
+            </div>
+            <div class="col-sm-3 basket-product-row-price">
+                <strong>{{ jkshopSetting.getPriceFormatted(basket.shipping.getCurrentPriceWithTax(basket)) }}</strong>
+            </div>
+        </div>        
+        {% endif  %}
+        
+        {% if (basket.coupon_model)  %}
+        <div class="row basket-product-row">
+            <div class="col-sm-8 basket-product-row-info">
+                <strong>Coupon: {{ basket.coupon_model.code }}</strong>
+            </div>
+            <div class="col-sm-1 basket-product-row-qty">
+                <strong>1</strong>
+            </div>
+            <div class="col-sm-3 basket-product-row-price">
+                <strong>( Discount {{ basket.coupon_model.getValueLabel }} {{ basket.coupon_model.isGlobal ? "from total price" : "for each suitable item from basket" }} )</strong>
+            </div>
+        </div>        
+        {% endif  %}
+        
+    </div>
+    <div class="basket-products-total">
+        {% if basket.total_global_discount > 0 %}
+            <div class="row">
+                <div class="col-sm-2 col-sm-offset-8">Discount</div>
+                <div class="col-sm-2">-{{ jkshopSetting.getPriceFormatted(basket.total_global_discount) }}</div>
+            </div>
+        {% endif %}        
+        <div class="row">
+            <div class="col-sm-2 col-sm-offset-8">Total excl. VAT</div>
+            <div class="col-sm-2">{{ basket.total_price_without_tax_with_shipping_formatted }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2 col-sm-offset-8">VAT</div>
+            <div class="col-sm-2">{{ basket.total_tax_with_shipping_formatted }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2 col-sm-offset-8">Total incl. VAT</div>
+            <div class="col-sm-2">{{ basket.total_price_with_shipping_formatted }}</div>
+        </div>
+    </div>
+    <div class="basket-products-buttons">
+        <button class="btn btn-default btn-back" data-request="onRunBasketAddress"><span class="glyphicon glyphicon-chevron-left"></span> Back</button>
+        <button class="btn btn-primary" data-request="onCompleteOrder">Complete Order <span class="glyphicon glyphicon-chevron-right"></span></button>
+    </div>
+
+    {% endif %}
+</div>

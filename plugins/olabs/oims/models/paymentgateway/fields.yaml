@@ -1,0 +1,55 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    active:
+        label: olabs.oims::lang.paymentgateways.active
+        type: switch
+        span: full
+        default: true
+
+    orderStatusBefore:
+        label: olabs.oims::lang.paymentgateways.orderStatusBefore
+        span: auto
+        type: relation
+        select: title
+
+    orderStatusAfter:
+        label: olabs.oims::lang.paymentgateways.orderStatusAfter
+        span: auto
+        type: relation
+        select: title            
+        
+    gateway_title:
+        label: olabs.oims::lang.paymentgateways.gateway_title
+        comment: olabs.oims::lang.paymentgateways.gateway_title_comment
+        span: auto
+        
+    payment_page:
+        label: olabs.oims::lang.paymentgateways.payment_page
+        comment: olabs.oims::lang.paymentgateways.payment_page_comment
+        span: auto
+        type: dropdown
+        
+    gateway_currency:
+        label: olabs.oims::lang.paymentgateways.gateway_currency
+        comment: olabs.oims::lang.paymentgateways.gateway_currency_comment
+        span: auto
+        
+    gateway:
+        label: olabs.oims::lang.paymentgateways.gateway
+        comment: olabs.oims::lang.paymentgateways.gateway_comment
+        span: auto
+        type: dropdown
+        
+    parameters_section:
+        label: olabs.oims::lang.paymentgateways.parameters_section
+        type: section
+        comment: olabs.oims::lang.paymentgateways.parameters_section_comment
+    
+    parameters:
+        type: partial
+        path: $/olabs/oims/controllers/paymentgateways/_parameters_field.htm        
+
+

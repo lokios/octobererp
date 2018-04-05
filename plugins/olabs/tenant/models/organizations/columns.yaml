@@ -1,0 +1,12 @@
+columns:
+    name:
+        label: Name
+        type: text
+    config_url:
+        label: URL
+        type: text
+        searchable: true
+    profile_type:
+        label: 'Profile Type'
+        type: text
+        searchable: true

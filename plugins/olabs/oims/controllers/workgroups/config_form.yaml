@@ -1,0 +1,10 @@
+name: Workgroups
+form: $/olabs/oims/models/workgroup/fields.yaml
+modelClass: Olabs\Oims\Models\Workgroup
+defaultRedirect: olabs/oims/workgroups
+create:
+    redirect: 'olabs/oims/workgroups/update/:id'
+    redirectClose: olabs/oims/workgroups
+update:
+    redirect: olabs/oims/workgroups
+    redirectClose: olabs/oims/workgroups

@@ -1,0 +1,191 @@
+
+.home-title {
+    background: #f1f1f1;
+    background-image: url('../images/lines.png');
+    padding-top: 50px;
+    padding-bottom: 50px;
+    color: @text-color;
+    position: relative;
+    h3 {
+        font-size: 33px;
+        color: @text-color;
+        margin-bottom: 15px;
+        margin-top: 0;
+    }
+    p {
+        font-size: 16px;
+        color: @text-color;
+        margin-bottom: 10px;
+    }
+    .additional-links {
+        .opacity(50);
+        font-size: 12px;
+        color: @text-color;
+        a {
+            text-decoration: underline;
+            color: @text-color;
+            &:hover, &:focus, &.active {
+                color: mix(@text-color, black, 80%);
+            }
+        }
+    }
+    @media (max-width: 767px) {
+        padding-top:68px;
+        padding-bottom:70px;
+        .player {
+            margin: 40px 0 45px;
+        }
+    }
+    @media (max-width: 480px) {
+        padding-top:68px;
+        padding-bottom:70px;
+        h3 {
+            font-size: 26px;
+        }
+        .player {
+            margin: 40px 0 45px;
+        }
+    }
+    .signup-form {
+        form {
+            margin-top: 30px;
+            margin-bottom: 20px;
+            .form-group:first-child + .form-group {
+                display: table;
+                width: 100%;
+                > div {
+                    display: table-cell;
+                    width: 50%;
+                    padding-left: 5px;
+                    @media (max-width: 767px) {
+                        padding-left: 9px;
+                    }
+                    &:first-child {
+                        padding-left: 0;
+                        padding-right: 5px;
+                        @media (max-width: 767px) {
+                            padding-right: 9px;
+                        }
+                    }
+                }
+                input {
+                    width: 100%;
+                }
+            }
+            .btn {
+                @media (max-width: 767px) {
+                    margin: 9px 0;
+                }
+                &.btn-info {
+                    &:hover, &:focus {
+                        background-color: @btn-primary-active-bg;
+                    }
+                    &:active, &.active {
+                        background-color: mix(@btn-primary-active-bg, black, 85%);
+                    }
+                }
+            }
+            input[type="text"], input[type="password"] {
+                border-color: white!important;
+                @media (max-width: 767px) {
+                    height: 41px;
+                }
+            }
+        }
+        @media (max-width: 480px) {
+            form {
+                margin-top: 25px;
+            }
+        }
+    }
+    .player {
+        .border-radius(6px);
+        background: @text-color;
+        position: relative;
+        overflow: hidden;
+        height: 360px;
+        .btn-play {
+            .box-sizing(border-box);
+            position: absolute;
+            left: 10px;
+            bottom: 10px;
+            width: 60px;
+            padding-left: 16px;
+            .border-radius(3px);
+            &.btn-primary {
+                background-color: @btn-primary-active-bg;
+
+                &:hover, &:focus {
+                    background-color: mix(@btn-primary-active-bg, white, 80%);
+                }
+
+                &:active, &.active {
+                    background-color: mix(@btn-primary-active-bg, black, 85%);
+                }
+            }
+        }
+        > iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+        @media (max-width: 480px) {
+            height: 160px;
+        }
+    }
+}
+
+.logos {
+    background: #f1f1f1;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    @media (max-width: 767px) {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    @media (max-width: 917px) {
+        > .container > div:last-child {
+            display: none;
+        }
+    }
+    @media (max-width: 657px) {
+        > .container > div:first-child {
+            display: none;
+        }
+    }
+
+    > .container {
+        display: table;
+        > div {
+            display: table-cell;
+            text-align: center;
+        }
+    }
+    @media (max-width: 480px) {
+        display: none;
+    }
+}
+
+// RECENT TWEETS
+// ----------------------
+
+.recent-tweets {
+    padding-bottom: 21px;
+    .tweet {
+        margin-bottom: 15px;
+    }
+    .tweet > i {
+        float: left;
+        margin-right: 15px;
+        color: @brand-secondary;
+        font-size: 200%;
+    }
+    .tweet > p {
+        overflow: hidden;
+    }
+    .tweet > p > a {
+        display: block;
+    }
+}

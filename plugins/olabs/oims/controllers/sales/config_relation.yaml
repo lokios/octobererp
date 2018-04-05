@@ -1,0 +1,12 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+salesProducts:
+    label: Sales Products
+    manage:
+        form: $/olabs/oims/models/salesproduct/fields.yaml
+        list: $/olabs/oims/models/salesproduct/columns.yaml
+    view:
+        list: $/olabs/oims/models/salesproduct/columns.yaml
+        toolbarButtons: create|delete

@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: olabs.oims::lang.manpowers.menu_label_single
+
+# Model Form Field configuration
+form: $/olabs/oims/models/manpower/fields.yaml
+
+# Model Class name
+modelClass: Olabs\Oims\Models\Manpower
+
+# Default redirect location
+defaultRedirect: olabs/oims/manpowers
+
+# Create page
+create:
+    title: olabs.oims::lang.manpowers.create_manpower
+    redirect: olabs/oims/manpowers/update/:id
+    redirectClose: olabs/oims/manpowers
+
+# Update page
+update:
+    title: olabs.oims::lang.manpowers.edit_manpower
+    redirect: olabs/oims/manpowers
+    redirectClose: olabs/oims/manpowers
+
+# Preview page
+preview:
+    title: olabs.oims::lang.manpowers.preview_manpower

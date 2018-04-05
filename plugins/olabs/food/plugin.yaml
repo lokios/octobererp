@@ -1,0 +1,6 @@
+plugin:
+    name: 'olabs.food::lang.plugin.name'
+    description: 'olabs.food::lang.plugin.description'
+    author: olabs
+    icon: oc-icon-adjust
+    homepage: ''

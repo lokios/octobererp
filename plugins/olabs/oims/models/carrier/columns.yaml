@@ -1,0 +1,24 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    id:
+        label: olabs.oims::lang.categories.id
+        searchable: true
+        
+    title:
+        label: olabs.oims::lang.categories.title
+        searchable: true
+        
+    transit_time:
+        label: olabs.oims::lang.carriers.transit_time
+        searchable: true
+        
+    speed_grade:
+        label: olabs.oims::lang.carriers.speed_grade
+        type: number
+        
+    active:
+        label: olabs.oims::lang.categories.active
+        type: switch

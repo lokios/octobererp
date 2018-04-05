@@ -1,0 +1,33 @@
+columns:
+    id:
+        label: id
+        type: number
+    name:
+        label: name
+        type: text
+        searchable: true
+    work_group_id:
+        label: work_group_id
+        relation: work_group
+        select: name
+        searchable: true
+    project_id:
+        label: project_id
+        relation: project
+        select: name
+        searchable: true
+    unit:
+        label: unit
+        type: text
+#    unit_price:
+#        label: unit_price
+#        type: text
+    quantity:
+        label: quantity
+        type: text
+#    reference_number:
+#        label: reference_number
+#        type: text
+    description:
+        label: Description
+        type: text

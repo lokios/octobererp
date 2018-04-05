@@ -1,0 +1,72 @@
+<?php 
+
+$assigned_projects = false;
+if(!$this->user->isAdmin()){
+    $baseModel = new \Olabs\Oims\Models\BaseModel();
+    $assigned_projects = $baseModel->getProjectOptions();
+    
+}
+
+if($assigned_projects){
+$salesCount = \Olabs\Oims\Models\Sales::whereIn('project_id', array_keys($assigned_projects))->count();
+$salesPending = \Olabs\Oims\Models\Sales::where("paid_date", null)->whereIn('project_id', array_keys($assigned_projects))->count();
+$salesCountThis = \Olabs\Oims\Models\Sales::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->whereIn('project_id', array_keys($assigned_projects))->count();
+$salesCountLast = \Olabs\Oims\Models\Sales::whereBetween("created_at", [Carbon\Carbon::now()->addDay(-60), Carbon\Carbon::now()->addDay(-30)])->whereIn('project_id', array_keys($assigned_projects))->count();
+$salesValueThis = \Olabs\Oims\Models\Sales::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->whereIn('project_id', array_keys($assigned_projects))->sum("total_price");
+$salesValueLast = \Olabs\Oims\Models\Sales::whereBetween("created_at", [Carbon\Carbon::now()->addDay(-60), Carbon\Carbon::now()->addDay(-30)])->whereIn('project_id', array_keys($assigned_projects))->sum("total_price");
+
+$approved = \Olabs\Oims\Models\Sales::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_APPROVED)->whereIn('project_id', array_keys($assigned_projects))->count();
+$rejected = \Olabs\Oims\Models\Sales::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_REJECTED)->whereIn('project_id', array_keys($assigned_projects))->count();
+$new = \Olabs\Oims\Models\Sales::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_NEW)->whereIn('project_id', array_keys($assigned_projects))->count();
+$submited = \Olabs\Oims\Models\Sales::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_SUBMITTED)->whereIn('project_id', array_keys($assigned_projects))->count();
+
+
+}else{
+$salesCount = \Olabs\Oims\Models\Sales::count();
+$salesPending = \Olabs\Oims\Models\Sales::where("paid_date", null)->count();
+$salesCountThis = \Olabs\Oims\Models\Sales::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->count();
+$salesCountLast = \Olabs\Oims\Models\Sales::whereBetween("created_at", [Carbon\Carbon::now()->addDay(-60), Carbon\Carbon::now()->addDay(-30)])->count();
+$salesValueThis = \Olabs\Oims\Models\Sales::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->sum("total_price");
+$salesValueLast = \Olabs\Oims\Models\Sales::whereBetween("created_at", [Carbon\Carbon::now()->addDay(-60), Carbon\Carbon::now()->addDay(-30)])->sum("total_price");
+
+$approved = \Olabs\Oims\Models\Sales::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_APPROVED)->count();
+$rejected = \Olabs\Oims\Models\Sales::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_REJECTED)->count();
+$new = \Olabs\Oims\Models\Sales::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_NEW)->count();
+$submited = \Olabs\Oims\Models\Sales::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_SUBMITTED)->count();
+
+
+}
+
+
+
+$salesCountClass = "positive"; if ($salesCountThis < $salesCountLast) { $salesCountClass = "negative";  }
+$salesValueClass = "positive"; if ($salesValueThis < $salesValueLast) { $salesValueClass = "negative";  }
+?>
+
+<div>
+    <div class="scoreboard-item control-chart col-md-4" data-control="chart-pie">
+        <ul>
+            <li data-color="#4caf50">Approved <span><?= $approved  ?></span></li>
+            <li data-color="#3f51b5">New <span><?= $new ?></span></li>
+            <li data-color=" #ff9800">Submitted <span><?= $submited ?></span></li>
+            <li data-color="#f44336">Rejected <span><?= $rejected ?></span></li>
+        </ul>
+    </div>
+    <div class="scoreboard-item title-value col-md-4">
+        <h4><?= Lang::get("olabs.oims::lang.sales.sales_30_days")?></h4>
+        <p class="<?= $salesCountClass ?>"><?= $salesCountThis ?></p>
+        <p class="description"><?= Lang::get("olabs.oims::lang.sales.sales_30_days")?>: <?= $salesCountLast ?></p>
+    </div>
+<!--    <div class="scoreboard-item title-value col-md-4">
+        <h4><?= Lang::get("olabs.oims::lang.sales.previous_30_days")?></h4>
+        <p class="<?= $salesValueClass ?>"><?= $salesValueThis ?></p>
+        <p class="description"><?= Lang::get("olabs.oims::lang.sales.previous_30_days")?>: <?= $salesValueLast ?></p>
+    </div>    -->
+    
+    <div class="clearfix"></div>
+</div>
+
+<hr>
+
+
+<?= $this->listRender() ?>

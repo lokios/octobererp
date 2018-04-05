@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: olabs.oims::lang.carriers.menu_label_single
+
+# Model Form Field configuration
+form: $/Olabs/oims/models/carrier/fields.yaml
+
+# Model Class name
+modelClass: Jiri\Oims\Models\Carrier
+
+# Default redirect location
+defaultRedirect: olabs/oims/carriers
+
+# Create page
+create:
+    title: olabs.oims::lang.carriers.create_carrier
+    redirect: olabs/oims/carriers/update/:id
+    redirectClose: olabs/oims/carriers
+
+# Update page
+update:
+    title: olabs.oims::lang.carriers.edit_carrier
+    redirect: olabs/oims/carriers
+    redirectClose: olabs/oims/carriers
+
+# Preview page
+preview:
+    title: olabs.oims::lang.carriers.preview_carrier

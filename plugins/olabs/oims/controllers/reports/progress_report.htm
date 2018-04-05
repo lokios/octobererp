@@ -1,0 +1,52 @@
+<?php Block::put('breadcrumb') ?>
+<ul>
+    <li>Progress Report</li>
+</ul>
+<?php Block::endPut() ?>
+
+<?= Form::open(['class' => 'layout2']) ?>
+<div class="layout-row2">
+    <?= $searchFormWidget->render() ?>
+</div>
+<div class="form-buttons">
+    <div class="loading-indicator-container">
+        <button
+            type="submit"
+            data-request="onProgressSearch"
+            data-request-data="refresh:0"
+            data-hotkey="ctrl+s, cmd+s"
+            data-load-indicator="Searching.."
+            data-request-update="progress_projectprogress_list: '#projectprogressDiv', no_result: '#noResultDiv' "
+            class="btn btn-primary">
+            Search
+        </button>
+        
+        <button
+            type="submit"
+            data-request="onProgressExport"
+            
+            class="btn btn-primary">
+            Export
+        </button>
+    </div>
+</div>
+<?= Form::close() ?>
+<div id="exportDiv"></div>
+
+<div id="noResultDiv">
+    <?= $this->makePartial('no_result', ['reports' => $projectprogress, 'search' => $search , 'msg' => $msg]) ?>
+</div>
+
+<div id="projectprogressDiv">
+    <?= $this->makePartial('progress_projectprogress_list', [
+        'projectprogress' => $projectprogress, 
+        'manpowers' => $manpowers,
+        'machineries' => $machineries,
+        'expenseOnPcs' => $expenseOnPcs,
+        'expenseOnMaterials' => $expenseOnMaterials,
+        'from_date' => $from_date,
+        'to_date' => $to_date,
+        'total_days' => $total_days,
+        'fix_expense' => $fix_expense,
+        'oimsSetting' => $oimsSetting]) ?>
+</div>

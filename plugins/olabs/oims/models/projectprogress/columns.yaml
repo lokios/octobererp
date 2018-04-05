@@ -1,0 +1,35 @@
+columns:
+    id:
+        label: id
+        type: number
+        searchable: true
+        sortable: true
+    project_id:
+        label: Project
+        relation: project
+        select: name
+        searchable: true
+        sortable: true
+    start_date:
+        label: Date
+        type: date
+        searchable: true
+        sortable: true
+    reference_number:
+        label: 'Reference Number'
+        type: text
+        searchable: true
+        sortable: true
+    total_price:
+        label: olabs.oims::lang.sales.total_price
+#    status:
+#        label: Status
+#        type: text
+#        searchable: true
+#        sortable: true
+    objectstatus:
+        label: Status
+        type: partial
+        path: ~/plugins/olabs/oims/models/status/_status_column.htm
+        searchable: true
+        sortable: true

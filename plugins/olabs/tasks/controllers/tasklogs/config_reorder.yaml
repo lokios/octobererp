@@ -1,0 +1,4 @@
+title: TaskLogs
+modelClass: Olabs\Tasks\Models\TaskLogs
+toolbar:
+    buttons: reorder_toolbar

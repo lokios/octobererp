@@ -1,0 +1,99 @@
+<style>
+    .product-title { width: 315px; display: inline-block; }
+    .product-quantity { width: 50px; display: inline-block; }
+    .product-price-without-tax { width: 100px; display: inline-block; text-align: right; }
+    .product-tax { width: 100px; display: inline-block; text-align: right; }
+    .product-price { width: 130px; display: inline-block; text-align: right; }
+    table { width: 100%; border-collapse: collapse;}
+    td, th { border: 1px solid #ccc; }
+</style>
+
+<table style="width: 100%;">
+    <tbody>
+        <tr>
+            <td colspan="5" style="vertical-align: middle; width: 100.414%;">
+                <br>
+                <div style="text-align: center;"><strong>VSS BUILDCON PVT LTD</strong></div>
+                <br>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" style="width: 65.4602%;">
+                <div style="text-align: left;"><strong>&nbsp; Material Receipt :&nbsp;</strong>{{m_r_number}}</div>
+            </td>
+            <td colspan="1" style="width: 34.4364%;">
+                <div style="text-align: left;"><strong>&nbsp; Date :&nbsp;</strong>{{context_date}}</div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="width: 40.7446%;"><strong>&nbsp; Supplied By M/s :&nbsp;</strong>{{supplier}}
+                <br>
+            </td>
+            <td colspan="2" style="width: 24.819%;"><strong>&nbsp; Bill/Challan No :&nbsp;</strong>{{bill_number}}
+                <br>
+            </td>
+            <td style="width: 34.4364%;"><strong>&nbsp; Bill Date :&nbsp;</strong>{{bill_date}}
+                <br>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="width: 40.7446%;"><strong>&nbsp; Thru Vehicle No :&nbsp;</strong>{{thru_vehicle_number}}
+                <br>
+            </td>
+            <td colspan="2" style="width: 24.819%;"><strong>&nbsp; Driver Name :&nbsp;</strong>{{driver_name}}
+                <br>
+            </td>
+            <td style="width: 34.4364%;"><strong>&nbsp; Arrived Date :&nbsp;</strong>{{arrived_on_date}}
+                <br>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5" style="width: 100.414%;">
+                <br>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 29.0589%;"><strong>&nbsp; Description</strong>
+                <br>
+            </td>
+            <td style="width: 11.5822%;"><strong>&nbsp; Unit</strong>
+                <br>
+            </td>
+            <td style="width: 12.6163%;"><strong>&nbsp; Qty</strong>
+                <br>
+            </td>
+            <td style="width: 12.2027%;"><strong>&nbsp; Rate</strong>
+                <br>
+            </td>
+            <td style="width: 34.4364%;"><strong>&nbsp; Amount</strong>
+                <br>
+            </td>
+        </tr>
+        <tr id="products_row">
+            <td style="width: 29.0589%;">&nbsp; {{product_title}}
+                <br>
+            </td>
+            <td style="width: 11.5822%;">&nbsp; {{product_unit}}
+                <br>
+            </td>
+            <td style="width: 12.6163%;">&nbsp; {{product_qty}}
+                <br>
+            </td>
+            <td style="width: 12.2027%;">&nbsp; {{product_rate}}
+                <br>
+            </td>
+            <td style="width: 34.4364%;">&nbsp; {{product_total_price}}
+                <br>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" style="width: 65.4602%;">
+                <div style="text-align: right;"><strong>Total Price &nbsp;</strong></div>
+            </td>
+            <td style="width: 34.4364%;">&nbsp; {{total_price}}</td>
+        </tr>
+        <tr>
+            <td colspan="5" style="width: 100.414%;">&nbsp; <strong>Remarks :&nbsp;</strong>{{note}}</td>
+        </tr>
+    </tbody>
+</table>

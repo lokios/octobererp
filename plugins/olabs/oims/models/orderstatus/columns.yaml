@@ -1,0 +1,45 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    id:
+        label: olabs.oims::lang.orderstatuses.id
+        searchable: true
+        
+    title:
+        label: olabs.oims::lang.orderstatuses.title
+        type: partial
+        path: ~/plugins/olabs/oims/models/orderstatus/_title_column.htm
+        searchable: true
+        
+    active:
+        label: olabs.oims::lang.orderstatuses.active
+        type: switch
+        
+    disallow_for_gateway:
+        label: olabs.oims::lang.orderstatuses.disallow_for_gateway
+        type: switch
+        
+    qty_increase_back:
+        label: olabs.oims::lang.orderstatuses.qty_increase_back
+        type: switch
+        
+    qty_decrease:
+        label: olabs.oims::lang.orderstatuses.qty_decrease
+        type: switch
+        
+    send_email_to_customer:
+        label: olabs.oims::lang.orderstatuses.send_email_to_customer
+        type: switch
+        
+    attach_invoice_pdf_to_email:
+        label: olabs.oims::lang.orderstatuses.attach_invoice_pdf_to_email
+        type: switch
+        
+    mail_template:
+        label: olabs.oims::lang.orderstatuses.mail_template
+        relation: mail_template
+        select: subject
+        
+        

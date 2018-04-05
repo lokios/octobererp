@@ -1,0 +1,72 @@
+<?php 
+
+$assigned_projects = false;
+if(!$this->user->isAdmin()){
+    $baseModel = new \Olabs\Oims\Models\BaseModel();
+    $assigned_projects = $baseModel->getProjectOptions();
+    
+}
+
+if($assigned_projects){
+$manpowersCount = \Olabs\Oims\Models\Manpower::whereIn('project_id', array_keys($assigned_projects))->count();
+$manpowersPending = \Olabs\Oims\Models\Manpower::where("paid_date", null)->whereIn('project_id', array_keys($assigned_projects))->count();
+
+$manpowersCountThis = \Olabs\Oims\Models\Manpower::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->whereIn('project_id', array_keys($assigned_projects))->count();
+$manpowersCountLast = \Olabs\Oims\Models\Manpower::whereBetween("created_at", [Carbon\Carbon::now()->addDay(-60), Carbon\Carbon::now()->addDay(-30)])->whereIn('project_id', array_keys($assigned_projects))->count();
+$manpowersValueThis = \Olabs\Oims\Models\Manpower::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->whereIn('project_id', array_keys($assigned_projects))->sum("total_price");
+$manpowersValueLast = \Olabs\Oims\Models\Manpower::whereBetween("created_at", [Carbon\Carbon::now()->addDay(-60), Carbon\Carbon::now()->addDay(-30)])->whereIn('project_id', array_keys($assigned_projects))->sum("total_price");
+
+$approved = \Olabs\Oims\Models\Manpower::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_APPROVED)->whereIn('project_id', array_keys($assigned_projects))->count();
+$rejected = \Olabs\Oims\Models\Manpower::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_REJECTED)->whereIn('project_id', array_keys($assigned_projects))->count();
+$new = \Olabs\Oims\Models\Manpower::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_NEW)->whereIn('project_id', array_keys($assigned_projects))->count();
+$submited = \Olabs\Oims\Models\Manpower::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_SUBMITTED)->whereIn('project_id', array_keys($assigned_projects))->count();
+
+
+}else{
+$manpowersCount = \Olabs\Oims\Models\Manpower::count();
+$manpowersPending = \Olabs\Oims\Models\Manpower::where("paid_date", null)->count();
+
+$manpowersCountThis = \Olabs\Oims\Models\Manpower::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->count();
+$manpowersCountLast = \Olabs\Oims\Models\Manpower::whereBetween("created_at", [Carbon\Carbon::now()->addDay(-60), Carbon\Carbon::now()->addDay(-30)])->count();
+$manpowersValueThis = \Olabs\Oims\Models\Manpower::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->sum("total_price");
+$manpowersValueLast = \Olabs\Oims\Models\Manpower::whereBetween("created_at", [Carbon\Carbon::now()->addDay(-60), Carbon\Carbon::now()->addDay(-30)])->sum("total_price");
+
+$approved = \Olabs\Oims\Models\Manpower::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_APPROVED)->count();
+$rejected = \Olabs\Oims\Models\Manpower::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_REJECTED)->count();
+$new = \Olabs\Oims\Models\Manpower::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_NEW)->count();
+$submited = \Olabs\Oims\Models\Manpower::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_SUBMITTED)->count();
+
+
+}
+
+$manpowersCountClass = "positive"; if ($manpowersCountThis < $manpowersCountLast) { $manpowersCountClass = "negative";  }
+$manpowersValueClass = "positive"; if ($manpowersValueThis < $manpowersValueLast) { $manpowersValueClass = "negative";  }
+?>
+
+<div>
+    <div class="scoreboard-item control-chart col-md-4" data-control="chart-pie">
+        <ul>
+            <li data-color="#4caf50">Approved <span><?= $approved  ?></span></li>
+            <li data-color="#3f51b5">New <span><?= $new ?></span></li>
+            <li data-color=" #ff9800">Submitted <span><?= $submited ?></span></li>
+            <li data-color="#f44336">Rejected <span><?= $rejected ?></span></li>
+        </ul>
+    </div>
+    <div class="scoreboard-item title-value col-md-4">
+        <h4><?= Lang::get("olabs.oims::lang.manpowers.manpowers_30_days")?></h4>
+        <p class="<?= $manpowersCountClass ?>"><?= $manpowersCountThis ?></p>
+        <p class="description"><?= Lang::get("olabs.oims::lang.manpowers.sales_30_days")?>: <?= $manpowersCountLast ?></p>
+    </div>
+    <div class="scoreboard-item title-value col-md-4">
+        <h4><?= Lang::get("olabs.oims::lang.manpowers.previous_30_days")?></h4>
+        <p class="<?= $manpowersValueClass ?>"><?= $manpowersValueThis ?></p>
+        <p class="description"><?= Lang::get("olabs.oims::lang.manpowers.previous_30_days")?>: <?= $manpowersValueLast ?></p>
+    </div>    
+    
+    <div class="clearfix"></div>
+</div>
+
+<hr>
+
+
+<?= $this->listRender() ?>

@@ -1,0 +1,10 @@
+name: Companies
+form: $/olabs/oims/models/company/fields.yaml
+modelClass: Olabs\Oims\Models\Company
+defaultRedirect: olabs/oims/companies
+create:
+    redirect: 'olabs/oims/companies/update/:id'
+    redirectClose: olabs/oims/companies
+update:
+    redirect: olabs/oims/companies
+    redirectClose: olabs/oims/companies

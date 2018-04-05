@@ -1,0 +1,53 @@
+fields:
+    product:
+        label: Product
+        oc.commentPosition: ''
+        nameFrom: title
+        descriptionFrom: description
+        list: $/olabs/oims/models/product/columns.yaml
+        span: auto
+        type: recordfinder
+    unit_code:
+        label: Unit
+        oc.commentPosition: ''
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+#    unit_value:
+#        label: 'Unit per day'
+#        oc.commentPosition: ''
+#        default: 1
+#        span: auto
+#        type: number  
+    quantity:
+        label: Quantity
+        oc.commentPosition: ''
+        default: 1
+        span: auto
+        type: number
+    unit_price:
+        label: 'Unit Price'
+        oc.commentPosition: ''
+        span: auto
+        type: number
+        dependsOn: product
+#        defaultFrom: quantity
+    total_price:
+        label: 'Total Price'
+        span: auto
+        oc.commentPosition: ''
+        type: number
+        dependsOn: 
+          - product
+ #         - unit_value
+          - quantity
+          - unit_price
+    remark:
+        label: 'Remark'
+        type: textarea
+        span: auto
+        size: small
+        
+        oc.commentPosition: ''     
+        

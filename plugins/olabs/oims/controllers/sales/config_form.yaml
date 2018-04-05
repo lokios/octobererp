@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: olabs.oims::lang.sales.menu_label_single
+
+# Model Form Field configuration
+form: $/olabs/oims/models/sales/fields.yaml
+
+# Model Class name
+modelClass: Olabs\Oims\Models\Sales
+
+# Default redirect location
+defaultRedirect: olabs/oims/sales
+
+# Create page
+create:
+    title: olabs.oims::lang.sales.create_sales
+    redirect: olabs/oims/sales/update/:id
+    redirectClose: olabs/oims/sales
+
+# Update page
+update:
+    title: olabs.oims::lang.sales.edit_sales
+    redirect: olabs/oims/sales
+    redirectClose: olabs/oims/sales
+
+# Preview page
+preview:
+    title: olabs.oims::lang.sales.preview_sales

@@ -1,0 +1,10 @@
+name: Statuses
+form: $/olabs/oims/models/status/fields.yaml
+modelClass: Olabs\Oims\Models\Status
+defaultRedirect: olabs/oims/statuses
+create:
+    redirect: 'olabs/oims/statuses/update/:slug'
+    redirectClose: olabs/oims/statuses
+update:
+    redirect: olabs/oims/statuses
+    redirectClose: olabs/oims/statuses

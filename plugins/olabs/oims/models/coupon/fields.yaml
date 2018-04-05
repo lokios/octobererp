@@ -1,0 +1,92 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    active:
+        label: olabs.oims::lang.coupons.active
+        type: switch
+        span: full
+        default: true
+
+    code:
+        label: olabs.oims::lang.coupons.code
+        comment: olabs.oims::lang.coupons.code_comment
+        span: full
+        disabled: true
+        
+    valid_from:
+        label: olabs.oims::lang.coupons.valid_from
+        comment: olabs.oims::lang.coupons.valid_to_comment
+        span: auto
+        type: datepicker
+        mode: datetime
+        
+    valid_to:
+        label: olabs.oims::lang.coupons.valid_to
+        comment: olabs.oims::lang.coupons.valid_to_comment
+        span: auto
+        type: datepicker
+        mode: datetime
+        
+    count:
+        label: olabs.oims::lang.coupons.count
+        comment: olabs.oims::lang.coupons.count_comment
+        type: number
+        span: auto
+        default: 0
+
+    used_count:
+        label: olabs.oims::lang.coupons.used_count
+        type: number
+        span: auto
+        disabled: true
+
+    value:
+        label: olabs.oims::lang.coupons.value
+        type: number
+        span: auto
+        
+    type_value:
+        label: olabs.oims::lang.coupons.type_value
+        type: dropdown
+        span: auto
+        
+# users
+    users_section:
+        label: olabs.oims::lang.coupons.users
+        type: section
+        
+    users:
+        type: partial
+        path: ~/plugins/olabs/oims/models/coupon/_users_relation.htm           
+    
+    global_section:
+        label: olabs.oims::lang.coupons.global_section
+        comment: olabs.oims::lang.coupons.global_section_comment
+        type: section
+    
+        
+    minimum_value_basket:
+        label: olabs.oims::lang.coupons.minimum_value_basket
+        comment: olabs.oims::lang.coupons.minimum_value_basket_comment
+        type: number
+        span: full
+        default: 0
+        
+        
+# categories
+    categories_section:
+        label: olabs.oims::lang.coupons.categories
+        type: section
+    categories:
+        type: partial
+        path: ~/plugins/olabs/oims/models/coupon/_categories_relation.htm
+        
+# products
+    products_section:
+        label: olabs.oims::lang.coupons.products
+        type: section
+    products:
+        type: partial
+        path: ~/plugins/olabs/oims/models/coupon/_products_relation.htm                     

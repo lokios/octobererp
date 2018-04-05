@@ -1,0 +1,26 @@
+columns:
+    id:
+        label: ID
+        type: number
+        searchable: true
+        sortable: true
+    reg_id:
+        label: Reg
+        type: text
+        searchable: true
+    device_type:
+        label: 'Device Type'
+        type: text
+        searchable: true
+    channel:
+        label: Channel
+        type: text
+        searchable: true
+    device_id:
+        label: 'Device Id'
+        type: text
+        searchable: true
+    app_id:
+        label: App
+        type: text
+        searchable: true

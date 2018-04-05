@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: olabs.oims::lang.taxes.menu_label_single
+
+# Model Form Field configuration
+form: $/olabs/oims/models/tax/fields.yaml
+
+# Model Class name
+modelClass: Olabs\Oims\Models\Tax
+
+# Default redirect location
+defaultRedirect: olabs/oims/taxes
+
+# Create page
+create:
+    title: olabs.oims::lang.taxes.create
+    redirect: olabs/oims/taxes/update/:id
+    redirectClose: olabs/oims/taxes
+
+# Update page
+update:
+    title: olabs.oims::lang.taxes.edit
+    redirect: olabs/oims/taxes
+    redirectClose: olabs/oims/taxes
+
+# Preview page
+preview:
+    title: olabs.oims::lang.taxes.preview

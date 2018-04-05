@@ -1,0 +1,81 @@
+<?php Block::put('breadcrumb') ?>
+<ul>
+    <li>Assets Report</li>
+</ul>
+<?php Block::endPut() ?>
+
+<?= Form::open(['class' => 'layout2']) ?>
+<div class="layout-row2">
+    <?= $searchFormWidget->render() ?>
+</div>
+<div class="form-buttons">
+    <div class="loading-indicator-container">
+        <button
+            type="submit"
+            data-request="onAssetsSearch"
+            data-request-data="refresh:0"
+            data-hotkey="ctrl+s, cmd+s"
+            data-load-indicator="Searching.."
+            data-request-update="assets_report_list: '#assetsReportDiv', no_result: '#noResultDiv' "
+            class="btn btn-primary">
+            Search
+        </button>
+        
+        <button
+            type="submit"
+            data-request="onAssetsReportExport"
+            
+            class="btn btn-primary">
+            Export
+        </button>
+        
+        <button
+            type="submit"
+            data-request="onAssetsLabelExport"
+            
+            class="btn btn-primary hide">
+            Assets Labels
+        </button>
+        
+        <a
+            href="javascript:void(0);"
+            
+            target="_blank"
+            class="btn btn-primary assetsLabel ">
+            Assets Labels
+        </a>
+    </div>
+</div>
+<?= Form::close() ?>
+<div id="exportDiv"></div>
+
+<div id="noResultDiv">
+    <?= $this->makePartial('no_result', [ 'search' => $search , 'msg' => $msg]) ?>
+</div>
+
+<div id="assetsReportDiv">
+    <?= $this->makePartial('assets_report_list', [
+        'reports' => $reports, 
+
+        'oimsSetting' => $oimsSetting]) ?>
+</div>
+
+
+<script>
+    $(document).ready(function(){
+        $('.assetsLabel').on('click',function(e){
+            e.preventDefault();
+            
+            var that = $(this);
+            var url = "/backend/olabs/oims/reports/onAssetsLabelExport";
+            var project_id = $('#Form-reportSearch-field-reportSearch-project').val();
+            var print_style = $('#Form-reportSearch-field-reportSearch-print_style').val();
+            if(project_id === ''){
+                alert('Kindly Select Project!');
+            }else{
+                url += "?project="+project_id+"&style="+print_style;
+                window.open(url,'_blank');
+            }
+        });
+    });
+</script>

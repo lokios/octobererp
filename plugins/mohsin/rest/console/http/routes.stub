@@ -1,0 +1,5 @@
+<?php
+
+Route::group(['prefix' => 'api/v1'], function () {
+    Route::resource('{{lower_plural_name}}', '{{studly_author}}\{{studly_plugin}}\Http\{{studly_name}}');
+});

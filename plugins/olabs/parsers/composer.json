@@ -1,0 +1,5 @@
+{
+  "require": {
+    "soundasleep/html2text": "~0.3"
+  }
+}

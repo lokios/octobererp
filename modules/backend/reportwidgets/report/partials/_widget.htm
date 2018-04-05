@@ -1,0 +1,68 @@
+<?php 
+
+$assigned_projects = false;
+$baseModel = new \Olabs\Oims\Models\BaseModel();
+$assigned_projects = $baseModel->getProjectOptions();
+
+$overallMRDetail = array();
+$overallPODetail = array();
+
+if(count($assigned_projects)){
+
+$overallMRDetail = Db::table('olabs_oims_purchases')
+->select(Db::raw('count(*) as total_count, sum(total_price) as price_total, project_id'))
+//->whereBetween("created_at", [$previousMonthStart, $previousMonthEnd])
+->whereIn('project_id', array_keys($assigned_projects))
+->groupBy('project_id')
+->get();
+
+$overallPODetail = Db::table('olabs_oims_quotes')
+->select(Db::raw('count(*) as total_count, sum(total_price) as price_total, project_id'))
+//->whereBetween("created_at", [$previousMonthStart, $previousMonthEnd])
+->whereIn('project_id', array_keys($assigned_projects))
+->groupBy('project_id')
+->get();
+
+}
+
+?>
+
+
+<div class="report-widget widget-welcome">
+    <h3><?= e(trans($this->property('title'))) ?></h3>
+
+<?php if(count($overallMRDetail)){ ?>
+    <div
+    class="control-chart wrap-legend col-md-5"
+    data-control="chart-bar"
+    data-height="100"
+    data-full-width="1">
+    <ul>
+        <?php foreach($overallMRDetail as $detail){ 
+            $projectName = isset($assigned_projects[$detail->project_id]) ? $assigned_projects[$detail->project_id] : "";
+        ?>
+        <li><?=$projectName?> ( count - <?=$detail->total_count?> ) <span><?=$detail->price_total?></span></li>
+        <?php } ?>
+    </ul>
+   <p><center><strong> Overall Material Receipt Report </strong></center></p>
+</div>
+<?php } ?>
+
+<?php if(count($overallPODetail)){ ?>
+    <div
+    class="control-chart wrap-legend col-md-5"
+    data-control="chart-bar"
+    data-height="100"
+    data-full-width="1">
+    <ul>
+        <?php foreach($overallPODetail as $detail){ 
+            $projectName = isset($assigned_projects[$detail->project_id]) ? $assigned_projects[$detail->project_id] : "";
+        ?>
+        <li><?=$projectName?> ( count - <?=$detail->total_count?> ) <span><?=$detail->price_total?></span></li>
+        <?php } ?>
+    </ul>
+   <p><center><strong> Overall Purchase Orders Report </strong></center></p>
+</div>
+<?php } ?>
+
+</div>

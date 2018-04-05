@@ -1,0 +1,33 @@
+HTTP/1.1 200 OK
+Connection: close
+Cache-Control: max-age=0, no-cache, no-store
+Connection: keep-alive
+Content-Length: 760
+Content-Type: application/json; charset=utf-8
+Date: Thu, 28 Jul 2016 06:14:50 GMT
+Expires: Thu, 28 Jul 2016 06:14:50 GMT
+Pragma: no-cache
+Server: lighttpd
+
+{
+  "currencyCode": "GBP",
+  "id": "284BRTAQFS63EOA1LD",
+  "link": [
+    {
+      "rel": "hosted_payment",
+      "uri": "https://pay.test.netbanx.com/hosted/v1/payment/53616c7465645f5f620e8e8fed4517d964208355a0b5dfb087d38e77f05aa00d9dbb3e7f9f379cb8"
+    },
+    {
+      "rel": "self",
+      "uri": "https://19101-1000032421:B-qa2-0-55660f4c-0-302c021417342c6271c1b34f2d3be450dd65975d0c1dbc4d02142e4f21f046260d2bf4b66c08c05e38d451e15d97@api.test.netbanx.com/hosted/v1/orders/284BRTAQFS63EOA1LD"
+    },
+    {
+      "rel": "resend_callback",
+      "uri": "https://19101-1000032421:B-qa2-0-55660f4c-0-302c021417342c6271c1b34f2d3be450dd65975d0c1dbc4d02142e4f21f046260d2bf4b66c08c05e38d451e15d97@api.test.netbanx.com/hosted/v1/orders/284BRTAQFS63EOA1LD/resend_callback"
+    }
+  ],
+  "merchantRefNum": "ASDFASDFASDF",
+  "mode": "live",
+  "totalAmount": 1000,
+  "type": "order"
+}

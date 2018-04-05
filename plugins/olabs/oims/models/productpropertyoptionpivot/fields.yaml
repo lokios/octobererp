@@ -1,0 +1,26 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    pivot[price_difference_with_tax]:
+        label: olabs.oims::lang.products.price_difference_with_tax
+        span: full 
+        type: number    
+    
+    pivot[title]:
+        label: olabs.oims::lang.products.title
+        span: full
+        
+    pivot[description]:
+        label: olabs.oims::lang.products.description
+        span: full                  
+        type: richeditor
+        
+    pivot[image]:
+        label: olabs.oims::lang.products.image
+        span: full
+#        type: fileupload
+#        mode: image   
+        type: mediafinder
+        mode: image        

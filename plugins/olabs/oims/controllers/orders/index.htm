@@ -1,0 +1,41 @@
+<?php 
+
+$ordersCount = \Olabs\Oims\Models\Order::count();
+$ordersPending = \Olabs\Oims\Models\Order::where("paid_date", null)->count();
+
+
+
+$ordersCountThis = \Olabs\Oims\Models\Order::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->count();
+$ordersCountLast = \Olabs\Oims\Models\Order::whereBetween("created_at", [Carbon\Carbon::now()->addDay(-60), Carbon\Carbon::now()->addDay(-30)])->count();
+$ordersValueThis = \Olabs\Oims\Models\Order::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->sum("total_price");
+$ordersValueLast = \Olabs\Oims\Models\Order::whereBetween("created_at", [Carbon\Carbon::now()->addDay(-60), Carbon\Carbon::now()->addDay(-30)])->sum("total_price");
+
+$ordersCountClass = "positive"; if ($ordersCountThis < $ordersCountLast) { $ordersCountClass = "negative";  }
+$ordersValueClass = "positive"; if ($ordersValueThis < $ordersValueLast) { $ordersValueClass = "negative";  }
+?>
+
+<div>
+    <div class="scoreboard-item control-chart col-md-4" data-control="chart-pie">
+        <ul>
+            <li data-color="#95b753"><?= Lang::get("olabs.oims::lang.orders.paid")?> <span><?= $ordersCount-$ordersPending  ?></span></li>
+            <li data-color="#e5a91a"><?= Lang::get("olabs.oims::lang.orders.pending")?> <span><?= $ordersPending ?></span></li>
+        </ul>
+    </div>
+    <div class="scoreboard-item title-value col-md-4">
+        <h4><?= Lang::get("olabs.oims::lang.orders.orders_30_days")?></h4>
+        <p class="<?= $ordersCountClass ?>"><?= $ordersCountThis ?></p>
+        <p class="description"><?= Lang::get("olabs.oims::lang.orders.sales_30_days")?>: <?= $ordersCountLast ?></p>
+    </div>
+    <div class="scoreboard-item title-value col-md-4">
+        <h4><?= Lang::get("olabs.oims::lang.orders.previous_30_days")?></h4>
+        <p class="<?= $ordersValueClass ?>"><?= $ordersValueThis ?></p>
+        <p class="description"><?= Lang::get("olabs.oims::lang.orders.previous_30_days")?>: <?= $ordersValueLast ?></p>
+    </div>    
+    
+    <div class="clearfix"></div>
+</div>
+
+<hr>
+
+
+<?= $this->listRender() ?>

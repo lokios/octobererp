@@ -1,0 +1,6 @@
+plugin:
+    name: 'olabs.tasks::lang.plugin.name'
+    description: 'olabs.tasks::lang.plugin.description'
+    author: olabs
+    icon: oc-icon-adjust
+    homepage: ''

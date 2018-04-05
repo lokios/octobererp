@@ -1,0 +1,152 @@
+//
+// Icon Bar
+// --------------------------------------------------
+// Use as a sidebar navigation with icons only.
+
+.iconbar {
+  background-color: @iconbar-background;
+  border-radius: 6px;
+  float: left;
+  margin: 0 20px 20px 0;
+  -webkit-backface-visibility: hidden;
+  .clearfix();
+
+  > ul {
+    display: block;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    > li {
+      margin: 0;
+      padding: 0;
+
+      &.active {
+        > a {
+          color: @iconbar-hover-color;
+        }
+      }
+
+      > a {
+        color: @iconbar-color;
+        display: inline-block;
+        font-size: ceil((@component-font-size-base * 1.600)); // ~24px
+        line-height: 1;
+        padding: 19px 30px;
+        position: relative;
+        text-decoration: none;
+        
+        &:hover,
+        &:focus {
+          color: @iconbar-hover-color;
+        }
+      }
+
+      &:first-child {
+        > a {
+          padding-top: 29px;
+        }
+      }
+      &:last-child {
+        > a {
+          padding-bottom: 29px;
+        }
+      }
+    }
+  }
+
+  & {
+    .iconbar-unread {
+      top: 9px;
+      right: 21px;
+    }
+  }
+
+  // Unread icon
+  .iconbar-unread {
+    background-color: mix(@brand-info, black, 80%);
+    border-radius: 50%;
+    color: @inverse;
+    font-family: @font-family-base;
+    font-size: ceil((@component-font-size-base * 0.8)); // ~12px
+    font-weight: 700;
+    line-height: 1.667; // ~25px
+    min-width: 20px;
+    padding: 0 2px;
+    position: absolute;
+    text-align: center;
+    -webkit-font-smoothing: auto;
+  }
+
+}
+
+// Stick to a screen side
+[class*="iconbar-stick-"] {
+  border-radius: 0;
+  margin: 0;
+  position: fixed;
+  z-index: 1001;
+
+  > ul { margin: 0; }
+}
+
+.iconbar-stick-left {
+  bottom: 0;
+  left: 0;
+  top: 0;
+}
+
+// Alternate Colors
+// --------------------------------------------------
+.iconbar-success { .iconbar-variant(@brand-success); }
+.iconbar-danger  { .iconbar-variant(@brand-danger); }
+.iconbar-warning { .iconbar-variant(@brand-warning); }
+.iconbar-info    { .iconbar-variant(@brand-info); }
+
+// Horizontal layout
+// --------------------------------------------------
+.iconbar-horizontal {
+  clear: both;
+  overflow: auto;
+  width: 100%;
+
+  > ul {
+    > li {
+      display: inline;
+      float: none;
+    }
+  }
+
+  .iconbar-unread {
+    right: 23px;
+    top: 13px;
+  }
+
+  > ul {
+    > li {
+      float: left;
+      > a {
+        padding: 23px 19px;
+      }
+      &:first-child {
+        > a {
+          padding: 23px 19px 23px 32px;
+        }
+      }
+      &:last-child {
+        > a {
+          padding: 23px 32px 23px 19px;
+        }
+        .iconbar-unread {
+          right: 23px;
+        }
+      }
+    }
+  }
+
+  @media (min-width: @screen-sm-min) {
+    width: auto;
+    height: auto;
+  }
+}
+

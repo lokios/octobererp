@@ -1,0 +1,4 @@
+title: Manpowers
+modelClass: Olabs\Oims\Models\Manpower
+toolbar:
+    buttons: reorder_toolbar

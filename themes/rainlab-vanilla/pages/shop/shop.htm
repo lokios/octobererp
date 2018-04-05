@@ -1,0 +1,216 @@
+url = "/shop"
+layout = "default"
+==
+
+<section id="layout-title">
+    <div class="container">
+        <h3>Shop</h3>
+    </div>
+</section>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            {% partial 'shop/sidebar' %}
+        </div>
+        <div class="col-sm-8">
+            <!-- Filters -->
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active"><a href="#popular" data-toggle="tab">Popular</a></li>
+                <li><a href="#recommended" data-toggle="tab">Recommended</a></li>
+                <li><a href="#recent" data-toggle="tab">New Products</a></li>
+                <li class="hidden-sm"><a href="#last" data-toggle="tab">Last Chance</a></li>
+            </ul>
+
+            <div class="row">
+                <div class="tab-content">
+
+                    <!-- All-->
+                    <div class="tab-pane fade in active" id="popular">
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="shop-product featured">
+                                <a href="{{ 'shop/product'|page }}"><img src="{{ 'assets/images/shop/imac.png'|theme }}" class="img-responsive" alt=""></a>
+                                <a href="{{ 'shop/product'|page }}"><h6>Product #1</h6></a>
+                                <p class="price">
+                                    <span class="old">$80.99</span>
+                                    <span class="new">$59.99</span>
+                                </p>
+                                <a href="#" class="btn btn-sm btn-info"><i class="icon-shopping-cart"></i> Add to cart</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="shop-product">
+                                <a href="{{ 'shop/product'|page }}"><img src="{{ 'assets/images/shop/macbook.jpg'|theme }}" class="img-responsive" alt=""></a>
+                                <a href="{{ 'shop/product'|page }}"><h6>Product #2</h6></a>
+                                <p>
+                                    $200.00
+                                </p>
+                                <a href="#" class="btn btn-sm btn-info"><i class="icon-shopping-cart"></i> Add to cart</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="shop-product">
+                                <a href="{{ 'shop/product'|page }}"><img src="{{ 'assets/images/shop/ipad.png'|theme }}" class="img-responsive" alt=""></a>
+                                <a href="{{ 'shop/product'|page }}"><h6>Product #3</h6></a>
+                                <p>
+                                    $50.00
+                                </p>
+                                <a href="#" class="btn btn-sm btn-info"><i class="icon-shopping-cart"></i> Add to cart</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="shop-product">
+                                <a href="{{ 'shop/product'|page }}"><img src="{{ 'assets/images/shop/imac.png'|theme }}" class="img-responsive" alt=""></a>
+                                <a href="{{ 'shop/product'|page }}"><h6>Product #1</h6></a>
+                                <p>
+                                    $200.00
+                                </p>
+                                <a href="#" class="btn btn-sm btn-info"><i class="icon-shopping-cart"></i> Add to cart</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="shop-product">
+                                <a href="{{ 'shop/product'|page }}"><img src="{{ 'assets/images/shop/macbook.jpg'|theme }}" class="img-responsive" alt=""></a>
+                                <a href="{{ 'shop/product'|page }}"><h6>Product #2</h6></a>
+                                <p>
+                                    $200.00
+                                </p>
+                                <a href="#" class="btn btn-sm btn-info"><i class="icon-shopping-cart"></i> Add to cart</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="shop-product">
+                                <a href="{{ 'shop/product'|page }}"><img src="{{ 'assets/images/shop/ipad.png'|theme }}" class="img-responsive" alt=""></a>
+                                <a href="{{ 'shop/product'|page }}"><h6>Product #3</h6></a>
+                                <p>
+                                    $50.00
+                                </p>
+                                <a href="#" class="btn btn-sm btn-info"><i class="icon-shopping-cart"></i> Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ebooks -->
+                    <div class="tab-pane fade" id="recommended">
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="shop-product featured">
+                                <a href="{{ 'shop/product'|page }}"><img src="{{ 'assets/images/shop/imac.png'|theme }}" class="img-responsive" alt=""></a>
+                                <a href="{{ 'shop/product'|page }}"><h6>Product #1</h6></a>
+                                <p class="price">
+                                    <span class="old">$80.99</span>
+                                    <span class="new">$59.99</span>
+                                </p>
+                                <a href="#" class="btn btn-sm btn-info"><i class="icon-shopping-cart"></i> Add to cart</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="shop-product">
+                                <a href="{{ 'shop/product'|page }}"><img src="{{ 'assets/images/shop/macbook.jpg'|theme }}" class="img-responsive" alt=""></a>
+                                <a href="{{ 'shop/product'|page }}"><h6>Product #2</h6></a>
+                                <p>
+                                    $200.00
+                                </p>
+                                <a href="#" class="btn btn-sm btn-info"><i class="icon-shopping-cart"></i> Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Audio CD -->
+                    <div class="tab-pane fade" id="recent">
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="shop-product">
+                                <a href="{{ 'shop/product'|page }}"><img src="{{ 'assets/images/shop/ipad.png'|theme }}" class="img-responsive" alt=""></a>
+                                <a href="{{ 'shop/product'|page }}"><h6>Product #3</h6></a>
+                                <p>
+                                    $50.00
+                                </p>
+                                <a href="#" class="btn btn-sm btn-info"><i class="icon-shopping-cart"></i> Add to cart</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="shop-product">
+                                <a href="{{ 'shop/product'|page }}"><img src="{{ 'assets/images/shop/imac.png'|theme }}" class="img-responsive" alt=""></a>
+                                <a href="{{ 'shop/product'|page }}"><h6>Product #1</h6></a>
+                                <p>
+                                    $200.00
+                                </p>
+                                <a href="#" class="btn btn-sm btn-info"><i class="icon-shopping-cart"></i> Add to cart</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="shop-product">
+                                <a href="{{ 'shop/product'|page }}"><img src="{{ 'assets/images/shop/macbook.jpg'|theme }}" class="img-responsive" alt=""></a>
+                                <a href="{{ 'shop/product'|page }}"><h6>Product #2</h6></a>
+                                <p>
+                                    $200.00
+                                </p>
+                                <a href="#" class="btn btn-sm btn-info"><i class="icon-shopping-cart"></i> Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Audio CD -->
+                    <div class="tab-pane fade" id="last">
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="shop-product">
+                                <a href="{{ 'shop/product'|page }}"><img src="{{ 'assets/images/shop/ipad.png'|theme }}" class="img-responsive" alt=""></a>
+                                <a href="{{ 'shop/product'|page }}"><h6>Product #3</h6></a>
+                                <p>
+                                    $50.00
+                                </p>
+                                <a href="#" class="btn btn-sm btn-info"><i class="icon-shopping-cart"></i> Add to cart</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="shop-product">
+                                <a href="{{ 'shop/product'|page }}"><img src="{{ 'assets/images/shop/ipad.png'|theme }}" class="img-responsive" alt=""></a>
+                                <a href="{{ 'shop/product'|page }}"><h6>Product #3</h6></a>
+                                <p>
+                                    $50.00
+                                </p>
+                                <a href="#" class="btn btn-sm btn-info"><i class="icon-shopping-cart"></i> Add to cart</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="shop-product">
+                                <a href="{{ 'shop/product'|page }}"><img src="{{ 'assets/images/shop/imac.png'|theme }}" class="img-responsive" alt=""></a>
+                                <a href="{{ 'shop/product'|page }}"><h6>Product #1</h6></a>
+                                <p>
+                                    $200.00
+                                </p>
+                                <a href="#" class="btn btn-sm btn-info"><i class="icon-shopping-cart"></i> Add to cart</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="shop-product">
+                                <a href="{{ 'shop/product'|page }}"><img src="{{ 'assets/images/shop/macbook.jpg'|theme }}" class="img-responsive" alt=""></a>
+                                <a href="{{ 'shop/product'|page }}"><h6>Product #2</h6></a>
+                                <p>
+                                    $200.00
+                                </p>
+                                <a href="#" class="btn btn-sm btn-info"><i class="icon-shopping-cart"></i> Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination pull-right">
+                <ul>
+                    <li class="previous"><a href="#fakelink" class="fui-arrow-left"></a></li>
+                    <li class="active"><a href="#fakelink">1</a></li>
+                    <li><a href="#fakelink">2</a></li>
+                    <li><a href="#fakelink">3</a></li>
+                    <li><a href="#fakelink">4</a></li>
+                    <li><a href="#fakelink">5</a></li>
+                    <li><a href="#fakelink">6</a></li>
+                    <li><a href="#fakelink">7</a></li>
+                    <li><a href="#fakelink">8</a></li>
+                    <li class="next"><a href="#fakelink" class="fui-arrow-right"></a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>

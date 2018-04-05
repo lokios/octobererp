@@ -1,0 +1,75 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+tabs:
+    fields:
+
+        title:
+            tab: olabs.oims::lang.categories.detail
+            label: olabs.oims::lang.categories.title
+            span: auto
+
+        slug:
+            tab: olabs.oims::lang.categories.detail
+            label: olabs.oims::lang.categories.slug
+            span: auto
+            preset:
+                field: title
+                type: slug        
+
+        active:
+            tab: olabs.oims::lang.categories.detail
+            label: olabs.oims::lang.categories.active
+            type: switch
+            span: auto
+            default: true
+
+        show_in_menu:
+            tab: olabs.oims::lang.categories.detail
+            label: olabs.oims::lang.categories.show_in_menu
+            type: switch           
+            span: auto
+            default: true
+
+        description:
+            tab: olabs.oims::lang.categories.detail
+            label: olabs.oims::lang.categories.description
+            type: richeditor
+            span: auto 
+
+        thumbnails:
+            tab: olabs.oims::lang.categories.detail
+            label: olabs.oims::lang.categories.thumbnails
+            type: fileupload
+            mode: image      
+            span: auto 
+
+        parent:
+            tab: olabs.oims::lang.categories.detail
+            label: olabs.oims::lang.categories.parent
+            type: relation
+            emptyOption: -- Select parent --
+            select: title      
+            
+# SEO
+        meta_title:
+            tab: olabs.oims::lang.categories.seo
+            label: olabs.oims::lang.categories.meta_title
+            
+        meta_keywords:
+            tab: olabs.oims::lang.categories.seo
+            comment: olabs.oims::lang.categories.meta_keywords_comment
+            label: olabs.oims::lang.categories.meta_keywords
+
+        meta_description:
+            tab: olabs.oims::lang.categories.seo
+            label: olabs.oims::lang.categories.meta_description
+            type: textarea
+            
+# Sales
+        sales:
+            tab: olabs.oims::lang.categories.sales
+            label: olabs.oims::lang.categories.sales
+            type: partial
+            path: ~/plugins/olabs/oims/models/category/_sales_relation.htm        

@@ -1,0 +1,12 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+expenseOnMaterialProducts:
+    label: Expense On Material Products
+    manage:
+        form: $/olabs/oims/models/expenseonmaterialproduct/fields.yaml
+        list: $/olabs/oims/models/expenseonmaterialproduct/columns.yaml
+    view:
+        list: $/olabs/oims/models/expenseonmaterialproduct/columns.yaml
+        toolbarButtons: create|delete

@@ -1,0 +1,10 @@
+name: Suppliers
+form: $/olabs/oims/models/supplier/fields.yaml
+modelClass: Olabs\Oims\Models\Supplier
+defaultRedirect: olabs/oims/suppliers
+create:
+    redirect: 'olabs/oims/suppliers/update/:id'
+    redirectClose: olabs/oims/suppliers
+update:
+    redirect: olabs/oims/suppliers
+    redirectClose: olabs/oims/suppliers

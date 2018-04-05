@@ -1,0 +1,26 @@
+columns:
+    id:
+        label: ID
+        type: number
+        searchable: true
+        sortable: true
+    name:
+        label: Name
+        type: text
+        searchable: true
+        sortable: true
+    tags:
+        label: Tags
+        type: text
+        searchable: true
+        sortable: true
+    status:
+        label: Status
+        type: text
+        searchable: true
+        sortable: true
+    tenant_id:
+        label: Tenant
+        type: text
+        searchable: true
+        sortable: true

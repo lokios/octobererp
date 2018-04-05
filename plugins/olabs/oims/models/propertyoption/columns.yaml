@@ -1,0 +1,15 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    
+    title:
+        label: olabs.oims::lang.properties.title
+        
+    order_index:
+        label: olabs.oims::lang.properties.order
+        clickable: false
+        type: partial
+        path: ~/plugins/olabs/oims/models/propertyoption/_reorder.htm 
+        

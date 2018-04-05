@@ -1,0 +1,331 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+
+fields:
+        
+ #  Detail
+        objectstatus:
+            label: Status
+            type: partial
+            path: ~/plugins/olabs/oims/models/status/_status_field.htm  
+            span: auto
+        context_date:
+            label: Date
+            oc.commentPosition: ''
+            mode: date
+            span: auto
+            default: "today"
+            required: 1
+            type: datepicker
+            format: 'd/m/Y'
+        project:
+#            tab: olabs.oims::lang.quotes.detail
+            label: Project
+            oc.commentPosition: ''
+            nameFrom: name
+            descriptionFrom: description
+            span: auto
+            required: 1
+            type: dropdown
+        user_id:
+            label: Supplier
+            span: auto
+            type: dropdown
+            options: getSupplierPettyContractorOptions 
+#            dependsOn: quote
+        
+            
+#        carrier:
+#            tab: olabs.oims::lang.sales.detail
+#            label: olabs.oims::lang.sales.carrier
+#            type: relation
+#            select: title
+#            span: auto
+tabs:
+    fields:
+# Products
+        products:
+            label: Products
+            tab: olabs.oims::lang.pcattendance.products_json
+            type: partial
+            path: pcattendance_detail
+        total_price:
+            label: olabs.oims::lang.pcattendance.total_price
+            tab: olabs.oims::lang.pcattendance.products_json
+            type: number
+            span: auto
+
+            
+        invoice:
+            tab: olabs.oims::lang.pcattendance.detail
+            label: olabs.oims::lang.pcattendance.invoice
+            type: fileupload
+            mode: file
+            span: auto
+        
+        reference_number:
+            tab: olabs.oims::lang.pcattendance.detail
+            label: 'Reference Number'
+            oc.commentPosition: ''
+            span: auto
+            type: text
+            
+#        tracking_number:
+#            tab: olabs.oims::lang.sales.detail
+#            label: olabs.oims::lang.sales.tracking_number
+#            span: auto
+            
+        note:
+            tab: olabs.oims::lang.pcattendance.detail
+            label: olabs.oims::lang.pcattendance.note
+            type: textarea
+            span: full
+            size: small
+
+
+
+#        products_json:
+#            type: repeater
+#            label: olabs.oims::lang.sales.products_json
+#            tab: olabs.oims::lang.sales.products_json
+#            form:
+#                fields:
+#                    product_id:
+#                        label: olabs.oims::lang.sales.product_id
+#                        type: dropdown
+#                        options: getProductOptions
+#                        span: auto
+#                        
+#                    options_data:
+#                        cssClass: 'hidden'
+#                        
+#                    options_text:
+#                        label: olabs.oims::lang.sales.options_text
+#                        type: text
+#                        span: auto
+#                        
+#                    quantity:
+#                        label: olabs.oims::lang.sales.quantity
+#                        type: number
+#                        span: auto
+#                        
+#                    total_price_without_tax:
+#                        label: olabs.oims::lang.sales.total_price_without_tax
+#                        type: number
+#                        span: auto
+#                        
+#                    total_tax:
+#                        label: olabs.oims::lang.sales.total_tax
+#                        type: number
+#                        span: auto
+#                        
+#                    total_price:
+#                        label: olabs.oims::lang.sales.total_price
+#                        type: number
+#                        span: auto
+
+
+
+
+#  Customer
+
+#        user_id:
+#            label: Suppiler
+#            tab: Supplier
+   #            comment: olabs.oims::lang.quotes.user_id_comment
+#            span: full 
+#            type: dropdown
+#            options: getSupplierOptions
+            
+
+#        contact_address_section:
+#            label: olabs.oims::lang.sales.contact_address_section
+#            tab: olabs.oims::lang.sales.customer
+#            type: section
+#            span: full
+#            
+#        contact_email:
+#            label: olabs.oims::lang.sales.contact_email
+#            tab: olabs.oims::lang.sales.customer
+#            span: auto
+#        contact_phone:
+#            label: olabs.oims::lang.sales.contact_phone
+#            tab: olabs.oims::lang.sales.customer
+#            span: auto            
+#
+#        delivery_address_section:
+#            label: olabs.oims::lang.sales.delivery_address_section
+#            tab: olabs.oims::lang.sales.customer
+#            type: section
+#            span: auto
+#        invoice_address_section:
+#            label: olabs.oims::lang.sales.invoice_address_section
+#            tab: olabs.oims::lang.sales.customer
+#            type: section
+#            span: auto
+#            
+#        ds_first_name:
+#            label: olabs.oims::lang.sales.ds_first_name
+#            tab: olabs.oims::lang.sales.customer
+#            span: auto    
+#        is_first_name:
+#            label: olabs.oims::lang.sales.is_first_name
+#            tab: olabs.oims::lang.sales.customer
+#            span: auto              
+#            
+#        ds_last_name:
+#            label: olabs.oims::lang.sales.ds_last_name
+#            tab: olabs.oims::lang.sales.customer
+#            span: auto    
+#        is_last_name:
+#            label: olabs.oims::lang.sales.is_last_name
+#            tab: olabs.oims::lang.sales.customer
+#            span: auto  
+#            
+#        ds_address:
+#            label: olabs.oims::lang.sales.ds_address
+#            tab: olabs.oims::lang.sales.customer
+#            span: auto    
+#        is_address:
+#            label: olabs.oims::lang.sales.is_address
+#            tab: olabs.oims::lang.sales.customer
+#            span: auto              
+#            
+#        ds_address_2:
+#            label: olabs.oims::lang.sales.ds_address_2
+#            tab: olabs.oims::lang.sales.customer
+#            span: auto    
+#        is_address_2:
+#            label: olabs.oims::lang.sales.is_address_2
+#            tab: olabs.oims::lang.sales.customer
+#            span: auto   
+#            
+#        ds_postcode:
+#            label: olabs.oims::lang.sales.ds_postcode
+#            tab: olabs.oims::lang.sales.customer
+#            span: auto    
+#        is_postcode:
+#            label: olabs.oims::lang.sales.is_postcode
+#            tab: olabs.oims::lang.sales.customer
+#            span: auto  
+#            
+#        ds_city:
+#            label: olabs.oims::lang.sales.ds_city
+#            tab: olabs.oims::lang.sales.customer
+#            span: auto    
+#        is_city:
+#            label: olabs.oims::lang.sales.is_city
+#            tab: olabs.oims::lang.sales.customer
+#            span: auto        
+#            
+#        ds_county:
+#            label: olabs.oims::lang.sales.ds_county
+#            tab: olabs.oims::lang.sales.customer
+#            span: auto    
+#        is_county:
+#            label: olabs.oims::lang.sales.is_county
+#            tab: olabs.oims::lang.sales.customer
+#            span: auto             
+#            
+#        ds_country:
+#            label: olabs.oims::lang.sales.ds_country
+#            tab: olabs.oims::lang.sales.customer
+#            span: auto    
+#        is_country:
+#            label: olabs.oims::lang.sales.is_country
+#            tab: olabs.oims::lang.sales.customer
+#            span: auto             
+
+
+
+# Prices
+
+#        total_global_discount:
+#            label: olabs.oims::lang.sales.total_global_discount
+#            tab: olabs.oims::lang.sales.prices
+#            type: number
+#            span: auto
+            
+#        coupon:
+#            label: olabs.oims::lang.sales.coupon
+#            tab: olabs.oims::lang.sales.prices
+#            type: relation
+#            nameFrom: code
+#            emptyOption: -- Coupon --
+#            span: auto
+            
+#        total_price_without_tax:
+#            label: olabs.oims::lang.sales.total_price_without_tax
+#            tab: olabs.oims::lang.sales.prices
+#            type: number
+#            span: auto
+
+#        total_tax:
+#            label: olabs.oims::lang.sales.total_tax
+#            tab: olabs.oims::lang.sales.prices
+#            type: number
+#            span: auto
+            
+#        total_price:
+#            label: olabs.oims::lang.sales.total_price
+#            tab: olabs.oims::lang.sales.prices
+#            type: number
+#            span: auto
+
+#        shipping_price_without_tax:
+#            label: olabs.oims::lang.sales.shipping_price_without_tax
+#            tab: olabs.oims::lang.sales.prices
+#            type: number
+#            span: auto
+
+#        shipping_tax:
+#            label: olabs.oims::lang.sales.shipping_tax
+#            tab: olabs.oims::lang.sales.prices
+#            type: number
+#            span: auto
+
+#        shipping_price:
+#            label: olabs.oims::lang.sales.shipping_price
+#            tab: olabs.oims::lang.sales.prices
+#            type: number
+#            span: auto
+
+
+# Payment methods            
+#        paymentGateway:
+#            label: olabs.oims::lang.sales.payment_gateway
+#            tab: olabs.oims::lang.sales.payment_method
+#            type: relation
+#            nameFrom: gateway_title
+#            span: fulll
+            
+#        payment_method:
+#            label: olabs.oims::lang.sales.payment_method_field
+#            tab: olabs.oims::lang.sales.payment_method
+#            type: dropdown
+#            span: full
+#            
+#            
+#        paid_date:
+#            label: olabs.oims::lang.sales.paid_date
+#            tab: olabs.oims::lang.sales.payment_method
+#            type: datepicker
+#            span: auto            
+#                            
+#        paid_detail:
+#            label: olabs.oims::lang.sales.paid_detail
+#            tab: olabs.oims::lang.sales.payment_method
+#            type: partial
+#            path: ~/plugins/olabs/oims/models/sales/_paid_detail_field.htm
+#secondaryTabs:
+    stretch: true
+    fields:
+        featured_images:
+            tab: Attachments
+            label: rainlab.blog::lang.post.featured_images
+            type: fileupload
+            mode: image
+            imageWidth: 200
+            imageHeight: 200

@@ -1,0 +1,101 @@
+title = "Portfolio"
+url = "/portfolio"
+layout = "default"
+==
+
+{% put scripts %}
+    <script src="{{ [
+        'assets/vendor/isotope/jquery.isotope.js',
+        'assets/javascript/pages/portfolio.js',
+    ]|theme }}"></script>
+{% endput %}
+
+<section id="layout-title">
+    <div class="container">
+        <h3 class="pull-left">Portfolio</h3>
+
+        <div class="btn-toolbar pull-right">
+            <div class="btn-group" id="filters">
+                <a class="btn btn-primary active" href="#filter" class="selected" data-filter="*"><span class="fui-list"></span> All</a>
+                <a class="btn btn-primary" href="#filter" data-filter=".nature"><span class="fui-eye"></span> Nature</a>
+                <a class="btn btn-primary" href="#filter" data-filter=".people"><span class="fui-user"></span> People</a>
+                <a class="btn btn-primary" href="#filter" data-filter=".scenery"><span class="fui-video"></span> Scenery</a>
+                <a class="btn btn-primary" href="#filter" data-filter=".world"><span class="fui-photo"></span> World</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+
+    <!-- start: Portfolio -->
+    <div id="portfolioItems" class="row">
+
+        <div class="col-md-3 portfolio-item nature people">
+            <div class="picture">
+                <a class="image" href="{{ 'portfolio/project'|page }}" title="Title">
+                    <img src="{{ 'assets/images/portfolio/thumbs/project1.jpg'|theme }}" alt="" />
+                </a>
+                <div class="description">
+                    <a href="{{ 'portfolio/project'|page }}" class="btn btn-info btn-block">Cars <small>for Joe Bloggs</small></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 portfolio-item scenery">
+            <div class="picture">
+                <a class="image" href="{{ 'portfolio/project'|page }}" title="Title">
+                    <img src="{{ 'assets/images/portfolio/thumbs/project4.jpg'|theme }}" alt="" />
+                </a>
+                <div class="description">
+                    <a href="{{ 'portfolio/project'|page }}" class="btn btn-info btn-block">Money <small>for Joe Bloggs</small></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 portfolio-item world scenery">
+            <div class="picture">
+                <a class="image" href="{{ 'portfolio/project'|page }}" title="Title">
+                    <img src="{{ 'assets/images/portfolio/thumbs/project2.jpg'|theme }}" alt="" />
+                </a>
+                <div class="description">
+                    <a href="{{ 'portfolio/project'|page }}" class="btn btn-info btn-block">Nature <small>for Joe Bloggs</small></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 portfolio-item nature scenery">
+            <div class="picture">
+                <a class="image" href="{{ 'portfolio/project'|page }}" title="Title">
+                    <img src="{{ 'assets/images/portfolio/thumbs/project3.jpg'|theme }}" alt="" />
+                </a>
+                <div class="description">
+                    <a href="{{ 'portfolio/project'|page }}" class="btn btn-info btn-block">Beach <small>for Joe Bloggs</small></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 portfolio-item world">
+            <div class="picture">
+                <a class="image" href="{{ 'portfolio/project'|page }}" title="Title">
+                    <img src="{{ 'assets/images/portfolio/thumbs/project1.jpg'|theme }}" alt="" />
+                </a>
+                <div class="description">
+                    <a href="{{ 'portfolio/project'|page }}" class="btn btn-info btn-block">Cars <small>for Joe Bloggs</small></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 portfolio-item world people">
+            <div class="picture">
+                <a class="image" href="{{ 'portfolio/project'|page }}" title="Title">
+                    <img src="{{ 'assets/images/portfolio/thumbs/project2.jpg'|theme }}" alt="" />
+                </a>
+                <div class="description">
+                    <a href="{{ 'portfolio/project'|page }}" class="btn btn-info btn-block">Nature <small>for Joe Bloggs</small></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

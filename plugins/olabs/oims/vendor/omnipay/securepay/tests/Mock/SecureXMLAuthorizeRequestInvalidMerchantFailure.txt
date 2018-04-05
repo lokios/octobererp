@@ -1,0 +1,8 @@
+HTTP/1.1 200 OK
+Date: Fri, 17 Apr 2015 02:05:53 GMT
+Server: Apache
+Content-Type: text/xml;charset=ISO-8859-1
+Content-Length: 506
+Connection: close
+
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><SecurePayMessage><MessageInfo><messageID>5ef083567a7fe09111ecf709761f9d</messageID><messageTimestamp>20151704120553321000+600</messageTimestamp><apiVersion>xml-4.2</apiVersion></MessageInfo><RequestType>Payment</RequestType><MerchantInfo><merchantID>ABC0030</merchantID></MerchantInfo><Status><statusCode>504</statusCode><statusDescription>Invalid merchant ABC0030</statusDescription></Status><Payment><TxnList count="0"/></Payment></SecurePayMessage>

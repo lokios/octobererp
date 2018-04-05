@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: olabs.oims::lang.machineries.menu_label_single
+
+# Model Form Field configuration
+form: $/olabs/oims/models/machinery/fields.yaml
+
+# Model Class name
+modelClass: Olabs\Oims\Models\Machinery
+
+# Default redirect location
+defaultRedirect: olabs/oims/machineries
+
+# Create page
+create:
+    title: olabs.oims::lang.machineries.create_machinery
+    redirect: olabs/oims/machineries/update/:id
+    redirectClose: olabs/oims/machineries
+
+# Update page
+update:
+    title: olabs.oims::lang.machineries.edit_machinery
+    redirect: olabs/oims/machineries
+    redirectClose: olabs/oims/machineries
+
+# Preview page
+preview:
+    title: olabs.oims::lang.machineries.preview_machinery

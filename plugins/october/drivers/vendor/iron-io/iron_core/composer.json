@@ -1,0 +1,34 @@
+{
+    "name": "iron-io/iron_core",
+    "type": "library",
+    "description": "Collection of common functions for all iron.io client libraries",
+    "keywords": ["iron_core","iron"],
+    "homepage": "http://github.com/iron-io/iron_core_php",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexander S",
+            "email": "alexander@iron.io",
+            "homepage": "http://iron.io",
+            "role": "Developer"
+        },
+        {
+            "name": "Iron.io",
+            "email": "support@iron.io",
+            "homepage": "http://iron.io",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.2.0"
+    },
+    "autoload": {
+        "classmap": ["IronCore.class.php"]
+    },
+    "repositories":[
+        {
+            "type":"git",
+            "url":"http://github.com/iron-io/iron_core_php"
+        }
+    ]
+}

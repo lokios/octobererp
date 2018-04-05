@@ -1,0 +1,38 @@
+fields:
+    product:
+        label: Work
+        oc.commentPosition: ''
+        nameFrom: name
+        descriptionFrom: description
+        list: $/olabs/oims/models/projectwork/columns.yaml
+        span: auto
+        type: recordfinder
+        scope: matchProject
+    quantity:
+        label: Quantity
+        oc.commentPosition: ''
+        default: 1
+        span: auto
+        type: number
+    unit_price:
+        label: 'Unit Price'
+        oc.commentPosition: ''
+        span: auto
+        type: number
+        dependsOn: product
+    total_price:
+        label: 'Total Price'
+        span: auto
+        oc.commentPosition: ''
+        type: number
+        dependsOn:
+            - product
+            - quantity
+            - unit_price
+    project_id:
+        label: 'Project'
+        span: auto
+        oc.commentPosition: ''
+        required: 0
+        type: text
+        hidden: 1

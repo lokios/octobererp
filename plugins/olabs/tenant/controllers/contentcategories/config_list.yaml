@@ -1,0 +1,11 @@
+list: $/olabs/tenant/models/contentcategories/columns.yaml
+modelClass: Olabs\Tenant\Models\ContentCategories
+title: ContentCategories
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'olabs/tenant/contentcategories/update/:id'

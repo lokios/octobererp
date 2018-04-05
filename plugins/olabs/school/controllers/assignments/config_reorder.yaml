@@ -1,0 +1,4 @@
+title: Assignments
+modelClass: Olabs\School\Models\Assignments
+toolbar:
+    buttons: reorder_toolbar

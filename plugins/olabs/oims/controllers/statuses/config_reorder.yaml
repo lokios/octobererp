@@ -1,0 +1,4 @@
+title: Statuses
+modelClass: Olabs\Oims\Models\Status
+toolbar:
+    buttons: reorder_toolbar

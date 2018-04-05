@@ -1,0 +1,4 @@
+title: Subjects
+modelClass: Olabs\School\Models\Subjects
+toolbar:
+    buttons: reorder_toolbar

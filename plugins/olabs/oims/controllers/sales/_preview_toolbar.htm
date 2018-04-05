@@ -1,0 +1,7 @@
+<a href="<?= Backend::url('olabs/oims/sales') ?>" class="btn btn-default oc-icon-chevron-left">Back to List</a>
+<?php if($formModel->isEditable()): ?>
+<a
+    href="<?= Backend::url('olabs/oims/sales/update/'.$formModel->id) ?>"
+    class="btn btn-primary oc-icon-pencil">Update details
+</a>
+<?php endif ?>

@@ -1,0 +1,16 @@
+list: $/olabs/oims/models/employee/columns.yaml
+modelClass: Olabs\Oims\Models\Employee
+title: Employees
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+
+recordUrl: 'olabs/oims/employees/update/:id'
+# Display checkboxes next to each record
+# showCheckboxes: true
+
+# filter: config_filter.yaml

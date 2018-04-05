@@ -1,0 +1,10 @@
+name: Attendances
+form: $/olabs/oims/models/attendance/fields.yaml
+modelClass: Olabs\Oims\Models\Attendance
+defaultRedirect: olabs/oims/attendances
+create:
+    redirect: 'olabs/oims/attendances/update/:id'
+    redirectClose: olabs/oims/attendances
+update:
+    redirect: olabs/oims/attendances
+    redirectClose: olabs/oims/attendances

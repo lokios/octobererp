@@ -1,0 +1,34 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+        
+    gateway_title:
+        label: olabs.oims::lang.paymentgateways.gateway_title
+        searchable: true
+        
+    gateway_currency:
+        label: olabs.oims::lang.paymentgateways.gateway_currency
+        searchable: true
+
+    gateway:
+        label: olabs.oims::lang.paymentgateways.gateway
+        searchable: true
+        
+    active:
+        label: olabs.oims::lang.paymentgateways.active
+        type: switch
+
+    orderStatusBefore:
+        label: olabs.oims::lang.paymentgateways.orderStatusBefore
+        relation: orderStatusBefore
+        select: title
+
+    orderStatusAfter:
+        label: olabs.oims::lang.paymentgateways.orderStatusAfter
+        relation: orderStatusAfter
+        select: title            
+#        
+#    parameters:
+#        label: olabs.oims::lang.paymentgateways.parameters  

@@ -1,0 +1,22 @@
+<?php
+
+if (class_exists("\RainLab\User\Models\User") && ($record->user_id > 0)) {
+    // User exist
+    $user = \RainLab\User\Models\User::find($record->user_id);
+    if ($user!=null) {
+        echo $user->id." | ".$user->name." ".$user->surname;
+    }
+    else {
+        echo "N/A";
+    }
+}
+else {
+    if (isset($record->is_first_name)) {
+        echo $record->is_first_name." ".$record->is_last_name;
+    }
+    else {
+        echo $record->ds_first_name." ".$record->ds_last_name;
+    }
+}
+
+?>

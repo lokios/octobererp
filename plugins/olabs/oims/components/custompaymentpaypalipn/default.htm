@@ -1,0 +1,21 @@
+<div class="basket-content-wrapper" id="basket-content-wrapper">
+    <div class="alert alert-success" role="alert"> <strong>Order sent!</strong> Please continue to pay order bellow </div>
+    
+    <div class="paypal-btn-wrapper">
+    <!--PAY BY PAYPAL NOW -->
+    <FORM action="{{ paypal_use_sandbox ? "https://www.sandbox.paypal.com/cgi-bin/webscr" : "https://www.paypal.com/cgi-bin/webscr" }}" method="post" id="form-paypal">
+        <input type="hidden" name="cmd" value="_xclick">
+
+        <input type="hidden" name="business" value="{{ paypal_business }}">
+        <input type="hidden" name="item_name" value="Order #{{ order.id }}">
+        <input type="hidden" name="amount" value="{{ order.total_price + order.shipping_price }}">
+        <input type="hidden" name="currency_code" value="{{ paypal_currency_code }}">
+        <input type="hidden" name="custom" value="{{ order.id }}"/>
+        <input type="hidden" name="return" value="{{ paypal_return_url }}">
+
+        <input type="image" name="submit" border="0"
+    src="https://www.paypalobjects.com/en_US/i/btn/btn_paynow_LG.gif"
+    alt="PayPal - The safer, easier way to pay online">
+    </FORM>
+    </div>
+</div>

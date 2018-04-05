@@ -1,0 +1,64 @@
+fields:
+    project:
+        label: Project
+        oc.commentPosition: ''
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        required: 1
+        type: dropdown
+#    status:
+#        label: Status
+#        span: auto
+#        oc.commentPosition: ''
+#        nameFrom: name
+#        descriptionFrom: description
+#        required: 1
+#        type: relation
+    objectstatus:
+        label: Status
+        type: partial
+        path: ~/plugins/olabs/oims/models/status/_status_field.htm    
+        span: auto
+
+    start_date:
+        label: Date
+        oc.commentPosition: ''
+        mode: date
+        span: auto
+        default: ''
+        required: 1
+        type: datepicker
+    reference_number:
+        label: 'Reference Number'
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    description:
+        label: Notes
+        size: ''
+        oc.commentPosition: ''
+        span: auto
+        type: textarea
+tabs:
+    fields:
+        products:
+            label: Products
+            tab: 'olabs.oims::lang.quotes.products_json'
+            type: partial
+            path: progress_products
+        total_price:
+            label: olabs.oims::lang.quotes.total_price
+            tab: olabs.oims::lang.quotes.products_json
+            type: number
+            span: auto
+secondaryTabs:
+    stretch: true
+    fields:
+        featured_images:
+            tab: Attachments
+            label: rainlab.blog::lang.post.featured_images
+            type: fileupload
+            mode: image
+            imageWidth: 200
+            imageHeight: 200

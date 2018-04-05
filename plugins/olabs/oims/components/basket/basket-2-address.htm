@@ -1,0 +1,99 @@
+<div class="basket-content-wrapper" id="basket-content-wrapper">
+    <div class="basket-breadcrumbs">
+        <span>Cart</span><span class="glyphicon glyphicon-chevron-right"></span>
+        <span>Shipping & Payment</span><span class="glyphicon glyphicon-chevron-right"></span>
+        <strong>Address </strong><span class="glyphicon glyphicon-chevron-right"></span>
+        <span>Summary</span>
+    </div>  
+    
+{{ form_ajax('onRunBasketSummary') }}
+    {% if (basket.products|length == 0) %}
+        <div>
+            Cart is empty
+        </div>
+    {% else %}
+    <div class="row basket-addresses-wrapper">
+        <div class="col-sm-6 basket-delivery-address-wrapper" id="delivery_address_group">
+            <h2>Delivery Address</h2>
+            <input type="text" required="true" name="ds_first_name" value="{{ basket.ds_first_name }}" placeholder="First name">
+            <input type="text" required="true" name="ds_last_name" value="{{ basket.ds_last_name }}" placeholder="Last name">
+            <input type="text" required="true" name="ds_address" value="{{ basket.ds_address }}" placeholder="Address">
+            <input type="text" name="ds_address_2" value="{{ basket.ds_address_2 }}" placeholder="Address 2">
+            <input type="text" required="true" name="ds_postcode" value="{{ basket.ds_postcode }}" placeholder="Postcode">
+            <input type="text" required="true" name="ds_city" value="{{ basket.ds_city }}" placeholder="City">
+            <input type="text" name="ds_county" value="{{ basket.ds_county }}" placeholder="County">
+            <input type="text" name="ds_country" value="{{ basket.ds_country }}" placeholder="Country">
+        </div>
+        <div class="col-sm-6 basket-billing-address-wrapper" id="billing_address_group">
+            <h2>Billing Address</h2>
+            <input type="text" required="true" name="is_first_name" value="{{ basket.is_first_name }}" placeholder="First name">
+            <input type="text" required="true" name="is_last_name" value="{{ basket.is_last_name }}" placeholder="Last name">
+            <input type="text" required="true" name="is_address" value="{{ basket.is_address }}" placeholder="Address">
+            <input type="text" name="is_address_2" value="{{ basket.is_address_2 }}" placeholder="Address 2">
+            <input type="text" required="true" name="is_postcode" value="{{ basket.is_postcode }}" placeholder="Postcode">
+            <input type="text" required="true" name="is_city" value="{{ basket.is_city }}" placeholder="City">
+            <input type="text" name="is_county" value="{{ basket.is_county }}" placeholder="County">
+            <input type="text" name="is_country" value="{{ basket.is_country }}" placeholder="Country">
+            <div>
+                <label>
+                    <input type="checkbox" id="copy_address"> Same as delivery address
+                </label>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    
+    <div class="row basket-email-phone-wrapper">
+        <div class="col-sm-6">
+            <h2>Contact</h2>
+        </div>
+        <div class="col-sm-6">
+            <h2>Note</h2>
+        </div>
+        <div class="clearfix"></div>
+        
+        <div class="col-sm-6">
+            <div class="basket-email-wrapper">
+                <input type="email" required="true" name="contact_email" value="{{ basket.contact_email }}" placeholder="Email">
+            </div>
+            
+            <div class="basket-phone-wrapper">
+                <input type="text" required="true" name="contact_phone" value="{{ basket.contact_phone }}" placeholder="Phone">
+            </div>
+        </div>
+        
+        <div class="col-sm-6 basket-note-wrapper">
+            <textarea class="" name="note" rows="3" placeholder="Note">{{ basket.note }}</textarea>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>    
+    
+    
+    <div class="basket-products-buttons">
+        <button class="btn btn-default btn-back" data-request="onRunBasketShippingPayment"><span class="glyphicon glyphicon-chevron-left"></span> Back</button>
+        <button class="btn btn-primary" type="submit">Continue <span class="glyphicon glyphicon-chevron-right"></span></button>
+    </div>
+
+    {% endif %}
+</form>    
+</div>
+
+<script>
+    $("#copy_address").change(function () {
+        if ($(this).is(':checked')) {
+            $("#billing_address_group input[type=text]").prop('readonly', true);
+            
+            $("#billing_address_group input[type=text]").each( function( key, element ) {
+                val = $("#delivery_address_group input[type=text]:eq( "+key+" )").val();
+                $(element).val(val);
+            });
+        }
+        else {
+            $("#billing_address_group input[type=text]").prop('readonly', false);
+            $("#billing_address_group input[type=text]").each( function( key, element ) {
+                $(element).val("");
+            });
+        }
+    });
+</script>    

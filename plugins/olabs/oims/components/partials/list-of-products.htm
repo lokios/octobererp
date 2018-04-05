@@ -1,0 +1,68 @@
+    
+{% set index = 0 %}
+    {% for product in productsPagination.items()|slice(productsPagination.perPage()*(productsPagination.currentPage()-1), productsPagination.perPage()) %}
+        {# start row for each 4 products #}
+        {% if index==0 %}
+            <div class="row">
+        {% endif %}
+        {% set index = index+1 %}
+        
+    
+        <div class="col-sm-3">
+            <h3 class="cursor-pointer" onclick="location.href = '{{ product.url}}'">{{ product.title }}</h3>
+            <div class="product-description">{{ product.short_description ? product.short_description|raw : product.description|raw }}</div>
+            <div class="text-center">
+                {% if product.getMainImage %}
+                <img src="{{ product.getMainImage.thumb(auto,150, { extension: 'png' }) }}" class="img-responsive cursor-pointer" onclick="location.href = '{{ product.url}}'" >
+                {% endif %}
+            </div>
+            <h4>
+            {{ product.getFinalPriceFormated }}
+            </h4>
+            <div>
+                {% if product.isAllowOrder %}
+                    {% if product.properties|length > 0 %}
+                    <button type="button" class="btn btn-primary" onclick="location.href = '{{ product.url}}'"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> More info</button>
+                    {% else %}
+                    <button type="button" class="btn btn-primary" data-request-data="id: {{ product.id }}" data-request="onAddToBasket"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to Cart</button>
+                    {% endif %}
+                {% endif %}
+                <button type="button" class="btn btn-default" onclick="location.href = '{{ product.url}}'">Detail</button>
+            </div>
+        </div>
+        
+        {# end row for each 4 products #}
+        {% if index==4 %}
+            {% set index = 0 %}
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="no-data">no products</div>
+    {% endfor %}
+    
+        {# if we have on page less then 4 products #}
+        {% if index!=0 %}
+            {% set index = 0 %}
+            </div>
+        {% endif %}
+    
+    
+{% if productsPagination.lastPage > 1 %}
+<div class="pagination-wrapper">
+    <ul class="pagination">
+        {% if productsPagination.currentPage > 1 %}
+            <li><a href="{{ this.page.baseFileName|page({ (pageParam): (productsPagination.currentPage-1) }) }}">&larr; Prev</a></li>
+        {% endif %}
+
+        {% for page in 1..productsPagination.lastPage %}
+            <li class="{{ productsPagination.currentPage == page ? 'active' : null }}">
+                <a href="{{ this.page.baseFileName|page({ (pageParam): page }) }}">{{ page }}</a>
+            </li>
+        {% endfor %}
+
+        {% if productsPagination.lastPage > productsPagination.currentPage %}
+            <li><a href="{{ this.page.baseFileName|page({ (pageParam): (productsPagination.currentPage+1) }) }}">Next &rarr;</a></li>
+        {% endif %}
+    </ul>
+</div>
+{% endif %}

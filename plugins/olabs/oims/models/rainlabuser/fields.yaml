@@ -1,0 +1,95 @@
+# ===================================
+#  Extended Rainlab User model
+# ===================================
+
+oims_contact_email:
+    label: olabs.oims::lang.orders.contact_email
+    tab: olabs.oims::lang.plugin.name
+    span: auto
+oims_contact_phone:
+    label: olabs.oims::lang.orders.contact_phone
+    tab: olabs.oims::lang.plugin.name
+    span: auto   
+    
+oims_delivery_address_section:
+    label: olabs.oims::lang.orders.delivery_address_section
+    tab: olabs.oims::lang.plugin.name
+    type: section
+    span: auto
+oims_invoice_address_section:
+    label: olabs.oims::lang.orders.invoice_address_section
+    tab: olabs.oims::lang.plugin.name
+    type: section
+    span: auto
+
+oims_ds_first_name:
+    label: olabs.oims::lang.orders.ds_first_name
+    tab: olabs.oims::lang.plugin.name
+    span: auto    
+oims_is_first_name:
+    label: olabs.oims::lang.orders.is_first_name
+    tab: olabs.oims::lang.plugin.name
+    span: auto              
+
+oims_ds_last_name:
+    label: olabs.oims::lang.orders.ds_last_name
+    tab: olabs.oims::lang.plugin.name
+    span: auto    
+oims_is_last_name:
+    label: olabs.oims::lang.orders.is_last_name
+    tab: olabs.oims::lang.plugin.name
+    span: auto  
+
+oims_ds_address:
+    label: olabs.oims::lang.orders.ds_address
+    tab: olabs.oims::lang.plugin.name
+    span: auto    
+oims_is_address:
+    label: olabs.oims::lang.orders.is_address
+    tab: olabs.oims::lang.plugin.name
+    span: auto              
+
+oims_ds_address_2:
+    label: olabs.oims::lang.orders.ds_address_2
+    tab: olabs.oims::lang.plugin.name
+    span: auto    
+oims_is_address_2:
+    label: olabs.oims::lang.orders.is_address_2
+    tab: olabs.oims::lang.plugin.name
+    span: auto   
+
+oims_ds_postcode:
+    label: olabs.oims::lang.orders.ds_postcode
+    tab: olabs.oims::lang.plugin.name
+    span: auto    
+oims_is_postcode:
+    label: olabs.oims::lang.orders.is_postcode
+    tab: olabs.oims::lang.plugin.name
+    span: auto  
+
+oims_ds_city:
+    label: olabs.oims::lang.orders.ds_city
+    tab: olabs.oims::lang.plugin.name
+    span: auto    
+oims_is_city:
+    label: olabs.oims::lang.orders.is_city
+    tab: olabs.oims::lang.plugin.name
+    span: auto        
+
+oims_ds_county:
+    label: olabs.oims::lang.orders.ds_county
+    tab: olabs.oims::lang.plugin.name
+    span: auto    
+oims_is_county:
+    label: olabs.oims::lang.orders.is_county
+    tab: olabs.oims::lang.plugin.name
+    span: auto             
+
+oims_ds_country:
+    label: olabs.oims::lang.orders.ds_country
+    tab: olabs.oims::lang.plugin.name
+    span: auto    
+oims_is_country:
+    label: olabs.oims::lang.orders.is_country
+    tab: olabs.oims::lang.plugin.name
+    span: auto     

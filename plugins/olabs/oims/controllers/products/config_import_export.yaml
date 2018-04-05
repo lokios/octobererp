@@ -1,0 +1,16 @@
+# ===================================
+#  Import/Export Behavior Config
+# ===================================
+
+import:
+    title: Import Products
+    modelClass: Olabs\Oims\Models\ProductsImport
+    list: $/olabs/oims/models/product/columns.yaml
+#    form: $/olabs/oims/models/product/fields.yaml
+    redirect: olabs/oims/products
+
+export:
+    title: Export Products
+    modelClass: Olabs\Oims\Models\ProductsExport
+    list: $/olabs/oims/models/product/columns.yaml
+    redirect: olabs/oims/products

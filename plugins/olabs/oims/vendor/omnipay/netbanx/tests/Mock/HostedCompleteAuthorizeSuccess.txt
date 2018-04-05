@@ -1,0 +1,116 @@
+HTTP/1.1 200 OK
+Server: lighttpd
+Content-Length: 2464
+Content-Type: application/json; charset=utf-8
+Expires: Thu, 18 Aug 2016 01:21:30 GMT
+Cache-Control: max-age=0, no-cache, no-store
+Pragma: no-cache
+Date: Thu, 18 Aug 2016 01:21:30 GMT
+Connection: close
+
+{
+   "billingDetails":{
+      "city":"Birmingham",
+      "country":"BE",
+      "phone":"+447590664185",
+      "street":"48 Bartley Crescent",
+      "street2":"Northfield",
+      "zip":"32003"
+   },
+   "currencyCode":"GBP",
+   "customerNotificationEmail":"lukemh@gmail.com",
+   "extendedOptions":[
+      {
+         "key":"emailNotEditable",
+         "value":"1"
+      },
+      {
+         "key":"authType",
+         "value":"auth"
+      }
+   ],
+   "id":"284BRTAQFS63EOA1LD",
+   "link":[
+      {
+         "rel":"hosted_payment",
+         "uri":"https://pay.test.netbanx.com/hosted/v1/payment/53616c7465645f5fb214ae6cc7a30c729a22ef6ee3807fc273728346e3da30dcb22562168f2167d5"
+      },
+      {
+         "rel":"self",
+         "uri":"https://19101-1000032421:B-qa2-0-55660f4c-0-302c021417342c6271c1b34f2d3be450dd65975d0c1dbc4d02142e4f21f046260d2bf4b66c08c05e38d451e15d97@api.test.netbanx.com/hosted/v1/orders/284BRUC8S1JWBPI1LU"
+      },
+      {
+         "rel":"resend_callback",
+         "uri":"https://19101-1000032421:B-qa2-0-55660f4c-0-302c021417342c6271c1b34f2d3be450dd65975d0c1dbc4d02142e4f21f046260d2bf4b66c08c05e38d451e15d97@api.test.netbanx.com/hosted/v1/orders/284BRUC8S1JWBPI1LU/resend_callback"
+      },
+      {
+         "rel":"cancel_url",
+         "uri":"http://craft2x.craft.dev/shop/checkout/payment"
+      }
+   ],
+   "merchantRefNum":"942",
+   "redirect":[
+      {
+         "rel":"on_success",
+         "returnKeys":[
+            "id"
+         ],
+         "uri":"http://craft2x.craft.dev/index.php/actions/commerce/payments/completePayment?commerceTransactionId=942&commerceTransactionHash=0083a59699a0fb832ae946958367effb"
+      },
+      {
+         "rel":"on_error",
+         "returnKeys":[
+            "id",
+            "transaction.errorMessage"
+         ],
+         "uri":"http://craft2x.craft.dev/index.php/actions/commerce/payments/completePayment?commerceTransactionId=942&commerceTransactionHash=0083a59699a0fb832ae946958367effb"
+      },
+      {
+         "rel":"on_decline",
+         "returnKeys":[
+
+         ],
+         "uri":"http://craft2x.craft.dev/index.php/actions/commerce/payments/completePayment?commerceTransactionId=942&commerceTransactionHash=0083a59699a0fb832ae946958367effb"
+      }
+   ],
+   "shippingDetails":{
+      "city":"Birmingham",
+      "country":"BE",
+      "phone":"+447590664185",
+      "recipientName":"Josh Angell",
+      "street":"48 Bartley Crescent",
+      "street2":"Northfield",
+      "zip":"32003"
+   },
+   "totalAmount":301,
+   "transaction":{
+      "amount":"301",
+      "associatedTransactions":[
+
+      ],
+      "authCode":"657000",
+      "authType":"auth",
+      "card":{
+         "bin":"453091",
+         "brand":"visa",
+         "country":"ca",
+         "expiry":"02/2020",
+         "lastDigits":"2345",
+         "threeDEnrolment":"N",
+         "type":"credit"
+      },
+      "confirmationNumber":"361928800",
+      "currencyCode":"GBP",
+      "cvdVerification":"Matched",
+      "houseNumberVerification":"Matched",
+      "lastUpdate":"2016-08-18T01:21:00",
+      "merchantRefNum":"942",
+      "paymentType":"card",
+      "refunded":false,
+      "reversed":false,
+      "riskReasonCode":null,
+      "settled":false,
+      "status":"success",
+      "zipVerification":"Matched"
+   }
+}

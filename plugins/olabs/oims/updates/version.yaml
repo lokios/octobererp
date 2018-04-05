@@ -1,0 +1,567 @@
+1.0.1:
+    - 'First version of Oims'
+    - create_categories_table.php
+1.0.2:
+    - 'Add brands'
+    - create_brands_table.php
+1.0.3:
+    - 'Add Taxes'
+    - create_taxes_table.php
+1.0.4:
+    - 'Add Carriers'
+    - create_carriers_table.php
+1.0.5:
+    - 'Add Order Statuses'
+    - create_order_statuses_table.php
+1.0.6:
+    - 'Add Products'
+    - create_products_table.php
+    - create_products_categories.php
+    - create_products_carriers_disallowed.php
+    - create_products_products_featured.php
+    - create_products_products_accessories.php
+1.0.7:
+    - 'Add orders'
+    - create_orders_table.php
+1.0.8:
+    - 'Add support RainLab.User (sale for category, individual prices)'
+    - create_products_users_price.php
+    - create_categories_users_sale.php
+1.0.9:
+    - 'First Release'
+    - create_sample_data.php
+1.0.10:
+    - Fixes
+    - 'Component - My Orders - fix link on invoice'
+1.0.11:
+    - 'Backend - language files [EN], Fixes: Links featured + accessories, Basket - work with product minimum quantity, Complete Order - check stock before order'
+1.0.12:
+    - 'Automatic rounding into order total price - Paypal allow max 2 decimal places'
+1.0.13:
+    - 'Orders - fix search, add hidden fields into order list (Email, Phone, First name, Address, Postcode, City, Country), all fields are searchable'
+1.0.14:
+    - 'Fixes: Order detail -  names on list of customers, Orders list - little UI bug'
+1.0.15:
+    - 'Fix: Carrier - free shipping; Add: Italian translation'
+1.1.0:
+    - 'Properties - product properties: sizes, colors, etc.. (https://octobercms.com/plugin/olabs-oims#Properties)'
+    - create_properties_table.php
+    - create_property_options_table.php
+    - create_products_properties.php
+1.1.1:
+    - 'Add: Order - note, county; New page variables for components (Products By Category, Products By Brand)'
+    - update_111.php
+1.1.2:
+    - 'Add: Product - Advanced Properties ( You can add property options with pivot data: title, description, price difference, image ); Update Components: Basket, Product Detail'
+    - create_products_options.php
+1.1.3:
+    - 'Fix: Advanced Properties - Options - Order by'
+1.1.4:
+    - 'Add: Order - tracking number for tracking package'
+    - update_114.php
+1.2.0:
+    - 'Add: Stripe payment gateway'
+1.2.1:
+    - 'Add: Czech translation'
+1.2.2:
+    - 'Add: Settings - default image; Rainlab.User: save billing and delivery address into user; Products Components - add or extend order by'
+    - create_rainlab_extend_users.php
+1.2.3:
+    - 'Small fixes and improvements: add some language texts, page 404 for non-existent slug - products, categories, brands'
+1.2.4:
+    - 'Fix: order list - order by order status'
+1.3.0:
+    - 'Added translation support'
+1.3.1:
+    - 'Small Fixes'
+1.3.2:
+    - 'Fix name of Users without surname'
+1.4.0:
+    - 'Coupons - discount coupons (https://octobercms.com/plugin/olabs-oims#Coupons)'
+    - create_coupons_table.php
+    - create_coupons_categories.php
+    - create_coupons_products.php
+    - create_coupons_users.php
+    - udpate_orders_140.php
+1.4.1:
+    - 'Small Fixes in Coupons'
+1.4.2:
+    - 'Increased character limits (name, title, etc.) to 255'
+1.4.3:
+    - 'Add: German translation'
+1.4.4:
+    - 'Add Components: BrandDetails, BrandsList. Thanks to Nick Gavanozov'
+    - update_144.php
+1.4.5:
+    - 'Small Fix in Coupons - datepicker issue'
+1.4.6:
+    - 'Add Components: BreadcrumbsCategory, BreadcrumbsProduct'
+1.4.7:
+    - 'Component BreadcrumbsProduct - fix URL'
+1.5.0:
+    - 'Check upgrade guide before upgrading: Add payment gateways, remove previous payment system (https://octobercms.com/plugin/olabs-oims#upgrade)'
+    - create_payment_gateways_table.php
+    - update_orders_150.php
+1.5.1:
+    - 'Basket component: moved htm files into basket folder, for easy overriding. Payment Gateways: gateway title is translatable.'
+1.5.2:
+    - 'Small fixes: MyOrderDetail component, MyOrders component - if user or id order is bad, return 404, Add Foreign keys'
+    - update_152.php
+1.5.3:
+    - 'Basket Component: added method ''onGetSessionBasket'' - now you can easy call this method and get complete basket as JSON'
+1.5.4:
+    - 'Upgrade: Omnipay payment gateways, Small Fixes in Components'
+1.5.5:
+    - 'Add payment gateways: TwoCheckoutPlus, TwoCheckoutPlus_Token'
+1.5.6:
+    - 'Fixed DB error on some MySQL databases'
+1.5.7:
+    - 'Small fixes: Product Detail component fixed URL for accessories and featured products'
+1.5.8:
+    - 'Add: French translation (thanks Théo Corée)'
+1.5.9:
+    - 'Add security checks for payment components'
+1.6.0:
+    - 'Add Extended Inventory Management. OrderStatus - add new fields: disallow for gateway, qty decrease, qty increase back'
+    - update_statuses_160.php
+1.6.1:
+    - 'Created table olabs_oims_companies'
+    - builder_table_create_olabs_oims_companies.php
+1.6.2:
+    - 'Created table olabs_oims_projects'
+    - builder_table_create_olabs_oims_projects.php
+1.6.3:
+    - 'Add quotes'
+    - create_quotes_table.php
+1.6.4:
+    - 'Updated table olabs_oims_quotes'
+    - builder_table_update_olabs_oims_quotes.php
+1.6.5:
+    - 'Created table olabs_oims_quote_products'
+    - builder_table_create_olabs_oims_quote_products.php
+1.6.6:
+    - 'Updated table olabs_oims_quotes'
+    - builder_table_update_olabs_oims_quotes_2.php
+1.6.7:
+    - 'Updated table olabs_oims_quotes'
+    - builder_table_update_olabs_oims_quotes_3.php
+1.7.0:
+    - 'Created table olabs_oims_customers'
+    - builder_table_create_olabs_oims_customers.php
+1.7.1:
+    - 'Created table olabs_oims_suppliers'
+    - builder_table_create_olabs_oims_suppliers.php
+1.7.2:
+    - 'Updated table olabs_oims_customers'
+    - builder_table_update_olabs_oims_customers.php
+1.7.3:
+    - 'Created table olabs_oims_purchases'
+    - builder_table_create_olabs_oims_purchases.php
+1.7.4:
+    - 'Created table olabs_oims_purchase_products'
+    - builder_table_create_olabs_oims_purchase_products.php
+1.7.5:
+    - 'Created table olabs_oims_sales'
+    - builder_table_create_olabs_oims_sales.php
+1.7.6:
+    - 'Created table olabs_oims_sale_products'
+    - builder_table_create_olabs_oims_sale_products.php
+1.7.7:
+    - 'Updated table olabs_oims_sale_products'
+    - builder_table_update_olabs_oims_sales_products.php
+1.7.8:
+    - 'Created table olabs_oims_work_groups'
+    - builder_table_create_olabs_oims_work_groups.php
+1.7.9:
+    - 'Created table olabs_oims_project_works'
+    - builder_table_create_olabs_oims_project_works.php
+1.7.10:
+    - 'Created table olabs_oims_units'
+    - builder_table_create_olabs_oims_units.php
+1.7.11:
+    - 'Updated table olabs_oims_units'
+    - builder_table_update_olabs_oims_units.php
+1.7.12:
+    - 'Updated table olabs_oims_units'
+    - builder_table_update_olabs_oims_units_2.php
+1.7.13:
+    - 'Created table olabs_oims_project_work_materials'
+    - builder_table_create_olabs_oims_project_work_materials.php
+1.7.14:
+    - 'Updated table olabs_oims_project_work_materials'
+    - builder_table_update_olabs_oims_project_work_products.php
+1.7.15:
+    - 'Created table olabs_oims_project_progress'
+    - builder_table_create_olabs_oims_project_progress.php
+1.7.16:
+    - 'Created table olabs_oims_project_progress_items'
+    - builder_table_create_olabs_oims_project_progress_items.php
+1.7.17:
+    - 'Updated table olabs_oims_project_progress'
+    - builder_table_update_olabs_oims_project_progress.php
+1.7.18:
+    - 'Created table olabs_oims_statuses'
+    - builder_table_create_olabs_oims_statuses.php
+1.7.19:
+    - 'Created table olabs_oims_status_history'
+    - builder_table_create_olabs_oims_status_history.php
+1.7.20:
+    - 'Created table olabs_oims_user_projects'
+    - builder_table_create_olabs_oims_user_projects.php
+1.7.21:
+    - 'Updated table olabs_oims_quotes'
+    - builder_table_update_olabs_oims_quotes_4.php
+1.7.22:
+    - 'Updated table olabs_oims_quotes'
+    - builder_table_update_olabs_oims_quotes_5.php
+1.7.23:
+    - 'Updated table olabs_oims_quotes'
+    - builder_table_update_olabs_oims_quotes_6.php
+1.7.24:
+    - 'Updated table olabs_oims_quotes'
+    - builder_table_update_olabs_oims_quotes_7.php
+1.7.25:
+    - 'Updated table olabs_oims_purchases'
+    - builder_table_update_olabs_oims_purchases.php
+1.7.26:
+    - 'Updated table olabs_oims_sales'
+    - builder_table_update_olabs_oims_sales.php
+1.7.27:
+    - 'Updated table olabs_oims_sales'
+    - builder_table_update_olabs_oims_sales_2.php
+1.7.28:
+    - 'Updated table olabs_oims_sales'
+    - builder_table_update_olabs_oims_sales_3.php
+1.7.29:
+    - 'Updated table olabs_oims_products'
+    - builder_table_update_olabs_oims_products.php
+1.7.30:
+    - 'Updated table olabs_oims_purchase_products'
+    - builder_table_update_olabs_oims_purchase_products.php
+1.7.31:
+    - 'Updated table olabs_oims_sales_products'
+    - builder_table_update_olabs_oims_sales_products_2.php
+1.7.32:
+    - 'Updated table olabs_oims_quote_products'
+    - builder_table_update_olabs_oims_quote_products.php
+1.7.33:
+    - 'Updated table olabs_oims_purchases'
+    - builder_table_update_olabs_oims_purchases_2.php
+1.7.34:
+    - 'Updated table backend_users'
+    - builder_table_update_backend_users.php
+1.7.35:
+    - 'Updated table olabs_oims_companies'
+    - builder_table_update_olabs_oims_companies.php
+1.7.36:
+    - 'Updated table olabs_oims_projects'
+    - builder_table_update_olabs_oims_projects.php
+1.7.37:
+    - 'Updated table backend_users'
+    - builder_table_update_backend_users_2.php
+1.7.38:
+    - 'Updated table olabs_oims_companies'
+    - builder_table_update_olabs_oims_companies_2.php
+1.7.39:
+    - 'Created table olabs_oims_machineries'
+    - builder_table_create_olabs_oims_machineries.php
+1.7.40:
+    - 'Created table olabs_oims_manpowers'
+    - builder_table_create_olabs_oims_manpowers.php
+1.7.41:
+    - 'Created table olabs_oims_machinery_products'
+    - builder_table_create_olabs_oims_machinery_products.php
+1.7.42:
+    - 'Created table olabs_oims_manpower_products'
+    - builder_table_create_olabs_oims_manpower_products.php
+1.7.43:
+    - 'Created table olabs_oims_employee_type'
+    - builder_table_create_olabs_oims_employee_type.php
+1.7.44:
+    - 'Updated table olabs_oims_employee_type'
+    - builder_table_update_olabs_oims_employee_type.php
+1.7.45:
+    - 'Updated table olabs_oims_employee_type'
+    - builder_table_update_olabs_oims_employee_types.php
+1.8.1:
+    - 'Created table olabs_oims_offrole_employees'
+    - builder_table_create_olabs_oims_offrole_employees.php
+1.8.2:
+    - 'Updated table olabs_oims_offrole_employees'
+    - builder_table_update_olabs_oims_offrole_employees.php
+1.8.3:
+    - 'Updated table backend_users'
+    - builder_table_update_backend_users_3.php
+1.8.4:
+    - 'Updated table olabs_oims_offrole_employees'
+    - builder_table_update_olabs_oims_offrole_employees_2.php
+1.8.5:
+    - 'Created table olabs_oims_attendances'
+    - builder_table_create_olabs_oims_attendances.php
+1.8.6:
+    - 'Updated table olabs_oims_offrole_employees'
+    - builder_table_update_olabs_oims_offrole_employees_3.php
+1.8.7:
+    - 'Updated table olabs_oims_attendances'
+    - builder_table_update_olabs_oims_attendances.php
+1.8.8:
+    - 'Created table olabs_oims_expense_on_materials'
+    - builder_table_create_olabs_oims_expense_on_materials.php
+1.8.9:
+    - 'Created table olabs_oims_expense_on_material_products'
+    - builder_table_create_olabs_oims_expense_on_material_products.php
+1.8.10:
+    - 'Created table olabs_oims_expense_on_pc_products'
+    - builder_table_create_olabs_oims_expense_on_pc_products.php
+1.8.11:
+    - 'Created table olabs_oims_expense_on_pcs'
+    - builder_table_create_olabs_oims_expense_on_pcs.php
+1.8.12:
+    - 'Updated table olabs_oims_attendances'
+    - builder_table_update_olabs_oims_attendances_2.php
+1.8.13:
+    - 'Updated table olabs_oims_offrole_employees'
+    - builder_table_update_olabs_oims_offrole_employees_4.php
+1.8.14:
+    - 'Updated table olabs_oims_offrole_employees'
+    - builder_table_update_olabs_oims_offrole_employees_5.php
+1.8.15:
+    - 'Updated table olabs_oims_projects'
+    - builder_table_update_olabs_oims_projects_2.php
+1.8.16:
+    - 'Updated table olabs_oims_companies'
+    - BuilderTableUpdateOlabsOimsCompanies2.php
+1.8.17:
+    - 'Created table olabs_oims_bank_accounts'
+    - builder_table_create_olabs_oims_bank_accounts.php
+1.8.18:
+    - 'Created table olabs_oims_payment_receivables'
+    - builder_table_create_olabs_oims_payment_receivables.php
+1.8.19:
+    - 'Updated table olabs_oims_payment_receivables'
+    - builder_table_update_olabs_oims_payment_receivables.php
+1.8.20:
+    - 'Updated table olabs_oims_project_progress_items'
+    - builder_table_update_olabs_oims_project_progress_items.php
+1.8.21:
+    - 'Updated table olabs_oims_project_progress_items'
+    - builder_table_update_olabs_oims_project_progress_items_2.php
+1.9.0:
+    - 'Updated table olabs_oims_quotes'
+    - builder_table_update_olabs_oims_quotes_8.php
+1.9.1:
+    - 'Updated table olabs_oims_expense_on_pcs'
+    - builder_table_update_olabs_oims_expense_on_pcs.php
+1.9.2:
+    - 'Updated table olabs_oims_quotes'
+    - builder_table_update_olabs_oims_quotes_9.php
+1.9.3:
+    - 'Updated table olabs_oims_quotes'
+    - builder_table_update_olabs_oims_quotes_10.php
+1.9.4:
+    - 'Updated table olabs_oims_expense_on_pc_products'
+    - builder_table_update_olabs_oims_expense_on_pc_products.php
+1.9.5:
+    - 'Updated table olabs_oims_purchases'
+    - builder_table_update_olabs_oims_purchases_3.php
+1.9.6:
+    - 'Updated table olabs_oims_purchase_products'
+    - builder_table_update_olabs_oims_purchase_products_2.php
+1.9.7:
+    - 'Updated table olabs_oims_quotes'
+    - builder_table_update_olabs_oims_quotes_11.php
+1.9.8:
+    - 'Updated table olabs_oims_quotes'
+    - builder_table_update_olabs_oims_quotes_12.php
+1.9.9:
+    - 'Updated table olabs_oims_quotes'
+    - builder_table_update_olabs_oims_quotes_13.php
+1.9.10:
+    - 'Updated table olabs_oims_quotes'
+    - builder_table_update_olabs_oims_quotes_14.php
+1.9.11:
+    - 'Updated table olabs_oims_projects'
+    - builder_table_update_olabs_oims_projects_3.php
+1.9.12:
+    - 'Updated table backend_users'
+    - builder_table_update_backend_users_4.php
+1.9.13:
+    - 'Updated table olabs_oims_quotes'
+    - builder_table_update_olabs_oims_quotes_15.php
+1.9.14:
+    - 'Updated table olabs_oims_projects'
+    - builder_table_update_olabs_oims_projects_4.php
+1.9.15:
+    - 'Updated table olabs_oims_quote_products'
+    - builder_table_update_olabs_oims_quote_products_2.php
+1.9.16:
+    - 'Updated table olabs_oims_quotes'
+    - builder_table_update_olabs_oims_quotes_16.php
+1.9.17:
+    - 'Updated table olabs_oims_purchase_products'
+    - builder_table_update_olabs_oims_purchase_products_3.php
+1.9.18:
+    - 'Updated table olabs_oims_purchases'
+    - builder_table_update_olabs_oims_purchases_4.php
+1.9.19:
+    - 'Updated table olabs_oims_sales'
+    - builder_table_update_olabs_oims_sales_4.php
+1.9.20:
+    - 'Updated table olabs_oims_sales_products'
+    - builder_table_update_olabs_oims_sales_products_3.php
+1.9.21:
+    - 'Updated table olabs_oims_products'
+    - builder_table_update_olabs_oims_products_2.php
+1.9.22:
+    - 'Updated table olabs_oims_project_work_products'
+    - builder_table_update_olabs_oims_project_work_products_2.php
+1.9.23:
+    - 'Updated table olabs_oims_products_options'
+    - builder_table_update_olabs_oims_products_options.php
+1.9.24:
+    - 'Updated table olabs_oims_products_users_price'
+    - builder_table_update_olabs_oims_products_users_price.php
+1.9.25:
+    - 'Updated table olabs_oims_expense_on_material_products'
+    - builder_table_update_olabs_oims_expense_on_material_products.php
+1.9.26:
+    - 'Updated table olabs_oims_expense_on_materials'
+    - builder_table_update_olabs_oims_expense_on_materials.php
+1.9.27:
+    - 'Updated table olabs_oims_expense_on_pc_products'
+    - builder_table_update_olabs_oims_expense_on_pc_products_2.php
+1.9.28:
+    - 'Updated table olabs_oims_expense_on_pcs'
+    - builder_table_update_olabs_oims_expense_on_pcs_2.php
+1.9.29:
+    - 'Updated table olabs_oims_machineries'
+    - builder_table_update_olabs_oims_machineries.php
+1.9.30:
+    - 'Updated table olabs_oims_machinery_products'
+    - builder_table_update_olabs_oims_machinery_products.php
+1.9.31:
+    - 'Updated table olabs_oims_manpower_products'
+    - builder_table_update_olabs_oims_manpower_products.php
+1.9.32:
+    - 'Updated table olabs_oims_manpowers'
+    - builder_table_update_olabs_oims_manpowers.php
+1.9.33:
+    - 'Updated table olabs_oims_offrole_employees'
+    - builder_table_update_olabs_oims_offrole_employees_6.php
+1.9.34:
+    - 'Updated table olabs_oims_orders'
+    - builder_table_update_olabs_oims_orders.php
+1.9.35:
+    - 'Updated table olabs_oims_project_works'
+    - builder_table_update_olabs_oims_project_works.php
+1.9.36:
+    - 'Updated table olabs_oims_payment_receivables'
+    - builder_table_update_olabs_oims_payment_receivables_2.php
+1.10.1:
+    - 'Created table olabs_oims_assets'
+    - builder_table_create_olabs_oims_assets.php
+1.10.2:
+    - 'Updated table olabs_oims_assets'
+    - builder_table_update_olabs_oims_project_assets.php
+1.10.3:
+    - 'Drop table olabs_oims_assets_BIN'
+    - builder_table_delete_olabs_oims_assets_BIN.php
+1.10.4:
+    - 'Updated table olabs_oims_project_assets'
+    - builder_table_update_olabs_oims_project_assets_2.php
+1.10.5:
+    - 'Updated table olabs_oims_project_assets'
+    - builder_table_update_olabs_oims_project_assets_3.php
+1.10.6:
+    - 'Updated table olabs_oims_project_assets'
+    - builder_table_update_olabs_oims_project_assets_4.php
+1.10.7:
+    - 'Updated table olabs_oims_project_assets'
+    - builder_table_update_olabs_oims_project_assets_5.php
+1.10.8:
+    - 'Updated table olabs_oims_project_assets'
+    - builder_table_update_olabs_oims_project_assets_6.php
+1.10.9:
+    - 'Updated table olabs_oims_project_assets'
+    - builder_table_update_olabs_oims_project_assets_7.php
+1.10.10:
+    - 'Created table olabs_oims_project_asset_transfers'
+    - builder_table_create_olabs_oims_project_asset_transfers.php
+1.10.11:
+    - 'Updated table olabs_oims_project_asset_transfers'
+    - builder_table_update_olabs_oims_project_asset_transfers.php
+1.10.12:
+    - 'Created table olabs_oims_project_asset_damages'
+    - builder_table_create_olabs_oims_project_asset_damages.php
+1.10.13:
+    - 'Updated table olabs_oims_project_asset_damages'
+    - builder_table_update_olabs_oims_project_asset_damages.php
+1.10.14:
+    - 'Created table olabs_oims_project_asset_monitoring'
+    - builder_table_create_olabs_oims_project_asset_monitoring.php
+1.10.15:
+    - 'Updated table olabs_oims_project_asset_transfers'
+    - builder_table_update_olabs_oims_project_asset_transfers_2.php
+1.10.16:
+    - 'Updated table olabs_oims_project_asset_monitoring'
+    - builder_table_update_olabs_oims_project_asset_monitoring.php
+1.10.17:
+    - 'Updated table olabs_oims_project_asset_monitoring'
+    - builder_table_update_olabs_oims_project_asset_monitoring_2.php
+1.10.18:
+    - 'Updated table olabs_oims_project_assets'
+    - builder_table_update_olabs_oims_project_assets_8.php
+1.10.19:
+    - 'Updated table olabs_oims_project_asset_transfers'
+    - builder_table_update_olabs_oims_project_asset_transfers_3.php
+1.10.20:
+    - 'Updated table olabs_oims_project_asset_monitoring'
+    - builder_table_update_olabs_oims_project_asset_monitoring_3.php
+1.10.21:
+    - 'Updated table olabs_oims_project_asset_damages'
+    - builder_table_update_olabs_oims_project_asset_damages_2.php
+1.10.22:
+    - 'Updated table olabs_oims_project_assets'
+    - builder_table_update_olabs_oims_project_asset_purchases.php
+1.10.23:
+    - 'Created table olabs_oims_project_assets'
+    - builder_table_create_olabs_oims_project_assets.php
+1.10.24:
+    - 'Updated table olabs_oims_project_asset_damages'
+    - builder_table_update_olabs_oims_project_asset_damages_3.php
+1.10.25:
+    - 'Updated table olabs_oims_project_asset_transfers'
+    - builder_table_update_olabs_oims_project_asset_transfers_4.php
+1.10.26:
+    - 'Updated table olabs_oims_project_assets'
+    - builder_table_update_olabs_oims_project_assets_9.php
+1.10.27:
+    - 'Updated table olabs_oims_project_asset_purchases'
+    - builder_table_update_olabs_oims_project_asset_purchases_2.php
+1.11.1:
+    - 'Updated table olabs_oims_project_works'
+    - builder_table_update_olabs_oims_project_works_2.php
+1.11.2:
+    - 'Created table olabs_oims_pc_attendance'
+    - builder_table_create_olabs_oims_pc_attendance.php
+1.11.3:
+    - 'Created table olabs_oims_pc_attendance_details'
+    - builder_table_create_olabs_oims_pc_attendance_details.php
+1.11.4:
+    - 'Updated table olabs_oims_pc_attendance'
+    - builder_table_update_olabs_oims_pc_attendances.php
+1.11.5:
+    - 'Updated table olabs_oims_pc_attendance_details'
+    - builder_table_update_olabs_oims_pc_attendance_details.php
+1.11.6:
+    - 'Updated table olabs_oims_pc_attendance_details'
+    - builder_table_update_olabs_oims_pc_attendance_details_2.php
+1.11.7:
+    - 'Updated table olabs_oims_pc_attendance_details'
+    - builder_table_update_olabs_oims_pc_attendance_details_3.php
+1.11.8:
+    - 'Updated table olabs_oims_pc_attendance_details'
+    - builder_table_update_olabs_oims_pc_attendance_details_4.php
+1.11.9:
+    - 'Updated table olabs_oims_project_progress'
+    - builder_table_update_olabs_oims_project_progress_2.php

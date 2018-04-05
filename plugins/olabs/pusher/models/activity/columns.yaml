@@ -1,0 +1,32 @@
+columns:
+    id:
+        label: ID
+        type: text
+        searchable: true
+    tenant_id:
+        label: Tenant
+        type: text
+        searchable: true
+    title:
+        label: Title
+        type: text
+        searchable: true
+    status:
+        label: Status
+        type: text
+        searchable: true
+    created_at:
+        label: 'Created At'
+        type: text
+        searchable: true
+    published_date:
+        label: 'Published Date'
+        type: text
+        searchable: true
+    channel:
+        label: Channel
+        type: text
+        searchable: true
+    channel_type:
+        label: 'Channel Type'
+        type: text

@@ -1,0 +1,13 @@
+plugin:
+    name: 'olabs.pusher::lang.plugin.name'
+    description: 'olabs.pusher::lang.plugin.description'
+    author: olabs
+    icon: oc-icon-adjust
+    homepage: ''
+permissions:
+    send_push_messages:
+        tab: 'Push Permissions'
+        label: 'Send Push Messages'
+    manage_push:
+        tab: 'Push Permissions'
+        label: 'Manage Push'

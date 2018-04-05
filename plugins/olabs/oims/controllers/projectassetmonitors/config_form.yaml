@@ -1,0 +1,10 @@
+name: ProjectAssetMonitors
+form: $/olabs/oims/models/projectassetmonitor/fields.yaml
+modelClass: Olabs\Oims\Models\ProjectAssetMonitor
+defaultRedirect: olabs/oims/projectassetmonitors
+create:
+    redirect: 'olabs/oims/projectassetmonitors/update/:id'
+    redirectClose: olabs/oims/projectassetmonitors
+update:
+    redirect: olabs/oims/projectassetmonitors
+    redirectClose: olabs/oims/projectassetmonitors

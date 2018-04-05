@@ -1,0 +1,24 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    id:
+        label: olabs.oims::lang.brands.id
+        searchable: true
+        
+    title:
+        label: olabs.oims::lang.brands.title
+        searchable: true
+        
+    slug:
+        label: olabs.oims::lang.brands.slug
+        searchable: false
+        
+    active:
+        label: olabs.oims::lang.brands.active
+        type: switch
+        
+    show_in_menu:
+        label: olabs.oims::lang.brands.show_in_menu
+        type: switch     

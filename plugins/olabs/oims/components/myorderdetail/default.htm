@@ -1,0 +1,102 @@
+<h2>
+    Order No. {{ order.id }}
+    <span class="order-status" style="background-color: {{order.orderstatus.color}};">{{order.orderstatus.title }}</span>
+</h2>
+<div class="row">
+    <div class="col-sm-1">Invoice</div>
+    <div class="col-sm-2">
+        {% if order.invoice %}
+            <a href="{{order.invoice.path}}">{{order.invoice.title ? order.invoice.title : "invoice"}}</a>
+        {% else %}
+            no invoice
+        {% endif %}
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="col-sm-1">Payment</div>
+    <div class="col-sm-2">{{ order.getPaymentMethodLabel }}</div>
+    <div class="clearfix"></div>
+
+    <div class="col-sm-1">Date</div>
+    <div class="col-sm-2">{{ order.created_at ? order.created_at|date("d/m/Y") : "" }}</div>
+    <div class="clearfix"></div>
+
+    <div class="col-sm-1">Carrier</div>
+    <div class="col-sm-2">{{ order.carrier ? order.carrier.title : "" }}</div>
+    <div class="clearfix"></div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6">
+        <h4>Delivery address</h4>
+        <div>
+            {{ order.ds_first_name }} {{ order.ds_last_name }}<br>
+            {{ order.ds_address }}<br>
+            {{ order.ds_address_2 }}<br>
+            {{ order.ds_postcode }}<br>
+            {{ order.ds_city }}<br>
+            {{ order.ds_country }}<br>
+        </div>
+
+    </div>
+
+    <div class="col-sm-6">
+        <h4>Invoice address</h4>
+        <div>
+            {{ order.is_first_name }} {{ order.is_last_name }}<br>
+            {{ order.is_address }}<br>
+            {{ order.is_address_2 }}<br>
+            {{ order.is_postcode }}<br>
+            {{ order.is_city }}<br>
+            {{ order.is_country }}<br>
+        </div>
+
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<h4>Products</h4>
+<div class="table-wrapper">
+    <div class="table-title-row">
+        <div class="col-sm-7">Goods</div>
+        <div class="col-sm-2">Qty</div>
+        <div class="col-sm-3">Price incl. VAT</div>
+        <div class="clearfix"></div>
+    </div>
+    {% for product in order.extend_products_json  %}
+
+        <div class="table-data-row">
+            <div class="col-sm-7">
+                {% if (product.product) %}
+                    <img src="{{ product.product.images|length > 0 ? product.product.images[0].thumb(60,60) }}" alt="" onclick="location.href = '{{ product.product.url }}'">
+                    &nbsp;&nbsp;
+                    <a href="{{ product.product.url }}">
+                        {{ product.product.title }}
+                    </a>
+                {% else %}
+                    (no product data)
+                {% endif %}
+            </div>
+            <div class="col-sm-2">{{ product.quantity }}</div>
+            <div class="col-sm-3">{{ jkshopSetting.getPriceFormatted(product.total_price) }}</div>
+            <div class="clearfix"></div>
+        </div>
+    {% else %}
+        <div class="no-data">no products</div>
+    {% endfor %}
+    <div class="clearfix"></div>
+</div>
+
+<div class="row">
+    <div class="col-sm-2 col-sm-offset-9 text-right">Price excl. VAT</div>
+    <div class="col-sm-1">{{ jkshopSetting.getPriceFormatted(order.total_price_without_tax) }}</div>
+    <div class="clearfix"></div>
+
+    <div class="col-sm-2 col-sm-offset-9 text-right">VAT</div>
+    <div class="col-sm-1">{{ jkshopSetting.getPriceFormatted(order.total_tax) }}</div>
+    <div class="clearfix"></div>
+
+    <div class="col-sm-2 col-sm-offset-9 text-right">Price incl. VAT</div>
+    <div class="col-sm-1">{{ jkshopSetting.getPriceFormatted(order.total_price) }}</div>
+    <div class="clearfix"></div>
+</div>

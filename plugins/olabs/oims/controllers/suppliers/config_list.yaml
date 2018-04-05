@@ -1,0 +1,16 @@
+list: $/olabs/oims/models/supplier/columns.yaml
+modelClass: Olabs\Oims\Models\Supplier
+title: Suppliers
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+#recordUrl: 'olabs/oims/suppliers/preview/:id'
+recordUrl: 'olabs/oims/suppliers/update/:id'
+# Display checkboxes next to each record
+# showCheckboxes: true
+
+# filter: config_filter.yaml

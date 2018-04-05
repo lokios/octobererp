@@ -1,0 +1,44 @@
+columns:
+    id:
+        label: id
+        type: number
+    project_id:
+        label: Project
+        relation: project
+        select: name
+        searchable: false
+        sortable: false
+    product_id:
+        label: Product
+        relation: product
+        select: title
+#    condition:
+#        label: condition
+#        type: number
+#    unit_price:
+#        label: unit_price
+#        type: text
+    quantity:
+        label: quantity
+        type: text
+    context_date:
+        label: Purchase date
+        type: date
+        searchable: true
+        sortable: true  
+        
+    objectstatus:
+        label: Status
+        type: partial
+        path: ~/plugins/olabs/oims/models/status/_status_column.htm
+        searchable: false
+        sortable: false    
+#    total_price:
+#        label: total_price
+#        type: text
+#    status:
+#        label: status
+#        type: text
+#    type:
+#        label: type
+#        type: text

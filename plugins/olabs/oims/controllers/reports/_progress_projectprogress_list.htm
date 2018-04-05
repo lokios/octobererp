@@ -1,0 +1,208 @@
+<?
+$progress_items = [];
+
+$progress_rows = [];
+
+foreach($projectprogress as $progress){ 
+    $products = $progress->products ? $progress->products : array();
+    foreach($products as $product){
+        $work_name = '';
+        if($product->work){
+            $work_name = $product->work->name . " ({$product->work->unit})";
+        }
+        $progress_items[$product->work_id] = $work_name;
+        
+    }
+}
+
+//make date rows
+
+$from_date = strtotime($from_date);
+
+$summary_row = array();
+$summary_row['date'] = 'Total';
+$summary_row['total_spent'] = 0 ;
+$summary_row['total_billing'] = 0 ;
+
+foreach($progress_items as $key => $progress_item){
+    $summary_row[$key] = 0 ;
+}
+
+for($i = 0; $i < $total_days; $i++){
+    $today_date = date('Y-m-d', strtotime("+{$i} day", $from_date));
+    
+    //clone items;
+    $items = $progress_items;
+    
+    $total_billing = 0;
+    $total_spent = 0;
+    $temp_row = [];
+    $temp_row['date'] = date("d-m-Y", strtotime($today_date));
+    $temp_row['total_spent'] = 0 ;
+    $temp_row['total_billing'] = 0 ;
+    
+    foreach($progress_items as $key => $progress_item){
+        $temp_row[$key] = 0 ;
+        
+    }
+    
+    
+        
+    //Total Billing   
+    foreach($projectprogress as $progress){ 
+        $entry_date = date('Y-m-d', strtotime($progress->start_date));
+        if($entry_date == $today_date)
+        {
+            $products = $progress->products ? $progress->products : array();
+            foreach($products as $product){
+                $temp_row[$product->work_id] += $product->quantity;
+                $total_billing += $product->total_price;
+                
+                //Summary Total
+                $summary_row[$product->work_id] += $product->quantity ;
+            }
+        }
+    }
+    
+    //Total Spent
+    foreach($manpowers as $data){  
+        $products = $data->products ? $data->products : array();
+        $entry_date = date('Y-m-d', strtotime($data->context_date));
+        if($entry_date == $today_date)
+        {
+            $total_spent += $data->total_price;
+        }
+    }
+    foreach($machineries as $data){  
+        $products = $data->products ? $data->products : array();
+        $entry_date = date('Y-m-d', strtotime($data->context_date));
+        if($entry_date == $today_date)
+        {
+            $total_spent += $data->total_price;
+        }
+    }
+    foreach($expenseOnPcs as $data){  
+        $products = $data->products ? $data->products : array();
+        $entry_date = date('Y-m-d', strtotime($data->context_date));
+        if($entry_date == $today_date)
+        {
+            $total_spent += $data->total_price;
+        }
+    }
+    foreach($expenseOnMaterials as $data){  
+        $products = $data->products ? $data->products : array();
+        $entry_date = date('Y-m-d', strtotime($data->context_date));
+        if($entry_date == $today_date)
+        {
+            $total_spent += $data->total_price;
+        }
+    }
+    
+    //Fix Expense
+    $total_spent += $fix_expense;
+    
+    $temp_row['total_spent'] = $total_spent;
+    $temp_row['total_billing'] = $total_billing;
+    
+    //Grand Total
+    $summary_row['total_spent'] += $total_spent;
+    $summary_row['total_billing'] += $total_billing;
+    
+    $progress_rows[$today_date] = $temp_row;
+}
+
+
+$net_profit = $summary_row['total_billing'] - $summary_row['total_spent'];
+$profit_percentage = 0;
+$row_class = '';
+if($summary_row['total_spent'] > 0) {
+    $profit_percentage = $net_profit / $summary_row['total_spent'] * 100;
+}
+if($net_profit > 0){
+    $row_class = 'profit-positive';
+}
+if($net_profit < 0){
+    $row_class = 'profit-negative';
+}
+
+?>
+
+<style>
+    .profit-positive{
+        color:green;
+    }
+    .profit-negative{
+        color:red;
+    }
+    </style>
+
+
+<div class="page-header">
+    
+    <h3><small>Progress Report</small></h3>
+</div>
+<table class="table table-bordered">
+    <thead> 
+        <tr> 
+            <th>Date</th> 
+            <th>Total Amount Spent</th> 
+            <th>Billing Amount</th> 
+            <? foreach($progress_items as $progress_item){ ?>
+            
+                <th><?=$progress_item?></th> 
+            <? } ?>
+            
+        </tr> 
+    </thead> 
+    <tbody>
+        <? foreach($progress_rows as $progress_row){ ?>
+            
+        <tr>
+            <? foreach($progress_row as $key => $row){ ?>
+                <? if(in_array($key, ['total_spent', 'total_billing'])) { ?>
+                    <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($row)?></td>
+                <? } else { ?>
+                    <td><?=$row?></td>
+                <? } ?>
+            
+            <? } ?>
+        </tr>
+            <? } ?>
+            <tr>
+                <? foreach($summary_row as $key => $row){ ?>
+                <? if(in_array($key, ['total_spent', 'total_billing'])) { ?>
+                <td><b><?=$oimsSetting->getPriceFormattedWithoutCurrency($row)?></b></td>
+                <? } else { ?>
+                <td><b><?=$row?></b></td>
+                <? } ?>
+                <? } ?>
+            </tr>
+
+        
+
+    </tbody> </table>
+
+<div class="page-header">
+    
+    <h3><small>Net Profile / Loss</small></h3>
+</div>
+
+<table class="table table-bordered">
+    <thead> 
+        <tr> 
+            <th>DESCRIPTION</th> 
+            <th>AMOUNT</th> 
+        </tr> 
+    </thead> 
+    <tbody>
+        <tr>
+            <th>NET  PROFIT & LOSS</th>
+            <td><span class="<?=$row_class?>"><?=$oimsSetting->getPriceFormattedWithoutCurrency($net_profit)?></span> </td>
+        </tr>
+        
+        <tr>
+            <th>NET  PROFIT & LOSS IN %AGE</th>
+            <td><span class="<?=$row_class?>"><?=$oimsSetting->getPriceFormattedWithoutCurrency($profit_percentage)?> % </span></td>
+        </tr>
+        
+    </tbody> </table>

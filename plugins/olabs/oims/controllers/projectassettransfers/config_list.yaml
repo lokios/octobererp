@@ -1,0 +1,11 @@
+list: $/olabs/oims/models/projectassettransfer/columns.yaml
+modelClass: Olabs\Oims\Models\ProjectAssetTransfer
+title: ProjectAssetTransfers
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'olabs/oims/projectassettransfers/update/:id'

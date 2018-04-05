@@ -1,0 +1,66 @@
+<?php if (count($items)): ?>
+<input type="hidden" id='temp_total_price' value="<?= $total_price?>">
+<div class="list-preview list-flush">
+    <div class="control-list">
+        <table class="table data" data-control="rowlink">
+            <thead>
+                <tr>
+                    <th><span>Product</span></th>
+                    <th><span>Unit</span></th>
+                    <th><span>Unit Price</span></th>
+                    <th><span>Quantity</span></th>
+                    <th><span>Total Price</span></th>
+                    <th><span>Remark</span></th>
+                    <th style="width: 10%"><span></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($items as $item): ?>
+                <tr>
+                    <td>
+
+                        <?= e($item->product ? $item->product->title : 'Unknown') ?>
+
+
+                    </td>
+                    <td>
+                        <?= e($item->unit) ?>
+                    </td>
+                    <td>
+                        <?= e($item->unit_price) ?>
+                    </td>
+                    <td>
+                        <?= e($item->quantity) ?>
+                    </td>
+                    <td>
+                        <?= e($item->total_price) ?>
+                    </td>
+                    <td>
+                        <?= e($item->remark) ?>
+                    </td>                    
+                    <td class="nolink text-right">
+                        <? if(isset($this->vars['formContext']) && $this->vars['formContext'] != 'preview'): ?>
+                        <a
+                            href="javascript:;"
+                            class="oc-icon-edit"
+                            data-control="popup"
+                            data-handler="onLoadUpdateProductForm"
+                            data-request-data="record_id: '<?= $item->id ?>',expense_on_material_id: '<?=$item->expense_on_material_id?>'"
+                            data-size="large"></a>
+                        <a
+                            href="javascript:;"
+                            data-request="onDeleteProduct"
+                            data-request-data="record_id: '<?= $item->id ?>', expense_on_material_id: '<?= $item->expense_on_material_id ?>'"
+                            data-request-confirm="Delete this product?"
+                            class="oc-icon-remove"
+                            data-toggle="tooltip"
+                            title="Remove"></a>
+                        <?php endif ?>
+                    </td>
+                </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<?php endif ?>

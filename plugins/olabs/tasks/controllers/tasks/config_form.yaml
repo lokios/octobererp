@@ -1,0 +1,10 @@
+name: Tasks
+form: $/olabs/tasks/models/tasks/fields.yaml
+modelClass: Olabs\Tasks\Models\Tasks
+defaultRedirect: olabs/tasks/tasks
+create:
+    redirect: 'olabs/tasks/tasks/update/:id'
+    redirectClose: olabs/tasks/tasks
+update:
+    redirect: olabs/tasks/tasks
+    redirectClose: olabs/tasks/tasks

@@ -1,0 +1,30 @@
+# ===================================
+# Filter Scope Definitions
+# ===================================
+
+scopes:
+
+    salesstatus:
+        label: olabs.oims::lang.sales.salesstatus
+        modelClass: Olabs\Oims\Models\Status
+        nameFrom: name
+        conditions: status in (:filtered)
+    
+    project:
+        label: Project
+        modelClass: Olabs\Oims\Models\BaseModel
+        nameFrom: name
+        options: getProjectOptions
+        conditions: project_id in (:filtered)
+
+    context_date:
+        label: Date
+        type: date
+        # Scope Conditions (match against a timestamp column for the whole day)
+        conditions: context_date >= ':filtered 00:00:00' AND context_date <= ':filtered 23:59:59'
+
+#    carrier:
+#        label: olabs.oims::lang.sales.carrier
+#        modelClass: Olabs\Oims\Models\Carrier
+#        nameFrom: title
+#        conditions: carrier_id in (:filtered)       

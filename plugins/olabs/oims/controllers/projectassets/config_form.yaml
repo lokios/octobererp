@@ -1,0 +1,11 @@
+name: ProjectAssets
+#form: $/olabs/oims/models/projectasset/asset_search_fields.yaml
+form: $/olabs/oims/models/projectasset/fields.yaml
+modelClass: Olabs\Oims\Models\ProjectAsset
+defaultRedirect: olabs/oims/projectassets
+create:
+    redirect: 'olabs/oims/projectassets/update/:id'
+    redirectClose: olabs/oims/projectassets
+update:
+    redirect: olabs/oims/projectassets
+    redirectClose: olabs/oims/projectassets

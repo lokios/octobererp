@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: olabs.oims::lang.properties.menu_label_single
+
+# Model Form Field configuration
+form: $/olabs/oims/models/property/fields.yaml
+
+# Model Class name
+modelClass: Olabs\Oims\Models\Property
+
+# Default redirect location
+defaultRedirect: olabs/oims/properties
+
+# Create page
+create:
+    title: olabs.oims::lang.properties.create
+    redirect: olabs/oims/properties/update/:id
+    redirectClose: olabs/oims/properties
+
+# Update page
+update:
+    title: olabs.oims::lang.properties.create
+    redirect: olabs/oims/properties
+    redirectClose: olabs/oims/properties
+
+# Preview page
+preview:
+    title: olabs.oims::lang.properties.create

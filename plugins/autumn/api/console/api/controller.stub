@@ -1,0 +1,30 @@
+<?php
+
+namespace {{studly_author}}\{{studly_plugin}}\Http\Controllers;
+
+use {{studly_author}}\{{studly_plugin}}\Models\{{studly_model}};
+use {{studly_author}}\{{studly_plugin}}\Http\Transformers\{{studly_transformer}};
+use Autumn\Api\Classes\ApiController;
+
+class {{studly_controller}} extends ApiController
+{
+    /**
+     * Eloquent model.
+     *
+     * @return \October\Rain\Database\Model
+     */
+    protected function model()
+    {
+        return new {{studly_model}};
+    }
+
+    /**
+     * Transformer for the current model.
+     *
+     * @return \League\Fractal\TransformerAbstract
+     */
+    protected function transformer()
+    {
+        return new {{studly_transformer}};
+    }
+}

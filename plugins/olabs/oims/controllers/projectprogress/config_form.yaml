@@ -1,0 +1,10 @@
+name: ProjectProgress
+form: $/olabs/oims/models/projectprogress/fields.yaml
+modelClass: Olabs\Oims\Models\ProjectProgress
+defaultRedirect: olabs/oims/projectprogress
+create:
+    redirect: 'olabs/oims/projectprogress/update/:id'
+    redirectClose: olabs/oims/projectprogress
+update:
+    redirect: olabs/oims/projectprogress
+    redirectClose: olabs/oims/projectprogress

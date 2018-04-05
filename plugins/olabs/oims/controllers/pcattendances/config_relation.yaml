@@ -1,0 +1,12 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+pcattendanceProducts:
+    label: PC Attendance
+    manage:
+        form: $/olabs/oims/models/pcattendancedetail/fields.yaml
+        list: $/olabs/oims/models/pcattendancedetail/columns.yaml
+    view:
+        list: $/olabs/oims/models/pcattendancedetail/columns.yaml
+        toolbarButtons: create|delete

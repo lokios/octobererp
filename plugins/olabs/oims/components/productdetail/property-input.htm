@@ -1,0 +1,86 @@
+{% if (property.type == 1) %}
+
+    <select 
+        name="options[{{ property.id }}]" 
+        class="form-control" 
+        placeholder="{{ property.placeholder }}" 
+        data-request="onChangePropertyOption"
+        data-request-success="onChangePropertyOptionSuccess(data)"
+        {{ property.required ? "required='true'" : "" }}
+        >
+        
+      {% for option in property.getCurrentOptions(product) %}
+        <option value="{{ option.title }}">{{ option.title }}</option>
+      {% endfor %}
+      
+    </select>
+
+
+{% elseif property.type == 2 %}
+
+    <select 
+        name="options[{{ property.id }}][]" 
+        class="form-control" 
+        placeholder="{{ property.placeholder }}" 
+        data-request="onChangePropertyOption"
+        data-request-success="onChangePropertyOptionSuccess(data)"
+        multiple='true'
+        {{ property.required ? "required='true'" : "" }}
+        >
+        
+      {% for option in property.getCurrentOptions(product) %}
+        <option value="{{ option.title }}">{{ option.title }}</option>
+      {% endfor %}
+      
+    </select>
+
+{% elseif property.type == 3 %}
+
+    <input 
+        name="options[{{ property.id }}]" 
+        type="text" 
+        class="form-control" 
+        placeholder="{{ property.placeholder }}"
+        {{ property.required ? "required='true'" : "" }}
+        >
+    
+{% elseif property.type == 4 %}
+
+    <input 
+    name="options[{{ property.id }}]" 
+    type="number" 
+    class="form-control" 
+    placeholder="{{ property.placeholder }}"
+    {{ property.required ? "required='true'" : "" }}
+    >
+    
+{% elseif property.type == 5 %}
+
+    <div class="checkbox">
+        <input name="options[{{ property.id }}]" type="hidden" value="no">
+        <label>
+            <input 
+                name="options[{{ property.id }}]" 
+                type="checkbox" 
+                value="yes" 
+                placeholder="{{ property.placeholder }}"
+                {{ property.required ? "required='true'" : "" }}
+                >{{ property.placeholder }}
+        </label>
+    </div>
+
+{% endif %}
+
+<script>
+function onChangePropertyOptionSuccess(data) {
+    var mainImageSrc = data["product-main-image"];
+    console.log(data["product-main-image"]);
+    if (mainImageSrc!= "") {
+        $("#product-detail-main-image img").attr("src", mainImageSrc);
+        $(".product-detail-list-of-images img:first").attr("src", mainImageSrc);
+        $(".product-detail-list-of-images a:first").attr("href", mainImageSrc);
+    }
+}
+    
+</script>
+    

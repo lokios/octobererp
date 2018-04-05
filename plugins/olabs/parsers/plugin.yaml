@@ -1,0 +1,6 @@
+plugin:
+    name: 'olabs.parsers::lang.plugin.name'
+    description: 'olabs.parsers::lang.plugin.description'
+    author: olabs
+    icon: oc-icon-adjust
+    homepage: ''

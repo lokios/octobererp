@@ -1,0 +1,4 @@
+title: Purchases
+modelClass: Olabs\Oims\Models\Purchase
+toolbar:
+    buttons: reorder_toolbar

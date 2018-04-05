@@ -1,0 +1,91 @@
+fields:
+    name:
+        label: Name
+        oc.commentPosition: ''
+        span: auto
+        type: text
+#    address:
+#        label: Address
+#        size: ''
+#        oc.commentPosition: ''
+#        span: auto
+#        type: textarea
+    company:
+        label: Company
+        oc.commentPosition: ''
+        nameFrom: name
+        descriptionFrom: description
+#        list: $/olabs/oims/models/company/columns.yaml
+        span: auto
+        type: relation
+    status:
+        label: Status
+        span: auto
+        type: switch
+        default: true
+    fix_expense:
+        label: Project Fix Expense
+        oc.commentPosition: ''
+        span: auto
+        type: number
+        default: '0'
+tabs:
+    fields:
+        contact_person:
+            label: Contact Person
+            tab: Details
+            span: auto
+        contact_email:
+            label: Contact Email
+            tab: Details
+            span: auto
+        contact_phone:
+            label: Contact Phone
+            tab: Details
+            span: auto   
+        address:
+            label: Address
+            tab: Details
+            span: auto 
+        address_2:
+            label: Address 2
+            tab: Details
+            span: auto
+        postcode:
+            label: Postcode
+            tab: Details
+            span: auto 
+        city:
+            label: City
+            tab: Details
+            span: auto 
+        country:
+            label: Country
+            tab: Details
+            span: auto 
+        
+        billing_address:
+            label: Address
+            tab: Billing Address
+            span: auto 
+        billing_address_2:
+            label: Address 2
+            tab: Billing Address
+            span: auto
+        billing_postcode:
+            label: Postcode
+            tab: Billing Address
+            span: auto 
+        billing_city:
+            label: City
+            tab: Billing Address
+            span: auto 
+        billing_country:
+            label: Country
+            tab: Billing Address
+            span: auto 
+            
+        gst_number:
+            label: GST Number
+            tab: Details
+            span: auto 

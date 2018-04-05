@@ -1,0 +1,66 @@
+<style>
+    .profit-positive{
+        color:green;
+    }
+    .profit-negative{
+        color:red;
+    }
+    </style>
+<div class="page-header">
+    <h3><small>SUMMARY</small></h3>
+</div>
+<table class="table table-bordered">
+    <thead> 
+        <tr> 
+            <th>DESCRIPTION</th> 
+            <th>AMOUNT</th> 
+        </tr> 
+    </thead> 
+    <tbody>
+        <?php 
+        $row_class = '';
+        $fix_expense = $fix_expense * $total_days;
+        $total_expense = $fix_expense + $grand_total;
+        $net_profit = $progress_total - $total_expense;
+        $profit_percentage = 0;
+        if($progress_total > 0) {
+            $profit_percentage = $net_profit / $progress_total * 100;
+        }
+        if($net_profit > 0){
+            $row_class = 'profit-positive';
+        }
+        if($net_profit < 0){
+            $row_class = 'profit-negative';
+        }
+        
+        ?>
+        <tr> 
+            <th scope="row">TOTAL EXPENSE (B+C+D+E)</th> 
+            <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($grand_total)?></td>
+        </tr> 
+        <tr> 
+            <th scope="row">TOTAL FIX EXPENSE (Total Days <?=$total_days?>)</th> 
+            <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($fix_expense)?></td>
+        </tr> 
+        <tr> 
+            <th scope="row">GRAND TOTAL EXPENSE</th> 
+            <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($total_expense)?></td>
+        </tr> 
+        <tr> 
+            <th scope="row">NET WORK DONE(A)</th> 
+            <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($progress_total)?></td>
+        </tr> 
+        <tr> 
+            <th scope="row">NET  PROFIT & LOSS</th> 
+            <td><span class="<?=$row_class?>"><?=$oimsSetting->getPriceFormattedWithoutCurrency($net_profit)?></span> </td>
+        </tr> 
+        <tr> 
+            <th scope="row">NET  PROFIT & LOSS IN %AGE</th> 
+            <td><span class="<?=$row_class?>"><?=$oimsSetting->getPriceFormattedWithoutCurrency($profit_percentage)?> % </span></td>
+        </tr> 
+ 
+
+
+        
+    </tbody> </table>
+

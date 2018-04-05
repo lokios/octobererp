@@ -1,0 +1,42 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    id:
+        label: olabs.oims::lang.products.id
+        searchable: true
+    barcode:
+        label: Barcode
+#        relation: images
+        type: partial
+        path: ~/plugins/olabs/oims/models/product/_barcode_column.htm
+        
+#    image:
+#        label: olabs.oims::lang.products.image
+#        type: partial
+#        path: ~/plugins/olabs/oims/models/product/_image_column.htm
+        
+    title:
+        label: olabs.oims::lang.products.title
+        searchable: true        
+        
+          
+    unit:
+        label: Unit
+        type: text
+#    pre_tax_retail_price:
+#        label: olabs.oims::lang.products.pre_tax_retail_price
+        
+    retail_price_with_tax:
+        label: Price
+        searchable: true  
+        sortable: true  
+        
+    quantity:
+        label: olabs.oims::lang.products.quantity    
+        type: partial
+        path: ~/plugins/olabs/oims/models/product/_quantity_column.htm
+    active:
+        label: Status
+        type: switch  

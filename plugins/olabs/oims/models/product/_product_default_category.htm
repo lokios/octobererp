@@ -1,0 +1,17 @@
+<?php
+
+if ($record->product_id > 0) {
+    // Product exist
+    $product = \Olabs\Oims\Models\Product::find($record->product_id);
+    if ($product->default_category!=null) {
+        echo $product->default_category->title;
+    }
+    else {
+        echo "N/A";
+    }
+}
+
+
+?>
+
+

@@ -1,0 +1,10 @@
+name: OffRoleEmployee
+form: $/olabs/oims/models/offroleemployee/fields.yaml
+modelClass: Olabs\Oims\Models\OffroleEmployee
+defaultRedirect: olabs/oims/offroleemployees
+create:
+    redirect: 'olabs/oims/offroleemployees/update/:id'
+    redirectClose: olabs/oims/offroleemployees
+update:
+    redirect: olabs/oims/offroleemployees
+    redirectClose: olabs/oims/offroleemployees

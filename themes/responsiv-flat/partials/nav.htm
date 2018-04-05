@@ -1,0 +1,93 @@
+
+{# Note: Only one levels of sublinks are supported by Bootstrap 3 #}
+{% set
+    links = {
+        'home': ['home', 'Home'],
+        'pages': {
+            name: 'Pages',
+            sublinks: {
+                'about':         ['samples/about', 'About Us'],
+                'contact':       ['samples/contact', 'Contact Us'],
+                'pricing-table': ['samples/pricing-table', 'Pricing Table'],
+                'services':      ['samples/services', 'Services'],
+                'signin':        ['samples/signin', 'Sign In'],
+                'register':      ['samples/register', 'Register'],
+                'error':         ['error', 'Error Page'],
+                '404':           ['404', '404 Page'],
+            },
+        },
+        'portfolio': {
+            name: 'Portfolio',
+            sublinks: {
+                'portfolio': ['portfolio/portfolio', 'Portfolio'],
+                'project': ['portfolio/project', 'Project'],
+            },
+        },
+        'blog': {
+            name: 'Blog',
+            sublinks: {
+                'blog': ['blog/blog', 'Blog'],
+                'post': ['blog/post', 'Blog Post'],
+            },
+        },
+        'shop': {
+            name: 'Shop',
+            sublinks: {
+                'shop': ['shop/shop', 'Shop'],
+                'product': ['shop/product', 'Product'],
+                'cart': ['shop/cart', 'Cart'],
+            },
+        },
+        'ui-elements': ['ui-elements', 'UI Elements'],
+
+    }
+%}
+
+{% macro render_menu(links) %}
+    {% for code, link in links %}
+        <li class="{{ code == currentPage ? 'active' }} {{ link.sublinks ? 'dropdown' }}">
+            <a
+                href="{{ link.sublinks ? '#' : (link.page ?: link[0])|page }}"
+                {% if link.sublinks %}data-toggle="dropdown"{% endif %}
+                class="{{ link.sublinks ? 'dropdown-toggle' }}"
+            >
+                {{ link.name ?: link[1] }}
+                {% if link.sublinks %}<span class="caret"></span>{% endif %}
+            </a>
+            {% if link.sublinks %}
+                <span class="dropdown-arrow"></span>
+                <ul class="dropdown-menu">
+                    {{ _self.render_menu(link.sublinks) }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endfor %}
+{% endmacro %}
+
+{% import _self as nav %}
+
+<nav id="layout-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ 'home'|page }}">Flat</a>
+        </div>
+        <div class="collapse navbar-collapse navbar-main-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                {{ nav.render_menu(links) }}
+                <li>
+                    <button
+                        onclick="window.location='{{ 'samples/signin'|page }}'"
+                        class="btn btn-sm navbar-btn btn-primary navbar-right hidden-sm hidden-xs">
+                        Sign in
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

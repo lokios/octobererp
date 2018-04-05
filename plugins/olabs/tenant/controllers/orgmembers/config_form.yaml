@@ -1,0 +1,10 @@
+name: OrgMembers
+form: $/olabs/tenant/models/members/fields.yaml
+modelClass: Olabs\Tenant\Models\Members
+defaultRedirect: olabs/tenant/orgmembers
+create:
+    redirect: 'olabs/tenant/orgmembers/update/:id'
+    redirectClose: olabs/tenant/orgmembers
+update:
+    redirect: olabs/tenant/orgmembers
+    redirectClose: olabs/tenant/orgmembers

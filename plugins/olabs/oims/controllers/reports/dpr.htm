@@ -1,0 +1,63 @@
+<?php Block::put('breadcrumb') ?>
+<ul>
+    <li>DPR Report</li>
+</ul>
+<?php Block::endPut() ?>
+
+<?= Form::open(['class' => 'layout2']) ?>
+<div class="layout-row2">
+    <?= $searchFormWidget->render() ?>
+</div>
+<div class="form-buttons">
+    <div class="loading-indicator-container">
+        <button
+            type="submit"
+            data-request="onDprSearch"
+            data-request-data="refresh:0"
+            data-hotkey="ctrl+s, cmd+s"
+            data-load-indicator="Searching.."
+            data-request-update="dpr_projectprogress_list: '#projectprogressDiv' ,dpr_manpower_list: '#manpowerDiv' , dpr_machinery_list: '#machineryDiv' , dpr_expense_on_material_list: '#expenseOnMaterialDiv' , dpr_expense_on_pc_list: '#expenseOnPcDiv',  dpr_summary: '#dprSummaryDiv' , no_result: '#noResultDiv' "
+            class="btn btn-primary">
+            Search
+        </button>
+        
+        <button
+            type="submit"
+            data-request="onDprExport"
+            
+            class="btn btn-primary">
+            Export
+        </button>
+    </div>
+</div>
+<?= Form::close() ?>
+<div id="exportDiv"></div>
+
+<div id="noResultDiv">
+    <?= $this->makePartial('no_result', ['reports' => $projectprogress, 'search' => $search , 'msg' => $msg]) ?>
+</div>
+
+<div id="projectprogressDiv">
+    <?= $this->makePartial('dpr_projectprogress_list', ['projectprogress' => $projectprogress,'oimsSetting' => $oimsSetting]) ?>
+</div>
+
+<div id="manpowerDiv">
+    <?= $this->makePartial('dpr_manpower_list', ['manpowers' => $manpowers,'oimsSetting' => $oimsSetting]) ?>
+</div>
+
+<div id="machineryDiv">
+    <?= $this->makePartial('dpr_machinery_list', ['machineries' => $machineries,'oimsSetting' => $oimsSetting]) ?>
+</div>
+
+<div id="expenseOnPcDiv">
+    <?= $this->makePartial('dpr_expense_on_pc_list', ['expenseOnPcs' => $expenseOnPcs,'oimsSetting' => $oimsSetting]) ?>
+</div>
+
+<div id="expenseOnMaterialDiv">
+    <?= $this->makePartial('dpr_expense_on_material_list', ['expenseOnMaterials' => $expenseOnMaterials,'oimsSetting' => $oimsSetting]) ?>
+</div>
+
+<div id="dprSummaryDiv">
+    <?= $this->makePartial('dpr_summary', ['grand_total' => $grand_total,'progress_total' => $progress_total,'fix_expense' => $fix_expense,'oimsSetting' => $oimsSetting]) ?>
+</div>
+

@@ -1,0 +1,12 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+purchaseProducts:
+    label: Offrole Employees
+    manage:
+        form: $/olabs/oims/models/offroleemployee/fields.yaml
+        list: $/olabs/oims/models/offroleemployee/columns.yaml
+    view:
+        list: $/olabs/oims/models/offroleemployee/columns.yaml
+        toolbarButtons: create|delete

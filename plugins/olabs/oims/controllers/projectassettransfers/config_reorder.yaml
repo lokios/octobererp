@@ -1,0 +1,4 @@
+title: ProjectAssetTransfers
+modelClass: Olabs\Oims\Models\ProjectAssetTransfer
+toolbar:
+    buttons: reorder_toolbar

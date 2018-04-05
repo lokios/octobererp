@@ -1,0 +1,63 @@
+url = "/shop/cart"
+layout = "default"
+==
+
+<section id="layout-title">
+    <div class="container">
+        <h3>Checkout</h3>
+    </div>
+</section>
+
+<div class="container shopping-cart">
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <img class="img-responsive" src="{{ 'assets/images/shop/imac.png'|theme }}" alt="">
+                    <div class="item">
+                        Product Title #1
+                        <p class="text-muted">Hamburger brisket pastrami, capicola swine meatloaf kevin leberkas pork chop ground round pork.</p>
+                    </div>
+                </td>
+                <td>$339.00</td>
+                <td><input type="number" name="pcs" value="1" class="form-control"></td>
+            </tr>
+            <tr>
+                <td>
+                    <img class="img-responsive" src="{{ 'assets/images/shop/ipad.png'|theme }}" alt="">
+                    <div class="item">
+                        Product Title #2
+                        <p class="text-muted">Meatloaf tail ball tip capicola pork loin chuck brisket.</p>
+                    </div>
+                </td>
+                <td>$210.00</td>
+                <td><input type="number" name="pcs" value="1" class="form-control"></td>
+            </tr>
+            <tr>
+                <td>
+                    <img class="img-responsive" src="{{ 'assets/images/shop/imac.png'|theme }}" alt="">
+                    <div class="item">
+                        Product Title #3
+                        <p class="text-muted"> Pork belly meatloaf kielbasa, shank leberkas hamburger brisket drumstick andouille pork chop biltong corned beef ribeye pig.</p>
+                    </div>
+                </td>
+                <td>$50.00</td>
+                <td><input type="number" name="pcs" value="1" class="form-control"></td>
+            </tr>
+        </tbody>
+    </table>
+    <ul class="text-right checkout">
+        <li><strong>Total Price</strong> $599</li>
+        <li><strong>Shipping</strong> Free</li>
+        <li><a href="#" class="btn btn-lg btn-success"><i class="icon-hand-right"></i> Proceed to checkout</a></li>
+    </ul>
+
+</div>

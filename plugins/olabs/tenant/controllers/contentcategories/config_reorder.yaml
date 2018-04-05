@@ -1,0 +1,4 @@
+title: ContentCategories
+modelClass: Olabs\Tenant\Models\ContentCategories
+toolbar:
+    buttons: reorder_toolbar

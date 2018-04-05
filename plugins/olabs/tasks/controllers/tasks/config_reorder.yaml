@@ -1,0 +1,4 @@
+title: Tasks
+modelClass: Olabs\Tasks\Models\Tasks
+toolbar:
+    buttons: reorder_toolbar

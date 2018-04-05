@@ -1,0 +1,9 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    
+    title:
+        label: olabs.oims::lang.properties.title
+        type: text

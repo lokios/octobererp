@@ -1,0 +1,126 @@
+fields:
+    type:
+        label: Type
+        oc.commentPosition: ''
+        options:
+            email: Email
+            dummy: Dummy
+        span: auto
+        type: dropdown
+    name:
+        label: Name
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    code:
+        label: Code
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    schedule:
+        label: Schedule
+        oc.commentPosition: ''
+        options:
+            everyFiveMinutes: 'Every 5 Minutes'
+            everyTenMinutes: 'Every 10 Minutes'
+            everyThirtyMinutes: 'Every 30 Minutes'
+            hourly: 'Every Hour'
+            daily: 'Daily Midnight'
+        span: auto
+        type: dropdown
+    status:
+        label: Status
+        oc.commentPosition: ''
+        options:
+            L: LIVE
+            D: DRAFT
+            O: 'OLD (DELETED)'
+        span: auto
+        type: dropdown
+tabs:
+    fields:
+        email_to:
+            label: 'Email To'
+            oc.commentPosition: ''
+            span: auto
+            type: text
+            tab: 'Tab 1'
+        email_cc:
+            label: 'Email CC'
+            oc.commentPosition: ''
+            span: auto
+            type: text
+            tab: 'Tab 1'
+        email_bcc:
+            label: 'Email BCC'
+            oc.commentPosition: ''
+            span: auto
+            type: text
+            tab: 'Tab 1'
+        email_from:
+            label: 'Email From'
+            oc.commentPosition: ''
+            span: auto
+            type: text
+            tab: 'Tab 1'
+        email_subject:
+            label: 'Email Subject'
+            oc.commentPosition: ''
+            span: auto
+            type: text
+            tab: 'Tab 1'
+        email_body:
+            label: 'Email Body'
+            size: large
+            oc.commentPosition: ''
+            span: full
+            type: richeditor
+            tab: 'Tab 1'
+        attachment_input1:
+            label: 'PDF Attachment 1'
+            oc.commentPosition: ''
+            span: auto
+            type: text
+            tab: 'Tab 1'
+        attachment_input1_name:
+            label: 'PDF Attachment 1 - Name'
+            oc.commentPosition: ''
+            span: auto
+            type: text
+            tab: 'Tab 1'
+        attachment_input2:
+            label: 'PDF Attachment 2'
+            oc.commentPosition: ''
+            span: auto
+            type: text
+            tab: 'Tab 1'
+        attachment_input2_name:
+            label: 'PDF Attachment 2 - Name'
+            oc.commentPosition: ''
+            span: auto
+            type: text
+            tab: 'Tab 1'
+        attachment_input3:
+            label: 'Image Attachment 1 - URL'
+            oc.commentPosition: ''
+            span: auto
+            type: text
+            tab: 'Tab 1'
+        attachment_input3_name:
+            label: 'Image Attachment 1 - Name'
+            oc.commentPosition: ''
+            span: auto
+            type: text
+            tab: 'Tab 1'
+        attachment_input4_name:
+            label: 'Image Attachment 2 - Name'
+            oc.commentPosition: ''
+            span: auto
+            type: text
+            tab: 'Tab 1'
+        attachment_input4:
+            label: 'Image Attachment 2 -  URL'
+            oc.commentPosition: ''
+            span: auto
+            type: text
+            tab: 'Tab 1'

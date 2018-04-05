@@ -1,0 +1,6 @@
+plugin:
+    name: 'olabs.oimsapi::lang.plugin.name'
+    description: 'olabs.oimsapi::lang.plugin.description'
+    author: olabs
+    icon: oc-icon-adjust
+    homepage: ''

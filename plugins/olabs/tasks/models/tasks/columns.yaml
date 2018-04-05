@@ -1,0 +1,16 @@
+columns:
+    id:
+        label: ID
+        type: text
+    name:
+        label: Name
+        type: text
+    status:
+        label: Status
+        type: text
+    schedule:
+        label: Schedule
+        type: text
+    type:
+        label: Type
+        type: text

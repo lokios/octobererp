@@ -1,0 +1,25 @@
+title = "Portfolio"
+url = "/portfolio/:type"
+layout = "default"
+
+[olabs_portfolio]
+type = "{{ :type }}"
+categoryPage = "blog/category"
+
+==
+<?php
+
+function onInit()
+{
+
+  }
+function onStart()
+{
+
+
+}
+?>
+==
+
+{% component 'olabs_portfolio' %}
+

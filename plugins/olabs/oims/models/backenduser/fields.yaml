@@ -1,0 +1,45 @@
+# ===================================
+#  Extended Backend User model
+# ===================================
+
+projects:
+    context: [create, update]
+    label: Projects
+    commentAbove: Assign projects for OIMS
+    type: relation
+contact_email:
+    label: Contact Email
+    tab: Details
+    span: auto
+contact_phone:
+    label: Contact Phone
+    tab: Details
+    span: auto   
+address:
+    label: Address
+    tab: Details
+    span: auto 
+address_2:
+    label: Address 2
+    tab: Details
+    span: auto
+postcode:
+    label: Postcode
+    tab: Details
+    span: auto 
+city:
+    label: City
+    tab: Details
+    span: auto 
+country:
+    label: Country
+    tab: Details
+    span: auto 
+tin:
+    label: TIN Number
+    tab: Details
+    span: auto 
+pan:
+    label: PAN Number
+    tab: Details
+    span: auto 

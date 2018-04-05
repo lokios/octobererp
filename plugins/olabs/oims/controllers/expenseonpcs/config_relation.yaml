@@ -1,0 +1,12 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+expenseOnPcProducts:
+    label: Expense On P/C Products
+    manage:
+        form: $/olabs/oims/models/expenseonpcproduct/fields.yaml
+        list: $/olabs/oims/models/expenseonpcproduct/columns.yaml
+    view:
+        list: $/olabs/oims/models/expenseonpcproduct/columns.yaml
+        toolbarButtons: create|delete

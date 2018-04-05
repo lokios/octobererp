@@ -1,0 +1,87 @@
+{
+    "validationErrors": null,
+    "exception": null,
+    "response": {
+        "type": "AuthResponse",
+        "lineItems": [
+            {
+                "options": [],
+                "price": "6.99",
+                "quantity": "2",
+                "recurrence": "1 Month",
+                "startupFee": null,
+                "productId": "123",
+                "tangible": "N",
+                "name": "Demo Item 1",
+                "type": "product",
+                "description": "",
+                "duration": "1 Year"
+            },
+            {
+                "options": [
+                    {
+                        "optName": "Size",
+                        "optValue": "Large",
+                        "optSurcharge": "1.00"
+                    }
+                ],
+                "price": "1.99",
+                "quantity": "1",
+                "recurrence": null,
+                "startupFee": null,
+                "productId": "",
+                "tangible": "N",
+                "name": "Demo Item 2",
+                "type": "product",
+                "description": "",
+                "duration": null
+            },
+            {
+                "options": [],
+                "price": "3.00",
+                "quantity": "1",
+                "recurrence": null,
+                "startupFee": null,
+                "productId": "",
+                "tangible": "Y",
+                "name": "Shipping Fee",
+                "type": "shipping",
+                "description": "",
+                "duration": null
+            }
+        ],
+        "transactionId": "205182114564",
+        "billingAddr": {
+            "addrLine1": "123 Test St",
+            "addrLine2": null,
+            "city": "Columbus",
+            "zipCode": "43123",
+            "phoneNumber": "5555555555",
+            "phoneExtension": null,
+            "email": "example@2co.com",
+            "name": "Testing Tester",
+            "state": "Ohio",
+            "country": "USA"
+        },
+        "shippingAddr": {
+            "addrLine1": "123 Test St",
+            "addrLine2": "",
+            "city": "Columbus",
+            "zipCode": "43123",
+            "phoneNumber": null,
+            "phoneExtension": null,
+            "email": null,
+            "name": "Testing Tester",
+            "state": "OH",
+            "country": "USA"
+        },
+        "merchantOrderId": "123",
+        "orderNumber": "205182114555",
+        "recurrentInstallmentId": null,
+        "responseMsg": "Successfully authorized the provided credit card",
+        "responseCode": "APPROVED",
+        "total": "19.97",
+        "currencyCode": "USD",
+        "errors": null
+    }
+}

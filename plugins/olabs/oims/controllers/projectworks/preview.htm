@@ -1,0 +1,37 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('olabs/oims/projectworks') ?>">ProjectWorks</a></li>
+        <li><?= e($this->pageTitle) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+<?php if (!$this->fatalError): ?>
+
+<div class="form-buttons">
+            <div class="loading-indicator-container">
+                <?= $this->makePartial('preview_toolbar') ?>
+            </div>
+        </div>
+    
+        <div class="layout-row min-size">
+            <?= $this->formRender(['preview' => true, 'section' => 'outside']) ?>
+        </div>
+
+        <div class="layout-row">
+            <?= $this->formRender(['preview' => true, 'section' => 'primary']) ?>
+        </div>
+
+
+    <div class="form-preview">
+        <? // $this->formRenderPreview() ?>
+    </div>
+
+<?php else: ?>
+    <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+<?php endif ?>
+
+<p>
+    <a href="<?= Backend::url('olabs/oims/projectworks') ?>" class="btn btn-default oc-icon-chevron-left">
+        <?= e(trans('backend::lang.form.return_to_list')) ?>
+    </a>
+</p>

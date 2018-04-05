@@ -1,0 +1,11 @@
+list: $/olabs/pusher/models/platforms/columns.yaml
+modelClass: Olabs\Pusher\Models\Platforms
+title: Platforms
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'olabs/pusher/platforms/update/:id'

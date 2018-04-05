@@ -1,0 +1,7 @@
+columns:
+    name:
+        label: Name
+        type: text
+    status:
+        label: Status
+        type: text

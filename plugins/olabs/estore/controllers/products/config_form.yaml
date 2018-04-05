@@ -1,0 +1,10 @@
+name: Products
+form: $/olabs/estore/models/products/fields.yaml
+modelClass: Olabs\Estore\Models\Products
+defaultRedirect: olabs/estore/products
+create:
+    redirect: 'olabs/estore/products/update/:id'
+    redirectClose: olabs/estore/products
+update:
+    redirect: olabs/estore/products
+    redirectClose: olabs/estore/products

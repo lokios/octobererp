@@ -1,0 +1,10 @@
+name: ProjectWorks
+form: $/olabs/oims/models/projectwork/fields.yaml
+modelClass: Olabs\Oims\Models\ProjectWork
+defaultRedirect: olabs/oims/projectworks
+create:
+    redirect: 'olabs/oims/projectworks/update/:id'
+    redirectClose: olabs/oims/projectworks
+update:
+    redirect: olabs/oims/projectworks
+    redirectClose: olabs/oims/projectworks

@@ -1,0 +1,4 @@
+title: Classrooms
+modelClass: Olabs\School\Models\Classrooms
+toolbar:
+    buttons: reorder_toolbar

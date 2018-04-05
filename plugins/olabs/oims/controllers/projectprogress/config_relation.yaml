@@ -1,0 +1,12 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+quoteProducts:
+    label: Project Progress Items
+    manage:
+        form: $/olabs/oims/models/projectprogressitem/fields.yaml
+        list: $/olabs/oims/models/projectprogressitem/columns.yaml
+    view:
+        list: $/olabs/oims/models/projectprogressitem/columns.yaml
+        toolbarButtons: create|delete

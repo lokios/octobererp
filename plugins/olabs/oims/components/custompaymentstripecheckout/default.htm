@@ -1,0 +1,19 @@
+<div class="basket-content-wrapper" id="basket-content-wrapper">
+    <div class="alert alert-success" role="alert"> <strong>Order sent!</strong> Please continue to pay order bellow </div>
+    
+    <div class="stripe-btn-wrapper">
+    <!--PAY BY PAYPAL NOW -->
+    {{ form_open({ request: 'onSubmitPayForm' }) }}
+      <script
+        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+        data-key="{{ stripe_publishable_key }}"
+        data-amount="{{ (order.total_price + order.shipping_price)*100 }}"
+        data-name="Order #{{ order.id }}"
+        data-description=""
+        data-currency="{{ stripe_currency_code }}"
+        data-email="{{ order.contact_email }}"
+        data-locale="auto">
+      </script>
+    </form>
+    </div>
+</div>

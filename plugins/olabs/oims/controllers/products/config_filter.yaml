@@ -1,0 +1,33 @@
+# ===================================
+# Filter Scope Definitions
+# ===================================
+
+scopes:
+
+    category:
+        label: olabs.oims::lang.products.default_category
+        modelClass: Olabs\Oims\Models\Category
+        nameFrom: title
+        conditions: default_category_id in (:filtered)
+
+
+    active:
+        label: olabs.oims::lang.products.inactive
+        type: checkbox
+        conditions: active <> 1
+
+    on_sale:
+        label: olabs.oims::lang.products.on_sale_1
+        type: checkbox
+        conditions: on_sale = 1        
+
+    quantity:
+        label: olabs.oims::lang.products.low_stock
+        type: checkbox
+        conditions: quantity <= 3       
+
+    quantity2:
+        label: olabs.oims::lang.products.out_of_stock
+        type: checkbox
+        conditions: quantity = 0
+       

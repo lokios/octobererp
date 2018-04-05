@@ -1,0 +1,32 @@
+list: $/olabs/oims/models/projectasset/columns.yaml
+modelClass: Olabs\Oims\Models\ProjectAsset
+title: ProjectAssets
+noRecordsMessage: 'backend::lang.list.no_records'
+#showSetup: true
+#showCheckboxes: true
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+        
+recordUrl: 'olabs/oims/projectassets/preview/:id'
+
+filter: config_filter.yaml
+
+# Records to display per page
+recordsPerPage: 20
+
+# Displays the list column set up button
+showSetup: true
+
+# Displays the sorting link on each column
+showSorting: true
+
+# Toolbar widget configuration
+toolbar:
+    # Partial for toolbar buttons
+#    buttons: list_toolbar
+
+    # Search widget configuration
+    search:
+        prompt: backend::lang.list.search_prompt

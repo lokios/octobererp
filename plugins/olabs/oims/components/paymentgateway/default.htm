@@ -1,0 +1,64 @@
+{% if not (order) %}
+    <div id="payment-alert-warning" class="alert alert-warning" role="alert">
+        <strong>Order empty</strong>
+    </div>
+{% elseif (order.paid_date) %}
+    <div id="payment-alert-success" class="alert alert-success" role="alert">
+        <strong>Payment received!</strong> Many thanks.
+    </div>
+{% else %}
+    {{ form_ajax('onPaymentSubmit') }}
+    <div class="container" id="payment-container">
+        <div class="row">
+            <div class="col-xs-12 col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Payment Details
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form">
+                        <div class="form-group">
+                            <label for="cardNumber">
+                                CARD NUMBER</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="cardNumber" name="number" placeholder="Valid Card Number"
+                                    required autofocus />
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-7 col-md-7">
+                                <div class="form-group">
+                                    <label for="expityMonth">
+                                        EXPIRY DATE</label>
+                                    <div class="col-xs-6 col-lg-6 pl-ziro">
+                                        <input type="text" class="form-control" id="expiryMonth" name="expiryMonth" placeholder="MM" required />
+                                    </div>
+                                    <div class="col-xs-6 col-lg-6 pl-ziro">
+                                        <input type="text" class="form-control" id="expiryYear" name="expiryYear" placeholder="YY" required /></div>
+                                </div>
+                            </div>
+                            <div class="col-xs-5 col-md-5 pull-right">
+                                <div class="form-group">
+                                    <label for="cvCode">
+                                        CV CODE</label>
+                                    <input type="password" class="form-control" id="cvv" name="cvv" placeholder="CV" required />
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="active"><span class="badge pull-right">{{ jkshopSetting.getPriceFormatted(order.total_price + order.shipping_price) }}</span> Final Payment</li>
+                </ul>
+                <br/>
+                <button class="btn btn-success btn-lg btn-block" role="button" type="submit">Pay <span class="glyphicon glyphicon-chevron-right"></span></button>
+            </div>
+        </div>
+    </div>
+    {{ form_close() }}
+
+{% endif %}

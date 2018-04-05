@@ -1,0 +1,94 @@
+title = "Project"
+url = "/portfolio/project/:id"
+layout = "default"
+==
+<?php
+use Olabs\Tenant\Classes\Tenant;
+use Olabs\Tenant\Models\Contents;
+use rainlab\blog\models\Post;
+use RainLab\Blog\Models\Post as BlogPost;
+use RainLab\Blog\Models\Category as BlogCategory;
+function onInit()
+{
+
+  }
+function onStart()
+{
+
+//$currentHostUrl = Request::getHost();
+$this['currentHostUrl'] = Tenant::getHost();
+$this['org'] = Tenant::getOrg();
+
+$types = array('excursions'=>array('title'=>'Excursions','slug'=>'excursions'),'gallery'=>array('title'=>'Gallery','slug'=>'gallery'));
+
+/*
+* List all the posts, eager load their categories
+*/
+$post = BlogPost::where('id',$this->param('id'))->first();
+if(!$post){
+  $post = BlogPost::where('slug',$this->param('id'))->first();  
+}
+$this['post'] = $post;
+}
+?>
+==
+{% put styles %}
+    <link href="{{ [
+        'assets/vendor/slick/slick.css',
+    ]|theme }}" rel="stylesheet">
+{% endput %}
+{% put scripts %}
+    <script src="{{ [
+        'assets/vendor/slick/slick.js',
+    ]|theme }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#projectImages').slick({
+                dots: true,
+                infinite: true,
+                speed: 800,
+                fade: true,
+                cssEase: 'linear',
+                slidesToShow: 1,
+                autoplay: true,
+                autoplaySpeed: 4000,
+                pauseOnHover: true
+            });
+        })
+    </script>
+{% endput %}
+
+
+
+<div class="container">
+
+
+
+     <div class="row" id="practices">
+            <div class="col-lg-12">
+                <h2 class="page-header">{{post.title}}</h2>
+            </div>
+            <div class="col-md-4">
+               
+              {{post.content_html|raw}}
+
+              
+            </div>
+            <div class="col-md-8">
+                <div id="projectImages" class="project-images">
+        {% for page_section in post.featured_images %}
+        <div >
+            <div class="image"><img src="{{ post.getImageLg(page_section) }}" class="img-responsive 22col-md-9" alt="" /></div>
+            <div class="caption">{{post.title}}</div>
+        </div>
+       {% endfor %}
+    </div>
+            </div>
+        </div>
+        <!-- /.row -->
+
+    
+
+  
+
+</div>

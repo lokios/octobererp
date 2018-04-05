@@ -1,0 +1,4 @@
+title: Companies
+modelClass: Olabs\Oims\Models\Company
+toolbar:
+    buttons: reorder_toolbar

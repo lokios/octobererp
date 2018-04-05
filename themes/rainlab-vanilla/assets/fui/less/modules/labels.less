@@ -1,0 +1,60 @@
+//
+// Labels
+// --------------------------------------------------
+
+.label {
+  font-size: 76%;
+  font-weight: normal;
+  padding: .25em .6em .29em;
+
+  // Add hover effects, but only for links
+  a& {
+    &:hover,
+    &:focus {
+      color: @label-link-hover-color;
+    }
+  }
+  // Quick fix for labels in buttons
+  .btn & {
+    position: relative;
+    top: -1px;
+  }
+  [class*="fui-"] {
+    &:before {
+      position: relative;;
+      top: 2px;
+      font-size: 16px;
+    }
+  }
+}
+
+// Colors
+// Contextual variations (linked labels get darker on :hover)
+
+.label-default {
+  .label-variant(@label-default-bg, @label-default-bg-hover, @label-default-text-color);
+}
+
+.label-inverse {
+  .label-variant(@label-inverse-bg, @label-inverse-bg-hover);
+}
+
+.label-success {
+  .label-variant(@label-success-bg, @label-success-bg-hover);
+}
+
+.label-important {
+  .label-variant(@label-important-bg, @label-important-bg-hover);
+}
+
+.label-warning {
+  .label-variant(@label-warning-bg, @label-warning-bg-hover);
+}
+
+.label-info {
+  .label-variant(@label-info-bg, @label-info-bg-hover);
+}
+
+.label-primary {
+  .label-variant(@label-primary-bg, @label-primary-bg-hover);
+}

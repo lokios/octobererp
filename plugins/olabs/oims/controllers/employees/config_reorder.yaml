@@ -1,0 +1,4 @@
+title: Employees
+modelClass: Olabs\Oims\Models\Employee
+toolbar:
+    buttons: reorder_toolbar

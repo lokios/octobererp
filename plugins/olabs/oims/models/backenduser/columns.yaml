@@ -1,0 +1,32 @@
+# ===================================
+#  Extended Backend User model
+# ===================================
+
+
+contact_email:
+    label: Contact Email
+    searchable: true
+    invisible: true
+
+contact_phone:
+    label: Contact Phone
+    searchable: true
+    sortable: true
+#        invisible: true
+
+tin:
+    label: TIN Number
+    searchable: true
+    invisible: true
+
+pan:
+    label: PAN Number
+    searchable: true
+    invisible: true
+
+#projects:
+#    label: Projects
+#    type: relation
+#    select: name
+#    searchable: false
+#    sortable: false

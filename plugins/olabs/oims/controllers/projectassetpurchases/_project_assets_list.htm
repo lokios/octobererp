@@ -1,0 +1,41 @@
+
+<div class="page-header">
+    <h3><small>Project Assets</small></h3>
+</div>
+<table class="table table-bordered">
+    <thead> 
+        <tr> 
+            <th>S.No.</th> 
+            <th>Products</th> 
+            <th>Quantity</th> 
+            <th>Actions</th>
+        </tr> 
+    </thead> 
+    <tbody>
+
+
+        <?php 
+        $count = 0;
+        //var_dump(count($assets));
+        
+        foreach($assets as $asset){  
+            $count++;
+            $product = \Olabs\Oims\Models\Product::find($asset->product_id);
+            $quantity = 0;
+            $quantity = $asset->purchase_quantity + $asset->tf_quantity - $asset->tt_quantity - $asset->damage_quantity ;
+        
+        ?>
+
+        <tr> 
+            <th scope="row"><?=$count?></th> 
+            <td><?=$product->title?></td>
+            <td><?=$quantity ?></td>
+            <td></td>
+        </tr> 
+        <?php } 
+        
+        ?>
+
+        
+    </tbody> </table>
+

@@ -1,0 +1,11 @@
+list: $/olabs/oims/models/bankaccount/columns.yaml
+modelClass: Olabs\Oims\Models\BankAccount
+title: BankAccounts
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'olabs/oims/bankaccounts/update/:id'

@@ -1,0 +1,20 @@
+{
+    "name": "reportico/reports",
+    "type": "october-plugin",
+    "description": "Reportico SQL Reports plugin for October CMS",
+    "homepage": "http://www.reportico.org/october",
+    "keywords": ["october", "octobercms", "reports", "reporting"],
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Peter Deed",
+            "email": "info@reportico.org",
+            "role": "Founder"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "composer/installers": "~1.0"
+    },
+    "minimum-stability": "dev"
+}

@@ -1,0 +1,4 @@
+title: BankAccounts
+modelClass: Olabs\Oims\Models\BankAccount
+toolbar:
+    buttons: reorder_toolbar

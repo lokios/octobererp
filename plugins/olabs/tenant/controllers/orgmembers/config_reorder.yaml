@@ -1,0 +1,4 @@
+title: OrgMembers
+modelClass: Olabs\Tenant\Models\Members
+toolbar:
+    buttons: reorder_toolbar

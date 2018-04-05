@@ -1,0 +1,12 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+purchaseProducts:
+    label: Quote Products
+    manage:
+        form: $/olabs/oims/models/purchaseproduct/fields.yaml
+        list: $/olabs/oims/models/purchaseproduct/columns.yaml
+    view:
+        list: $/olabs/oims/models/purchaseproduct/columns.yaml
+        toolbarButtons: create|delete

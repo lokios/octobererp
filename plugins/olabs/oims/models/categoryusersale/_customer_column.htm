@@ -1,0 +1,12 @@
+<?php
+
+if (class_exists("\RainLab\User\Models\User") && ($record->user_id > 0)) {
+    // User exist
+    $user = \RainLab\User\Models\User::find($record->user_id);
+    echo $user->id." | ".$user->name." ".$user->surname;
+}
+else {
+    echo "Use RainLab.User plugin - https://octobercms.com/plugin/rainlab-user";
+}
+
+?>

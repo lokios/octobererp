@@ -1,0 +1,58 @@
+<?php // if (count($projectprogress)): ?>
+<div class="page-header">
+    <!--<h1><small>Project Progress</small></h1>-->
+    <h3><small>Our Billing</small></h3>
+</div>
+<table class="table table-bordered">
+    <thead> 
+        <tr> 
+            <th>ID</th> 
+            <th>Project</th> 
+            <th>Entry Date</th> 
+            <th>Products</th> 
+            <th>Total Price</th>
+        </tr> 
+    </thead> 
+    <tbody>
+
+
+        <?php 
+        $grand_total = 0;
+        
+        foreach($projectprogress as $progress){  
+
+        $products = $progress->products ? $progress->products : array();
+        $productArray = array();
+        $total_price = 0;
+        foreach($products as $product){
+        //dd($product->work);  . " " . $product->unit
+            $product_title = '';
+            if($product->work){
+                $product_title = $product->work->name . ", QTY : " . $product->quantity . ", AMNT : &#8377;" . $oimsSetting->getPriceFormattedWithoutCurrency($product->total_price);
+            }
+                $productArray[] = $product_title;
+            $total_price += $product->total_price;
+        }
+        $grand_total += $total_price;
+        
+        ?>
+
+        <tr> 
+            <th scope="row"><?=$progress->id?></th> 
+            <td><?=$progress->project->name?></td>
+            <td><?=date("d-m-Y", strtotime($progress->start_date) )?></td>
+            <td><?php echo implode("</br> ",$productArray); ?></td>
+            <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($total_price)?></td>
+        </tr> 
+        <?php } 
+        $this->vars['progress_total'] = $grand_total;
+        ?>
+
+        <tr> 
+            <td colspan="4">NET WORK DONE - A</td>
+            <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($grand_total)?></td>
+        </tr>
+
+    </tbody> </table>
+
+<?php // endif ?>

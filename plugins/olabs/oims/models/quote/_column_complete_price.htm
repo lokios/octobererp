@@ -1,0 +1,8 @@
+<?php
+    $out = 0;
+    foreach($record->items as $item) {
+        $out += $item->quantity * $item->unit_price;
+    }
+?>
+
+<?= number_format($out, 2, '.', ',') ?> &euro;

@@ -1,0 +1,4 @@
+title: Workgroups
+modelClass: Olabs\Oims\Models\Workgroup
+toolbar:
+    buttons: reorder_toolbar

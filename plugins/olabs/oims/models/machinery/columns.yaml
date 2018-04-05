@@ -1,0 +1,91 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    id:
+        label: olabs.oims::lang.machineries.id
+        searchable: true
+        
+    project_id:
+        label: Project
+        relation: project
+        select: name
+        searchable: false
+        sortable: true
+        
+#    is_last_name:
+#        label: Supplier
+#        type: partial
+#        path: ~/plugins/olabs/oims/models/machinery/_supplier_column.htm
+#        searchable: false
+        
+    contact_email:
+        label: olabs.oims::lang.machineries.contact_email
+        invisible: true
+        searchable: true
+        
+#    contact_phone:
+#        label: olabs.oims::lang.machineries.contact_phone
+#        invisible: true
+#        searchable: true        
+#
+#    is_last_name:
+#        label: olabs.oims::lang.machineries.is_last_name
+#        invisible: true
+#        searchable: true
+#        
+#    is_first_name:
+#        label: olabs.oims::lang.machineries.is_first_name
+#        invisible: true
+#        searchable: true
+        
+#    is_address:
+#        label: olabs.oims::lang.machineries.is_address
+#        invisible: true
+#        searchable: true        
+#        
+#    is_postcode:
+#        label: olabs.oims::lang.machineries.is_postcode
+#        invisible: true
+#        searchable: true 
+#        
+#    is_city:
+#        label: olabs.oims::lang.machineries.is_city
+#        invisible: true
+#        searchable: true 
+#        
+#    is_country:
+#        label: olabs.oims::lang.machineries.is_country
+#        invisible: true
+#        searchable: true                 
+        
+    context_date:
+        label: Entry date
+        type: date
+        searchable: true
+        sortable: true       
+#    carrier:
+#        label: olabs.oims::lang.machineries.carrier
+#        relation: carrier
+#        select: title
+        
+#    reference_number:
+#        label: Reference Number
+#        type: text
+#        searchable: true
+#        sortable: true    
+        
+    objectstatus:
+        label: Status
+        type: partial
+        path: ~/plugins/olabs/oims/models/status/_status_column.htm
+        searchable: false
+        sortable: true       
+        
+#    paid_date:
+#        label: olabs.oims::lang.machineries.paid_date
+#        type: datetime
+#
+#    total_price:
+#        label: olabs.oims::lang.machineries.total_price

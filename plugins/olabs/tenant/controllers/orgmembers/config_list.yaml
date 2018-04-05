@@ -1,0 +1,11 @@
+list: $/olabs/tenant/models/members/columns.yaml
+modelClass: Olabs\Tenant\Models\Members
+title: OrgMembers
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'olabs/tenant/orgmembers/update/:id'

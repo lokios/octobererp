@@ -1,0 +1,17 @@
+<div data-request-data="checked:[<?= $record->id ?>]">
+    <button
+            class="btn btn-default btn-sm"
+            data-request="onOrderOptionDown"
+            <?php if ($record->order_index==$record::where("property_id",$record->property_id)->max('order_index')) echo ('disabled="disabled"'); ?>
+            >
+        <span class="oc-icon-arrow-down"></span>
+    </button>
+    <button
+            class="btn btn-default btn-sm"
+            data-request="onOrderOptionUp"
+            <?php if ($record->order_index==$record::where("property_id",$record->property_id)->min('order_index')) echo ('disabled="disabled"'); ?>
+            >
+          <span class="oc-icon-arrow-up"></span>
+    </button>
+ </div>
+    

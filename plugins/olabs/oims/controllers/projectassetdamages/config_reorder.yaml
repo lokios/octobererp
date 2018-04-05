@@ -1,0 +1,4 @@
+title: ProjectAssetDamages
+modelClass: Olabs\Oims\Models\ProjectAssetDamage
+toolbar:
+    buttons: reorder_toolbar

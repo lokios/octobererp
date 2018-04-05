@@ -1,0 +1,91 @@
+title = "Demonstration"
+url = "/home"
+layout = "default"
+is_hidden = 0
+==
+<?php
+use Olabs\Tenant\Classes\Tenant;
+use Olabs\Tenant\Models\Contents;
+function onInit()
+{
+
+  }
+function onStart()
+{
+
+//$currentHostUrl = Request::getHost();
+$this['currentHostUrl'] = Tenant::getHost();
+$org = Tenant::getOrg();
+$this['org'] = $org;
+//->where('name', 'like', 'T%')
+$this['page_sections'] = Contents::where(['tenant_id'=>$org->id])->where('tags','like','%home')->orderBy('name', 'asc')->get();
+$this['slides'] = Contents::where(['tenant_id'=>$org->id])->where('tags','like','%home_slider%')->orderBy('name', 'asc')->get();
+}
+?>
+==
+{% put styles %}
+<link href="{{ [
+        'assets/vendor/slick/slick.css',
+    ]|theme }}" rel="stylesheet">
+{% endput %}
+{% put scripts %}
+<script src="{{ [
+        'assets/vendor/slick/slick.js',
+    ]|theme }}"></script>
+<script>
+    $(document).ready(function() {
+        $('#projectImages').removeClass('hide')
+        $('#projectImages').slick({
+            dots: true,
+            infinite: true,
+            speed: 800,
+            fade: true,
+            cssEase: 'linear',
+            slidesToShow: 1,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            pauseOnHover: true
+        });
+    })
+</script>
+{% endput %}
+
+<section class="home-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>{{org.name}}</h3>
+                <p>{{org.description|raw}}</p>
+
+            </div>
+            <div class="col-sm-5 col-sm-offset-1 player-wrapper2">
+                <div class2="player">
+                    <div id="projectImages" class="project-images hide">
+                        {% for page_section in org.featured_images %}
+                        <div>
+                            <div class="image"><img src="{{ org.imageMain(page_section) }}" class="img-responsive" alt="" /></div>
+                            <div class="caption hide">{{ page_section.name }} </div>
+                        </div>
+                        {% endfor %}
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="logos hide">
+    <div class="container">
+
+    </div>
+</section>
+
+<br />
+
+{% for page_section in page_sections %}
+{{page_section.content|raw}}
+
+ {% endfor %}

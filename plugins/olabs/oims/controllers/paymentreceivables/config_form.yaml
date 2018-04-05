@@ -1,0 +1,10 @@
+name: PaymentReceivables
+form: $/olabs/oims/models/paymentreceivable/fields.yaml
+modelClass: Olabs\Oims\Models\PaymentReceivable
+defaultRedirect: olabs/oims/paymentreceivables
+create:
+    redirect: 'olabs/oims/paymentreceivables/update/:id'
+    redirectClose: olabs/oims/paymentreceivables
+update:
+    redirect: olabs/oims/paymentreceivables
+    redirectClose: olabs/oims/paymentreceivables

@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: olabs.oims::lang.expenseonmaterials.menu_label_single
+
+# Model Form Field configuration
+form: $/olabs/oims/models/expenseonmaterial/fields.yaml
+
+# Model Class name
+modelClass: Olabs\Oims\Models\ExpenseOnMaterial
+
+# Default redirect location
+defaultRedirect: olabs/oims/expenseonmaterials
+
+# Create page
+create:
+    title: olabs.oims::lang.expenseonmaterials.create_expenseonmaterial
+    redirect: olabs/oims/expenseonmaterials/update/:id
+    redirectClose: olabs/oims/expenseonmaterials
+
+# Update page
+update:
+    title: olabs.oims::lang.expenseonmaterials.edit_expenseonmaterial
+    redirect: olabs/oims/expenseonmaterials
+    redirectClose: olabs/oims/expenseonmaterials
+
+# Preview page
+preview:
+    title: olabs.oims::lang.expenseonmaterials.preview_expenseonmaterial

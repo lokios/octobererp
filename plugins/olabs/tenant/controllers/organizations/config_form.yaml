@@ -1,0 +1,10 @@
+name: Organizations
+form: $/olabs/tenant/models/organizations/fields.yaml
+modelClass: Olabs\Tenant\Models\Organizations
+defaultRedirect: olabs/tenant/organizations
+create:
+    redirect: 'olabs/tenant/organizations/update/:id'
+    redirectClose: olabs/tenant/organizations
+update:
+    redirect: olabs/tenant/organizations
+    redirectClose: olabs/tenant/organizations

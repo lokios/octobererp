@@ -1,0 +1,16 @@
+<?php namespace {{studly_author}}\{{studly_plugin}}\Http;
+
+use Backend\Classes\Controller;
+
+/**
+ * {{title_name}} Back-end Controller
+ */
+class {{studly_name}} extends Controller
+{
+    public $implement = [
+        'Mohsin.Rest.Behaviors.RestController'
+    ];
+
+    public $restConfig = 'config_rest.yaml';
+
+}

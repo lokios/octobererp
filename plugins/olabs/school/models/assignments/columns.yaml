@@ -1,0 +1,17 @@
+columns:
+    id:
+        label: ID
+        type: text
+        searchable: true
+    name:
+        label: Name
+        type: text
+        searchable: true
+    classrooms_id:
+        label: Classroom
+        type: text
+        searchable: true
+    class_subjects_id:
+        label: Subject
+        type: text
+        searchable: true

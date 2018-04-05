@@ -1,0 +1,20 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    domain:
+        label: keios.multisite::lang.domain.label 
+        type: text
+        comment: keios.multisite::lang.domain.comment
+
+    theme:
+        label: keios.multisite::lang.domain.theme-label
+        type: dropdown
+        comment: keios.multisite::lang.domain.theme-comment
+
+    is_protected:
+        label: keios.multisite::lang.domain.protect-label
+        type: checkbox
+        default: false
+        comment: keios.multisite::lang.domain.protect-comment

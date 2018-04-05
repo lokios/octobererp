@@ -1,0 +1,68 @@
+fields:
+    name:
+        label: Name
+        span: auto
+        required: 1
+        type: text
+    tags:
+        label: Tags
+        span: auto
+        type: text
+    categories:
+         label: Categories
+         type: relation
+         nameFrom: label
+    content:
+        label: Content
+        size: large
+        span: auto
+        required: 1
+        type: richeditor
+    cover_photo:
+        label: 'Media finder'
+        mode: file
+        span: auto
+        required: 0
+        type: mediafinder
+    type:
+        label: Dropdown
+        options:
+            slider: Slider
+            static_content: 'Static Content'
+        span: auto
+        required: 1
+        type: dropdown
+
+
+    featured_images:
+        label: Featured Images
+        type: fileupload
+        mode: image
+        imageWidth: 200
+        imageHeight: 200
+
+tabs:
+    fields:
+        status:
+            label: Dropdown
+            options:
+                L: Published
+                D: Draft
+                O: Old
+            span: auto
+            required: 1
+            type: dropdown
+            tab: 'Tab 1'
+        sort_order:
+            label: Order
+            options:
+                - '0 (Highest)'
+                - '1'
+                - '2'
+                - '3'
+                - '4'
+                - '5 (Lowest)'
+            span: auto
+            required: 1
+            type: dropdown
+            tab: 'Tab 1'

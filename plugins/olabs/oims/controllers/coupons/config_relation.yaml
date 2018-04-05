@@ -1,0 +1,33 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+categories:
+    label: olabs.oims::lang.categories.menu_label_single
+    view:
+        list: $/olabs/oims/models/category/columns.yaml
+        toolbarButtons: add|remove
+    manage:
+#        form: $/olabs/oims/models/category/fields.yaml
+        recordsPerPage: 10
+        showSearch: true
+        
+products:
+    label: olabs.oims::lang.products.menu_label_single
+    view:
+        list: $/olabs/oims/models/product/columns.yaml
+        toolbarButtons: add|remove
+    manage:
+#        form: $/olabs/oims/models/product/fields.yaml
+        recordsPerPage: 10
+        showSearch: true
+        
+users:
+    label: olabs.oims::lang.coupons.user_menu_label_single
+    view:
+        list: $/rainlab/user/models/user/columns.yaml
+        toolbarButtons: add|remove
+    manage:
+#        form: $/rainlab/user/models/user/fields.yaml
+        recordsPerPage: 10        
+        showSearch: true        

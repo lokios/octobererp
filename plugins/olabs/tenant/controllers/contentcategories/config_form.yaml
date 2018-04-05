@@ -1,0 +1,10 @@
+name: ContentCategories
+form: $/olabs/tenant/models/contentcategories/fields.yaml
+modelClass: Olabs\Tenant\Models\ContentCategories
+defaultRedirect: olabs/tenant/contentcategories
+create:
+    redirect: 'olabs/tenant/contentcategories/update/:id'
+    redirectClose: olabs/tenant/contentcategories
+update:
+    redirect: olabs/tenant/contentcategories
+    redirectClose: olabs/tenant/contentcategories

@@ -1,0 +1,24 @@
+<?php
+
+namespace {{studly_author}}\{{studly_plugin}}\Http\Transformers;
+
+use {{studly_author}}\{{studly_plugin}}\Models\{{studly_model}};
+use League\Fractal\TransformerAbstract;
+
+class {{studly_transformer}} extends TransformerAbstract
+{
+    /**
+     * Turn this item object into a generic array.
+     *
+     * @param $item
+     * @return array
+     */
+    public function transform({{studly_model}} $item)
+    {
+        return [
+            'id'         => (int)$item->id,
+            'created_at' => (string)$item->created_at,
+            'updated_at' => (string)$item->updated_at,
+        ];
+    }
+}

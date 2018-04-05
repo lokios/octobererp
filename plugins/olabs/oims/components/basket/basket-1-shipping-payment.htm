@@ -1,0 +1,41 @@
+<div class="basket-content-wrapper" id="basket-content-wrapper">
+    <div class="basket-breadcrumbs">
+        <span>1 Cart</span><span class="glyphicon glyphicon-chevron-right"></span>
+        <strong>2 Shipping & Payment</strong><span class="glyphicon glyphicon-chevron-right"></span>
+        <span>3 Address</span><span class="glyphicon glyphicon-chevron-right"></span>
+        <span>4 Summary</span>
+    </div>    
+    
+{{ form_ajax('onRunBasketAddress') }}
+    {% if (basket.products|length == 0) %}
+        <div>
+            Cart is empty
+        </div>
+    {% else %}
+    <div class="row basket-shipping-payment-wrapper">
+        <div class="col-sm-6 basket-shipping-wrapper">
+            <h2>Select Shipping Option</h2>
+            <select name="shipping_id">
+                {% for shipping in basket.shipping_options  %}
+                <option value="{{ shipping.id }}">
+                    {{ shipping.title }} - {{ jkshopSetting.getPriceFormatted(shipping.getCurrentPriceWithTax(basket)) }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-sm-6 basket-payment-wrapper">
+            <h2>Select Payment Option</h2>
+            {{ form_select("payment_method_id", basket.payment_method_options, basket.payment_method_id) }}
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="basket-products-buttons">
+        <button class="btn btn-default btn-back" data-request="onRunBasket"><span class="glyphicon glyphicon-chevron-left"></span> Back</button>
+        <button class="btn btn-primary" type="submit">Continue <span class="glyphicon glyphicon-chevron-right"></span></button>
+    </div>
+
+    {% endif %}
+</form>    
+</div>

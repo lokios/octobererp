@@ -1,0 +1,10 @@
+name: Employees
+form: $/olabs/oims/models/employee/fields.yaml
+modelClass: Olabs\Oims\Models\Employee
+defaultRedirect: olabs/oims/employees
+create:
+    redirect: 'olabs/oims/employees/update/:id'
+    redirectClose: olabs/oims/employees
+update:
+    redirect: olabs/oims/employees
+    redirectClose: olabs/oims/employees

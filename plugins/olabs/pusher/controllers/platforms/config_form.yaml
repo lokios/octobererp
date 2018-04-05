@@ -1,0 +1,10 @@
+name: Platforms
+form: $/olabs/pusher/models/platforms/fields.yaml
+modelClass: Olabs\Pusher\Models\Platforms
+defaultRedirect: olabs/pusher/platforms
+create:
+    redirect: 'olabs/pusher/platforms/update/:id'
+    redirectClose: olabs/pusher/platforms
+update:
+    redirect: olabs/pusher/platforms
+    redirectClose: olabs/pusher/platforms

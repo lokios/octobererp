@@ -1,0 +1,4 @@
+title: Contents
+modelClass: Olabs\Tenant\Models\Contents
+toolbar:
+    buttons: reorder_toolbar

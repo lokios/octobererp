@@ -1,0 +1,56 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('olabs/oims/purchases') ?>"><?= Lang::get("olabs.oims::lang.purchases.menu_label")?></a></li>
+        <li><?= e($this->pageTitle) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+<?php if (!$this->fatalError): ?>
+
+    <?= Form::open(['class' => 'layout']) ?>
+
+        <div class="layout-row">
+            <?= $this->formRender() ?>
+        </div>
+
+        <div class="form-buttons">
+            <div class="loading-indicator-container">
+                <button
+                    type="submit"
+                    data-request="onSave"
+                    data-request-data="refresh:1"
+                    data-hotkey="ctrl+s, cmd+s"
+                    data-load-indicator="Saving Material Receipt..."
+                    class="btn btn-primary">
+                    <?= Lang::get("olabs.oims::lang.form.save")?>
+                </button>
+                <button
+                    type="button"
+                    data-request="onSave"
+                    data-request-data="close:1"
+                    data-hotkey="ctrl+enter, cmd+enter"
+                    data-load-indicator="Saving Material Receipt..."
+                    class="btn btn-default">
+                    <?= Lang::get("olabs.oims::lang.form.save_and_close")?>
+                </button>
+<!--                <button
+                    type="button"
+                    class="oc-icon-trash-o btn-icon danger pull-right"
+                    data-request="onDelete"
+                    data-load-indicator="Deleting Purchase..."
+                    data-request-confirm="Do you really want to delete this purchase?">
+                </button>-->
+                <span class="btn-text">
+                    <?= Lang::get("olabs.oims::lang.form.or")?> <a href="<?= Backend::url('olabs/oims/purchases') ?>"><?= Lang::get("olabs.oims::lang.form.cancel")?></a>
+                </span>
+            </div>
+        </div>
+
+    <?= Form::close() ?>
+
+<?php else: ?>
+
+    <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+    <p><a href="<?= Backend::url('olabs/oims/purchases') ?>" class="btn btn-default"><?= Lang::get("olabs.oims::lang.form.return_to_list")?></a></p>
+
+<?php endif ?>

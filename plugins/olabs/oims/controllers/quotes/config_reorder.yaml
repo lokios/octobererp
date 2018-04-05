@@ -1,0 +1,4 @@
+title: Quotes
+modelClass: Olabs\Oims\Models\Quote
+toolbar:
+    buttons: reorder_toolbar

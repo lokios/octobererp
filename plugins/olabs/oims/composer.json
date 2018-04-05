@@ -1,0 +1,37 @@
+{
+    "require": {
+        "barryvdh/laravel-dompdf": "^0.6.1",
+        "stripe/stripe-php": "3.*",
+        
+        "ignited/laravel-omnipay": "2.*",
+        
+        "omnipay/authorizenet": "^2.4",
+        "omnipay/buckaroo": "^2.1",
+        "omnipay/cardsave": "^2.1",
+        "omnipay/coinbase": "^2.0",
+        "omnipay/common": "^2.5",
+        "omnipay/dummy": "^2.1",
+        "omnipay/eway": "^2.2",
+        "omnipay/firstdata": "^2.3",
+        "omnipay/gocardless": "^2.2",
+        "omnipay/manual": "^2.2",
+        "omnipay/migs": "^2.2",
+        "omnipay/mollie": "^3.1",
+        "omnipay/multisafepay": "^2.3",
+        "omnipay/netaxept": "^2.3",
+        "omnipay/netbanx": "^2.2",
+        "omnipay/payfast": "^2.1",
+        "omnipay/payflow": "^2.2",
+        "omnipay/paymentexpress": "^2.2",
+        "omnipay/paypal": "^2.6",
+        "omnipay/pin": "^2.2",
+        "omnipay/sagepay": "^2.3",
+        "omnipay/securepay": "^2.1",
+        "omnipay/stripe": "^2.4",
+        "omnipay/targetpay": "^2.2",
+        "omnipay/worldpay": "^2.2",
+        "collizo4sky/omnipay-2checkout": "^1.4"
+
+
+    }
+}

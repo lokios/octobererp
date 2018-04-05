@@ -1,0 +1,4 @@
+title: Expense On Materials
+modelClass: Olabs\Oims\Models\ExpenseOnMaterial
+toolbar:
+    buttons: reorder_toolbar

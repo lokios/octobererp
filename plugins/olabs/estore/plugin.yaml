@@ -1,0 +1,10 @@
+plugin:
+    name: 'olabs.estore::lang.plugin.name'
+    description: 'olabs.estore::lang.plugin.description'
+    author: olabs
+    icon: oc-icon-adjust
+    homepage: ''
+permissions:
+    store.manage:
+        tab: 'Manage Site'
+        label: 'Store Admin'

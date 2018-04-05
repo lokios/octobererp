@@ -1,0 +1,56 @@
+fields:
+    account_number:
+        label: 'Account Number'
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    status:
+        label: Status
+        span: auto
+        default: 1
+        type: switch
+    bank_name:
+        label: 'Bank Name'
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    bank_code:
+        label: 'Bank Code'
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    contact_person:
+        label: 'Contact Person'
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    contact_email:
+        label: 'Contact Email'
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    contact_phone:
+        label: 'Contact Phone'
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    address:
+        label: Address
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    address_2:
+        label: 'Address 2'
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    city:
+        label: City
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    country:
+        label: Country
+        oc.commentPosition: ''
+        span: auto
+        type: text

@@ -1,0 +1,11 @@
+list: $/olabs/oims/models/projectassetmonitor/columns.yaml
+modelClass: Olabs\Oims\Models\ProjectAssetMonitor
+title: ProjectAssetMonitors
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'olabs/oims/projectassetmonitors/update/:id'

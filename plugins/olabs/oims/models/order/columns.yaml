@@ -1,0 +1,71 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    id:
+        label: olabs.oims::lang.orders.id
+        searchable: true
+
+    is_last_name:
+        label: olabs.oims::lang.orders.customer
+        type: partial
+        path: ~/plugins/olabs/oims/models/order/_customer_column.htm
+        searchable: true
+        
+    contact_email:
+        label: olabs.oims::lang.orders.contact_email
+        invisible: true
+        searchable: true
+        
+    contact_phone:
+        label: olabs.oims::lang.orders.contact_phone
+        invisible: true
+        searchable: true        
+
+    is_last_name:
+        label: olabs.oims::lang.orders.is_last_name
+        invisible: true
+        searchable: true
+        
+    is_first_name:
+        label: olabs.oims::lang.orders.is_first_name
+        invisible: true
+        searchable: true
+        
+    is_address:
+        label: olabs.oims::lang.orders.is_address
+        invisible: true
+        searchable: true        
+        
+    is_postcode:
+        label: olabs.oims::lang.orders.is_postcode
+        invisible: true
+        searchable: true 
+        
+    is_city:
+        label: olabs.oims::lang.orders.is_city
+        invisible: true
+        searchable: true 
+        
+    is_country:
+        label: olabs.oims::lang.orders.is_country
+        invisible: true
+        searchable: true                 
+        
+    carrier:
+        label: olabs.oims::lang.orders.carrier
+        relation: carrier
+        select: title
+        
+    orderstatus_id:
+        label: olabs.oims::lang.orders.orderstatus
+        type: partial
+        path: ~/plugins/olabs/oims/models/order/_orderstatus_column.htm        
+        
+    paid_date:
+        label: olabs.oims::lang.orders.paid_date
+        type: datetime
+
+    total_price:
+        label: olabs.oims::lang.orders.total_price

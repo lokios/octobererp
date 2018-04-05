@@ -1,0 +1,10 @@
+name: Project Asset Purchases
+form: $/olabs/oims/models/projectassetpurchase/fields.yaml
+modelClass: Olabs\Oims\Models\ProjectAssetPurchase
+defaultRedirect: olabs/oims/projectassetpurchases
+create:
+    redirect: 'olabs/oims/projectassetpurchases/update/:id'
+    redirectClose: olabs/oims/projectassetpurchases
+update:
+    redirect: olabs/oims/projectassetpurchases
+    redirectClose: olabs/oims/projectassetpurchases

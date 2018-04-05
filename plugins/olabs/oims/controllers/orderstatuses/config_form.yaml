@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: olabs.oims::lang.orderstatuses.menu_label_single
+
+# Model Form Field configuration
+form: $/olabs/oims/models/orderstatus/fields.yaml
+
+# Model Class name
+modelClass: Olabs\Oims\Models\OrderStatus
+
+# Default redirect location
+defaultRedirect: olabs/oims/orderstatuses
+
+# Create page
+create:
+    title: olabs.oims::lang.orderstatuses.create
+    redirect: olabs/oims/orderstatuses/update/:id
+    redirectClose: olabs/oims/orderstatuses
+
+# Update page
+update:
+    title: olabs.oims::lang.orderstatuses.edit
+    redirect: olabs/oims/orderstatuses
+    redirectClose: olabs/oims/orderstatuses
+
+# Preview page
+preview:
+    title: olabs.oims::lang.orderstatuses.preview

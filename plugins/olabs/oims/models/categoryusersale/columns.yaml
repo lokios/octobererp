@@ -1,0 +1,13 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    sale:
+        label: olabs.oims::lang.categories.sales_percent
+        searchable: true
+        
+    customer:
+        label: olabs.oims::lang.categories.customer
+        type: partial
+        path: ~/plugins/olabs/oims/models/categoryusersale/_customer_column.htm

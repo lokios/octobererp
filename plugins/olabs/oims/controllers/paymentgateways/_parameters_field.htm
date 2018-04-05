@@ -1,0 +1,23 @@
+<?php
+    
+    $data = [
+        "parameters_fields" => $model->getParametersFields(),
+        "parameters_values" => $model->parameters,
+        "field_name_prefix" => "PaymentGateway[parameters]",
+    ];
+    
+?>
+<div id="parameters_field_pratial">
+    <?= $this->makePartial("parameters_field_pratial", $data) ?>
+</div>
+
+
+<script>
+    $(document).on('change', '#Form-field-PaymentGateway-gateway', function(){
+        $.request('onParametersFieldsValuesRefresh', {
+            data: {
+                gateway: $("#Form-field-PaymentGateway-gateway").val(),
+            },
+        })
+    });
+</script> 

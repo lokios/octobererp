@@ -1,0 +1,13 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    price:
+        label: olabs.oims::lang.products.individual_price
+        searchable: true
+        
+    customer:
+        label: olabs.oims::lang.products.customer
+        type: partial
+        path: ~/plugins/olabs/oims/models/productuserprice/_customer_column.htm

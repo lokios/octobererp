@@ -1,0 +1,12 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+projectWorkProducts:
+    label: Project Work Products
+    manage:
+        form: $/olabs/oims/models/projectworkproduct/fields.yaml
+        list: $/olabs/oims/models/projectworkproduct/columns.yaml
+    view:
+        list: $/olabs/oims/models/projectworkproduct/columns.yaml
+        toolbarButtons: create|delete

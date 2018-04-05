@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: olabs.oims::lang.pcattendance.menu_label_single
+
+# Model Form Field configuration
+form: $/olabs/oims/models/pcattendance/fields.yaml
+
+# Model Class name
+modelClass: Olabs\Oims\Models\PCAttendance
+
+# Default redirect location
+defaultRedirect: olabs/oims/pcattendances
+
+# Create page
+create:
+    title: olabs.oims::lang.pcattendance.create_pcattendance
+    redirect: olabs/oims/pcattendances/update/:id
+    redirectClose: olabs/oims/pcattendances
+
+# Update page
+update:
+    title: olabs.oims::lang.pcattendance.edit_pcattendance
+    redirect: olabs/oims/pcattendances
+    redirectClose: olabs/oims/pcattendances
+
+# Preview page
+preview:
+    title: olabs.oims::lang.pcattendance.preview_pcattendance

@@ -1,0 +1,10 @@
+name: TaskLogs
+form: $/olabs/tasks/models/tasklogs/fields.yaml
+modelClass: Olabs\Tasks\Models\TaskLogs
+defaultRedirect: olabs/tasks/tasklogs
+create:
+    redirect: 'olabs/tasks/tasklogs/update/:id'
+    redirectClose: olabs/tasks/tasklogs
+update:
+    redirect: olabs/tasks/tasklogs
+    redirectClose: olabs/tasks/tasklogs

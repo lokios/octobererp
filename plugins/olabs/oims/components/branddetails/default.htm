@@ -1,0 +1,37 @@
+<div class="brand-detail">
+    {% if not brand %}
+    <div class="row">
+        <div class="col-sm-12">
+            Brand not found
+        </div>
+    </div>
+
+    {% else %}
+
+    <div class="row brand-detail-left">
+        <div class="col-sm-5">
+            {% if brand.logo %}
+            <div class="brand-detail-main-image" id="brand-detail-main-image">
+                <img src="{{ brand.logo.path }}" class="img-responsive cursor-pointer" >
+            </div>
+            {% endif %}            
+        </div>
+
+        <div class="col-sm-7 brand-detail-right">
+            <h1 id="brand-title">
+                {{ brand.title }}
+                <span id="brand-option-title"></span>
+            </h1>
+            <div class="brand-detail-description">
+                {{ brand.description|raw }}
+                <div id="brand-option-description">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>    
+
+    {% endif %}
+</div>

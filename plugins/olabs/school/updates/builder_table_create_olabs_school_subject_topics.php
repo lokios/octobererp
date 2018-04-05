@@ -1,0 +1,26 @@
+<?php namespace Olabs\School\Updates;
+
+use Schema;
+use October\Rain\Database\Updates\Migration;
+
+class BuilderTableCreateOlabsSchoolSubjectTopics extends Migration
+{
+    public function up()
+    {
+        Schema::create('olabs_school_subject_topics', function($table)
+        {
+            $table->engine = 'InnoDB';
+            $table->increments('id');
+            $table->text('name');
+            $table->text('description')->nullable();
+            $table->text('status')->nullable();
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
+        });
+    }
+    
+    public function down()
+    {
+        Schema::dropIfExists('olabs_school_subject_topics');
+    }
+}

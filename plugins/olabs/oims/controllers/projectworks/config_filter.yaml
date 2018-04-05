@@ -1,0 +1,16 @@
+# ===================================
+# Filter Scope Definitions
+# ===================================
+
+scopes:
+
+   
+       
+    project:
+        label: Project
+        modelClass: Olabs\Oims\Models\BaseModel
+        nameFrom: name
+        options: getProjectOptions
+        conditions: project_id in (:filtered)
+        
+    

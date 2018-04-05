@@ -1,0 +1,4 @@
+title: Products
+modelClass: Olabs\Estore\Models\Products
+toolbar:
+    buttons: reorder_toolbar

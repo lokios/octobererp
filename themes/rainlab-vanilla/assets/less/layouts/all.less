@@ -1,0 +1,49 @@
+//
+// Layouts
+//
+// Styles specific to different page layouts.
+//
+
+@import "footer";
+
+// Used by the fixed navigation
+body {
+    padding-top: 50px;
+    background-color: @brand-primary;
+}
+
+header#layout-header {
+    .navbar-brand {
+        padding-left: 60px;
+        background-image: url('../images/logo.png');
+        background-size: auto 75%;
+        background-repeat: no-repeat;
+        background-position: 10px 50%;
+    }
+}
+
+#layout-title {
+    background-color: mix(@brand-primary, @inverse, 9%);
+    padding-top: 20px;
+    padding-bottom: 30px;
+    margin-bottom: 20px;
+}
+
+#layout-content {
+    background-color: @body-bg;
+    a {
+        text-decoration: none;
+    }
+    .jumbotron {
+        padding-top: 56px;
+        padding-bottom: 56px;
+        margin-bottom: 0;
+    }
+    .panel-heading {
+        a {
+            color: @text-color;
+            &:hover { color: @link-color; }
+        }
+    }
+}
+

@@ -1,0 +1,474 @@
+<html>
+
+    <head>
+        <style>
+            @page {
+                margin: 0px;
+            }
+
+            .invoice-box {
+                max-width: 800px;
+                /*border: 1px solid #eee;*/
+                line-height: 14px;
+                font-family: 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif';
+                color: #555;
+                position: relative;
+                margin: 10px;
+                background: #FFFFFF;
+                font-size: 11px;
+                width: 100%;
+            }
+            /*    table { width: 100%; border-collapse: collapse;}        td, th { border: 1px solid #ccc; }*/
+
+            .invoice-box td {
+                vertical-align: top;
+            }
+
+            .logo {
+                float: left;
+                margin-top: 2px;
+                width: 80px;
+            }
+
+            .logo img {
+                height: 60px;
+            }
+
+            .company {
+                text-align: center;
+            }
+
+            .billings {
+                text-align: right;
+            }
+
+            .client {
+                padding-left: 6px;
+            }
+
+            .client .to {
+                color: #777777;
+            }
+
+            .invoice {
+                float: right;
+                text-align: right;
+            }
+
+            .invoice h1 {
+                color: #0087C3;
+                font-size: 1.4em;
+                line-height: 1em;
+                font-weight: normal;
+                margin: 0 0 5px 0;
+            }
+
+            .invoice .date {
+                font-size: 1.1em;
+                color: #555;
+                margin-bottom: 7px;
+            }
+
+            .subject {
+                padding-left: 6px;
+                border-left: 6px;
+            }
+
+            .clearfix:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+
+            a {
+                color: #0087C3;
+                text-decoration: none;
+            }
+            /*border-bottom: 1px solid #eee; margin-bottom: 10px;*/
+
+            .header {
+                padding: 10px 0;
+                margin-bottom: 10px;
+                border-bottom: 1px solid #AAAAAA;
+            }
+
+            .details {
+                margin-bottom: 10px;
+            }
+
+            h2.name {
+                font-size: 1.4em;
+                font-weight: normal;
+                margin: 0;
+            }
+
+            h4.name {
+                font-size: 1.0em;
+                font-weight: normal;
+                margin: 0;
+            }
+
+            .items {
+                width: 100%;
+                border-collapse: collapse;
+                border-spacing: 0;
+                margin-bottom: 20px;
+            }
+
+            .items th,
+            .items td {
+                padding: 10px;
+                background: #fff;
+                text-align: center;
+                border-bottom: 1px solid #eee;
+            }
+
+            .items th {
+                white-space: nowrap;
+                font-weight: bold;
+            }
+
+            .items td {
+                text-align: right;
+            }
+
+            .items td h3 {
+                color: #57B223;
+                font-size: 1.2em;
+                font-weight: normal;
+                margin: 0 0 0.2em 0;
+            }
+
+            .items .summary_heading {
+                white-space: nowrap;
+                font-weight: bold;
+            }
+
+            .items .no {
+                /*        color: #FFFFFF;                font-size: 1.6em;                background: #57B223;*/
+            }
+
+            .items .desc {
+                text-align: left;
+            }
+
+            .items .unit {
+                /*background: #DDDDDD;*/
+            }
+
+            .items .qty {}
+
+            .items .total {
+                /*        background: #57B223;                color: #FFFFFF;*/
+            }
+
+            .items td.unit,
+            .items td.qty,
+            .items td.total {
+                font-size: 1.0em;
+            }
+
+            .items tbody tr:last-child td {
+                border: none;
+            }
+
+            .items tfoot td {
+                padding: 10px 20px;
+                background: #FFFFFF;
+                border-bottom: none;
+                font-size: 1.2em;
+                white-space: nowrap;
+                border-top: 1px solid #AAAAAA;
+            }
+
+            .items tfoot tr:first-child td {
+                border-top: none;
+            }
+
+            .items tfoot tr:last-child td {
+                color: #57B223;
+                font-size: 1.4em;
+                border-top: 1px solid #57B223;
+            }
+
+            .items tfoot tr td:first-child {
+                border: none;
+            }
+
+            .invoice_details {
+                /*margin-bottom: 10px;*/
+            }
+
+            .invoice_detail_left {
+                /*float: left;*/
+                width: 48%
+            }
+
+            .invoice_detail_right {
+                /*float: right;*/
+                width: 48%
+            }
+
+            .invoice_detail_table {
+                width: 100%;
+                border-collapse: collapse;
+                border-spacing: 0;
+                font-size: 1.0em;
+                /*margin-bottom: 20px;*/
+            }
+
+            .invoice_detail_table th {
+                width: 140px;
+                text-align: left;
+                /*border-bottom: 1px solid #c2c2c2;*/
+                padding: 10px;
+                color: #555;
+            }
+
+            .invoice_detail_table td {
+                text-align: left;
+                border-bottom: 1px solid #c2c2c2;
+                padding: 10px;
+                color: #555;
+            }
+
+            .authorize_signatory_table th {
+                width: 160px;
+                text-align: left;
+                /*border-bottom: 1px solid #c2c2c2;*/
+                padding: 10px;
+                color: #555;
+            }
+
+            .authorize_signatory_table td {
+                text-align: left;
+                border-bottom: 1px solid #c2c2c2;
+                padding: 10px;
+                color: #555;
+            }
+
+            #thanks {
+                font-size: 2em;
+                margin-bottom: 50px;
+            }
+
+            #notices {
+                padding-left: 6px;
+                border-left: 6px solid #0087C3;
+            }
+
+            #notices .notice {
+                font-size: 1.2em;
+            }
+
+            .footer {
+                color: #777777;
+                width: 100%;
+                height: 30px;
+                position: fixed;
+                bottom: 0px;
+                border-top: 1px solid #AAAAAA;
+                padding: 8px 0;
+                text-align: center;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!--Header-->
+        <table class="invoice-box header">
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="logo"><img src="https://oims2dev.s3.amazonaws.com/uploads/public/5a1/bdb/8be/5a1bdb8be946a936709597.gif" style="width: 100%; max-width: 300px;" alt="" class="fr-fic fr-dii"></div>
+                    </td>
+                    <td>
+                        <div class="company">
+                            <h2 class="name">VSS Buildcon Pvt. Ltd.</h2>
+                            <div>205, 2nd Floor, Vardhman Mayur Market, Pocket 6, Mayur Vihar-3</div>
+                            <div>New Delhi - 110096</div>
+                            <div>(011) 47282243, <a href="mailto:info@vssbuildcon.com">info@vssbuildcon.com</a></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="billings">
+                            <h4 class="name">Billing Address:</h4>
+                            <div>143-B, New Colony Gurgaon (W), </div>
+                            <div>Haryana - 122001</div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!--Invoice Details-->
+        <table class="invoice-box">
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="client">
+                            <div class="to">TO,</div>
+                            <h2 class="name">ARYAN ENTERPRISES</h2>
+                            <div class="address">A-41, Sarai Kale Khan, Nizamuddin East, New Delhi - 110013</div>
+                            <div class="email">+91-9714314382, <a href="mailto:salim@gmail.com">salim@gmail.com</a></div>
+                            <div>Kindly Attn : Mr. Dheeraj</div>
+                            <div>GST: BB09090909JJ</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="invoice">
+                            <h1>Purchase Order No: VSS|J||35|01.12.2017</h1>
+                            <div class="date">Date: 01/12/2017</div>
+                            <h2 class="name">Project: PVVNL HQ Kanpur</h2>
+                            <div class="address">Victoria Park Opposite, Kanpur - UP</div>
+                            <div>Contract Person: Mr. Jitendra Kumar</div>
+                            <div>+91-9714314382, <a href="mailto:info@vssbuildcon.com">info@vssbuildcon.com</a></div>
+                            <div>GST: A009909000099</div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!--Subjects-->
+        <table class="invoice-box">
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="subject">Please prepare challan / bill in the name of: VSS CONSTRUCTION</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="subject">
+                            <h4>Subject : PURCHASE ORDER FOR SUPPLY & INSTALLATION OF GLASS AT OUR SITE UBI , SECTOR -18 GURGAON (H.R)</h4>
+                            <p>Dear Sir,
+                                <br>We are please to place Work Order for the above said(subject) along with under mentioned terms &amp; conditions.</p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!--Descriptions-->
+        <table class="invoice-box items">
+            <thead>
+                <tr>
+                    <th class="no">#</th>
+                    <th class="desc">DESCRIPTION</th>
+                    <th class="unit">UNIT</th>
+                    <th class="qty">QUANTITY</th>
+                    <th class="unit">UNIT PRICE</th>
+                    <th class="total">TOTAL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="products_row">
+                    <td class="no">{{product_sno}}</td>
+                    <td class="desc">{{product_title}}</td>
+                    <td class="unit">{{product_unit}}</td>
+                    <td class="qty">{{product_qty}}</td>
+                    <td class="unit">{{product_rate}}</td>
+                    <td class="total">{{product_total_price}}</td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <br>
+                    </td>
+                    <td class="summary_heading" colspan="2">SUBTOTAL</td>
+                    <td class="summary_heading">0.00</td>
+                </tr>
+                <tr class="tax_row">
+                    <td colspan="3">
+                        <br>
+                    </td>
+                    <td colspan="2">{{tax_label}}</td>
+                    <td>{{tax_amount}}</td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <br>
+                    </td>
+                    <td class="summary_heading" colspan="2">GRAND TOTAL</td>
+                    <td class="summary_heading">0.00</td>
+                </tr>
+            </tbody>
+        </table>
+        <!--Footer-->
+        <table class="invoice-box">
+            <tbody>
+                <tr>
+                    <td>
+                        <table class="invoice_detail_table">
+                            <tbody>
+                                <tr>
+                                    <th>Remaks if any:</th>
+                                    <td>N/A</td>
+                                </tr>
+                                <tr>
+                                    <th>Loading:</th>
+                                    <td>Inclusive</td>
+                                </tr>
+                                <tr>
+                                    <th>Freight:</th>
+                                    <td>AS ACTUAL</td>
+                                </tr>
+                                <tr>
+                                    <th>Form "C":</th>
+                                    <td>N/A</td>
+                                </tr>
+                                <tr>
+                                    <th>Delivery Time</th>
+                                    <td>URGENT</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>
+                        <table class="invoice_detail_table">
+                            <tbody>
+                                <tr>
+                                    <th>Guaranty / Warranty:</th>
+                                    <td>N/A</td>
+                                </tr>
+                                <tr>
+                                    <th>Test Certificate:</th>
+                                    <td>N/A</td>
+                                </tr>
+                                <tr>
+                                    <th>Payment Terms:</th>
+                                    <td>10,000/- ADVANCE</td>
+                                </tr>
+                                <tr>
+                                    <th>Terms &amp; Condition:</th>
+                                    <td>N/A</td>
+                                </tr>
+                                <tr>
+                                    <th>Delivery At</th>
+                                    <td>UNION BANK OF INDIA SECTOR-18 , INSTITUTIONAL AREA GURGAON ,HARYANA</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="invoice-box authorize_signatory_table">
+            <tbody>
+                <tr>
+                    <th>AUTHORISED SIGNATORY</th>
+                    <td>
+                        <br>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="invoice-box">
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="footer">Invoice was created on a computer and is valid without the signature and seal.</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+
+</html>

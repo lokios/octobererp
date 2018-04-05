@@ -1,0 +1,6 @@
+plugin:
+    name: 'cyd293.extenders::lang.plugin.name'
+    description: 'cyd293.extenders::lang.plugin.description'
+    author: 'Cydrick Nonog'
+    icon: oc-icon-adjust
+    homepage: ''

@@ -1,0 +1,4 @@
+title: Expense On P/C
+modelClass: Olabs\Oims\Models\ExpenseOnPc
+toolbar:
+    buttons: reorder_toolbar

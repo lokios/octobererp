@@ -1,0 +1,5 @@
+<?php
+
+echo "<span style='background-color: ".($record->salesstatus ? $record->salesstatus->color : "#FFF" )."; bsales: 5px solid ".($record->salesstatus ? $record->salesstatus->color : "#FFF" )."; bsales-radius: 3px;'>".($record->salesstatus ? $record->salesstatus->title : "n/a" )."</span>";
+
+?>

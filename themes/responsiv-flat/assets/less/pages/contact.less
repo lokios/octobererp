@@ -1,0 +1,41 @@
+
+// CONTACT BANNER
+// ----------------------
+.contact-banner {
+    background-color: @brand-secondary;
+    color: mix(@brand-secondary, @inverse, 20%);
+    padding: 0 30px 20px;
+
+    .banner-title {
+        margin: 0 0 17px;
+        padding-top: 21px;
+        font-size: 24px;
+        line-height: 40px;
+        color: @inverse;
+    }
+    a {
+        color: lighten(@brand-secondary, 42%);
+        text-decoration: underline;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+    ul {
+        list-style-type: none;
+        margin: 0 0 21px;
+        padding: 0;
+
+        li {
+            border-top: 1px solid lighten(@brand-secondary, 2%);
+            line-height: 19px;
+            padding: 6px 0;
+            
+            &:first-child {
+                border-top: none;
+                padding-top: 1px;
+            }
+        }
+    }
+}
+

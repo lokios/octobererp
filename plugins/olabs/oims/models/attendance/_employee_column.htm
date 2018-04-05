@@ -1,0 +1,27 @@
+<?php
+
+if (class_exists("\Backend\Models\User") && ($record->employee_id > 0 && $record->employee_type == 'onrole')) {
+    // User exist
+    $user = \Backend\Models\User::find($record->employee_id);
+    if ($user!=null) {
+        // echo $user->id." | ".$user->fullname;
+        echo $user->fullname;
+    }
+    else {
+        echo "N/A";
+    }
+}else if($record->employee_id > 0 && $record->employee_type == 'offrole'){
+    $user = \Olabs\Oims\Models\OffroleEmployee::find($record->employee_id);
+    if ($user!=null) {
+        // echo $user->id." | ".$user->fullname;
+        echo $user->name;
+    }
+    else {
+        echo "N/A";
+    }
+}else {
+    echo "N/A";
+}
+
+
+?>

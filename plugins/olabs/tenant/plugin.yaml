@@ -1,0 +1,57 @@
+plugin:
+    name: 'olabs.tenant::lang.plugin.name'
+    description: 'olabs.tenant::lang.plugin.description'
+    author: olabs
+    icon: oc-icon-adjust
+    homepage: ''
+navigation:
+    main-menu-item:
+        label: Organizations
+        url: olabs/tenant/organizations
+        icon: icon-bell
+        permissions:
+            - manage_contents
+        sideMenu:
+            side-menu-item-content:
+                label: Contents
+                url: olabs/tenant/contents
+                icon: icon-sitemap
+                permissions:
+                    - manage_contents
+            side-menu-item:
+                label: Media
+                url: cms/media
+                icon: icon-eye
+                permissions:
+                    - manage.all.media
+            side-menu-item2:
+                label: Activities
+                url: olabs/pusher/activity
+                icon: icon-share
+                permissions:
+                    - manage.all.media
+            side-menu-item3:
+                label: Platforms
+                url: olabs/pusher/platforms
+                icon: icon-share-alt
+                permissions:
+                    - manage.all.media
+            side-menu-item4:
+                label: Members
+                url: olabs/tenant/orgmembers
+                icon: icon-sitemap
+                permissions:
+                    - manage_contents
+            side-menu-item5:
+                label: 'Content Categories'
+                url: olabs/tenant/contentcategories
+                icon: icon-sitemap
+                permissions:
+                    - manage_contents
+permissions:
+    manage_contents:
+        tab: 'Manage Site'
+        label: 'Manage Contents'
+    manage.all.media:
+        tab: 'Manage Site'
+        label: 'Manage All Media'

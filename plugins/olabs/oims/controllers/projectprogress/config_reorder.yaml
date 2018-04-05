@@ -1,0 +1,4 @@
+title: ProjectProgress
+modelClass: Olabs\Oims\Models\ProjectProgress
+toolbar:
+    buttons: reorder_toolbar

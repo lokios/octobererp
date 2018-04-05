@@ -1,0 +1,4 @@
+title: Units
+modelClass: Olabs\Oims\Models\Unit
+toolbar:
+    buttons: reorder_toolbar

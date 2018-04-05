@@ -1,0 +1,17 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table olabs_pusher_activity'
+    - builder_table_create_olabs_pusher_activity.php
+1.0.3:
+    - 'Updated table olabs_pusher_activity'
+    - builder_table_update_olabs_pusher_activity.php
+1.0.4:
+    - 'Created table olabs_pusher_registrations'
+    - builder_table_create_olabs_pusher_registrations.php
+1.0.5:
+    - 'Updated table olabs_pusher_registrations'
+    - builder_table_update_olabs_pusher_platforms.php
+1.0.6:
+    - 'Updated table olabs_pusher_platforms'
+    - builder_table_update_olabs_pusher_platforms_2.php

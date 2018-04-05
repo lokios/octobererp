@@ -1,0 +1,111 @@
+fields:
+    short_name:
+        label: 'Short Name'
+        span: auto
+        required: 1
+        type: text
+        commentAbove: '7 characters limit'
+    name:
+        label: Name
+        oc.commentPosition: ''
+        span: auto
+        required: 1
+        type: text
+    config_url:
+        label: URL
+        oc.commentPosition: ''
+        span: auto
+        required: 1
+        type: text
+    description:
+        label: About
+        size: ''
+        oc.commentPosition: ''
+        span: auto
+        type: richeditor
+    headline:
+        label: Headline
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    profile_type:
+        label: 'Profile Type'
+        options:
+            school: 'School / Educational Entity'
+            schools: 'Multi School - Platform'
+            hotel: 'Hotel / Resort'
+            restaurant: Restaurant
+            clinic: 'Clinic / Lab'
+        span: auto
+        required: 1
+        type: dropdown
+
+    featured_images:
+             label: Featured Images
+             type: fileupload
+             mode: image
+             imageWidth: 200
+             imageHeight: 200
+tabs:
+    fields:
+        email:
+            label: 'Contact Email'
+            oc.commentPosition: ''
+            span: auto
+            type: text
+            tab: Contact
+        website:
+            label: Website/Blog
+            oc.commentPosition: ''
+            span: auto
+            type: text
+            tab: Contact
+        phone_1:
+            label: 'Contact Phone 1'
+            oc.commentPosition: ''
+            span: auto
+            type: text
+            tab: Contact
+        phone_2:
+            label: 'Contact Phone 2'
+            oc.commentPosition: ''
+            span: auto
+            type: text
+            tab: Contact
+        fax:
+            label: Fax
+            oc.commentPosition: ''
+            span: auto
+            type: text
+            tab: Contact
+        address_1:
+            label: 'Address Line 1'
+            span: auto
+            type: text
+            tab: Contact
+        address_2:
+            label: 'Address Line 2'
+            span: auto
+            type: text
+            tab: Contact
+        city:
+            label: City
+            span: auto
+            type: text
+            tab: Contact
+        state:
+            label: State
+            span: auto
+            type: text
+            tab: Contact
+        country:
+            label: Country
+            span: auto
+            type: text
+            tab: Contact
+        map:
+            label: 'Google Map Embed Code'
+            size: tiny
+            span: auto
+            type: textarea
+            tab: Contact

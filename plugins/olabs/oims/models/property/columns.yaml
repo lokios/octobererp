@@ -1,0 +1,32 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    
+    id:
+        label: ID
+        searchable: true
+        
+    title:
+        label: olabs.oims::lang.properties.title
+        searchable: true
+
+    placeholder:
+        label: olabs.oims::lang.properties.placeholder     
+        searchable: true
+        
+    type:
+        label: olabs.oims::lang.properties.type     
+        type: partial
+        path: ~/plugins/olabs/oims/models/property/_type_column.htm    
+        
+    required:
+        label: olabs.oims::lang.properties.required
+        type: switch
+        
+
+    options:
+        label: olabs.oims::lang.properties.options     
+        relation: options
+        select: title

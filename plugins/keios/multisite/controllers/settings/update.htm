@@ -1,0 +1,54 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('keios/multisite/settings') ?>"><?= trans('keios.multisite::lang.controller.settings'); ?></a></li>
+        <li><?= e($this->pageTitle) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+<?php if (!$this->fatalError): ?>
+
+    <?= Form::open(['class'=>'layout-item stretch layout-column']) ?>
+
+        <?= $this->formRender() ?>
+
+        <div class="form-buttons layout-item fix">
+            <div class="loading-indicator-container">
+                <button
+                    type="submit"
+                    data-request="onSave"
+                    data-request-data="redirect:0"
+                    data-hotkey="ctrl+s, cmd+s"
+                    data-load-indicator="<?= trans('keios.multisite::lang.controller.saving'); ?>"
+                    class="btn btn-primary">
+                    <?= trans('keios.multisite::lang.controller.save'); ?>
+                </button>
+                <button
+                    type="button"
+                    data-request="onSave"
+                    data-request-data="close:1"
+                    data-hotkey="ctrl+enter, cmd+enter"
+                    data-load-indicator="<?= trans('keios.multisite::lang.controller.saving'); ?>"
+                    class="btn btn-default">
+                    <?= trans('keios.multisite::lang.controller.save-and-close'); ?>
+                </button>
+                <button
+                    type="button"
+                    class="oc-icon-trash-o btn-icon danger pull-right"
+                    data-request="onDelete"
+                    data-load-indicator="<?= trans('keios.multisite:lang.controller.save-delete'); ?>"
+                    data-request-confirm="Do you really want to delete this setting?">
+                </button>
+                <span class="btn-text">
+                    <?= trans('keios.multisite::lang.controller.or'); ?> <a href="<?= Backend::url('keios/multisite/settings') ?>"><?= trans('keios.multisite::lang.controller.cancel'); ?></a>
+                </span>
+            </div>
+        </div>
+
+    <?= Form::close() ?>
+
+<?php else: ?>
+
+    <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+    <p><a href="<?= Backend::url('keios/multisite/settings') ?>" class="btn btn-default"><?= trans('keios.multisite::lang.controller.return'); ?></a></p>
+
+<?php endif ?>

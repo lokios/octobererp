@@ -1,0 +1,12 @@
+list: $/olabs/tasks/models/tasklogs/columns.yaml
+modelClass: Olabs\Tasks\Models\TaskLogs
+title: TaskLogs
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 10
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'olabs/tasks/tasklogs/update/:id'

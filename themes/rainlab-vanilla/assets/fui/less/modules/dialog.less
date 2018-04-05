@@ -1,0 +1,52 @@
+//
+// Dialog
+// --------------------------------------------------
+
+.dialog {
+  border-top-width:2px;
+  border-top-style: solid;
+  font-size: @dialog-font-size;
+  margin-bottom: 20px;
+  padding: @dialog-padding;
+  position: relative;
+  text-align: center;
+
+  .btn {
+    vertical-align: baseline;
+    display: inline-block;
+
+    @media (max-width: @grid-float-breakpoint-max) {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  @media (min-width: @grid-float-breakpoint) {
+    padding-left: 0;
+    padding-right: 0;
+
+    input, .btn {
+      margin-left: 20px;
+    }
+  }
+
+  @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+    .form-group {
+      margin-bottom: 10px;
+    }
+  }
+
+  // Dialog styles
+  // -----------
+
+  &.dialog-default { .dialog-variant(@dialog-default-bg); }
+  &.dialog-success { .dialog-variant(@dialog-success-bg); }
+  &.dialog-danger  { .dialog-variant(@dialog-danger-bg); }
+  &.dialog-warning { .dialog-variant(@dialog-warning-bg); }
+  &.dialog-info    { .dialog-variant(@dialog-info-bg); }
+  &.dialog-inverse {
+    background-color: @brand-primary;
+    border-top-color: mix(@brand-primary, black, 80%);
+    color: @inverse;
+  }
+}

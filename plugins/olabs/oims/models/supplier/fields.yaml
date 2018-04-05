@@ -1,0 +1,106 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+#    is_superuser:
+#        context: [create, update]
+#        tab: backend::lang.user.permissions
+#        label: backend::lang.user.superuser
+#        type: switch
+#        comment: backend::lang.user.superuser_comment
+
+tabs:
+    defaultTab: backend::lang.user.account
+    fields:
+        login:
+            span: left
+            label: backend::lang.user.login
+
+        email:
+            span: right
+            label: backend::lang.user.email
+
+#        send_invite:
+#            context: create
+#            type: checkbox
+#            label: backend::lang.user.send_invite
+#            comment: backend::lang.user.send_invite_comment
+#            default: true
+
+        first_name:
+            span: left
+            label: backend::lang.user.first_name
+
+        last_name:
+            span: right
+            label: backend::lang.user.last_name
+
+        password:
+            type: password
+            span: left
+            label: backend::lang.user.password
+
+        password_confirmation:
+            type: password
+            span: right
+            label: backend::lang.user.password_confirmation
+        supplier_type:
+            type: dropdown
+            span: left
+            label: Supplier Type
+#        groups:
+#            context: [create, update]
+#            label: backend::lang.user.groups
+#            commentAbove: backend::lang.user.groups_comment
+#            type: checkboxlist
+
+        contact_email:
+            label: Contact Email
+            tab: Details
+            span: auto
+        contact_phone:
+            label: Contact Phone
+            tab: Details
+            span: auto   
+        address:
+            label: Address
+            tab: Details
+            span: auto 
+        address_2:
+            label: Address 2
+            tab: Details
+            span: auto
+        postcode:
+            label: Postcode
+            tab: Details
+            span: auto 
+        city:
+            label: City
+            tab: Details
+            span: auto 
+        country:
+            label: Country
+            tab: Details
+            span: auto 
+        tin:
+            label: TIN Number
+            tab: Details
+            span: auto 
+        pan:
+            label: PAN Number
+#            tab: Details
+            span: auto
+        gst_number:
+            label: GST Number
+#            tab: Details
+            span: auto
+secondaryTabs:
+    fields:
+        avatar:
+            label: backend::lang.user.avatar
+            type: fileupload
+            mode: image
+            imageHeight: 250
+            imageWidth: 250
+

@@ -1,0 +1,34 @@
+fields:
+    name:
+        label: Name
+        span: full
+        required: 1
+        type: text
+    description:
+        label: Description
+        size: tiny
+        span: full
+        type: textarea
+    classrooms_id:
+        label: Classroom
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        required: 1
+        type: relation
+    class_subjects_id:
+        label: Subject
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+    published_date:
+        label: 'Published Date'
+        mode: datetime
+        span: auto
+        type: datepicker
+    published_end_date:
+        label: 'Published End Date'
+        mode: datetime
+        span: auto
+        type: datepicker

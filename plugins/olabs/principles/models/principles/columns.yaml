@@ -1,0 +1,17 @@
+columns:
+    title:
+        label: Title
+        type: text
+        searchable: true
+        sortable: true
+    explanation:
+        label: Explanation
+        type: text
+        searchable: true
+    credit:
+        label: Credit
+        type: text
+    support:
+        label: Support
+        type: text
+        searchable: true

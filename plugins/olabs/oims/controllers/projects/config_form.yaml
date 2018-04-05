@@ -1,0 +1,10 @@
+name: Projects
+form: $/olabs/oims/models/project/fields.yaml
+modelClass: Olabs\Oims\Models\Project
+defaultRedirect: olabs/oims/projects
+create:
+    redirect: 'olabs/oims/projects/update/:id'
+    redirectClose: olabs/oims/projects
+update:
+    redirect: olabs/oims/projects
+    redirectClose: olabs/oims/projects

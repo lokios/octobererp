@@ -1,0 +1,15 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+options:
+    label: olabs.oims::lang.properties.option
+    view:
+        list: $/olabs/oims/models/propertyoption/columns.yaml
+        toolbarButtons: create|delete
+        defaultSort: 
+            column: order_index
+            direction: asc
+    manage:
+        form: $/olabs/oims/models/propertyoption/fields.yaml
+        recordsPerPage: 10          

@@ -1,0 +1,12 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+manpowerProducts:
+    label: Manpower Products
+    manage:
+        form: $/olabs/oims/models/manpowerproduct/fields.yaml
+        list: $/olabs/oims/models/manpowerproduct/columns.yaml
+    view:
+        list: $/olabs/oims/models/manpowerproduct/columns.yaml
+        toolbarButtons: create|delete

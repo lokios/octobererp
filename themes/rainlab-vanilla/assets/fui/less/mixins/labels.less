@@ -1,0 +1,16 @@
+// Labels
+
+.label-variant(@color, @hover-color, @text-color: @inverse) {
+  background-color: @color;
+  color: @text-color;
+  
+  &[href] {
+    color: @text-color;
+    
+    &:hover,
+    &:focus {
+      color: @text-color;
+      background-color: @hover-color;
+    }
+  }
+}

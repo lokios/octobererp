@@ -1,0 +1,10 @@
+name: EmployeeTypes
+form: $/olabs/oims/models/employeetype/fields.yaml
+modelClass: Olabs\Oims\Models\EmployeeType
+defaultRedirect: olabs/oims/employeetypes
+create:
+    redirect: 'olabs/oims/employeetypes/update/:slug'
+    redirectClose: olabs/oims/employeetypes
+update:
+    redirect: olabs/oims/employeetypes
+    redirectClose: olabs/oims/employeetypes

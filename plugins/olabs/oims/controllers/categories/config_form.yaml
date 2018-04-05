@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: olabs.oims::lang.categories.menu_label_single
+
+# Model Form Field configuration
+form: $/olabs/oims/models/category/fields.yaml
+
+# Model Class name
+modelClass: Olabs\Oims\Models\Category
+
+# Default redirect location
+defaultRedirect: olabs/oims/categories
+
+# Create page
+create: 
+    title: olabs.oims::lang.categories.create_category
+    redirect: olabs/oims/categories/update/:id
+    redirectClose: olabs/oims/categories
+
+# Update page
+update:
+    title: olabs.oims::lang.categories.edit_category
+    redirect: olabs/oims/categories
+    redirectClose: olabs/oims/categories
+
+# Preview page
+preview:
+    title: olabs.oims::lang.categories.preview_category

@@ -1,0 +1,23 @@
+<div data-control="toolbar">
+    <a href="<?= Backend::url('keios/multisite/settings/create') ?>" class="btn btn-primary oc-icon-plus"><?= trans('keios.multisite::lang.controller.new-bind') ?></a>
+    <button
+            class="btn btn-default oc-icon-trash-o"
+            disabled="disabled"
+            onclick="$(this).data('request-data', {
+                    checked: $('.control-list').listWidget('getChecked')
+                })"
+            data-request="onDelete"
+            data-request-confirm="<?= trans('keios.multisite::lang.controller.confirm') ?>"
+            data-trigger-type="enable"
+            data-trigger=".control-list input[type=checkbox]"
+            data-trigger-condition="checked"
+            data-stripe-load-indicator>
+        <?= trans('keios.multisite::lang.controller.delete') ?>
+    </button>
+    <button
+            class="btn btn-default"
+            data-request="onClearCache"
+            data-stripe-load-indicator>
+        <?= trans('keios.multisite::lang.controller.clear-cache') ?>
+    </button>
+</div>

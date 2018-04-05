@@ -1,0 +1,10 @@
+plugin:
+    name: 'olabs.app::lang.plugin.name'
+    description: 'olabs.app::lang.plugin.description'
+    author: olabs
+    icon: oc-icon-adjust
+    homepage: ''
+permissions:
+    app_admin:
+        tab: 'App Admin'
+        label: 'Manage App'

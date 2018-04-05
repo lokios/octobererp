@@ -1,0 +1,12 @@
+<?= Block::put('head') ?><?= Block::endPut() ?>
+
+<?= Block::put('body') ?>
+    <?php if (!$this->fatalError): ?>
+            <div class="tab-content flex-layout-item stretch relative">
+                <?= $this->widget->ReporticoEngine->render() ?>
+            </div>
+
+    <?php else: ?>
+        <p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
+    <?php endif ?>
+<?= Block::endPut() ?>

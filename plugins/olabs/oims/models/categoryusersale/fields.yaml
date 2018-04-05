@@ -1,0 +1,16 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    sale:
+        label: olabs.oims::lang.categories.sales_percent
+        comment: olabs.oims::lang.categories.sales_percent_comment
+        type: number
+        
+    user_id:
+        label: olabs.oims::lang.categories.customer
+        comment: olabs.oims::lang.categories.customer_comment
+        span: full 
+        type: dropdown
+        options: getUserOptions

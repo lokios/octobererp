@@ -1,0 +1,5 @@
+<?php
+
+echo "<span style='background-color: ".($record->orderstatus ? $record->orderstatus->color : "#FFF" )."; border: 5px solid ".($record->orderstatus ? $record->orderstatus->color : "#FFF" )."; border-radius: 3px;'>".($record->orderstatus ? $record->orderstatus->title : "n/a" )."</span>";
+
+?>

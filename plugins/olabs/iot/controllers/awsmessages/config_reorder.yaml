@@ -1,0 +1,4 @@
+title: AwsMessages
+modelClass: Olabs\Iot\Models\AwsMessage
+toolbar:
+    buttons: reorder_toolbar

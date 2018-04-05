@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: olabs.oims::lang.expenseonpcs.menu_label_single
+
+# Model Form Field configuration
+form: $/olabs/oims/models/expenseonpc/fields.yaml
+
+# Model Class name
+modelClass: Olabs\Oims\Models\ExpenseOnPc
+
+# Default redirect location
+defaultRedirect: olabs/oims/expenseonpcs
+
+# Create page
+create:
+    title: olabs.oims::lang.expenseonpcs.create_expenseonpc
+    redirect: olabs/oims/expenseonpcs/update/:id
+    redirectClose: olabs/oims/expenseonpcs
+
+# Update page
+update:
+    title: olabs.oims::lang.expenseonpcs.edit_expenseonpc
+    redirect: olabs/oims/expenseonpcs
+    redirectClose: olabs/oims/expenseonpcs
+
+# Preview page
+preview:
+    title: olabs.oims::lang.expenseonpcs.preview_expenseonpc

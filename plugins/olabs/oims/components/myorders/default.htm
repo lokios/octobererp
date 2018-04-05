@@ -1,0 +1,48 @@
+<div class="table-wrapper">
+    <div class="table-title-row">
+        <div class="col-sm-3">Order No.</div>
+        <div class="col-sm-3">Date</div>
+        <div class="col-sm-3">Price incl. VAT</div>
+        <div class="col-sm-3">Invoice</div>
+        <div class="clearfix"></div>
+    </div>
+    {% for order in ordersPagination.items()|slice(ordersPagination.perPage()*(ordersPagination.currentPage()-1), ordersPagination.perPage()) %}
+
+        <div class="table-data-row">
+            <div class="col-sm-3"><a href="{{ order.url }}">{{ order.id }}</a></div>
+            <div class="col-sm-3">{{ order.created_at|date("d/m/Y") }}</div>
+            <div class="col-sm-3">{{ jkshopSetting.getPriceFormatted(order.total_price) }}</div>
+            <div class="col-sm-3">
+                {% if (order.invoice) %}
+                <a href = '{{order.invoice.path}}' target='_blank'>download</a>
+                {% else %}
+                no invoice
+                {% endif %}
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    {% else %}
+        <div class="no-data">no orders</div>
+    {% endfor %}
+    <div class="clearfix"></div>
+</div>    
+
+{% if ordersPagination.lastPage > 1 %}
+<div class="pagination-wrapper">
+    <ul class="pagination">
+        {% if ordersPagination.currentPage > 1 %}
+            <li><a href="{{ this.page.baseFileName|page({ (pageParam): (ordersPagination.currentPage-1) }) }}">&larr; Prev</a></li>
+        {% endif %}
+
+        {% for page in 1..ordersPagination.lastPage %}
+            <li class="{{ ordersPagination.currentPage == page ? 'active' : null }}">
+                <a href="{{ this.page.baseFileName|page({ (pageParam): page }) }}">{{ page }}</a>
+            </li>
+        {% endfor %}
+
+        {% if ordersPagination.lastPage > ordersPagination.currentPage %}
+            <li><a href="{{ this.page.baseFileName|page({ (pageParam): (ordersPagination.currentPage+1) }) }}">Next &rarr;</a></li>
+        {% endif %}
+    </ul>
+</div>
+{% endif %}

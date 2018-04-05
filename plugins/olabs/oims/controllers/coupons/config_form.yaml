@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: olabs.oims::lang.coupons.menu_label_single
+
+# Model Form Field configuration
+form: $/olabs/oims/models/coupon/fields.yaml
+
+# Model Class name
+modelClass: Olabs\Oims\Models\Coupon
+
+# Default redirect location
+defaultRedirect: olabs/oims/coupons
+
+# Create page
+create:
+    title: olabs.oims::lang.coupons.create
+    redirect: olabs/oims/coupons/update/:id
+    redirectClose: olabs/oims/coupons
+
+# Update page
+update:
+    title: olabs.oims::lang.coupons.update
+    redirect: olabs/oims/coupons
+    redirectClose: olabs/oims/coupons
+
+# Preview page
+preview:
+    title: olabs.oims::lang.coupons.preview

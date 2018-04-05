@@ -1,0 +1,95 @@
+//
+// Controls
+//
+// These are reusable elements used in the site.
+//
+
+@import "misc";
+@import "nav";
+@import "tile";
+@import "subscribe";
+
+
+//
+// iFrames
+// --------------------------------------------------
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.2%;
+    margin-bottom: 20px;
+    height: 0;
+    overflow: hidden;
+}
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.google-maps {
+    position: relative;
+    padding-bottom: 90%;
+    margin-bottom: 20px;
+    height: 0;
+    overflow: hidden;
+}
+.google-maps iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+//
+// Callouts
+// --------------------------------------------------
+
+.callout {
+    margin-bottom: @line-height-computed;
+    padding: @callout-padding;
+    border-left: 3px solid @callout-border;
+    code, .highlight {
+    }
+    h4 {
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+    p:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.callout-danger {
+    background-color: @callout-danger-bg;
+    border-color: @callout-danger-border;
+    h4 {
+        color: @callout-danger-text;
+    }
+}
+
+.callout-warning {
+    background-color: @callout-warning-bg;
+    border-color: @callout-warning-border;
+    h4 {
+        color: @callout-warning-text;
+    }
+}
+
+.callout-info {
+    background-color: @callout-info-bg;
+    border-color: @callout-info-border;
+    h4 {
+        color: @callout-info-text;
+    }
+}
+
+.callout-success {
+    background-color: @callout-success-bg;
+    border-color: @callout-success-border;
+    h4 {
+        color: @callout-success-text;
+    }
+}

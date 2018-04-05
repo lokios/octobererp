@@ -1,0 +1,10 @@
+name: Foods
+form: $/olabs/food/models/food/fields.yaml
+modelClass: Olabs\Food\Models\Food
+defaultRedirect: olabs/food/foods
+create:
+    redirect: 'olabs/food/foods/update/:id'
+    redirectClose: olabs/food/foods
+update:
+    redirect: olabs/food/foods
+    redirectClose: olabs/food/foods

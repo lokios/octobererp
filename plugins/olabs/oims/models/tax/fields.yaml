@@ -1,0 +1,22 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    
+    active:
+        label: olabs.oims::lang.taxes.active
+        type: switch
+        span: full
+        default: true
+        
+    name:
+        label: olabs.oims::lang.taxes.name
+        span: auto
+
+
+    percent:
+        label: olabs.oims::lang.taxes.percent
+        comment: olabs.oims::lang.taxes.percent_comment
+        span: auto
+        type: number

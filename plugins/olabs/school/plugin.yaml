@@ -1,0 +1,6 @@
+plugin:
+    name: 'olabs.school::lang.plugin.name'
+    description: 'olabs.school::lang.plugin.description'
+    author: olabs
+    icon: oc-icon-adjust
+    homepage: ''

@@ -1,0 +1,10 @@
+name: BankAccounts
+form: $/olabs/oims/models/bankaccount/fields.yaml
+modelClass: Olabs\Oims\Models\BankAccount
+defaultRedirect: olabs/oims/bankaccounts
+create:
+    redirect: 'olabs/oims/bankaccounts/update/:id'
+    redirectClose: olabs/oims/bankaccounts
+update:
+    redirect: olabs/oims/bankaccounts
+    redirectClose: olabs/oims/bankaccounts

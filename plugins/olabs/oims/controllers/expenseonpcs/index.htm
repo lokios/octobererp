@@ -1,0 +1,72 @@
+<?php 
+
+$assigned_projects = false;
+if(!$this->user->isAdmin()){
+    $baseModel = new \Olabs\Oims\Models\BaseModel();
+    $assigned_projects = $baseModel->getProjectOptions();
+    
+}
+
+if($assigned_projects){
+$expenseOnPcsCount = \Olabs\Oims\Models\ExpenseOnPc::whereIn('project_id', array_keys($assigned_projects))->count();
+$expenseOnPcsPending = \Olabs\Oims\Models\ExpenseOnPc::where("paid_date", null)->whereIn('project_id', array_keys($assigned_projects))->count();
+
+$expenseOnPcsCountThis = \Olabs\Oims\Models\ExpenseOnPc::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->whereIn('project_id', array_keys($assigned_projects))->count();
+$expenseOnPcsCountLast = \Olabs\Oims\Models\ExpenseOnPc::whereBetween("created_at", [Carbon\Carbon::now()->addDay(-60), Carbon\Carbon::now()->addDay(-30)])->whereIn('project_id', array_keys($assigned_projects))->count();
+$expenseOnPcsValueThis = \Olabs\Oims\Models\ExpenseOnPc::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->whereIn('project_id', array_keys($assigned_projects))->sum("total_price");
+$expenseOnPcsValueLast = \Olabs\Oims\Models\ExpenseOnPc::whereBetween("created_at", [Carbon\Carbon::now()->addDay(-60), Carbon\Carbon::now()->addDay(-30)])->whereIn('project_id', array_keys($assigned_projects))->sum("total_price");
+
+$approved = \Olabs\Oims\Models\ExpenseOnPc::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_APPROVED)->whereIn('project_id', array_keys($assigned_projects))->count();
+$rejected = \Olabs\Oims\Models\ExpenseOnPc::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_REJECTED)->whereIn('project_id', array_keys($assigned_projects))->count();
+$new = \Olabs\Oims\Models\ExpenseOnPc::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_NEW)->whereIn('project_id', array_keys($assigned_projects))->count();
+$submited = \Olabs\Oims\Models\ExpenseOnPc::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_SUBMITTED)->whereIn('project_id', array_keys($assigned_projects))->count();
+
+
+}else{
+$expenseOnPcsCount = \Olabs\Oims\Models\ExpenseOnPc::count();
+$expenseOnPcsPending = \Olabs\Oims\Models\ExpenseOnPc::where("paid_date", null)->count();
+
+$expenseOnPcsCountThis = \Olabs\Oims\Models\ExpenseOnPc::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->count();
+$expenseOnPcsCountLast = \Olabs\Oims\Models\ExpenseOnPc::whereBetween("created_at", [Carbon\Carbon::now()->addDay(-60), Carbon\Carbon::now()->addDay(-30)])->count();
+$expenseOnPcsValueThis = \Olabs\Oims\Models\ExpenseOnPc::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->sum("total_price");
+$expenseOnPcsValueLast = \Olabs\Oims\Models\ExpenseOnPc::whereBetween("created_at", [Carbon\Carbon::now()->addDay(-60), Carbon\Carbon::now()->addDay(-30)])->sum("total_price");
+
+$approved = \Olabs\Oims\Models\ExpenseOnPc::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_APPROVED)->count();
+$rejected = \Olabs\Oims\Models\ExpenseOnPc::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_REJECTED)->count();
+$new = \Olabs\Oims\Models\ExpenseOnPc::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_NEW)->count();
+$submited = \Olabs\Oims\Models\ExpenseOnPc::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_SUBMITTED)->count();
+
+
+}
+
+$expenseOnPcsCountClass = "positive"; if ($expenseOnPcsCountThis < $expenseOnPcsCountLast) { $expenseOnPcsCountClass = "negative";  }
+$expenseOnPcsValueClass = "positive"; if ($expenseOnPcsValueThis < $expenseOnPcsValueLast) { $expenseOnPcsValueClass = "negative";  }
+?>
+
+<div>
+    <div class="scoreboard-item control-chart col-md-4" data-control="chart-pie">
+        <ul>
+            <li data-color="#4caf50">Approved <span><?= $approved  ?></span></li>
+            <li data-color="#3f51b5">New <span><?= $new ?></span></li>
+            <li data-color=" #ff9800">Submitted <span><?= $submited ?></span></li>
+            <li data-color="#f44336">Rejected <span><?= $rejected ?></span></li>
+        </ul>
+    </div>
+    <div class="scoreboard-item title-value col-md-4">
+        <h4><?= Lang::get("olabs.oims::lang.expenseonpcs.expenseonpcs_30_days")?></h4>
+        <p class="<?= $expenseOnPcsCountClass ?>"><?= $expenseOnPcsCountThis ?></p>
+        <p class="description"><?= Lang::get("olabs.oims::lang.expenseonpcs.sales_30_days")?>: <?= $expenseOnPcsCountLast ?></p>
+    </div>
+    <div class="scoreboard-item title-value col-md-4">
+        <h4><?= Lang::get("olabs.oims::lang.expenseonpcs.previous_30_days")?></h4>
+        <p class="<?= $expenseOnPcsValueClass ?>"><?= $expenseOnPcsValueThis ?></p>
+        <p class="description"><?= Lang::get("olabs.oims::lang.expenseonpcs.previous_30_days")?>: <?= $expenseOnPcsValueLast ?></p>
+    </div>    
+    
+    <div class="clearfix"></div>
+</div>
+
+<hr>
+
+
+<?= $this->listRender() ?>

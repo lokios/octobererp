@@ -1,0 +1,10 @@
+name: Contents
+form: $/olabs/tenant/models/contents/fields.yaml
+modelClass: Olabs\Tenant\Models\Contents
+defaultRedirect: olabs/tenant/contents
+create:
+    redirect: 'olabs/tenant/contents/update/:id'
+    redirectClose: olabs/tenant/contents
+update:
+    redirect: olabs/tenant/contents
+    redirectClose: olabs/tenant/contents

@@ -1,0 +1,4 @@
+title: ProjectAssets
+modelClass: Olabs\Oims\Models\ProjectAsset
+toolbar:
+    buttons: reorder_toolbar

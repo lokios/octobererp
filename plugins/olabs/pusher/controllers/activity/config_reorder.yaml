@@ -1,0 +1,4 @@
+title: Activity
+modelClass: Olabs\Pusher\Models\Activity
+toolbar:
+    buttons: reorder_toolbar

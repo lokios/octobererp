@@ -1,0 +1,74 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    active:
+        label: olabs.oims::lang.orderstatuses.active
+        type: switch
+        span: full
+        default: true    
+    
+    title:
+        label: olabs.oims::lang.orderstatuses.title
+        span: full
+        
+    color:
+        label: olabs.oims::lang.orderstatuses.color
+        span: full
+        type: colorpicker
+        
+    disallow_for_gateway:
+        label: olabs.oims::lang.orderstatuses.disallow_for_gateway
+        comment: olabs.oims::lang.orderstatuses.disallow_for_gateway_comment
+        type: switch
+        span: full
+        default: false
+        
+    extended_inventory_management:
+        label: olabs.oims::lang.orderstatuses.extended_inventory_management
+        comment: olabs.oims::lang.orderstatuses.extended_inventory_management_comment
+        type: section
+        
+    qty_decrease:
+        label: olabs.oims::lang.orderstatuses.qty_decrease
+        comment: olabs.oims::lang.orderstatuses.qty_decrease_comment
+        type: switch
+        span: auto
+        default: false
+        
+    qty_increase_back:
+        label: olabs.oims::lang.orderstatuses.qty_increase_back
+        comment: olabs.oims::lang.orderstatuses.qty_increase_back_comment
+        type: switch
+        span: auto
+        default: false
+        
+    mail_template_section:
+        label: olabs.oims::lang.orderstatuses.mail_template
+        type: section
+        
+    send_email_to_customer:
+        label: olabs.oims::lang.orderstatuses.send_email_to_customer_field
+        type: switch
+        span: full
+        default: false         
+        
+    attach_invoice_pdf_to_email:
+        label: olabs.oims::lang.orderstatuses.attach_invoice_pdf_to_email_field
+        type: switch
+        span: full
+        default: false          
+        
+    mail_template:
+        label: olabs.oims::lang.orderstatuses.mail_template
+        type: relation
+        span: full
+        select: code
+        emptyOption: olabs.oims::lang.plugin.please_select
+        
+    mail_template_info:
+        label: olabs.oims::lang.orderstatuses.mail_template_info
+        type: partial
+        path: ~/plugins/olabs/oims/models/orderstatus/_mail_template_info_field.htm
+        searchable: true        

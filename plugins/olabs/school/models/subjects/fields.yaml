@@ -1,0 +1,11 @@
+fields:
+    name:
+        label: Name
+        span: full
+        required: 1
+        type: text
+    description:
+        label: Description
+        size: small
+        span: full
+        type: textarea

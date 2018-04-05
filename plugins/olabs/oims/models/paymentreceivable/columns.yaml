@@ -1,0 +1,34 @@
+columns:
+    id:
+        label: id
+        type: number
+    project_id:
+        label: project_id
+        type: number
+    user_id:
+        label: user_id
+        type: number
+    amount:
+        label: amount
+        type: text
+    reference_number:
+        label: reference_number
+        type: text
+    status:
+        label: status
+        type: text
+    context_date:
+        label: context_date
+        type: text
+    note:
+        label: note
+        type: text
+    payment_method:
+        label: payment_method
+        type: text
+    paid_date:
+        label: paid_date
+        type: text
+    paid_detail:
+        label: paid_detail
+        type: text

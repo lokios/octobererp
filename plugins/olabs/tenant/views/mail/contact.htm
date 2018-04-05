@@ -1,0 +1,17 @@
+subject = "message"
+==
+
+Hi {{ name }},
+
+Good news! User {{ user }} just added your product "{{ product }}" to a project.
+
+This message was sent using no formatting (plain text)
+==
+
+<p>Hi {{ name }},</p>
+
+<p>Good news! User {{ from_name }} just sent you a message! </p>
+<p>{{ content }} </p>
+<p>Sender Email: {{ from_email}}</p>
+
+<p>This email was sent using formatting (HTML)</p>

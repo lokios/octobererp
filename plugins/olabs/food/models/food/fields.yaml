@@ -1,0 +1,16 @@
+fields:
+    name:
+        label: Name
+        span: auto
+        type: text
+    description:
+        label: Description
+        size: tiny
+        span: auto
+        placeholder: Description
+        type: textarea
+    photo:
+        label: 'Media finder'
+        span: auto
+        mode: image
+        type: mediafinder

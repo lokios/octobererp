@@ -1,0 +1,13 @@
+columns:
+    id:
+        label: ID
+        type: text
+    app:
+        label: app
+        type: text
+    code:
+        label: Code
+        type: text
+    label:
+        label: Label
+        type: text

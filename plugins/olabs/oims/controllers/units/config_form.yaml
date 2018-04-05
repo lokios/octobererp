@@ -1,0 +1,10 @@
+name: Units
+form: $/olabs/oims/models/unit/fields.yaml
+modelClass: Olabs\Oims\Models\Unit
+defaultRedirect: olabs/oims/units
+create:
+    redirect: 'olabs/oims/units/update/:slug'
+    redirectClose: olabs/oims/units
+update:
+    redirect: olabs/oims/units
+    redirectClose: olabs/oims/units

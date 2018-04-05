@@ -1,0 +1,313 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+tabs:
+    fields:
+        title:
+            tab: olabs.oims::lang.products.detail
+            label: olabs.oims::lang.products.title
+            span: auto
+
+        slug:
+            tab: olabs.oims::lang.products.detail
+            label: olabs.oims::lang.products.slug
+            span: auto
+            preset:
+                field: title
+                type: slug  
+                
+        ean_13:
+            tab: olabs.oims::lang.products.detail
+            label: olabs.oims::lang.products.ean_13
+            span: auto    
+        unit_code:
+            tab: olabs.oims::lang.products.detail
+            label: Unit
+            oc.commentPosition: ''
+            nameFrom: name
+            descriptionFrom: description
+            span: auto
+            type: relation
+        retail_price_with_tax:
+            tab: olabs.oims::lang.products.detail
+            label: Price
+#            comment: olabs.oims::lang.products.retail_price_with_tax_comment 
+            span: auto 
+            type: number
+        barcode:
+            tab: olabs.oims::lang.products.detail
+            label: olabs.oims::lang.products.barcode
+            span: auto              
+
+        active:
+            tab: olabs.oims::lang.products.detail
+            label: olabs.oims::lang.products.active
+            type: switch
+            span: auto
+            default: true
+
+        visibility:
+            tab: olabs.oims::lang.products.detail
+            label: olabs.oims::lang.products.visibility
+            type: switch
+            span: auto
+            default: true            
+
+        available_for_order:
+            tab: olabs.oims::lang.products.detail
+            label: olabs.oims::lang.products.available_for_order
+            type: switch
+            span: auto
+            default: true
+
+        show_price:
+            tab: olabs.oims::lang.products.detail
+            label: olabs.oims::lang.products.show_price
+            type: switch
+            span: auto
+            default: true
+
+        condition:
+            tab: olabs.oims::lang.products.detail
+            label: olabs.oims::lang.products.condition
+            span: auto
+            type: dropdown
+            options:
+                0: olabs.oims::lang.products.condition_0
+                1: olabs.oims::lang.products.condition_1
+                2: olabs.oims::lang.products.condition_2
+                
+        brand:
+            tab: olabs.oims::lang.products.detail
+            label: olabs.oims::lang.products.brand
+            span: auto
+            type: relation
+            select: title
+            emptyOption: olabs.oims::lang.plugin.please_select
+                
+        short_description:
+            tab: olabs.oims::lang.products.detail
+            label: olabs.oims::lang.products.short_description
+            span: auto                  
+            type: richeditor
+                
+        description:
+            tab: olabs.oims::lang.products.detail
+            label: olabs.oims::lang.products.description
+            span: auto                  
+            type: richeditor
+
+# Prices
+
+#        pre_tax_wholesale_price:
+#            tab: olabs.oims::lang.products.prices
+#            label: olabs.oims::lang.products.pre_tax_wholesale_price
+#            comment: olabs.oims::lang.products.pre_tax_wholesale_price_comment
+#            span: full  
+#            type: number
+#
+#
+#        pre_tax_retail_price:
+#            tab: olabs.oims::lang.products.prices
+#            label: olabs.oims::lang.products.pre_tax_retail_price
+#            comment: olabs.oims::lang.products.pre_tax_retail_price_comment
+#            span: full  
+#            type: number
+#
+#        tax:
+#            tab: olabs.oims::lang.products.prices
+#            label: olabs.oims::lang.products.tax
+#            type: relation
+#            span: full  
+#            
+#        retail_price_with_tax:
+#            tab: olabs.oims::lang.products.prices
+#            label: olabs.oims::lang.products.retail_price_with_tax
+#            comment: olabs.oims::lang.products.retail_price_with_tax_comment 
+#            span: full 
+#            type: number
+            
+#        on_sale:
+#            tab: olabs.oims::lang.products.prices
+#            label: olabs.oims::lang.products.on_sale
+#            type: switch
+#            span: auto
+#            default: false
+#            
+#        individual_prices:
+#            tab: olabs.oims::lang.products.prices
+#            label: olabs.oims::lang.products.individual_prices
+#            type: partial
+#            path: ~/plugins/olabs/oims/models/product/_individual_prices_relation.htm            
+            
+
+
+# SEO
+#        meta_title:
+#            tab: olabs.oims::lang.products.seo
+#            label: olabs.oims::lang.products.meta_title
+#            
+#        meta_keywords:
+#            tab: olabs.oims::lang.products.seo
+#            comment: olabs.oims::lang.products.meta_keywords_comment
+#            label: olabs.oims::lang.products.meta_keywords
+#
+#        meta_description:
+#            tab: olabs.oims::lang.products.seo
+#            label: olabs.oims::lang.products.meta_description
+#            type: textarea
+
+
+# Categories
+        default_category:
+            tab: olabs.oims::lang.products.categories
+            label: olabs.oims::lang.products.default_category
+            comment: olabs.oims::lang.products.default_category_comment
+            type: relation
+            select: title
+          
+        categories:
+            tab: olabs.oims::lang.products.categories
+            label: olabs.oims::lang.products.categories
+            type: relation
+            select: title
+
+# Size, weight
+
+#        package_width:
+#            tab: olabs.oims::lang.products.size_weight
+#            label: olabs.oims::lang.products.package_width
+#            span: auto  
+#            type: number
+#
+#        package_height:
+#            tab: olabs.oims::lang.products.size_weight
+#            label: olabs.oims::lang.products.package_height
+#            span: auto  
+#            type: number
+#
+#        package_depth:
+#            tab: olabs.oims::lang.products.size_weight
+#            label: olabs.oims::lang.products.package_depth
+#            span: auto  
+#            type: number
+#
+#        package_weight:
+#            tab: olabs.oims::lang.products.size_weight
+#            label: olabs.oims::lang.products.package_weight
+#            span: auto  
+#            type: number
+#
+#        additional_shipping_fees:
+#            tab: olabs.oims::lang.products.size_weight
+#            label: olabs.oims::lang.products.additional_shipping_fees
+#            span: auto  
+#            type: number
+
+# Quantities
+
+        quantity:
+            tab: olabs.oims::lang.products.quantities
+            label: olabs.oims::lang.products.quantity
+            span: auto  
+            type: number
+            default: 0
+
+        when_out_of_stock:
+            tab: olabs.oims::lang.products.quantities
+            label: olabs.oims::lang.products.when_out_of_stock
+            span: auto
+            type: dropdown
+            options:
+                0: olabs.oims::lang.products.when_out_of_stock_0
+                1: olabs.oims::lang.products.when_out_of_stock_1
+
+        minimum_quantity:
+            tab: olabs.oims::lang.products.quantities
+            label: olabs.oims::lang.products.minimum_quantity
+            comment: olabs.oims::lang.products.minimum_quantity_comment
+            span: auto  
+            type: number
+            default: 1
+
+        availability_date:
+            tab: olabs.oims::lang.products.quantities
+            label: olabs.oims::lang.products.availability_date
+            comment: olabs.oims::lang.products.availability_date_comment
+            span: auto  
+            type: datepicker
+            mode: date            
+
+
+# Customization
+
+#        customization:
+#            tab: olabs.oims::lang.products.customization_tab
+#            label: olabs.oims::lang.products.customization
+#            type: repeater
+#            form:
+#                fields:
+#                    label:
+#                        label: olabs.oims::lang.products.label
+#                        type: text
+#                    value:
+#                        label: olabs.oims::lang.products.value
+#                        type: text
+                        
+# Properties
+
+#        basic_properties_section:
+#            tab: olabs.oims::lang.products.properties_tab
+#            label: olabs.oims::lang.products.basic_properties_section
+#            type: section
+#            comment: olabs.oims::lang.products.properties
+#    
+#        properties:
+#            tab: olabs.oims::lang.products.properties_tab
+#            type: relation
+#            select: title
+#            
+#        advanced_properties_section:
+#            tab: olabs.oims::lang.products.properties_tab
+#            label: olabs.oims::lang.products.advanced_properties_section
+#            type: section
+#            comment: olabs.oims::lang.products.advanced_properties_section_comment
+#            
+#        propertyOptions:
+#            tab: olabs.oims::lang.products.properties_tab
+#            type: partial
+#            path: ~/plugins/olabs/oims/models/product/_property_options_relation.htm
+            
+            
+
+# Accessories
+#        accessories:
+#            tab: olabs.oims::lang.products.accessories
+#            label: olabs.oims::lang.products.accessories
+#            type: partial
+#            path: ~/plugins/olabs/oims/models/product/_accessories_relation.htm
+
+
+
+# Featured
+        featured:
+            tab: olabs.oims::lang.products.featured_tab
+            label: olabs.oims::lang.products.featured
+            type: partial
+            path: ~/plugins/olabs/oims/models/product/_featured_relation.htm
+
+
+# Images
+        images:
+            label: olabs.oims::lang.products.images
+            tab: olabs.oims::lang.products.images
+            type: fileupload
+            mode: image
+            
+# Attachments
+        attachments:
+            label: olabs.oims::lang.products.attachments
+            tab: olabs.oims::lang.products.attachments
+            type: fileupload
+            mode: file

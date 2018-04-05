@@ -1,0 +1,56 @@
+fields:
+    product:
+        label: Product
+        oc.commentPosition: ''
+        nameFrom: title
+        descriptionFrom: description
+        list: $/olabs/oims/models/product/columns.yaml
+        span: auto
+        type: recordfinder
+    quantity:
+        label: Quantity (Depends on Coefficient)
+        oc.commentPosition: ''
+#        comment : 
+        default: 0
+        span: auto
+        type: number
+        dependsOn: 
+          - coefficient
+          - product
+#          - unit_price
+#          - coefficient
+    unit_code:
+        label: Unit
+        oc.commentPosition: ''
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+    coefficient:
+        label: Coefficient
+        oc.commentPosition: ''
+        default: 1
+        span: auto
+        type: number
+#        dependsOn: 
+#          - quantity
+#          - unit_price
+#          - coefficient
+    unit_price:
+        label: 'Unit Price'
+        oc.commentPosition: ''
+        span: auto
+        type: number
+        dependsOn: product
+#        defaultFrom: quantity
+    total_price:
+        label: 'Total Price'
+        span: auto
+        oc.commentPosition: ''
+        type: number
+        dependsOn: 
+          - product
+          - quantity
+          - unit_price
+          - coefficient
+        

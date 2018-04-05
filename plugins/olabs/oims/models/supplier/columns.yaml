@@ -1,0 +1,44 @@
+columns:
+    first_name:
+        label: backend::lang.user.first_name
+        searchable: true
+        invisible: true
+
+    last_name:
+        label: backend::lang.user.last_name
+        searchable: true
+        invisible: true
+
+    full_name:
+        label: backend::lang.user.full_name
+        select: concat(first_name, ' ', last_name)
+        searchable: true
+
+
+    login:
+        label: backend::lang.user.login
+        searchable: true
+        width: 15%
+
+    email:
+        label: backend::lang.user.email
+        searchable: true
+        
+    supplier_type:
+        label: Supplier Type
+#        type: text
+        type: partial
+        path: ~/plugins/olabs/oims/models/supplier/_supplier_type_column.htm
+        searchable: true
+
+#    groups:
+#        label: backend::lang.user.groups
+#        relation: groups
+#        select: name
+#        sortable: false
+
+    last_login:
+        label: backend::lang.user.last_login
+        searchable: true
+        type: datetime
+        invisible: true

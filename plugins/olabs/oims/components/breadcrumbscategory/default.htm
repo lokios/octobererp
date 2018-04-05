@@ -1,0 +1,13 @@
+
+{% if category %}
+<ol class="breadcrumb">
+    
+    {% for parent in parents %}
+        <li class="breadcrumb-item"><a href="{{parent.url}}">{{parent.title}}</a></li>
+    {% endfor %}
+    <li class="breadcrumb-item active">{{category.title}}</li>
+</ol>
+
+{% else %}
+<span>Category not found</span>
+{% endif %}

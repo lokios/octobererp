@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: olabs.oims::lang.paymentgateways.menu_label_single
+
+# Model Form Field configuration
+form: $/olabs/oims/models/paymentgateway/fields.yaml
+
+# Model Class name
+modelClass: Olabs\Oims\Models\PaymentGateway
+
+# Default redirect location
+defaultRedirect: olabs/oims/paymentgateways
+
+# Create page
+create:
+    title: olabs.oims::lang.paymentgateways.create
+    redirect: olabs/oims/paymentgateways/update/:id
+    redirectClose: olabs/oims/paymentgateways
+
+# Update page
+update:
+    title: olabs.oims::lang.paymentgateways.edit
+    redirect: olabs/oims/paymentgateways
+    redirectClose: olabs/oims/paymentgateways
+
+# Preview page
+preview:
+    title: olabs.oims::lang.paymentgateways.preview

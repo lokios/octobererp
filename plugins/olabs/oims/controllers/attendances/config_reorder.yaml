@@ -1,0 +1,4 @@
+title: Attendances
+modelClass: Olabs\Oims\Models\Attendance
+toolbar:
+    buttons: reorder_toolbar

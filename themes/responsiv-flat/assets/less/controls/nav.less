@@ -1,0 +1,63 @@
+//
+// Customise the Bootstrap Nav
+//
+
+//
+// Tabs
+//
+.nav-tabs {
+    border-bottom: 3px solid @brand-primary;
+    margin-bottom: 15px;
+}
+.nav-tabs > li {
+    margin-bottom: 0;
+}
+.nav-tabs > li > a {
+    border-bottom: 0;
+    border: 1px solid transparent;
+    color: @text-color;
+    &:hover { color: @link-color; }
+}
+.nav-tabs > li > a:hover {
+    border-color: #f6f6f6;
+    background: #f6f6f6;
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    background: @brand-primary;
+    color: white;
+    border: 1px solid transparent;
+    border-bottom: 0;
+}
+
+//
+// Justified tabs
+//
+.nav-tabs.nav-justified {
+    border-bottom: 0;
+}
+.nav-tabs.nav-justified > .active > a,
+.nav-tabs.nav-justified > .active > a:hover,
+.nav-tabs.nav-justified > .active > a:focus {
+    background: @brand-primary;
+    color: white;
+    border: 0;
+}
+@media (min-width: 768px) {
+    .nav-tabs.nav-justified {
+        border-bottom: 3px solid @brand-primary;
+    }
+    .nav-tabs.nav-justified > li > a {
+        border-bottom: 0;
+    }
+}
+
+//
+// Pills
+//
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+    background: @brand-primary;
+}

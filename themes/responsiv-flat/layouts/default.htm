@@ -1,0 +1,66 @@
+description = "Default layout"
+==
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Flat UI - {{ this.page.title }}</title>
+        <meta name="author" content="October CMS">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="{{ 'assets/images/logo.png'|theme }}" />
+        {% styles %}
+        <link href="{{ [
+            'assets/css/theme.css'
+        ]|theme }}" rel="stylesheet">
+    </head>
+    <body class="page-{{ this.page.id }} layout-{{ this.layout.id }}">
+
+        <!-- Header -->
+        <header id="layout-header" class="header-navbar">
+            <!-- Nav -->
+            {% partial "nav" %}
+        </header>
+
+
+        <!-- Content -->
+        <div id="layout-content">
+            {% page %}
+        </div>
+
+        <!-- Mailing List -->
+        <section id="layout-subscribe" class="subscribe-form">
+            {% partial "subscribe" %}
+        </section>
+
+        <!-- Footer -->
+        <footer id="layout-footer">
+            {% partial "footer" %}
+        </footer>
+
+        <!-- Scripts -->
+        <script src="{{ [
+            'assets/javascript/jquery.js',
+            'assets/vendor/bootstrap/js/transition.js',
+            'assets/vendor/bootstrap/js/alert.js',
+            'assets/vendor/bootstrap/js/button.js',
+            'assets/vendor/bootstrap/js/carousel.js',
+            'assets/vendor/bootstrap/js/collapse.js',
+            'assets/vendor/bootstrap/js/dropdown.js',
+            'assets/vendor/bootstrap/js/modal.js',
+            'assets/vendor/bootstrap/js/tooltip.js',
+            'assets/vendor/bootstrap/js/popover.js',
+            'assets/vendor/bootstrap/js/scrollspy.js',
+            'assets/vendor/bootstrap/js/tab.js',
+            'assets/vendor/bootstrap/js/affix.js',
+            'assets/vendor/flat-ui/js/bootstrap-select.js',
+            'assets/vendor/flat-ui/js/bootstrap-switch.js',
+            'assets/vendor/flat-ui/js/flatui-checkbox.js',
+            'assets/vendor/flat-ui/js/flatui-radio.js',
+            'assets/vendor/flat-ui/js/jquery.tagsinput.js',
+            'assets/vendor/flat-ui/js/jquery.placeholder.js',
+            'assets/javascript/app.js',
+        ]|theme }}"></script>
+        {% framework extras %}
+        {% scripts %}
+
+    </body>
+</html>

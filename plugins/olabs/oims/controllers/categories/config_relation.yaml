@@ -1,0 +1,12 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+sales:
+    label: olabs.oims::lang.categories.sales_percent
+    view:
+        list: $/olabs/oims/models/categoryusersale/columns.yaml
+        toolbarButtons: create|delete
+    manage:
+        form: $/olabs/oims/models/categoryusersale/fields.yaml
+        recordsPerPage: 10

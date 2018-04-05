@@ -1,0 +1,118 @@
+fields:
+#    name:
+#        label: Name
+#        oc.commentPosition: ''
+#        span: auto
+#        type: text
+    
+    product:
+        label: Product
+        oc.commentPosition: ''
+        nameFrom: title
+        descriptionFrom: description
+        list: $/olabs/oims/models/product/columns.yaml
+        span: auto
+        type: recordfinder
+#    condition:
+#            tab: olabs.oims::lang.products.detail
+#            label: olabs.oims::lang.products.condition
+#            span: auto
+#            type: dropdown
+#            options:
+#                0: olabs.oims::lang.products.condition_0
+#                1: olabs.oims::lang.products.condition_1
+#                2: olabs.oims::lang.products.condition_2
+                
+    project:
+#            tab: olabs.oims::lang.quotes.detail
+        label: Project
+        oc.commentPosition: ''
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        required: 1
+        type: dropdown
+    
+    purchase:
+        label: MR Number
+        oc.commentPosition: ''
+        nameFrom: reference_number
+        descriptionFrom: description
+        list: $/olabs/oims/models/purchase/columns.yaml
+        span: auto
+        type: recordfinder
+    
+    context_date:
+        label: Date
+        oc.commentPosition: ''
+        mode: date
+        span: auto
+        default: 'today'
+        required: 1
+        type: datepicker
+        format: 'd/m/Y'
+#            minDate: "today -1 days"
+    objectstatus:
+        label: Status
+        type: partial
+        path: ~/plugins/olabs/oims/models/status/_status_field.htm  
+        span: auto
+    
+          
+tabs:
+    fields:         
+    
+        unit_code:
+            label: Unit
+            tab: olabs.oims::lang.products.detail
+            oc.commentPosition: ''
+            nameFrom: name
+            descriptionFrom: description
+            span: auto
+            type: relation
+        quantity:
+            label: Quantity
+            tab: olabs.oims::lang.products.detail
+            oc.commentPosition: ''
+            default: 1
+            span: auto
+            type: number
+        unit_price:
+            label: 'Unit Price'
+            tab: olabs.oims::lang.products.detail
+            oc.commentPosition: ''
+            span: auto
+            type: number
+            dependsOn: product
+    #        defaultFrom: quantity
+        total_price:
+            label: 'Total Price'
+            tab: olabs.oims::lang.products.detail
+            span: auto
+            oc.commentPosition: ''
+            type: number
+            dependsOn: 
+              - product
+              - quantity
+              - unit_price
+          
+        description:
+            tab: olabs.oims::lang.products.detail
+            label: olabs.oims::lang.products.description
+            span: auto                  
+            type: richeditor
+
+
+    # Images
+        images:
+            label: olabs.oims::lang.products.images
+            tab: olabs.oims::lang.products.images
+            type: fileupload
+            mode: image
+
+    # Attachments
+        attachments:
+            label: olabs.oims::lang.products.attachments
+            tab: olabs.oims::lang.products.attachments
+            type: fileupload
+            mode: file

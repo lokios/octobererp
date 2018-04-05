@@ -1,0 +1,4 @@
+title: Project Asset Purchases
+modelClass: Olabs\Oims\Models\ProjectAssetPurchase
+toolbar:
+    buttons: reorder_toolbar

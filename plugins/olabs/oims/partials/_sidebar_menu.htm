@@ -1,0 +1,40 @@
+<?php
+    $sideMenuItems = BackendMenu::listSideMenuItems();
+    if ($sideMenuItems):
+        $collapsedGroups = explode('|',
+    isset($_COOKIE['sidenav_treegroupStatus']) ? $_COOKIE['sidenav_treegroupStatus'] : null);
+    $categories = [];
+    foreach ($sideMenuItems as $sideItemCode => $item){
+        if(!property_exists($item, 'group'))
+            $item->group = 'default';
+        if(!property_exists($item, 'keywords'))
+            $item->keywords = '';
+        if(!property_exists($item, 'description'))
+            $item->description = '';
+        $categories[$item->group][$sideItemCode] = $item;
+    }
+?>        
+    <ul class="top-level">
+    <?php foreach ($categories as $category => $items):
+            $collapsed = in_array($category, $collapsedGroups);
+    ?>
+        <li data-group-code="<?= e($category) ?>" <?= $collapsed ? 'data-status="collapsed"' : null ?>>
+            <div class="group">
+                <h3><?= e(trans('pronet.realestate::lang.global.sidenav.' . $category)) ?></h3>
+            </div>
+            <ul>
+            <?php foreach ($items as $item): ?>
+                <li class="<?= BackendMenu::isSideMenuItemActive($item) ? 'active' : null ?>"
+                    data-keywords="<?= e(trans($item->keywords)) ?>">
+                    <a href="<?= $item->url ?>">
+                        <i class="<?= $item->icon ?>"></i>
+                        <span class="header"><?= e(trans($item->label)) ?></span>
+                        <span class="description"><?= e(trans($item->description)) ?></span>
+                    </a>
+                </li>
+            <?php endforeach ?>
+            </ul>
+        </li>
+    <?php endforeach ?>
+    </ul>
+<?php endif; ?>

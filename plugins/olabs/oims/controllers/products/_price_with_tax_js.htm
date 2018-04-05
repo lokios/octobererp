@@ -1,0 +1,25 @@
+<script>
+    var taxRules = [];
+    <?php foreach (\Olabs\Oims\Models\Tax::where("active",1)->get() as $tax) { 
+        echo "taxRules[$tax->id] = $tax->percent;".PHP_EOL;
+    } ?>
+        
+$("#Form-field-Product-pre_tax_retail_price").keyup(function (e) {
+    computePriceWithTax();
+});
+$("#Form-field-Product-tax").change(function (e) {
+    computePriceWithTax();
+});
+/**
+ * Compute pruice with tax
+ * 
+ * @returns {undefined}
+ */
+function computePriceWithTax() {
+    var taxId = $("#Form-field-Product-tax").val();
+    var valFloat = parseFloat($("#Form-field-Product-pre_tax_retail_price").val());
+    var price = valFloat + (valFloat / 100 * taxRules[taxId]);
+    price = Math.round(price * 100) / 100;
+    $("#Form-field-Product-retail_price_with_tax").val(price);    
+}
+</script>

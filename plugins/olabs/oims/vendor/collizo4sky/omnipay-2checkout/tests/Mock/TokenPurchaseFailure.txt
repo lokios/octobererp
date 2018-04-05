@@ -1,0 +1,13 @@
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+
+{
+    "validationErrors": null,
+    "exception": {
+        "errorMsg": "Payment Authorization Failed:  Please verify your Credit Card details are entered correctly and try again, or try another payment method.",
+        "httpStatus": "400",
+        "exception": false,
+        "errorCode": "602"
+    },
+    "response": null
+}

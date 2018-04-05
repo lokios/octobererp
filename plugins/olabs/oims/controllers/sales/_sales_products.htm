@@ -1,0 +1,18 @@
+<!-- <div class="text-danger">Sorry, this is as far as behaviors can go...</div> -->
+
+<div id="productList">
+    <?= $this->makePartial('product_list', ['items' => $model->products]) ?>
+</div>
+<p>
+    <? if($this->vars['formContext'] != 'preview'): ?>
+    <a
+        href="javascript:;"
+        class="btn btn-secondary oc-icon-plus"
+        data-control="popup"
+        data-handler="onLoadCreateProductForm"
+        data-request-data="sales_id: '<?=$model->id?>'"
+        data-size="large">
+        Add item
+    </a>
+    <?php endif ?>
+</p>

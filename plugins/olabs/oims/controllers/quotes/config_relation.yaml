@@ -1,0 +1,12 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+quoteProducts:
+    label: Quote Products
+    manage:
+        form: $/olabs/oims/models/quoteproduct/fields.yaml
+        list: $/olabs/oims/models/quoteproduct/columns.yaml
+    view:
+        list: $/olabs/oims/models/quoteproduct/columns.yaml
+        toolbarButtons: create|delete

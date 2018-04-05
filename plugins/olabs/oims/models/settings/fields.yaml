@@ -1,0 +1,313 @@
+tabs:
+    fields:
+        productDefaultImage:
+            label: 'olabs.oims::lang.settings.product_default_image'
+            tab: 'olabs.oims::lang.settings.general'
+            type: fileupload
+            mode: image
+        emails_section:
+            tab: 'olabs.oims::lang.settings.general'
+            label: Emails
+            type: section
+        copy_all_order_emails_to:
+            tab: 'olabs.oims::lang.settings.general'
+            label: 'olabs.oims::lang.settings.copy_all_order_emails_to'
+            span: auto
+            type: text
+        user_details_section:
+            tab: 'olabs.oims::lang.settings.general'
+            label: 'olabs.oims::lang.settings.user_details_section'
+            type: section
+        number_format_thousands_sep:
+            tab: 'olabs.oims::lang.settings.general'
+            label: 'olabs.oims::lang.settings.number_format_thousands_sep'
+            span: auto
+            default: ','
+            type: text
+        number_format_decimals:
+            tab: 'olabs.oims::lang.settings.general'
+            label: 'olabs.oims::lang.settings.number_format_decimals'
+            span: auto
+            type: number
+            default: 2
+        number_format_dec_point:
+            tab: 'olabs.oims::lang.settings.general'
+            label: 'olabs.oims::lang.settings.number_format_dec_point'
+            span: auto
+            default: .
+            type: text
+        currency_char:
+            tab: 'olabs.oims::lang.settings.general'
+            label: 'olabs.oims::lang.settings.currency_char'
+            span: auto
+            default: $
+            type: text
+        currency_char_position:
+            tab: 'olabs.oims::lang.settings.general'
+            label: 'olabs.oims::lang.settings.currency_char_position'
+            span: auto
+            type: dropdown
+            options:
+                1: 'olabs.oims::lang.settings.currency_char_position_before'
+                2: 'olabs.oims::lang.settings.currency_char_position_after'
+        extended_inventory_management_section:
+            tab: 'olabs.oims::lang.settings.general'
+            label: 'olabs.oims::lang.settings.extended_inventory_management'
+            comment: 'olabs.oims::lang.settings.extended_inventory_management_comment'
+            type: section
+        extended_inventory_management:
+            tab: 'olabs.oims::lang.settings.general'
+            label: 'olabs.oims::lang.orderstatuses.extended_inventory_management'
+            type: switch
+            span: full
+            default: false
+#        cash_on_delivery_obsolete:
+#            tab: 'olabs.oims::lang.settings.cash_on_delivery'
+#            label: 'olabs.oims::lang.settings.section_obsolete'
+#            type: section
+#            comment: 'olabs.oims::lang.settings.section_obsolete_comment'
+#        cash_on_delivery_active:
+#            tab: 'olabs.oims::lang.settings.cash_on_delivery'
+#            label: 'olabs.oims::lang.settings.active'
+#            span: full
+#            type: switch
+#            default: true
+#            disabled: true
+#        cash_on_delivery_order_status_before:
+#            tab: 'olabs.oims::lang.settings.cash_on_delivery'
+#            label: 'olabs.oims::lang.settings.order_status_before'
+#            span: auto
+#            type: relation
+#            select: title
+#            disabled: true
+#        cash_on_delivery_order_status_after:
+#            tab: 'olabs.oims::lang.settings.cash_on_delivery'
+#            label: 'olabs.oims::lang.settings.order_status_after'
+#            span: auto
+#            type: relation
+#            select: title
+#            disabled: true
+#        bank_transfer_obsolete:
+#            tab: 'olabs.oims::lang.settings.bank_transfer'
+#            label: 'olabs.oims::lang.settings.section_obsolete'
+#            type: section
+#            comment: 'olabs.oims::lang.settings.section_obsolete_comment'
+#        bank_transfer_active:
+#            tab: 'olabs.oims::lang.settings.bank_transfer'
+#            label: 'olabs.oims::lang.settings.active'
+#            span: full
+#            type: switch
+#            default: true
+#            disabled: true
+#        bank_transfer_order_status_before:
+#            tab: 'olabs.oims::lang.settings.bank_transfer'
+#            label: 'olabs.oims::lang.settings.order_status_before'
+#            span: auto
+#            type: relation
+#            select: title
+#            disabled: true
+#        bank_transfer_order_status_after:
+#            tab: 'olabs.oims::lang.settings.bank_transfer'
+#            label: 'olabs.oims::lang.settings.order_status_after'
+#            span: auto
+#            type: relation
+#            select: title
+#            disabled: true
+#        paypal_obsolete:
+#            tab: 'olabs.oims::lang.settings.paypal'
+#            label: 'olabs.oims::lang.settings.section_obsolete'
+#            type: section
+#            comment: 'olabs.oims::lang.settings.section_obsolete_comment'
+#        paypal_active:
+#            tab: 'olabs.oims::lang.settings.paypal'
+#            label: 'olabs.oims::lang.settings.active'
+#            span: full
+#            type: switch
+#            default: true
+#            disabled: true
+#        paypal_order_status_before:
+#            tab: 'olabs.oims::lang.settings.paypal'
+#            label: 'olabs.oims::lang.settings.order_status_before'
+#            span: auto
+#            type: relation
+#            select: title
+#            disabled: true
+#        paypal_order_status_after:
+#            tab: 'olabs.oims::lang.settings.paypal'
+#            label: 'olabs.oims::lang.settings.order_status_after'
+#            span: auto
+#            type: relation
+#            select: title
+#            disabled: true
+#        paypal_use_sandbox:
+#            tab: 'olabs.oims::lang.settings.paypal'
+#            label: 'olabs.oims::lang.settings.paypal_use_sandbox'
+#            comment: 'olabs.oims::lang.settings.paypal_use_sandbox_comment'
+#            span: auto
+#            type: switch
+#            disabled: true
+#        paypal_debug:
+#            tab: 'olabs.oims::lang.settings.paypal'
+#            label: 'olabs.oims::lang.settings.paypal_debug'
+#            comment: 'olabs.oims::lang.settings.paypal_debug_comment'
+#            span: auto
+#            type: switch
+#            disabled: true
+#        paypal_business:
+#            tab: 'olabs.oims::lang.settings.paypal'
+#            label: 'olabs.oims::lang.settings.paypal_business'
+#            comment: 'olabs.oims::lang.settings.paypal_business_comment'
+#            span: auto
+#            disabled: true
+#            type: text
+#        paypal_currency_code:
+#            tab: 'olabs.oims::lang.settings.paypal'
+#            label: 'olabs.oims::lang.settings.paypal_currency_code'
+#            comment: 'olabs.oims::lang.settings.paypal_currency_code_comment'
+#            default: USD
+#            span: auto
+#            disabled: true
+#            type: text
+#        paypal_return_url:
+#            tab: 'olabs.oims::lang.settings.paypal'
+#            label: 'olabs.oims::lang.settings.paypal_return_url'
+#            comment: 'olabs.oims::lang.settings.paypal_return_url_comment'
+#            span: auto
+#            disabled: true
+#            type: text
+#        paypal_help_section:
+#            tab: 'olabs.oims::lang.settings.paypal'
+#            label: 'olabs.oims::lang.settings.help_section'
+#            type: section
+#        paypal_help:
+#            tab: 'olabs.oims::lang.settings.paypal'
+#            type: partial
+#            path: $/olabs/oims/models/settings/_paypal_help_field.htm
+#        paypal_debug_section:
+#            tab: 'olabs.oims::lang.settings.paypal'
+#            label: 'olabs.oims::lang.settings.help_debug'
+#            type: section
+#        paypal_help_debug:
+#            tab: 'olabs.oims::lang.settings.paypal'
+#            type: partial
+#            path: $/olabs/oims/models/settings/_paypal_help_debug_field.htm
+#        stripe_obsolete:
+#            tab: 'olabs.oims::lang.settings.stripe'
+#            label: 'olabs.oims::lang.settings.section_obsolete'
+#            type: section
+#            comment: 'olabs.oims::lang.settings.section_obsolete_comment'
+#        stripe_active:
+#            tab: 'olabs.oims::lang.settings.stripe'
+#            label: 'olabs.oims::lang.settings.active'
+#            span: full
+#            type: switch
+#            default: false
+#            disabled: true
+#        stripe_order_status_before:
+#            tab: 'olabs.oims::lang.settings.stripe'
+#            label: 'olabs.oims::lang.settings.order_status_before'
+#            span: auto
+#            type: relation
+#            select: title
+#            disabled: true
+#        stripe_order_status_after:
+#            tab: 'olabs.oims::lang.settings.stripe'
+#            label: 'olabs.oims::lang.settings.order_status_after'
+#            span: auto
+#            type: relation
+#            select: title
+#            disabled: true
+#        stripe_currency_code:
+#            tab: 'olabs.oims::lang.settings.stripe'
+#            label: 'olabs.oims::lang.settings.stripe_currency_code'
+#            comment: 'olabs.oims::lang.settings.stripe_currency_code_comment'
+#            default: USD
+#            span: auto
+#            disabled: true
+#            type: text
+#        stripe_return_url:
+#            tab: 'olabs.oims::lang.settings.stripe'
+#            label: 'olabs.oims::lang.settings.stripe_return_url'
+#            comment: 'olabs.oims::lang.settings.stripe_return_url_comment'
+#            span: auto
+#            disabled: true
+#            type: text
+#        stripe_secret_key:
+#            tab: 'olabs.oims::lang.settings.stripe'
+#            label: 'olabs.oims::lang.settings.stripe_secret_key'
+#            comment: 'olabs.oims::lang.settings.stripe_secret_key_comment'
+#            span: auto
+#            default: sk_test_BQokikJOvBiI2HlWgH4olfQ2
+#            disabled: true
+#            type: text
+#        stripe_publishable_key:
+#            tab: 'olabs.oims::lang.settings.stripe'
+#            label: 'olabs.oims::lang.settings.stripe_publishable_key'
+#            comment: 'olabs.oims::lang.settings.stripe_publishable_key_comment'
+#            span: auto
+#            default: pk_test_6pRNASCoBOKtIshFeQd4XMUh
+#            disabled: true
+#            type: text
+#        stripe_help_section:
+#            tab: 'olabs.oims::lang.settings.stripe'
+#            label: 'olabs.oims::lang.settings.help_section'
+#            type: section
+#        stripe_help:
+#            tab: 'olabs.oims::lang.settings.stripe'
+#            type: partial
+#            path: $/olabs/oims/models/settings/_stripe_help_field.htm
+#        stripe_debug_section:
+#            tab: 'olabs.oims::lang.settings.stripe'
+#            label: 'olabs.oims::lang.settings.help_debug'
+#            type: section
+#        stripe_help_debug:
+#            tab: 'olabs.oims::lang.settings.stripe'
+#            type: partial
+#            path: $/olabs/oims/models/settings/_stripe_help_debug_field.htm
+        invoice_template_style:
+            tab: 'olabs.oims::lang.settings.invoice_template'
+            label: 'olabs.oims::lang.settings.invoice_template_style'
+            span: full
+            type: textarea
+            size: giant
+        invoice_template_content:
+            tab: 'olabs.oims::lang.settings.invoice_template'
+            label: 'olabs.oims::lang.settings.invoice_template_content'
+            span: full
+            type: richeditor
+            size: giant
+        invoice_help_section:
+            label: 'olabs.oims::lang.settings.invoice_help_section'
+            span: full
+            type: section
+            comment: 'olabs.oims::lang.settings.invoice_help_section_comment'
+            tab: 'olabs.oims::lang.settings.invoice_template'
+        invoice_help:
+            tab: 'olabs.oims::lang.settings.invoice_template'
+            type: partial
+            path: $/olabs/oims/models/settings/_invoice_help_field.htm
+        material_receipt_template_style:
+            label: 'olabs.oims::lang.settings.material_receipt_template_style'
+            size: giant
+            oc.commentPosition: ''
+            span: full
+            type: textarea
+            tab: 'olabs.oims::lang.settings.material_receipt_template'
+        material_receipt_template_content:
+            label: 'olabs.oims::lang.settings.material_receipt_template_content'
+            size: giant
+            oc.commentPosition: ''
+            span: full
+            type: richeditor
+            tab: 'olabs.oims::lang.settings.material_receipt_template'
+        material_receipt_help_section:
+            label: 'olabs.oims::lang.settings.material_receipt_help_section'
+            span: full
+            type: section
+            comment: 'olabs.oims::lang.settings.material_receipt_help_section_comment'
+            tab: 'olabs.oims::lang.settings.material_receipt_template'
+        material_receipt_help:
+            span: full
+            path: $/olabs/oims/models/settings/_material_receipt_help_field.htm
+            type: partial
+            tab: 'olabs.oims::lang.settings.material_receipt_template'

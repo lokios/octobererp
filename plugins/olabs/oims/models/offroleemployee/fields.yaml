@@ -1,0 +1,104 @@
+fields:
+    name:
+        label: Name
+        span: auto
+        type: text
+        required: 1
+    status:
+        label: Status
+        span: auto
+        type: switch
+        default: 1
+    father_name:
+        label: 'Father''s Name'
+        span: auto
+        type: text
+    daily_wages:
+        label: 'Daily Wages'
+        span: auto
+        type: number
+        required: 1
+        default: 0
+    aadhaar_number:
+        label: 'Aadhaar Number'
+        span: auto
+        type: text
+    monthly_wages:
+        label: 'Monthly Wages'
+        span: auto
+        type: number
+        required: 1
+        default: 0
+    pan_number:
+        label: 'Pan Card Number'
+        span: auto
+        type: text
+    working_hour:
+        label: 'Working Hour'
+        oc.commentPosition: ''
+        span: auto
+        required: 1
+        type: number
+        default: 8
+    date_of_birth:
+        label: 'Date Of Birth'
+        mode: date
+        span: auto
+        yearRange: '[1950,2015]'
+        type: datepicker
+    lunch_hour:
+        label: 'Lunch Hour'
+        oc.commentPosition: ''
+        span: auto
+        required: 1
+        type: number
+        default: 1
+    
+    joining_date:
+        label: 'Joining Date'
+        mode: date
+        span: auto
+        default: today
+        type: datepicker
+        required: 1
+    employee_types:
+        label: 'Employment Type'
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+        required: 1
+    
+    last_working_date:
+        label: 'Last Working Date'
+        mode: date
+        span: auto
+        type: datepicker
+    supplier_id:
+        label: Supplier
+        span: auto
+        type: dropdown
+        options: getSupplierPettyContractorOptions
+        required: 1
+    
+    employee_code:
+        label: 'Employee Code'
+        span: auto
+        type: text
+    project:
+        label: Project
+        oc.commentPosition: ''
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        required: 1
+        type: dropdown
+secondaryTabs:
+    fields:
+        featured_images:
+            tab: Attachments
+            label: 'rainlab.blog::lang.post.featured_images'
+            type: fileupload
+            mode: image
+            imageHeight: 260
+            imageWidth: 260

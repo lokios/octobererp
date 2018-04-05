@@ -1,0 +1,4 @@
+title: Sales
+modelClass: Olabs\Oims\Models\Sales
+toolbar:
+    buttons: reorder_toolbar

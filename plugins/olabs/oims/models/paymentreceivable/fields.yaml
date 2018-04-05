@@ -1,0 +1,254 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+
+fields:
+        
+ #  Detail
+        objectstatus:
+            label: Status
+            type: partial
+            path: ~/plugins/olabs/oims/models/status/_status_field.htm  
+            span: auto
+        context_date:
+            label: Date
+            oc.commentPosition: ''
+            mode: date
+            span: auto
+            default: 'today'
+            required: 1
+            type: datepicker
+            minDate: "today -1 days"
+        project:
+#            tab: olabs.oims::lang.quotes.detail
+            label: Project
+            oc.commentPosition: ''
+            nameFrom: name
+            descriptionFrom: description
+            span: auto
+            required: 1
+            type: dropdown
+        reference_number:
+            label: 'Reference Number'
+            oc.commentPosition: ''
+            span: auto
+            type: text
+        user_id:
+            label: Imprest Holder
+            span: auto
+            type: dropdown
+            options: getEmployeeOptions  
+        received_from:
+            label: Payment Received From
+            span: auto
+            type: dropdown
+            options: getPaymentReceivedFromOptions  
+        
+        amount:
+            label: 'olabs.oims::lang.payment_receivables.amount'
+            type: number
+            span: auto
+
+        paid_date:
+            label: olabs.oims::lang.purchases.paid_date
+            type: datepicker
+            span: auto       
+tabs:
+    fields:
+
+        payment_method:
+            label: olabs.oims::lang.purchases.payment_method_field
+            tab: olabs.oims::lang.payment_receivables.payment_method
+            type: dropdown
+            span: auto
+            default: 0
+            
+#        paid_detail:
+#            label: olabs.oims::lang.purchases.paid_detail
+#            tab: olabs.oims::lang.payment_receivables.payment_method
+#            type: partial
+#            path: ~/plugins/olabs/oims/models/paymentreceivable/_paid_detail_field.htm
+            
+            
+        paid_detail[payment_from]:
+            label: Payment From Bank
+            tab: olabs.oims::lang.payment_receivables.payment_method
+            span: auto
+            type: dropdown
+            options: getBankAccountOptions  
+            hidden: true
+            dependsOn: payment_method
+
+        paid_detail[payment_to]:
+            label: Payment To Bank
+            tab: olabs.oims::lang.payment_receivables.payment_method
+            span: auto
+            type: dropdown
+            options: getBankAccountOptions  
+            hidden: true
+            dependsOn: payment_method
+
+        paid_detail[transaction_id]:
+            label: Transaction Id
+            tab: olabs.oims::lang.payment_receivables.payment_method
+            span: auto
+            hidden: true
+            dependsOn: payment_method
+
+       #Payment Method Cheque         
+        paid_detail[cheque_number]:
+            label: Cheque Number
+            tab: olabs.oims::lang.payment_receivables.payment_method
+            span: auto
+            hidden: true
+            dependsOn: payment_method
+
+        paid_detail[cheque_date]:
+            label: Cheque Date
+            tab: olabs.oims::lang.payment_receivables.payment_method
+            span: auto
+            hidden: true
+            dependsOn: payment_method
+
+        paid_detail[cheque_account]:
+            label: Cheque Account
+            tab: olabs.oims::lang.payment_receivables.payment_method
+            span: auto
+            type: dropdown
+            options: getBankAccountOptions  
+            hidden: true
+            dependsOn: payment_method
+
+#        Payment Method Demand Draft
+        paid_detail[dd_number]:
+            label: Demant Draft Number
+            tab: olabs.oims::lang.payment_receivables.payment_method
+            span: auto
+            hidden: true
+            dependsOn: payment_method
+
+        paid_detail[issuing_bank]:
+            label: Demant Draft Issuing Bank
+            tab: olabs.oims::lang.payment_receivables.payment_method
+            span: auto
+            hidden: true
+            dependsOn: payment_method
+
+        paid_detail[issue_date]:
+            label: Demant Draft Issue Date
+            tab: olabs.oims::lang.payment_receivables.payment_method
+            span: auto
+            type: datepicker
+            hidden: true
+            dependsOn: payment_method
+            
+            
+            
+#       Payment Method Cash
+#       Payment Method Bank Transfer
+#        paid_detail:
+#            type: repeater
+#            tab: olabs.oims::lang.payment_receivables.payment_method
+#            maxItems: 1
+##            dependsOn: payment_method
+#            form:
+#                fields:
+#                    paid_detail_payment_from:
+#                        label: Payment From Bank
+#                        tab: olabs.oims::lang.payment_receivables.payment_method
+#                        span: auto
+#                        type: dropdown
+#                        options: getBankAccountOptions  
+##                        hidden: true
+##                        dependsOn: payment_method
+#
+#                    paid_detail_payment_to:
+#                        label: Payment To Bank
+#                        tab: olabs.oims::lang.payment_receivables.payment_method
+#                        span: auto
+#                        type: dropdown
+#                        options: getBankAccountOptions  
+##                        hidden: true
+##                        dependsOn: payment_method
+#
+#                    paid_detail_transaction_id:
+#                        label: Transaction Id
+#                        tab: olabs.oims::lang.payment_receivables.payment_method
+#                        span: auto
+#                        type: dropdown
+#                        options: getBankAccountOptions  
+##                        hidden: true
+##                        dependsOn: payment_method
+#
+#                   #Payment Method Cheque         
+#                    paid_detail_cheque_number:
+#                        label: Cheque Number
+#                        tab: olabs.oims::lang.payment_receivables.payment_method
+#                        span: auto
+##                        hidden: true
+##                        dependsOn: payment_method
+#
+#                    paid_detail_cheque_date:
+#                        label: Cheque Date
+#                        tab: olabs.oims::lang.payment_receivables.payment_method
+#                        span: auto
+##                        hidden: true
+##                        dependsOn: payment_method
+#
+#                    paid_detail_cheque_account:
+#                        label: Cheque Account
+#                        tab: olabs.oims::lang.payment_receivables.payment_method
+#                        span: auto
+#                        type: dropdown
+#                        options: getBankAccountOptions  
+##                        hidden: true
+##                        dependsOn: payment_method
+#
+#            #        Payment Method Demand Draft
+#                    paid_detail_dd_number:
+#                        label: Demant Draft Number
+#                        tab: olabs.oims::lang.payment_receivables.payment_method
+#                        span: auto
+##                        hidden: true
+##                        dependsOn: payment_method
+#
+#                    paid_detail_issuing_bank:
+#                        label: Demant Draft Issuing Bank
+#                        tab: olabs.oims::lang.payment_receivables.payment_method
+#                        span: auto
+##                        hidden: true
+##                        dependsOn: payment_method
+#
+#                    paid_detail_issue_date:
+#                        label: Demant Draft Issue Date
+#                        tab: olabs.oims::lang.payment_receivables.payment_method
+#                        span: auto
+#                        type: datepicker
+##                        hidden: true
+##                        dependsOn: payment_method
+        
+        
+        
+
+        note:
+            label: 'olabs.oims::lang.purchases.note'
+            size: small
+            oc.commentPosition: ''
+            span: full
+            type: textarea
+            tab: 'olabs.oims::lang.purchases.detail'
+
+
+            
+        
+secondaryTabs:
+    stretch: true
+    fields:
+        featured_images:
+            tab: Attachments
+            label: rainlab.blog::lang.post.featured_images
+            type: fileupload
+            mode: image
+            imageWidth: 200
+            imageHeight: 200

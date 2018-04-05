@@ -1,0 +1,118 @@
+//
+//  Login screen
+// --------------------------------------------------
+
+body.page-samples-register #layout-subscribe,
+body.page-samples-signin #layout-subscribe {
+    display: none;
+}
+
+// Module color variable
+@form-color: mix(@brand-primary, @inverse, 9%);
+
+.signin-container {
+    background-color: @brand-secondary;
+}
+
+.signin {
+    color: @inverse;
+    padding: 38px;
+    position: relative;
+}
+
+.signin-screen {
+    min-height: 600px;
+    padding: 123px 49px 33px 156px;
+}
+
+.signin-icon {
+    left: 50px;
+    position: absolute;
+    top: 160px;
+    width: 96px;
+
+    > img {
+        display: block;
+        margin-bottom: 6px;
+        width: 100%;
+    }
+    > h4 {
+        font-size: 17px;
+        font-weight: 300;
+        line-height: 34px;
+        .opacity(.95);
+
+        small {
+            color: inherit;
+            display: block;
+            font-size: inherit;
+            font-weight: 700;
+        }
+    }
+}
+
+// LOGIN FORM
+// -----------
+.signin-form {
+    background-color: @form-color;
+    padding: 24px 23px 20px;
+    position: relative;
+    border-radius: @border-radius-large;
+
+    // Ear
+    &:before {
+        content: '';
+        border-style: solid;
+        border-width: 12px 12px 12px 0;
+        border-color: transparent @form-color transparent transparent;
+        height: 0;
+        position: absolute;
+        left: -12px;
+        top: 35px;
+        width: 0;
+        -webkit-transform: rotate(360deg); // Make corners smooth
+    }
+    .control-group {
+        margin-bottom: 6px;
+        position: relative;
+    }
+    .signin-field {
+        border-color: transparent;
+        font-size: 17px;
+        text-indent: 3px;
+        
+        &:focus {
+            border-color: @brand-secondary;
+
+            & + .signin-field-icon {
+                color: @brand-secondary;
+            }
+        }
+    }
+    .signin-field-icon {
+        color: mix(@gray, @inverse, 60%);
+        font-size: 16px;
+        position: absolute;
+        right: 15px;
+        top: 3px;
+        .transition(.25s);
+    }
+}
+
+.signin-link {
+    color: mix(@gray, @inverse, 60%);
+    display: block;
+    font-size: 13px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+@media (max-width: 688px) {
+    .signin-icon {
+        display: none;
+    }
+    .signin-screen {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+}

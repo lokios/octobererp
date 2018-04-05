@@ -1,0 +1,95 @@
+<?php Block::put('breadcrumb') ?>
+<ul>
+    <li><a href="<?= Backend::url('olabs/oims/machineries') ?>"><?= Lang::get("olabs.oims::lang.machineries.menu_label")?></a></li>
+    <li><?= e($this->pageTitle) ?></li>
+</ul>
+<?php Block::endPut() ?>
+
+<?php if (!$this->fatalError): ?>
+
+<div class="form-buttons">
+    <div class="loading-indicator-container">
+        <?= $this->makePartial('preview_toolbar') ?>
+    </div>
+</div>
+
+<div class="layout-row min-size">
+    <?= $this->formRender(['preview' => true, 'section' => 'outside']) ?>
+</div>
+
+<div class="layout-row">
+    <?= $this->formRender(['preview' => true, 'section' => 'primary']) ?>
+</div>
+
+<div class="layout-row">
+    <?= $this->formRender(['preview' => true, 'section' => 'secondary']) ?>
+</div>
+
+<div class="form-preview">
+    <? // $this->formRenderPreview() ?>
+</div>
+<div class="layout-row">
+    <?php if ($this->user->hasAccess('olabs.oims.record_submit_for_approval')):?>
+    <?php if($formModel->isStatusNew() || $formModel->isStatusRejected()):?>
+    <div class="list-preview list-flush">
+        <div class="control-list">
+            <textarea id="comment" name="comment" placeholder="Approval Comments" class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="form-buttons">
+        <a
+            href="javascript:;"
+            data-request="onSubmitForApproval"
+            data-request-data="id: '<?=$formModel->id?>',comment:$('#comment').val()"
+            data-popup-load-indicator
+            class="btn btn-primary oc-icon-check"
+            data-size="large">
+            Submit For Approval
+        </a>
+    </div>
+    <?php endif ?>
+    <?php endif ?>
+
+    <?php if ($this->user->hasAccess('olabs.oims.record_approval')):?>
+    <?php if($formModel->isStatusSubmitted()):?>
+
+    <div class="list-preview list-flush">
+        <div class="control-list">
+            <textarea id="comment" name="comment" placeholder="Approval Comments" class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="form-buttons">
+        <a
+            href="javascript:;"
+            data-request="onApproved"
+            data-request-data="id: '<?=$formModel->id?>',comment:$('#comment').val()"
+            data-popup-load-indicator
+            class="btn btn-primary oc-icon-check"
+            data-size="large">
+            Approve
+        </a>
+
+        <a
+            href="javascript:;"
+            data-request="onRejected"
+            data-request-data="id: '<?=$formModel->id?>',comment:$('#comment').val()"
+            data-popup-load-indicator
+            class="btn btn-danger oc-icon-remove"
+            data-size="large">
+            Reject
+        </a>
+    </div>
+
+    <?php endif ?>
+    <?php endif ?>
+
+    <?= $this->makePartial('~/plugins/olabs/oims/controllers/purchases/_preview_history.htm') ?>
+</div>
+
+
+<?php else: ?>
+
+<p class="flash-message static error"><?= e($this->fatalError) ?></p>
+<p><a href="<?= Backend::url('olabs/oims/machineries') ?>" class="btn btn-default"><?= Lang::get("olabs.oims::lang.form.return_to_list")?></a></p>
+
+<?php endif ?>

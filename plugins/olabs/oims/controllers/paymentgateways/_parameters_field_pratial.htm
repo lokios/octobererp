@@ -1,0 +1,70 @@
+<?php 
+    // IN
+    // - $fields
+    // - $parameters_values
+    // - $field_name_prefix
+
+
+    $spanClass = "left";
+    foreach ($parameters_fields as $fieldKey => $fieldType) {
+        $fieldName = $field_name_prefix."[$fieldKey]";
+        $required = true;
+
+        // wrapper start
+        echo "<div class='form-group ".($required ? "is-required" : "")." span-$spanClass' data-field-name='".$fieldName."' id='Form-field-Product-".$fieldName."'>";
+        echo "<label for='Form-field-Product-$fieldName'>$fieldKey</label>";
+
+        if ($spanClass=="left") { $spanClass = "right"; }
+        else { $spanClass="left"; }
+        
+        $inputType = 1; // Textbox
+        if (is_bool($fieldType)) { $inputType = 2; } // boolean
+        if (is_array($fieldType)) { $inputType = 3; } // select
+        
+
+        switch ($inputType) {
+            case 1:
+                // "Textbox"
+                ?>
+
+                <input type="text" value="<?= isset($parameters_values[$fieldKey]) ? $parameters_values[$fieldKey] : "" ?>" name="<?=$fieldName?>" class="form-control" <?= $required ? "required='true'" : "" ?> />
+
+                <?php                     
+                break;
+            case 2:
+                // "Checkbox"
+                ?>
+
+                <select name="<?=$fieldName?>" class="form-control" <?= $required ? "required='true'" : "" ?> >
+                    <option value="false" >no</option>
+                    <option value="true" 
+                            <?= isset($parameters_values[$fieldKey]) && ($parameters_values[$fieldKey] == "true") ? "selected='true'" : ""  ?> >
+                                yes
+                    </option>
+                </select>                    
+
+                <?php                     
+                break;
+            case 3:
+                // "Select"
+                ?>
+
+                <select name="<?=$fieldName?>" class="form-control" <?= $required ? "required='true'" : "" ?> >
+
+                    <?php foreach ($fieldType as $option) { ?>
+                    <option value="<?=$option?>" 
+                            <?= isset($parameters_values[$fieldKey]) && ($parameters_values[$fieldKey] == $option) ? "selected='true'" : ""  ?> >
+                                <?=$option?>
+                    </option>
+                    <?php } ?>
+
+                </select>
+
+                <?php
+                break;
+        }
+
+        // end wrapper
+        echo "</div>";
+    }
+?>

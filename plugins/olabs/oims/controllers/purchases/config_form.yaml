@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: olabs.oims::lang.purchases.menu_label_single
+
+# Model Form Field configuration
+form: $/olabs/oims/models/purchase/fields.yaml
+
+# Model Class name
+modelClass: Olabs\Oims\Models\Purchase
+
+# Default redirect location
+defaultRedirect: olabs/oims/purchases
+
+# Create page
+create:
+    title: olabs.oims::lang.purchases.create_purchase
+    redirect: olabs/oims/purchases/preview/:id
+    redirectClose: olabs/oims/purchases/preview/:id
+
+# Update page
+update:
+    title: olabs.oims::lang.purchases.edit_purchase
+    redirect: olabs/oims/purchases/preview/:id
+    redirectClose: olabs/oims/purchases/preview/:id
+
+# Preview page
+preview:
+    title: olabs.oims::lang.purchases.preview_purchase

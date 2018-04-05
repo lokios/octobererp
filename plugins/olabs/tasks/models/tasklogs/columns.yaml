@@ -1,0 +1,16 @@
+columns:
+    id:
+        label: ID
+        type: text
+        searchable: true
+    name:
+        label: Name
+        type: text
+        searchable: true
+    log:
+        label: Logs
+        type: text
+    created_at:
+        label: 'Created At'
+        type: datetime
+        searchable: true

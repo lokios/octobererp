@@ -1,0 +1,4 @@
+title: Suppliers
+modelClass: Olabs\Oims\Models\Supplier
+toolbar:
+    buttons: reorder_toolbar

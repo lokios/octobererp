@@ -1,0 +1,46 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('keios/multisite/settings') ?>"><?= trans('keios.multisite::lang.controller.settings') ?></a></li>
+        <li><?= e($this->pageTitle) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+<?php if (!$this->fatalError): ?>
+
+    <?= Form::open(['class'=>'layout-item stretch layout-column']) ?>
+
+        <?= $this->formRender() ?>
+
+        <div class="form-buttons layout-item fix">
+            <div class="loading-indicator-container">
+                <button
+                    type="submit"
+                    data-request="onSave"
+                    data-hotkey="ctrl+s, cmd+s"
+                    data-load-indicator="<?= trans('keios.multisite::lang.controller.creating') ?>"
+                    class="btn btn-primary">
+                    <?= trans('keios.multisite::lang.controller.create') ?>
+                </button>
+                <button
+                    type="button"
+                    data-request="onSave"
+                    data-request-data="close:1"
+                    data-hotkey="ctrl+enter, cmd+enter"
+                    data-load-indicator="<?= trans('keios.multisite::lang.controller.creating') ?>"
+                    class="btn btn-default">
+                    <?= trans('keios.multisite::lang.controller.create-and-close') ?>
+                </button>
+                <span class="btn-text">
+                   <?= trans('keios.multisite::lang.controller.or') ?> <a href="<?= Backend::url('keios/multisite/settings') ?>"><?= trans('keios.multisite::lang.controller.cancel') ?></a>
+                </span>
+            </div>
+        </div>
+
+    <?= Form::close() ?>
+
+<?php else: ?>
+
+    <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+    <p><a href="<?= Backend::url('keios/multisite/settings') ?>" class="btn btn-default"><?= trans('keios.multisite::lang.controller.return') ?></a></p>
+
+<?php endif ?>

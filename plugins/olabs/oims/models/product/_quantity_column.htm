@@ -1,0 +1,17 @@
+
+<span
+    <?php 
+    
+    if ($record->quantity == 0) {
+        echo "style='background-color: #D4A190; border: 5px solid #D4A190; border-radius: 3px;'";
+    }
+    elseif ($record->quantity < 5) {
+        echo "style='background-color: #F7F08B; border: 5px solid #F7F08B; border-radius: 3px;'";
+    }
+    else {
+        echo "style='background-color: #A1D490; border: 5px solid #A1D490; border-radius: 3px;'";
+    }
+    ?>
+>
+    <?= $record->quantity ?>
+</span>

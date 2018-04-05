@@ -1,0 +1,19 @@
+1.0.0:
+    - First version of Multisite
+    - create_settings_table.php
+1.0.1:
+    - Add is_protected value to all records
+1.0.2:
+    - Added cache clear function
+    - Fixed migrations and not-installed bug
+1.0.3:
+    - Added translations
+1.0.4:
+    - Rebranded to Keios
+    - Transitioned to October RC
+    - keios_migrate.php
+1.0.5: Minor bugfix
+1.0.6: Added permissions management
+1.1.0:
+    - Code inspect fixes
+    - October Stable event patch

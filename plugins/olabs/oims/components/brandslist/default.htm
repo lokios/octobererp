@@ -1,0 +1,59 @@
+    
+{% set index = 0 %}
+{% for brand in brandsPagination.items()|slice(brandsPagination.perPage()*(brandsPagination.currentPage()-1), brandsPagination.perPage()) %}
+{# start row for each 4 brands #}
+{% if index==0 %}
+<div class="row">
+    {% endif %}
+    {% set index = index+1 %}
+
+
+    <div class="col-sm-3">
+        <h3 class="cursor-pointer" onclick="location.href = '{{ brand.url}}'">{{ brand.title }}</h3>
+        <div class="brand-description">{{ brand.short_description ? brand.short_description|raw : brand.description|raw }}</div>
+        <div class="text-center">
+            {% if brand.logo %}
+            <img src="{{ brand.logo.thumb(auto,350, { extension: 'png' }) }}" class="img-responsive cursor-pointer" onclick="location.href = '{{ brand.url}}'" >
+            {% endif %}
+        </div>            
+        <div>
+            {{ brand.meta_description}}                    
+            <button type="button" class="btn btn-default" onclick="location.href = '{{ brand.url}}'">Detail</button>
+        </div>
+    </div>
+
+    {# end row for each 4 brands #}
+    {% if index==4 %}
+    {% set index = 0 %}
+</div>
+{% endif %}
+{% else %}
+<div class="no-data">no brands</div>
+{% endfor %}
+
+{# if we have on page less then 4 brands #}
+{% if index!=0 %}
+{% set index = 0 %}
+</div>
+{% endif %}
+
+
+{% if brandsPagination.lastPage > 1 %}
+<div class="pagination-wrapper">
+    <ul class="pagination">
+        {% if brandsPagination.currentPage > 1 %}
+        <li><a href="{{ this.page.baseFileName|page({ (pageParam): (brandsPagination.currentPage-1) }) }}">&larr; Prev</a></li>
+        {% endif %}
+
+        {% for page in 1..brandsPagination.lastPage %}
+        <li class="{{ brandsPagination.currentPage == page ? 'active' : null }}">
+            <a href="{{ this.page.baseFileName|page({ (pageParam): page }) }}">{{ page }}</a>
+        </li>
+        {% endfor %}
+
+        {% if brandsPagination.lastPage > brandsPagination.currentPage %}
+        <li><a href="{{ this.page.baseFileName|page({ (pageParam): (brandsPagination.currentPage+1) }) }}">Next &rarr;</a></li>
+        {% endif %}
+    </ul>
+</div>
+{% endif %}

@@ -1,0 +1,5 @@
+title: Foods
+modelClass: Olabs\Food\Models\Food
+nameFrom: name
+toolbar:
+    buttons: reorder_toolbar

@@ -1,0 +1,17 @@
+# ===================================
+#  Reorder Behavior Config
+# ===================================
+
+# Reorder Title
+title: olabs.oims::lang.categories.btn_reorder
+
+# Attribute name
+nameFrom: title
+
+# Model Class name
+modelClass: Olabs\Oims\Models\Category
+
+# Toolbar widget configuration
+toolbar:
+    # Partial for toolbar buttons
+    buttons: reorder_toolbar

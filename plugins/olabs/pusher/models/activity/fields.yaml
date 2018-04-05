@@ -1,0 +1,18 @@
+fields:
+    title:
+        label: 'Message Title'
+        span: auto
+        required: 0
+        type: text
+    message:
+        label: Message
+        size: tiny
+        span: auto
+        required: 1
+        type: textarea
+    channel:
+        label: To
+        options:
+            all: All
+        span: auto
+        type: dropdown

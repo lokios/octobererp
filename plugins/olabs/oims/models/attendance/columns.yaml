@@ -1,0 +1,66 @@
+columns:
+    id:
+        label: id
+        type: number
+    project_id:
+        label: Project
+        relation: project
+        select: name
+        searchable: false
+        sortable: false
+    supplier_id:
+        label: Supplier
+        type: partial
+        path: ~/plugins/olabs/oims/models/attendance/_supplier_column.htm
+        searchable: true
+    employee_id:
+        label: Employee
+        type: partial
+        path: ~/plugins/olabs/oims/models/attendance/_employee_column.htm
+        searchable: true
+    employee_id:
+        label: Employee
+        relation: employee_offrole
+        select: name
+        searchable: true
+        sortable: true
+    daily_wages:
+        label: Daily Wages
+        type: text
+        searchable: false
+        sortable: true
+    attendance_date:
+        label: Attendance Date
+        type: date
+        searchable: false
+        sortable: false
+    check_in:
+        label: Check In Time
+        type: time
+        searchable: false
+        sortable: false
+    check_out:
+        label: Check Out Time
+        type: time
+        searchable: false
+        sortable: false
+    total_working_hour:
+        label: Working Hours
+        type: text
+        searchable: false
+        sortable: true
+    total_wages:
+        label: Total Wages
+        type: text
+    overtime:
+        label: overtime
+        type: text
+    objectstatus:
+        label: Status
+        type: partial
+        path: ~/plugins/olabs/oims/models/status/_status_column.htm
+        searchable: false
+        sortable: true  
+    payment_status:
+        label: payment_status
+        type: text

@@ -1,0 +1,21 @@
+columns:
+    id:
+        label: ID
+        type: number
+        searchable: true
+    user_id:
+        label: User
+        type: text
+        searchable: true
+    group_id:
+        label: Group
+        type: text
+        searchable: true
+    org_id:
+        label: Organization
+        type: text
+        searchable: true
+    status:
+        label: Status
+        type: text
+        searchable: true

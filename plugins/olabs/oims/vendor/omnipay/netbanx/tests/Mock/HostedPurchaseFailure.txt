@@ -1,0 +1,12 @@
+HTTP/1.1 400 Bad Request
+Server: lighttpd
+Content-Length: 65
+Content-Type: application/json; charset=utf-8
+X-Application-Error: Duplicate merchant reference
+Expires: Wed, 03 Aug 2016 05:45:54 GMT
+Cache-Control: max-age=0, no-cache, no-store
+Pragma: no-cache
+Date: Wed, 03 Aug 2016 05:45:54 GMT
+Connection: close
+
+{"error":{"code":"400","message":"Duplicate merchant reference"}}

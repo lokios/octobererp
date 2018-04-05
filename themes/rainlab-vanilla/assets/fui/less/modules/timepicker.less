@@ -1,0 +1,64 @@
+//Timepicker
+// --------------------------------------------------
+
+//
+// Timepicker
+// --------------------------------------------------
+
+
+.ui-timepicker-wrapper {
+  overflow-y: auto;
+  height: 200px;
+  width: 9em;
+  background: @timepicker-bg;
+  border-radius: @timepicker-border-radius;
+  border: solid 2px @timepicker-border;
+  outline: none;
+  z-index: @zindex-timepicker;
+  margin: 5px 0 0;
+
+  &.ui-timepicker-with-duration {
+    width: 15em;
+
+    &.ui-timepicker-step-30,
+    &.ui-timepicker-step-60 {
+      width: 12em;
+    }
+  }
+
+  &.ui-timepicker-positioned-top {
+    margin-top: -5px;
+  }
+}
+
+.ui-timepicker-list {
+  margin: 0;
+  padding: 4px 0 0;
+  list-style: none;
+
+  li {
+    margin: 0;
+    padding: 3px 0 3px 15px;
+    list-style: none;
+    cursor: pointer;
+    color: @timepicker-link-color;
+    font-size: 15px;
+    font-weight: 500;
+    white-space: nowrap;
+
+
+    .ui-timepicker-duration {
+      margin-left: 5px; 
+    }
+
+    &:hover, &.ui-timepicker-selected {
+      background: @timepicker-hover-bg;
+      color: @timepicker-nav-hover-color;
+    }
+  }
+}
+
+//remove shadow on mobile devices
+.ui-timepicker-input {
+  -webkit-appearance: none;
+}

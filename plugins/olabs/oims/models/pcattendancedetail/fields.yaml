@@ -1,0 +1,67 @@
+fields:
+    employee_type_code:
+        label: 'Employment Type'
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+        required: 1
+#    unit_code:
+#        label: Unit
+#        oc.commentPosition: ''
+#        nameFrom: name
+#        descriptionFrom: description
+#        span: auto
+#        type: relation
+    quantity:
+        label: Quantity
+        oc.commentPosition: ''
+        default: 1
+        span: auto
+        type: number
+    
+    working_hour:
+        label: 'Working Hours'
+        oc.commentPosition: ''
+        span: auto
+#        disabled: 1
+        required: 1
+        type: number
+        default: "8"
+#        dependsOn: employee_offrole
+    overtime:
+        label: OverTime
+        oc.commentPosition: ''
+        span: auto
+#        disabled: 1
+        required: 1
+        type: number
+        default: "0"
+#        hidden: 1
+    daily_wages:
+        label: 'Daily Wages'
+        oc.commentPosition: ''
+        span: auto
+#        disabled: 1
+        type: number
+        default: "0"
+#        dependsOn: employee_offrole
+#    unit_price:
+#        label: 'Unit Price'
+#        oc.commentPosition: ''
+#        span: auto
+#        type: number
+#        dependsOn: product
+#        defaultFrom: quantity
+    total_price:
+        label: 'Total Price'
+        span: auto
+        oc.commentPosition: ''
+        type: number
+        dependsOn: 
+          - quantity
+          - daily_wages
+          - working_hour
+          - overtime
+          
+        

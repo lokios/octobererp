@@ -1,0 +1,4 @@
+title: PCAttendance
+modelClass: Olabs\Oims\Models\PCAttendance
+toolbar:
+    buttons: reorder_toolbar

@@ -1,0 +1,49 @@
+<?
+
+$model_transfer_to = new Olabs\Oims\Models\ProjectAssetTransfer();
+$query = $model_transfer_to->newQuery();
+//$query->with(['project','product','unit_code','purchase']);
+
+$query->with(['unit_code','project']);
+$query->where('to_project_id', $model->project_id);
+$query->where('product_id', $model->product_id);
+
+$records = $query->get();
+
+?>
+Total Records : <?= count($records) ?>
+<table class="table table-bordered">
+    <thead> 
+        <tr> 
+            <th>S.No.</th> 
+            <th>Date</th>
+            <th>Project From</th>
+            <th>Quantity</th>
+            <th>Unit</th>
+            
+        </tr> 
+    </thead> 
+    <tbody>
+        <?php 
+        $count = 0;
+        foreach($records as $record){  
+        $count++;
+
+        ?>
+
+        <tr> 
+            <th scope="row"><?=$count?></th> 
+            <td><?=date("d-m-Y", strtotime($record->context_date)) ?></td>
+            <td><?=$record->project->name?></td>
+            <td><?=$record->quantity?></td>
+            <td><?=$record->unit_code->name?></td>
+            
+        </tr> 
+        <?php } 
+
+        ?>
+
+
+    </tbody> </table>
+
+

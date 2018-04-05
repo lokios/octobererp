@@ -1,0 +1,67 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+tabs:
+    fields:
+
+        title:
+            tab: olabs.oims::lang.brands.detail
+            label: olabs.oims::lang.brands.title
+            span: auto
+
+        slug:
+            tab: olabs.oims::lang.brands.detail
+            label: olabs.oims::lang.brands.slug
+            span: auto
+            preset:
+                field: title
+                type: slug        
+
+        active:
+            tab: olabs.oims::lang.brands.detail
+            label: olabs.oims::lang.brands.active
+            type: switch
+            span: auto
+            default: true
+
+        show_in_menu:
+            tab: olabs.oims::lang.brands.detail
+            label: olabs.oims::lang.brands.show_in_menu
+            type: switch           
+            span: auto
+            default: true
+
+        short_description:
+            tab: olabs.oims::lang.brands.detail
+            label: olabs.oims::lang.brands.short_description
+            type: richeditor
+            span: auto 
+            
+        description:
+            tab: olabs.oims::lang.brands.detail
+            label: olabs.oims::lang.brands.description
+            type: richeditor
+            span: auto 
+
+        logo:
+            tab: olabs.oims::lang.brands.detail
+            label: olabs.oims::lang.brands.logo
+            type: fileupload
+            mode: image      
+            span: auto 
+
+# SEO
+        meta_title:
+            tab: olabs.oims::lang.brands.seo
+            label: olabs.oims::lang.brands.meta_title
+            
+        meta_keywords:
+            tab: olabs.oims::lang.brands.seo
+            comment: olabs.oims::lang.brands.meta_keywords_comment
+            label: olabs.oims::lang.brands.meta_keywords
+
+        meta_description:
+            tab: olabs.oims::lang.brands.seo
+            label: olabs.oims::lang.brands.meta_description
+            type: textarea

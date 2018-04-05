@@ -1,0 +1,27 @@
+columns:
+    id:
+        label: id
+        type: number
+    product[name]:
+        label: Product
+    unit:
+        label: Unit
+        type: text
+    unit_value:
+        label: Unit Value
+        type: text    
+    unit_price:
+        label: unit_price
+        type: text
+        searchable: true
+        sortable: true
+    quantity:
+        label: quantity
+        type: text
+        searchable: true
+        sortable: true
+    total_price:
+        label: total_price
+        type: text
+        searchable: true
+        sortable: true

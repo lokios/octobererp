@@ -1,0 +1,10 @@
+name: Activity
+form: $/olabs/pusher/models/activity/fields.yaml
+modelClass: Olabs\Pusher\Models\Activity
+defaultRedirect: olabs/pusher/activity
+create:
+    redirect: 'olabs/pusher/activity/update/:id'
+    redirectClose: olabs/pusher/activity
+update:
+    redirect: olabs/pusher/activity
+    redirectClose: olabs/pusher/activity

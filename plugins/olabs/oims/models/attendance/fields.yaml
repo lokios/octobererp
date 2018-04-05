@@ -1,0 +1,103 @@
+fields:
+    employee_offrole:
+        label: Employee OffRole
+        oc.commentPosition: ''
+        nameFrom: name
+        descriptionFrom: description
+        list: $/olabs/oims/models/offroleemployee/columns_attendace.yaml
+        span: auto
+        required: 1
+        type: recordfinder
+    employee_onrole:
+        label: Employee OnRole
+        oc.commentPosition: ''
+        span: auto
+        type: dropdown
+        options: getEmployeeOptions 
+    check_in:
+        label: 'Check In Time'
+        oc.commentPosition: ''
+        mode: datetime
+        span: auto
+        default: "today + 9 hours"
+        required: 1
+        type: datepicker
+        format: 'd/m/Y'
+        comment: "Deafult working hour is 09:00 to 18:00"
+#        minDate: "today -1 days"
+#        dependsOn: employee
+    check_out:
+        label: 'Check Out Time'
+        oc.commentPosition: ''
+        mode: datetime
+        span: auto
+        default: "today + 18 hours"
+        required: 1
+        format: 'd/m/Y'
+        type: datepicker
+#        minDate: "today -1 days"
+#        dependsOn: employee
+    daily_wages:
+        label: 'Daily Wages'
+        oc.commentPosition: ''
+        span: auto
+        disabled: 1
+        type: number
+        dependsOn: employee_offrole
+    working_hour:
+        label: 'Working Hours'
+        oc.commentPosition: ''
+        span: auto
+        disabled: 1
+        required: 1
+        type: number
+        dependsOn: employee_offrole
+#        hidden: 1
+#        dependsOn: check_in
+#            - 
+#            - check_out
+    total_working_hour:
+        label: 'Total Working Hours'
+        oc.commentPosition: ''
+        span: auto
+        disabled: 1
+        required: 1
+        type: number
+        hidden: 1
+    
+    overtime:
+        label: OverTime
+        oc.commentPosition: ''
+        span: auto
+        disabled: 1
+        required: 1
+        type: number
+        hidden: 1
+    total_wages:
+        label: 'Total Wages'
+        oc.commentPosition: ''
+        span: auto
+        disabled: 1
+        required: 1
+        type: number
+        hidden: 1
+    project_id:
+        label: Project
+        oc.commentPosition: ''
+        span: auto
+        hidden: 1
+#        required: 1
+        disabled: 1
+        dependsOn:
+            - employee_offrole
+        type: text
+    supplier_id:
+        label: Supplier
+        span: auto
+        oc.commentPosition: ''
+        hidden: 1
+#        required: 1
+        disabled: 1
+        dependsOn:
+            - employee_offrole
+        type: text

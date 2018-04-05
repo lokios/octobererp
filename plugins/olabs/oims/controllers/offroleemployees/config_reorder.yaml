@@ -1,0 +1,4 @@
+title: OffRoleEmployees
+modelClass: Olabs\Oims\Models\OffroleEmployee
+toolbar:
+    buttons: reorder_toolbar

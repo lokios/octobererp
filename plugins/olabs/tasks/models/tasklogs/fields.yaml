@@ -1,0 +1,11 @@
+fields:
+    name:
+        label: Name
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    log:
+        label: Logs
+        oc.commentPosition: ''
+        span: auto
+        type: text

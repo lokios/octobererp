@@ -1,0 +1,33 @@
+<!-- <div class="text-danger">Sorry, this is as far as behaviors can go...</div> -->
+
+<?
+$total_price = isset($this->vars['total_price'])? $this->vars['total_price']:$model->total_price
+?>
+
+<div id="productList">
+    <?= $this->makePartial('product_list', ['items' => $model->products,'expense_on_material_id' => $model->id,'total_price'=>$total_price]) ?>
+</div>
+<p>
+    <? if($this->vars['formContext'] != 'preview'): ?>
+    <a
+        href="javascript:;"
+        class="btn btn-secondary oc-icon-plus"
+        data-control="popup"
+        data-handler="onLoadCreateProductForm"
+        data-request-data="expense_on_material_id: '<?=$model->id?>'"
+        data-size="large">
+        Add item
+    </a>
+    <?php endif ?>
+</p>
+
+<script>
+    $(function () {
+        $(document).on('ready ajaxComplete', function () {
+            // ...attach your events/plugins here
+            var total_price = $('#temp_total_price').val();
+            $('#Form-field-ExpenseOnMaterial-total_price').val(total_price);
+        });
+
+    });
+</script>

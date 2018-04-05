@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: olabs.oims::lang.brands.brand
+
+# Model Form Field configuration
+form: $/olabs/oims/models/brand/fields.yaml
+
+# Model Class name
+modelClass: Olabs\oims\Models\Brand
+
+# Default redirect location
+defaultRedirect: olabs/oims/brands
+
+# Create page
+create:
+    title: olabs.oims::lang.brands.create_brand
+    redirect: olabs/oims/brands/update/:id
+    redirectClose: olabs/oims/brands
+
+# Update page
+update:
+    title: olabs.oims::lang.brands.edit_brand
+    redirect: olabs/oims/brands
+    redirectClose: olabs/oims/brands
+
+# Preview page
+preview:
+    title: olabs.oims::lang.brands.preview_brand

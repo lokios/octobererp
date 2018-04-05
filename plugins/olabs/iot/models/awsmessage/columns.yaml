@@ -1,0 +1,22 @@
+columns:
+    id:
+        label: id
+        type: number
+    request_type:
+        label: request_type
+        type: text
+    message:
+        label: message
+        type: text
+    station_phone:
+        label: station_phone
+        type: text
+    meta:
+        label: meta
+        type: text
+    created_at:
+        label: created_at
+        type: datetime
+    updated_at:
+        label: updated_at
+        type: datetime

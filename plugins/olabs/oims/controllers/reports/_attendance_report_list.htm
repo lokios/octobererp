@@ -1,0 +1,74 @@
+<div class="page-header">
+
+    <h3><small>Attendance Report</small></h3>
+</div>
+<table class="table table-bordered">
+    <thead> 
+        <tr> 
+            <th>Project</th> 
+            <th>Supplier</th> 
+            <th>Employee</th>
+            <th>Employee Type</th>
+            <th>Attendance Date</th>
+            <th>Check-In</th> 
+            <th>Check-Out</th>
+            <th>Daily Wages</th>
+            <th>Total Hours</th>
+            <th>Over Time</th>
+            <th>Total Wages</th>
+
+        </tr> 
+    </thead> 
+    <tbody>
+
+        <?
+        $grand_total = 0;
+        $count = 0;
+        
+        foreach($reports as $report){ 
+        $count++;
+        $grand_total += $report->total_wages;
+        
+
+        ?>
+        <tr>
+            <td><?=$report->project->name?></td>
+            <td><?=$report->supplier->fullname?></td> 
+            <td><?=isset($report->employee_offrole->name) ? $report->employee_offrole->name : ''?></td>
+            <td><?=isset($report->employee_offrole->employee_type) ? $report->employee_offrole->employee_type : ''?></td>
+            <td><?= $oimsSetting->convertToDisplayDate($report->check_in, 'd/m/Y')?></td>
+            <td><?= $oimsSetting->convertToDisplayDate($report->check_in, 'd/m/Y H:i')?></td> 
+            <td><?= $oimsSetting->convertToDisplayDate($report->check_out, 'd/m/Y H:i')?></td>
+            <td><?=$report->daily_wages?></td>
+            <td><?=$report->total_working_hour?></td>
+            <td><?=$report->overtime?></td>
+            <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($report->total_wages)?></td>
+            
+            
+           
+        </tr>
+        <? }  ?>
+    </tbody>
+</table>
+
+<div class="page-header">
+    <h3><small>SUMMARY</small></h3>
+</div>
+<table class="table table-bordered">
+    <thead> 
+        <tr> 
+            <th>DESCRIPTION</th> 
+            <th></th> 
+        </tr> 
+    </thead> 
+    <tbody>
+        <tr> 
+            <th scope="row">TOTAL ATTENDANCE</th> 
+            <td><?= $count?></td>
+        </tr> 
+        <tr> 
+            <th scope="row">TOTAL ATTENDANCE AMOUNT</th> 
+            <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($grand_total)?></td>
+        </tr> 
+    </tbody>
+</table>

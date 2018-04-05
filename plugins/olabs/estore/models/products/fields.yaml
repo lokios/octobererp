@@ -1,0 +1,14 @@
+fields:
+    title:
+        label: Title
+        span: auto
+        required: 1
+        type: text
+    description:
+        label: Description
+        span: auto
+        type: text
+    headline:
+        label: Headline
+        span: auto
+        type: text

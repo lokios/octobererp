@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: olabs.oims::lang.quotes.menu_label_single
+
+# Model Form Field configuration
+form: $/olabs/oims/models/quote/fields.yaml
+
+# Model Class name
+modelClass: Olabs\Oims\Models\Quote
+
+# Default redirect location
+defaultRedirect: olabs/oims/quotes
+
+# Create page
+create:
+    title: olabs.oims::lang.quotes.create_quote
+    redirect: olabs/oims/quotes/update/:id
+    redirectClose: olabs/oims/quotes
+
+# Update page
+update:
+    title: olabs.oims::lang.quotes.edit_quote
+    redirect: olabs/oims/quotes
+    redirectClose: olabs/oims/quotes
+
+# Preview page
+preview:
+    title: olabs.oims::lang.quotes.preview_quote

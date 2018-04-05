@@ -1,0 +1,79 @@
+fields:
+    name:
+        label: Name
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    status:
+        label: Status
+        span: auto
+        default: 1
+        type: switch
+
+    work_group:
+        label: 'Work Group'
+        oc.commentPosition: ''
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+    project:
+#            tab: olabs.oims::lang.quotes.detail
+        label: Project
+        oc.commentPosition: ''
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        required: 1
+        type: dropdown
+    
+tabs:
+    fields:
+        quantity:
+            label: Quantity
+            oc.commentPosition: ''
+            span: auto
+            type: number
+            default: 0
+            tab: olabs.oims::lang.products.detail
+        unit_code:
+            label: Unit
+            oc.commentPosition: ''
+            nameFrom: name
+            descriptionFrom: description
+            span: auto
+            type: relation
+            tab: olabs.oims::lang.products.detail
+        unit_price:
+            label: 'Unit Price'
+            oc.commentPosition: ''
+            span: auto
+            type: number
+    #        dependsOn: product
+            default: 0
+            tab: olabs.oims::lang.products.detail
+        total_price:
+            label: 'Total Price'
+            span: auto
+            oc.commentPosition: ''
+            type: number
+            tab: olabs.oims::lang.products.detail
+            dependsOn:
+    #            - product
+                - quantity
+                - unit_price
+        
+        description:
+            label: Description
+            size: ''
+            oc.commentPosition: ''
+            span: full
+            type: textarea
+            tab: olabs.oims::lang.products.detail
+
+# Products
+        products:
+            label: Products
+            tab: olabs.oims::lang.quotes.products_json
+            type: partial
+            path: project_work_products

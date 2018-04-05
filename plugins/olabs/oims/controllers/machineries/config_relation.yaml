@@ -1,0 +1,12 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+machineryProducts:
+    label: Machinery Products
+    manage:
+        form: $/olabs/oims/models/machineryproduct/fields.yaml
+        list: $/olabs/oims/models/machineryproduct/columns.yaml
+    view:
+        list: $/olabs/oims/models/machineryproduct/columns.yaml
+        toolbarButtons: create|delete

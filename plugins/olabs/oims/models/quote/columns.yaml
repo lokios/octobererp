@@ -1,0 +1,98 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    id:
+        label: olabs.oims::lang.quotes.id
+        searchable: true
+        
+    project_id:
+        label: Project
+        relation: project
+        select: name
+        searchable: false
+        sortable: true
+        
+    supplier_name:
+        label: Supplier
+        type: text
+#        path: ~/plugins/olabs/oims/models/quote/_supplier_column.htm
+        searchable: false
+        
+    contact_email:
+        label: olabs.oims::lang.quotes.contact_email
+        invisible: true
+        searchable: true
+        
+#    contact_phone:
+#        label: olabs.oims::lang.quotes.contact_phone
+#        invisible: true
+#        searchable: true        
+#
+#    is_last_name:
+#        label: olabs.oims::lang.quotes.is_last_name
+#        invisible: true
+#        searchable: true
+#        
+#    is_first_name:
+#        label: olabs.oims::lang.quotes.is_first_name
+#        invisible: true
+#        searchable: true
+        
+#    is_address:
+#        label: olabs.oims::lang.quotes.is_address
+#        invisible: true
+#        searchable: true        
+#        
+#    is_postcode:
+#        label: olabs.oims::lang.quotes.is_postcode
+#        invisible: true
+#        searchable: true 
+#        
+#    is_city:
+#        label: olabs.oims::lang.quotes.is_city
+#        invisible: true
+#        searchable: true 
+#        
+#    is_country:
+#        label: olabs.oims::lang.quotes.is_country
+#        invisible: true
+#        searchable: true                 
+        
+    context_date:
+        label: Entry date
+        type: date
+        searchable: true
+        sortable: true     
+    
+    quote_type:
+        label: Work Order Type
+#        type: text
+        type: partial
+        path: ~/plugins/olabs/oims/models/quote/_quote_type_column.htm
+        searchable: true
+#    carrier:
+#        label: olabs.oims::lang.quotes.carrier
+#        relation: carrier
+#        select: title
+        
+    reference_number:
+        label: Reference Number
+        type: text
+        searchable: true
+        sortable: true    
+        
+    objectstatus:
+        label: Status
+        type: partial
+        path: ~/plugins/olabs/oims/models/status/_status_column.htm
+        searchable: false
+        sortable: true       
+        
+#    paid_date:
+#        label: olabs.oims::lang.quotes.paid_date
+#        type: datetime
+#
+#    total_price:
+#        label: olabs.oims::lang.quotes.total_price

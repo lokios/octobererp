@@ -1,0 +1,46 @@
+# ===================================
+#  List Behavior Config
+# ===================================
+
+# Model List Column configuration
+list: $/olabs/oims/models/expenseonmaterial/columns.yaml
+
+# Model Class name
+modelClass: Olabs\Oims\Models\ExpenseOnMaterial
+
+# List Title
+title: olabs.oims::lang.expenseonmaterials.manage_expenseonmaterials
+
+# Link URL for each record
+recordUrl: olabs/oims/expenseonmaterials/preview/:id
+
+# Message to display if the list is empty
+noRecordsMessage: backend::lang.list.no_records
+
+# Records to display per page
+recordsPerPage: 20
+
+# Displays the list column set up button
+showSetup: true
+
+# Displays the sorting link on each column
+showSorting: true
+
+# Default sorting column
+# defaultSort:
+#     column: created_at
+#     direction: desc
+
+# Display checkboxes next to each record
+# showCheckboxes: true
+
+filter: config_filter.yaml
+
+# Toolbar widget configuration
+toolbar:
+    # Partial for toolbar buttons
+    buttons: list_toolbar
+
+    # Search widget configuration
+    search:
+        prompt: backend::lang.list.search_prompt

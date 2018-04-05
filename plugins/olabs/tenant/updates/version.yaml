@@ -1,0 +1,56 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Updated table olabs_tenant_organizations'
+    - builder_table_update_olabs_tenant_organizations.php
+1.0.3:
+    - 'Updated table olabs_tenant_organizations'
+    - builder_table_update_olabs_tenant_organizations_2.php
+1.0.4:
+    - 'Updated table olabs_tenant_organizations'
+    - builder_table_update_olabs_tenant_organizations_3.php
+1.0.5:
+    - 'Updated table olabs_tenant_organizations'
+    - builder_table_update_olabs_tenant_organizations_4.php
+1.0.6:
+    - 'Created table olabs_tenant_contents'
+    - builder_table_create_olabs_tenant_contents.php
+1.0.7:
+    - 'Updated table olabs_tenant_contents'
+    - builder_table_update_olabs_tenant_contents.php
+1.0.8:
+    - 'Updated table olabs_tenant_contents'
+    - builder_table_update_olabs_tenant_contents_2.php
+1.0.9:
+    - 'Updated table olabs_tenant_organizations'
+    - builder_table_update_olabs_tenant_organizations_5.php
+1.0.10:
+    - 'Updated table olabs_tenant_organizations'
+    - builder_table_update_olabs_tenant_organizations_6.php
+1.0.11:
+    - 'Updated table olabs_tenant_organizations'
+    - builder_table_update_olabs_tenant_organizations_7.php
+1.0.12:
+    - 'Created table olabs_tenant_members'
+    - builder_table_create_olabs_tenant_members.php
+1.0.13:
+    - 'Updated table olabs_tenant_members'
+    - builder_table_update_olabs_tenant_members.php
+1.0.14:
+    - 'Updated table olabs_tenant_members'
+    - builder_table_update_olabs_tenant_members_2.php
+1.0.15:
+    - 'Created table olabs_tenant_content_categories'
+    - builder_table_create_olabs_tenant_content_categories.php
+1.0.16:
+    - 'Updated table olabs_tenant_content_categories'
+    - builder_table_update_olabs_tenant_content_categories.php
+1.0.17:
+    - 'Created table olabs_tenant_contents_categories'
+    - builder_table_create_olabs_tenant_contents_categories.php
+1.0.18:
+    - 'Updated table olabs_tenant_contents_categories'
+    - builder_table_update_olabs_tenant_contents_categories.php
+1.0.19:
+    - 'Updated table olabs_tenant_content_categories'
+    - builder_table_update_olabs_tenant_content_categories_2.php

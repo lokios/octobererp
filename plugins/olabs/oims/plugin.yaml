@@ -1,0 +1,290 @@
+plugin:
+    name: 'olabs.oims::lang.plugin.name'
+    description: 'olabs.oims::lang.plugin.description'
+    author: olabs
+    icon: oc-icon-adjust
+    homepage: ''
+permissions:
+    oims_manage_products:
+        tab: 'OIMS Admin'
+        label: 'Manage Products'
+    oims_manage_org:
+        tab: 'OIMS Admin'
+        label: 'Manage Organization'
+navigation:
+    master_register:
+        label: 'Master Register'
+        url: olabs/oims/purchases
+        icon: icon-life-ring
+        permissions:
+            - olabs.oims.purchases
+        sideMenu:
+            material_receipt:
+                label: 'Material Receipt'
+                url: olabs/oims/purchases
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.purchases
+            purchase_orders:
+                label: 'Purchase Orders'
+                url: olabs/oims/quotes
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.quotes
+            stock_register:
+                label: 'Stock Register'
+                url: olabs/oims/sales
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.sales
+            attendances:
+                label: 'Attendance'
+                url: olabs/oims/attendances
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.attendances
+            pc_attendances:
+                label: 'PC Attendance'
+                url: olabs/oims/pcattendances
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.pc_attendances
+            
+                    
+            payment_receivables:
+                label: 'Payment Receivable'
+                url: olabs/oims/paymentReceivables
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.payment_receivables
+    project_assets:
+        label: 'Project Assets'
+        url: olabs/oims/projectAssets/
+        icon: icon-life-ring
+        permissions:
+            - olabs.oims.project_assets
+        sideMenu:
+            project_asset_list:
+                label: 'Assets List'
+                url: olabs/oims/projectAssets/
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.project_assets
+            project_asset_purchases:
+                label: 'Asset Purchases'
+                url: olabs/oims/projectAssetPurchases
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.project_assets
+            project_asset_trasfers:
+                label: 'Asset Transfers'
+                url: olabs/oims/projectAssetTransfers
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.project_assets
+            project_asset_damages:
+                label: 'Asset Damages'
+                url: olabs/oims/projectAssetDamages
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.project_assets
+            project_asset_monitors:
+                label: 'Asset Monitors'
+                url: olabs/oims/projectAssetMonitors
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.project_assets
+
+    dpr_report:
+        label: 'Daily Progress'
+        url: olabs/oims/projectprogress
+        icon: icon-life-ring
+        permissions:
+            - olabs.oims.projectprogress
+        sideMenu:
+            project_progress:
+                label: 'Project Progress'
+                url: olabs/oims/projectprogress
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.projectprogress
+            manpowers:
+                label: 'Consumed Manpower'
+                url: olabs/oims/manpowers
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.manpowers
+            machineries:
+                label: 'Machinery Expenditure'
+                url: olabs/oims/machineries
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.machineries
+            expenseonmaterials:
+                label: 'Expense Against Material As per Our Billing'
+                url: olabs/oims/expenseonmaterials
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.expenseonmaterials
+            expenseonpcs:
+                label: 'Expense Against P/C on Measurement Basis'
+                url: olabs/oims/expenseonpcs
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.expenseonpcs                         
+            
+    reports:
+        label: 'Reports'
+        url: olabs/oims/reports/dpr
+        icon: icon-life-ring
+        permissions:
+            - olabs.oims.reports
+        sideMenu:
+            drp_report:
+                label: 'DPR Report'
+                url: olabs/oims/reports/dpr
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.reports
+            progress_report:
+                label: 'Progress Report'
+                url: olabs/oims/reports/progress_report
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.reports
+            mr_report:
+                label: 'MR Report'
+                url: olabs/oims/reports/mr_report
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.reports
+            attendance_report:
+                label: 'Attendance Report'
+                url: olabs/oims/reports/attendance_report
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.reports
+            attendance_summary_report:
+                label: 'Attendance Summary Report'
+                url: olabs/oims/reports/attendanceSummary_report
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.reports
+            assets_report:
+                label: 'Assets Report'
+                url: olabs/oims/reports/assets_report
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.reports        
+            
+            
+    oims_projects:
+        label: 'Inventory Setup'
+        url: olabs/oims/suppliers
+        icon: icon-life-ring
+        permissions:
+            - olabs.oims.suppliers
+        sideMenu:
+            products:
+                label: Products
+                url: olabs/oims/products
+                icon: icon-sitemap
+                permissions:
+                    - olabs.oims.products
+            project_works:
+                label: 'Project Works'
+                url: olabs/oims/projectworks
+                icon: icon-sitemap
+                permissions:
+                    - olabs.oims.projectworks
+            projects:
+                label: Projects
+                url: olabs/oims/projects
+                icon: icon-sitemap
+                permissions:
+                    - olabs.oims.projects
+            companies:
+                label: Companies
+                url: olabs/oims/companies
+                icon: icon-university
+                permissions:
+                    - olabs.oims.companies
+            suppliers:
+                label: Suppliers
+                url: olabs/oims/suppliers
+                icon: icon-sitemap
+                permissions:
+                    - olabs.oims.suppliers
+            employees:
+                label: Employees
+                url: olabs/oims/employees
+                icon: icon-sitemap
+                permissions:
+                    - olabs.oims.employees
+            offrole_employees:
+                label: OffRole Employees
+                url: olabs/oims/offroleEmployees
+                icon: icon-sitemap
+                permissions:
+                    - olabs.oims.offrole_employees
+    oims_setup:
+        label: Masters
+        url: olabs/oims/workgroups
+        icon: icon-life-ring
+        permissions:
+            - olabs.oims.categories
+        sideMenu:
+            work_groups:
+                label: 'Work Groups'
+                url: olabs/oims/workgroups
+                icon: icon-sitemap
+                permissions:
+                    - olabs.oims.workgroups
+            categories:
+                label: Categories
+                url: olabs/oims/categories
+                icon: icon-list-alt
+                permissions:
+                    - olabs.oims.categories
+            taxes:
+                label: Taxes
+                url: olabs/oims/taxes
+                icon: icon-random
+                permissions:
+                    - olabs.oims.taxes
+            units:
+                label: Units
+                url: olabs/oims/units
+                icon: icon-sitemap
+                permissions:
+                    - olabs.oims.units
+            employee_types:
+                label: Employee Types
+                url: olabs/oims/employeeTypes
+                icon: icon-sitemap
+                permissions:
+                    - olabs.oims.employee_types
+            bank_accounts:
+                label: Bank Accounts
+                url: olabs/oims/bankAccounts
+                icon: icon-sitemap
+                permissions:
+                    - olabs.oims.bank_accounts
+            oims_status:
+                label: Statuses
+                url: olabs/oims/statuses
+                icon: icon-sitemap
+                permissions:
+                    - olabs.oims.statuses
+            brands:
+                label: Brands
+                url: olabs/oims/brands
+                icon: icon-copyright
+                permissions:
+                    - olabs.oims.brands
+            orderstatuses:
+                label: 'Order Status'
+                url: olabs/oims/orderstatuses
+                icon: icon-tasks
+                permissions:
+                    - olabs.oims.orderstatuses

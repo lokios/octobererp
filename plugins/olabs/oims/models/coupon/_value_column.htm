@@ -1,0 +1,11 @@
+<?php
+
+if ($record->type_value == "1") {
+    echo $record->value." %";
+}
+else {
+    $oimsSetting = \Olabs\Oims\Models\Settings::instance();
+    echo $oimsSetting->getPriceFormatted($record->value);
+}
+
+?>

@@ -1,0 +1,4 @@
+title: Machineries
+modelClass: Olabs\Oims\Models\Machinery
+toolbar:
+    buttons: reorder_toolbar

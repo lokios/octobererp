@@ -1,0 +1,4 @@
+title: ProjectWorks
+modelClass: Olabs\Oims\Models\ProjectWork
+toolbar:
+    buttons: reorder_toolbar

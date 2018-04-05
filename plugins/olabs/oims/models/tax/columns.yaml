@@ -1,0 +1,20 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    id:
+        label: olabs.oims::lang.taxes.id
+        searchable: true
+        
+    name:
+        label: olabs.oims::lang.taxes.name
+        searchable: true
+        
+    active:
+        label: olabs.oims::lang.taxes.active
+        type: switch
+        
+    percent:
+        label: olabs.oims::lang.taxes.percent
+        type: number

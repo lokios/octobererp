@@ -1,0 +1,129 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+tabs:
+    fields:
+        
+# Detail        
+        active:
+            tab: olabs.oims::lang.carriers.detail
+            label: olabs.oims::lang.carriers.active
+            type: switch
+            span: full
+            default: true
+            
+        title:
+            tab: olabs.oims::lang.carriers.detail
+            label: olabs.oims::lang.carriers.title
+            span: full   
+            
+        transit_time:
+            tab: olabs.oims::lang.carriers.detail
+            label: olabs.oims::lang.carriers.transit_time
+            comment: olabs.oims::lang.carriers.transit_time_comment
+            span: auto   
+
+        speed_grade:
+            tab: olabs.oims::lang.carriers.detail
+            label: olabs.oims::lang.carriers.speed_grade
+            comment: olabs.oims::lang.carriers.speed_grade_comment
+            span: auto  
+            type: number
+            default: 0
+
+        tracking_url:
+            tab: olabs.oims::lang.carriers.detail
+            label: olabs.oims::lang.carriers.tracking_url
+            span: full 
+            comment: olabs.oims::lang.carriers.tracking_url_comment
+
+        logo:
+            tab: olabs.oims::lang.carriers.detail
+            label: olabs.oims::lang.carriers.logo
+            type: fileupload
+            mode: image      
+            span: auto
+            
+# Pricing
+
+        free_shipping:
+            tab: olabs.oims::lang.carriers.pricing
+            label: olabs.oims::lang.carriers.free_shipping
+            type: switch
+            span: full
+            default: false
+
+        tax:
+            tab: olabs.oims::lang.carriers.pricing
+            label: olabs.oims::lang.carriers.tax
+            type: relation
+            emptyOption: olabs.oims::lang.plugin.please_select
+
+        billing:
+            tab: olabs.oims::lang.carriers.pricing
+            label: olabs.oims::lang.carriers.billing
+            type: dropdown
+            emptyOption: olabs.oims::lang.plugin.please_select
+
+        billing_total_price:
+            tab: olabs.oims::lang.carriers.pricing
+            label: olabs.oims::lang.carriers.billing_total_price
+            type: repeater
+            span: left
+            form:
+                fields:
+                    from:
+                        label: olabs.oims::lang.carriers.from
+                        type: number
+                    to:
+                        label: olabs.oims::lang.carriers.to
+                        type: number
+                    price:
+                        label: olabs.oims::lang.carriers.price
+                        type: number
+                        
+
+        billing_weight:
+            tab: olabs.oims::lang.carriers.pricing
+            label: olabs.oims::lang.carriers.billing_weight
+            type: repeater
+            span: right
+            form:
+                fields:
+                    from:
+                        label: olabs.oims::lang.carriers.billing_weight_from
+                        type: number
+                    to:
+                        label: olabs.oims::lang.carriers.billing_weight_to
+                        type: number
+                    price:
+                        label: olabs.oims::lang.carriers.price
+                        type: number                        
+
+
+# Size, weight
+
+        maximum_package_width:
+            tab: olabs.oims::lang.carriers.size_weight
+            label: olabs.oims::lang.carriers.maximum_package_width
+            span: auto  
+            type: number
+
+        maximum_package_height:
+            tab: olabs.oims::lang.carriers.size_weight
+            label: olabs.oims::lang.carriers.maximum_package_height
+            span: auto  
+            type: number
+
+        maximum_package_depth:
+            tab: olabs.oims::lang.carriers.size_weight
+            label: olabs.oims::lang.carriers.maximum_package_depth
+            span: auto  
+            type: number
+
+        maximum_package_weight:
+            tab: olabs.oims::lang.carriers.size_weight
+            label: olabs.oims::lang.carriers.maximum_package_weight
+            span: auto  
+            type: number

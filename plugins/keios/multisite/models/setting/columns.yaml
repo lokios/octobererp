@@ -1,0 +1,16 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    domain:
+        label: keios.multisite::lang.tables.domain
+        searchable: true
+
+    theme:
+        label: keios.multisite::lang.tables.theme
+        searchable: true
+
+    is_protected:
+        label: keios.multisite::lang.tables.protected
+        type: switch

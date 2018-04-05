@@ -1,0 +1,27 @@
+columns:
+    id:
+        label: id
+        type: number
+        searchable: true
+        sortable: true
+    name:
+        label: name
+        type: text
+        searchable: true
+        sortable: true
+    status:
+        label: status
+        type: switch
+        searchable: true
+        sortable: true
+    company:
+        label: Company
+        relation: company
+        select: name
+        searchable: true
+        sortable: false
+    fix_expense:
+        label: Fix Expense
+        type: number
+        searchable: true
+        sortable: true

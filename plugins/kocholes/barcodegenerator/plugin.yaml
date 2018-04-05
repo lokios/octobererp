@@ -1,0 +1,6 @@
+plugin:
+    name: 'kocholes.barcodegenerator::lang.plugin.name'
+    description: 'kocholes.barcodegenerator::lang.plugin.description'
+    author: 'Gonzalo Garro'
+    icon: oc-icon-barcode
+    homepage: 'https://github.com/kocholes/barcode-generator-plugin'

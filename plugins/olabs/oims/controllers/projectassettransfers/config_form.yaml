@@ -1,0 +1,10 @@
+name: ProjectAssetTransfers
+form: $/olabs/oims/models/projectassettransfer/fields.yaml
+modelClass: Olabs\Oims\Models\ProjectAssetTransfer
+defaultRedirect: olabs/oims/projectassettransfers
+create:
+    redirect: 'olabs/oims/projectassettransfers/update/:id'
+    redirectClose: olabs/oims/projectassettransfers
+update:
+    redirect: olabs/oims/projectassettransfers
+    redirectClose: olabs/oims/projectassettransfers

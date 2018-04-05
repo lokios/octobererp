@@ -1,0 +1,41 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+accessories:
+    label: olabs.oims::lang.products.accessories
+    view:
+        list: $/olabs/oims/models/product/columns.yaml
+        toolbarButtons: add|remove
+    manage:
+        recordsPerPage: 10
+
+featured:
+    label: olabs.oims::lang.products.featured
+    view:
+        list: $/olabs/oims/models/product/columns.yaml
+        toolbarButtons: add|remove
+    manage:
+        recordsPerPage: 10  
+        
+        
+individual_prices:
+    label: olabs.oims::lang.products.individual_prices
+    view:
+        list: $/olabs/oims/models/productuserprice/columns.yaml
+        toolbarButtons: create|delete
+    manage:
+        form: $/olabs/oims/models/productuserprice/fields.yaml
+        recordsPerPage: 10   
+        
+propertyOptions:
+    label: olabs.oims::lang.products.property_option
+    view:
+        list: $/olabs/oims/models/productpropertyoptionpivot/columns.yaml
+        showSearch: false
+        toolbarButtons: add|remove
+    manage:
+        list: $/olabs/oims/models/propertyoption/columns_pivot_product.yaml
+        form: $/olabs/oims/models/propertyoption/fields.yaml        
+    pivot:
+        form: $/olabs/oims/models/productpropertyoptionpivot/fields.yaml       

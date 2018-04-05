@@ -1,0 +1,47 @@
+<!-- <div class="text-danger">Sorry, this is as far as behaviors can go...</div> -->
+
+<?
+$total_price = isset($this->vars['total_price'])? $this->vars['total_price']:$model->total_price
+?>
+
+<div id="productList">
+    <?= $this->makePartial('product_list', ['items' => $model->products,'total_price'=>$total_price]) ?>
+</div>
+<p class="loading-indicator-container">
+    <? if($this->vars['formContext'] != 'preview'): ?>
+    <a
+        href="javascript:;"
+        class="btn btn-secondary oc-icon-plus"
+        data-control="popup"
+        data-handler="onLoadCreateProductForm"
+        data-request-data="purchase_id: '<?=$model->id?>'"
+        data-load-indicator="Creating item..."
+        data-size="large">
+        Add item
+    </a>
+    
+    <a
+        href="javascript:;"
+        data-request="onAddWorkOrderProducts"
+        data-hotkey="ctrl+r, cmd+r"
+        data-load-indicator="Creating Work Order Items..."
+        data-request-data="purchase_id: '<?=$model->id?>'"
+        data-request-flash
+        class="btn btn-primary">
+        Add Work Order Items
+    </a>
+    
+    <?php endif ?>
+</p>
+<!--<div id="loading" style="display: none;">Loading...</div> data-request-loading="#loading"-->
+
+<script>
+    $(function () {
+        $(document).on('ready ajaxComplete', function () {
+            // ...attach your events/plugins here
+            var total_price = $('#temp_total_price').val();
+            $('#Form-field-Purchase-total_price').val(total_price);
+        });
+
+    });
+</script>

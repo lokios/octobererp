@@ -1,0 +1,54 @@
+fields:
+    from_date:
+        label: 'From Date'
+        oc.commentPosition: ''
+        mode: date
+        span: auto
+        type: datepicker
+        default: 'yesterday'
+        format: 'd/m/Y'
+        required: 1
+    to_date:
+        label: 'To Date'
+        oc.commentPosition: ''
+        mode: date
+        span: auto
+        type: datepicker
+        default: 'today'
+        format: 'd/m/Y'
+        required: 1
+    project:
+        label: Project
+        oc.commentPosition: ''
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+#        emptyOption: None
+        required: 1
+        type: dropdown
+    supplier:
+        label: Supplier
+        oc.commentPosition: ''
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        emptyOption: None
+#        required: 1
+        type: dropdown
+    attendance_type:
+        label: Attendance Type
+        oc.commentPosition: ''
+        span: auto
+        hidden: 1
+        type: radio
+        default: offrole
+        options:
+            offrole: 'Off Role'
+            onrole: 'On Role'
+#    to_date:
+#        label: 'To Date'
+#        oc.commentPosition: ''
+#        mode: date
+#        span: auto
+#        type: datepicker
+#        hidden: 1

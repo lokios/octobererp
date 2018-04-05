@@ -1,0 +1,4 @@
+title: Platforms
+modelClass: Olabs\Pusher\Models\Platforms
+toolbar:
+    buttons: reorder_toolbar

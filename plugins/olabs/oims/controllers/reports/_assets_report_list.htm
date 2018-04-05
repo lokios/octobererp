@@ -1,0 +1,43 @@
+<div class="page-header">
+
+    <h3><small>Assets Report</small></h3>
+</div>
+<table class="table table-bordered">
+    <thead> 
+        <tr> 
+            <th>Sr No.</th>
+            <!--<th>ID</th>--> 
+            <th>Project</th> 
+            <th>Product</th>
+            <th>Category</th>
+            <th>Quantity</th> 
+            <th>Unit</th><!--
+            <th>Total Price</th>-->
+            
+        </tr> 
+    </thead> 
+    <tbody>
+
+        <? 
+        
+        $status_count = [];
+        $grand_total = 0;
+        $count = 0;
+        foreach($reports as $report){ 
+        $count++;
+        ?>
+        <tr>
+            <td><?=$count?></td>
+            <!--<td><?=$report->id?></td>-->
+            <td><?=$report->project->name?></td>
+            <td><?=$report->product->title?></td>
+            <td><?=isset($report->product->default_category) ? $report->product->default_category->title : ''?></td>
+            <td><?=$report->quantity?></td>
+            <td><?=isset($report->unit_code) ? $report->unit_code->name : $report->unit?></td>
+            
+            
+        </tr>
+        <? } ?>
+    </tbody>
+</table>
+
