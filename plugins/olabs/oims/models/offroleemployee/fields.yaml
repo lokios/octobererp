@@ -93,12 +93,23 @@ fields:
         span: auto
         required: 1
         type: dropdown
+    idcard_print:
+            label: 
+            type: partial
+            path: ~/plugins/olabs/oims/models/offroleemployee/_idcard_print_link.htm  
+            span: auto
 secondaryTabs:
     fields:
-        featured_images:
-            tab: Attachments
-            label: 'rainlab.blog::lang.post.featured_images'
+        avatar:
+            label: backend::lang.user.avatar
             type: fileupload
             mode: image
-            imageHeight: 260
-            imageWidth: 260
+            imageHeight: 250
+            imageWidth: 250
+#        featured_images:
+#            tab: Attachments
+#            label: 'rainlab.blog::lang.post.featured_images'
+#            type: fileupload
+#            mode: image
+#            imageHeight: 260
+#            imageWidth: 260

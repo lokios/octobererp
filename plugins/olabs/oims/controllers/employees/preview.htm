@@ -13,8 +13,16 @@
     </div>
 </div>
 
-<div class="form-preview">
-    <?= $this->formRenderPreview() ?>
+<div class="layout-row min-size">
+    <?= $this->formRender(['preview' => true, 'section' => 'outside']) ?>
+</div>
+
+<div class="layout-row">
+    <?= $this->formRender(['preview' => true, 'section' => 'primary']) ?>
+</div>
+
+<div class="layout-row">
+    <?= $this->formRender(['preview' => true, 'section' => 'secondary']) ?>
 </div>
 
 <?php else: ?>

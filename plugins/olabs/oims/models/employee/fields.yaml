@@ -54,6 +54,11 @@ tabs:
 #            label: backend::lang.user.groups
 #            commentAbove: backend::lang.user.groups_comment
 #            type: checkboxlist
+        idcard_print:
+            label: 
+            type: partial
+            path: ~/plugins/olabs/oims/models/employee/_idcard_print_link.htm  
+            span: auto
 
         contact_email:
             label: Contact Email

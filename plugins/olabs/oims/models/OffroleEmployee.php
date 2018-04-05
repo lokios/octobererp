@@ -3,6 +3,7 @@
 namespace Olabs\Oims\Models;
 
 use Model;
+use Kocholes\BarcodeGenerator\Classes\BarcodeManager;
 
 /**
  * Model
@@ -13,7 +14,7 @@ class OffroleEmployee extends BaseModel {
 
     use \October\Rain\Database\Traits\SoftDelete;
 
-    const CNAME = 'offrole_employees';
+    const CNAME = 'offrole';
 
     public function getEntityType() {
         return self::CNAME;
@@ -33,6 +34,10 @@ class OffroleEmployee extends BaseModel {
     public $attachMany = [
         'featured_images' => ['System\Models\File', 'order' => 'sort_order'],
         'content_images' => ['System\Models\File']
+    ];
+    
+    public $attachOne = [
+        'avatar' => \System\Models\File::class
     ];
 
     /**
@@ -66,6 +71,111 @@ class OffroleEmployee extends BaseModel {
         }
 
         return $query->whereIn('project_id', $projectId); // ->orderBy('name', 'desc')
+    }
+    
+    /**
+     * @return string Returns the user's full name.
+     */
+    public function getFullNameAttribute()
+    {
+        return trim($this->name);
+    }
+    
+    public function getEmployeeCodeAttribute() {
+        $emp_code = "O" . str_pad($this->id, 8, "0", STR_PAD_LEFT);
+        return $emp_code;
+    }
+    
+    public function getCompanyNameAttribute() {
+        $name = '';
+        if ($this->project) {
+            $name = isset($this->project->company) ? $this->project->company->name : '';
+        }
+        return $name;
+    }
+    
+    public function getSupplierNameAttribute() {
+        $name = '';
+        if ($this->supplier) {
+            $name = $this->supplier->getFullNameAttribute();
+        }
+        return $name;
+    }
+    
+    public function getProjectNameAttribute() {
+        $name = '';
+        if ($this->project) {
+            $name = $this->project->name ;
+        }
+        return $name;
+    }
+    
+    /**
+     * Returns the public image file path to this user's avatar.
+     */
+    public function getAvatarThumb($size = 25, $options = null)
+    {
+        if (is_string($options)) {
+            $options = ['default' => $options];
+        }
+        elseif (!is_array($options)) {
+            $options = [];
+        }
+
+        // Default is "mm" (Mystery man)
+        $default = array_get($options, 'default', 'mm');
+
+        if ($this->avatar) {
+            return $this->avatar->getThumb($size, $size, $options);
+        }
+        else {
+            return '//www.gravatar.com/avatar/' .
+                md5(strtolower(trim($this->email))) .
+                '?s='. $size .
+                '&d='. urlencode($default);
+        }
+    }
+    
+    public function getProfileImageAttribute() {
+        $profile_image = $this->getAvatarThumb('80');
+        if ($profile_image != null) {
+            return '<img src="' . $profile_image . '" alt="profile image"  />';
+        } else {
+            return "";
+        }
+    }
+    
+    public function getBarcode($format, $params = array()) {
+        $manager = new BarcodeManager();
+
+        $barcode_string = $this->getEntityType() . "|" . $this->getEmployeeCodeAttribute() . "|" . $this->getFullNameAttribute() . "|" . $this->getSupplierNameAttribute() . "|" . $this->getProjectNameAttribute();
+
+        if (!isset($params['data'])) {
+            $params['data'] = $barcode_string;
+        }
+        if (!isset($params['type'])) {
+            $params['type'] = 'QRCODE';
+        }
+
+        if (!isset($params['width'])) {
+            $params['width'] = 2;
+        }
+        if (!isset($params['height'])) {
+            $params['height'] = 30;
+        }
+        if (!isset($params['color'])) {
+            $params['color'] = $format != 'PNG' ? 'black' : [0, 0, 0];
+        }
+        return $manager->getBarcode($format, $params['data'], strtoupper($params['type']), $params['width'], $params['height'], $params['color']);
+    }
+
+    public function getBarCodeAttribute() {
+        $bar_code_image = $this->getBarcode('PNG');
+        if ($bar_code_image != null) {
+            return '<img src="data:image/png;base64,' . $bar_code_image . '" alt="barcode" width="80px" />';
+        } else {
+            return "";
+        }
     }
 
 }

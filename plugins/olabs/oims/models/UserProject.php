@@ -29,6 +29,10 @@ class UserProject extends Model
         'project_count' => ['Olabs\Oims\Models\Project', 'table' => 'olabs_oims_user_projects', 'count' => true]
     ];
     
+    public $belongsTo = [
+        'project' => ['Olabs\Oims\Models\Project']
+    ];
+    
     /**
      * @var string The database table used by the model.
      */

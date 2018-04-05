@@ -1,8 +1,8 @@
 <?php Block::put('breadcrumb') ?>
-    <ul>
-        <li><a href="<?= Backend::url('olabs/oims/offroleemployees') ?>">OffRole Employees</a></li>
-        <li><?= e($this->pageTitle) ?></li>
-    </ul>
+<ul>
+    <li><a href="<?= Backend::url('olabs/oims/offroleemployees') ?>">OffRole Employees</a></li>
+    <li><?= e($this->pageTitle) ?></li>
+</ul>
 <?php Block::endPut() ?>
 
 <?php if (!$this->fatalError): ?>
@@ -12,7 +12,7 @@
         <?= $this->makePartial('preview_toolbar') ?>
     </div>
 </div>
-    <div class="layout-row min-size">
+<div class="layout-row min-size">
     <?= $this->formRender(['preview' => true, 'section' => 'outside']) ?>
 </div>
 
@@ -25,7 +25,7 @@
 </div>
 
 <?php else: ?>
-    <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+<p class="flash-message static error"><?= e($this->fatalError) ?></p>
 <?php endif ?>
 
 <!--<p>

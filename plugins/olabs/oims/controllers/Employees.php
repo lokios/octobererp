@@ -30,5 +30,31 @@ class Employees extends Controller {
             $group->whereIn('code', $filter);
         });
     }
-    
+
+    public function onPrintEmployeeIdCard($id) {
+        $employee_id = get('id',$id);
+        $employee_type = get('type', 'onrole'); //offrole / onrole
+
+        if($employee_type == 'onrole'){
+            $record = \Olabs\Oims\Models\Employee::find($employee_id);
+        }else{
+            $record = \Olabs\Oims\Models\OffroleEmployee::find($employee_id);
+        }
+        
+        $style = '';
+        $html = "<html><head><style>" . $style . "</style></head><body>";
+
+        $html .= $this->makePartial('employee_id_card', [
+            'record' => $record,
+            'print_style' => get('style',12),
+                ]);
+
+        $html .= "</body></html>";
+
+        echo $html;
+        exit();
+        
+        
+    }
+
 }
