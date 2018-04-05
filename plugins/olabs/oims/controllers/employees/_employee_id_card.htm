@@ -1,0 +1,184 @@
+<style>
+    /*@media print {*/
+    html, body, .container, #content,
+    .box-content, .col-lg-12, .table-responsive,
+    .table-responsive .table, .dataTable, .box, .row  { width: 100% !important; height: auto !important; border: none !important; padding: 0 !important; margin: 0 !important; }
+    .lt .sidebar-con { width: 0; display: none;  }
+    body:before, body:after, .no-print,
+    #header, #sidebar-left, .sidebar-nav, .main-menu,
+    footer, .breadcrumb, .box-header, .box-header .fa, .box-icon, .alert, .introtext,
+    .table-responsive .row, .table-responsive .table th:first-child,
+    .table-responsive .table td:first-child, .table-responsive .table tfoot,
+    .buttons, .modal-open #content, .modal-body .close, .pagination, .close, .staff_note {
+        display: none;
+    }
+    .container { width: auto !important; }
+    h3 { margin-top: 0; }
+    .modal { position: static; }
+    .modal .table-responsive { display: block; }
+    .modal .table th:first-child, .modal .table td:first-child, .modal .table th, .modal .table td { display: table-cell !important; }
+    .modal-content { display: block !important; background: white !important; border: none !important; }
+    .modal-content .table tfoot { display: table-row-group !important; }
+    .modal-header { border-bottom: 0; }
+    .modal-lg { width: 100%; }
+    .table-responsive .table th,
+    .table-responsive .table td { display: table-cell; border-top: none !important; border-left: none !important; border-right: none !important; border-bottom: 1px solid #CCC !important; }
+    a:after {
+        display: none;
+    }
+    .print-table thead th:first-child, .print-table thead th:last-child, .print-table td:first-child, .print-table td:last-child {
+        display: table-cell !important;
+    }
+    .fa-3x { font-size: 1.5em; }
+    .border-right {
+        border-right: 0 !important;
+    }
+    .table thead th { background: #F5F5F5 !important; background-color: #F5F5F5 !important; border-top: 1px solid #f5F5F5 !important; }
+    .well { border-top: 0 !important; }
+    .box-header { border: 0 !important; }
+    .box-header h2 { display: block; border: 0 !important; }
+    .order-table tfoot { display: table-footer-group !important; }
+    .print-only { display: block !important; }
+    .reports-table th, .reports-table td { display: table-cell !important; }
+    table thead { display: table-header-group; }
+    .white-text { color: #FFF !important;  text-shadow: 0 0 3px #FFF !important; -webkit-print-color-adjust: exact; }
+    #bl .barcodes td { padding: 2px !important; }
+    #bl .barcodes .bcimg { max-width: 100%; }
+    #lp .labels { text-align:center;font-size:10pt;page-break-after:always;padding:1px; }
+    #lp .labels img { max-width: 100%; }
+    #lp .labels .name { font-size:0.8em; font-weight:bold; }
+    #lp .labels .price { font-size:0.8em; font-weight:bold; }
+    .well { border: none !important; box-shadow: none; }
+    /*}*/
+
+    /*Please modify the styles below for barcode/label printing */
+    .barcode { width: 8.45in; height: 10.3in; display: block; border: 1px solid #CCC; margin: 10px auto; padding-top: 0.1in; page-break-after:always; }
+    .barcode .item { display: block; overflow: hidden; text-align: center; border: 1px dotted #CCC; font-size: 12px; line-height: 14px; text-transform: uppercase; float: left; }
+    .style50 { font-size: 10px; line-height: 12px; margin: 0 auto; display: block; text-align: center; border: 1px dotted #CCC; font-size: 12px; line-height: 14px; text-transform: uppercase; page-break-after:always; }
+    .barcode .style30 { width: 2.625in; height: 1in; margin: 0 0.07in; padding-top: 0.05in; }
+    .barcode .style30:nth-child(3n+1) {  margin-left: 0.1in; }
+    .barcode .style20 { width: 4in; height: 1in; margin: 0 0.1in; padding-top: 0.05in; }
+    .barcode .style14 { width: 4in; height: 1.33in; margin: 0 0.1in; padding-top: 0.1in; }
+    .barcode .style10 { width: 4in; height: 2in; margin: 0 0.1in; padding-top: 0.1in; font-size: 14px; line-height: 20px; }
+    .barcode .barcode_site, .barcode .barcode_name, .barcode .barcode_address, .barcode .barcode_contact, .barcode .barcode_image, .barcode .variants { display: block; }
+    .barcode .barcode_price, .barcode .barcode_unit, .barcode .barcode_category { display: inline-block; }
+    .barcode .product_image { width: 0.8in; float: left; margin: 5px; }
+    .barcode .style10 .product_image { width: 1in; }
+    .barcode .style30 .product_image { width: 0.5in; float: left; margin: 5px; }
+    .barcode .product_image img { max-width: 100%; }
+    .style50 .product_image, .style40 .product_image { display: none; }
+    .style50 .barcode_site, .style50 .barcode_name, .style50 .barcode_address, .style50 .barcode_contact, .style50 .barcode_image, .style50 .barcode_price { display: block; }
+    .barcode .barcode_image img, .style50 .barcode_image img { max-width: 100%; }
+    .barcode .barcode_site { font-weight: bold; }
+    .barcode .barcode_site, .barcode .barcode_name, .barcode .barcode_address, .barcode .barcode_contact { font-size: 14px; }
+    .barcode .style10 .barcode_site, .barcode .style10 .barcode_name, .barcode .style10 .barcode_address, .barcode .style10 .barcode_contact { font-size: 16px; }
+
+    .barcodea4 { width: 8.25in; height: 11.6in; display: block; border: 1px solid #CCC; margin: 10px auto; padding: 0.1in 0 0 0.1in; page-break-after:always; }
+    .barcodea4 .item { display: block; overflow: hidden; text-align: center; border: 1px dotted #CCC; font-size: 12px; line-height: 14px; text-transform: uppercase; float: left; }
+    .barcodea4 .style40 { width: 1.799in; height: 1.003in; margin: 0 0.07in; padding-top: 0.05in; }
+    .barcodea4 .style24 { width: 2.48in; height: 1.335in; margin-left: 0.079in; padding-top: 0.05in; }
+    .barcodea4 .style18 { width: 2.5in; height: 1.835in; margin-left: 0.079in; padding-top: 0.05in; font-size: 13px; line-height: 20px; }
+    
+    .barcodea4 .barcode_site, .barcodea4 .barcode_name, .barcodea4 .barcode_address, .barcodea4 .barcode_contact, .barcodea4 .barcode_image, .barcodea4 .variants { display: block; }
+    .barcodea4 .barcode_price, .barcodea4 .barcode_unit, .barcodea4 .barcode_category { display: inline-block; }
+    .barcodea4 .product_image { width: 0.8in; float: left; margin: 5px; }
+    
+    .barcodea4 .style24 .barcode_site, .barcodea4 .style24 .barcode_name, .barcodea4 .style24 .barcode_address, .barcodea4 .style24 .barcode_contact { font-size: 14px; }
+    .barcodea4 .style18 .barcode_site, .barcodea4 .style18 .barcode_name, .barcodea4 .style18 .barcode_address, .barcodea4 .style18 .barcode_contact { font-size: 14px; font-weight: bold; }
+    
+    .barcodea4 .style12 { width: 2.5in; height: 2.834in; margin-left: 0.079in; padding-top: 0.05in; font-size: 14px; line-height: 20px; }
+    .barcodea4 .style12 .barcode_site  { font-size: 16px; font-weight: bold; }
+    .barcodea4 .style12 .barcode_name  { font-size: 15px; font-weight: bold; margin-top: 0.079in; }
+    .barcodea4 .style12 .barcode_emp_code  { font-size: 14px; }
+    .barcodea4 .style12 .barcode_address  { font-size: 15px; font-weight: normal; margin-top: 0.019in; } 
+    .barcodea4 .style12 .barcode_contact { font-size: 15px; font-weight: normal; margin-top: 0.019in; }
+    .barcodea4 .style12 .product_image { width: 49%; height:auto; max-height: 1.5in; display: inline !important; margin-bottom: 0.079in !important; }
+    .barcodea4 .style12 .product_image img { max-width: 100%; max-height: 100%; }
+    
+    .barcodea4 .style12 .barcode_image { width: 49%; height:auto; max-height: 1.5in; display: inline !important; margin-bottom: 0.079in !important; }
+    .barcodea4 .style12 .barcode_image img { max-width: 100%; max-height: 100%; }
+
+    @media print {
+        .barcode, .barcodea4 { margin: 0; }
+        .barcode, .barcode .item, .barcodea4, .barcodea4 .item, .style50, .div50 { border: none !important; }
+        .div50, .modal-content { page-break-after:always; }
+    }
+
+</style>
+
+<?
+$style = $print_style >0 ? $print_style : 40;
+$cf_width = 200;
+$cf_height = 100;
+//if ($style == 12 || $style == 18 || $style == 24 || $style == 40)
+
+
+$c = 1;
+
+
+
+
+?>
+<?
+if ($style == 12 || $style == 18 || $style == 24 || $style == 40) {
+    echo '<div class="barcodea4">';
+} elseif ($style != 50) {
+    echo '<div class="barcode">';
+}
+?>
+<!--<div class="barcodea4">-->
+
+
+    <div class="item style<?=$style?>" <?= ($style == 50 && $cf_width && $cf_height ?'style="width:'.$cf_width.'in;height:'.$cf_height.'in;border:0;"' : '')?>>
+        <span class="barcode_site"><?=$record->getCompanyNameAttribute()?></span>
+        <span class="barcode_name"><?=$record->getFullNameAttribute()?></span>
+        <span class="barcode_emp_code">(<?=$record->getEmployeeCodeAttribute()?>)</span>
+        <span class="barcode_address"><?=$record->getFullAddressAttribute()?></span>
+        <span class="barcode_contact">+91-<?=$record->getContactNumberAttribute()?></span>
+        <span class="product_image"><?=$record->getProfileImageAttribute()?></span>
+        <span class="barcode_image"><?=$record->getBarCodeAttribute()?></span>
+
+    </div>
+    <? 
+  
+    if ($style == 40) {
+        if ($c % 40 == 0) {
+            echo '</div><div class="clearfix"></div><div class="barcodea4">';
+        }
+    } elseif ($style == 30) {
+        if ($c % 30 == 0) {
+            echo '</div><div class="clearfix"></div><div class="barcode">';
+        }
+    } elseif ($style == 24) {
+        if ($c % 24 == 0) {
+            echo '</div><div class="clearfix"></div><div class="barcodea4">';
+        }
+    } elseif ($style == 20) {
+        if ($c % 20 == 0) {
+            echo '</div><div class="clearfix"></div><div class="barcode">';
+        }
+    } elseif ($style == 18) {
+        if ($c % 18 == 0) {
+            echo '</div><div class="clearfix"></div><div class="barcodea4">';
+        }
+    } elseif ($style == 14) {
+        if ($c % 14 == 0) {
+            echo '</div><div class="clearfix"></div><div class="barcode">';
+        }
+    } elseif ($style == 12) {
+        if ($c % 12 == 0) {
+            echo '</div><div class="clearfix"></div><div class="barcodea4">';
+        }
+    } elseif ($style == 10) {
+        if ($c % 10 == 0) {
+            echo '</div><div class="clearfix"></div><div class="barcode">';
+        }
+    }
+    ?>
+
+
+   
+</div>
+
+
+
