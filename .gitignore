@@ -1,0 +1,15 @@
+.gitignore
+/.settings/*
+/mediawiki/images/*
+/mediawiki/cache/*
+.idea/*
+/.idea/*
+/.idea/workspace.xml
+/storage/framework/cache/
+/storage/framework/
+/storage/
+/config/dev/*
+/config/dev/
+/nbproject/private/
+/nbproject/*
+
