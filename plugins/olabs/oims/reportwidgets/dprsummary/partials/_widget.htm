@@ -24,6 +24,7 @@ $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFo
 
 $summary = array();
 $params = array();
+$total_days = 0;
 
 if(count($assigned_projects)){
 foreach($assigned_projects as $project_id => $project) {
