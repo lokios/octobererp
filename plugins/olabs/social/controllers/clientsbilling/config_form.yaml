@@ -1,0 +1,10 @@
+name: ClientsBilling
+form: $/olabs/social/models/clientsbilling/fields.yaml
+modelClass: Olabs\Social\Models\ClientsBilling
+defaultRedirect: olabs/social/clientsbilling
+create:
+    redirect: 'olabs/social/clientsbilling/update/:id'
+    redirectClose: olabs/social/clientsbilling
+update:
+    redirect: olabs/social/clientsbilling
+    redirectClose: olabs/social/clientsbilling

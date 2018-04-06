@@ -1,0 +1,7 @@
+columns:
+    id:
+        label: ID
+        type: text
+    excerpt:
+        label: Excerpt
+        type: text

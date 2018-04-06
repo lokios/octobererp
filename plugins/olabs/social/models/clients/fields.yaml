@@ -1,0 +1,52 @@
+fields:
+    code:
+        label: 'Client Code'
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    name:
+        label: 'Client Name'
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    status:
+        label: Status
+        oc.commentPosition: ''
+        options:
+            D: Draft
+            L: LIVE
+            B: Blocked
+            O: Deleted
+        span: auto
+        type: dropdown
+    sms_rate:
+        label: 'SMS Rate'
+        oc.commentPosition: 'Amount per SMS'
+        span: auto
+        type: text    
+tabs:
+    fields:
+        customer_email:
+            label: 'Customer Email'
+            oc.commentPosition: ''
+            span: auto
+            type: text
+            tab: 'Client Contacts'
+        customer_phone:
+            label: 'Customer Phone'
+            oc.commentPosition: ''
+            span: auto
+            type: text
+            tab: 'Client Contacts'
+        key:
+            label: Key
+            oc.commentPosition: ''
+            span: auto
+            type: text
+            tab: 'API Settings'
+        secret:
+            label: Secret
+            oc.commentPosition: ''
+            span: auto
+            type: text
+            tab: 'API Settings'

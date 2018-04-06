@@ -1,0 +1,24 @@
+plugin:
+    name: 'olabs.social::lang.plugin.name'
+    description: 'olabs.social::lang.plugin.description'
+    author: olabs
+    icon: oc-icon-adjust
+    homepage: ''
+navigation:
+    main-menu-item:
+        label: Messaging
+        url: /olabs/social/notifications
+        icon: icon-bell
+        sideMenu:
+            side-menu-item:
+                label: Clients
+                url: /olabs/social/clients
+                icon: icon-sitemap
+            side-menu-item2:
+                label: Messages
+                url: /olabs/social/notifications
+                icon: icon-sitemap
+            side-menu-item3:
+                label: 'Clients Billing'
+                url: /olabs/social/clientsbilling
+                icon: icon-sitemap

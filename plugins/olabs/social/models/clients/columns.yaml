@@ -1,0 +1,17 @@
+columns:
+    id:
+        label: ID
+        type: text
+        searchable: true
+    name:
+        label: Name
+        type: text
+        searchable: true
+    code:
+        label: Code
+        type: text
+        searchable: true
+    status:
+        label: Status
+        type: text
+        searchable: true

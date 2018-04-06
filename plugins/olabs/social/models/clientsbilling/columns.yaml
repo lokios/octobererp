@@ -1,0 +1,38 @@
+columns:
+    id:
+        label: ID
+        type: text
+    clients_id:
+        label: Cient
+        type: text
+        searchable: true
+        sortable: true
+    month:
+        label: 'Year/Month'
+        type: text    
+    sms_count:
+        label: 'SMS  Count'
+        type: text
+    sms_total:
+        label: 'SMS Total'
+        type: text
+    email_count:
+        label: 'EMail Count'
+        type: text
+    email_total:
+        label: 'Email Total'
+        type: text
+    total_amout:
+        label: 'Total AMount'
+        type: text
+    net_amount:
+        label: 'Net Amount'
+        type: text
+    payment_status:
+        label: 'Payment Status'
+        type: text
+        searchable: true
+        sortable: true
+    payment_date:
+        label: 'Payment Date'
+        type: text

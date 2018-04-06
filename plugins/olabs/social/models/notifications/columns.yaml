@@ -1,0 +1,40 @@
+columns:
+    id:
+        label: ID
+        type: text
+    excerpt:
+        label: Excerpt
+        type: text
+    client:
+        label: Client
+        searchable: true
+        select: name
+        relation: client
+    sms_count:
+        label: 'SMS Sent Count'
+        oc.commentPosition: ''
+        span: auto
+        type: text    
+    status:
+        label: Status
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    created_at:
+        label: Created At
+        searchable: true
+        type: datetime
+    updated_at:
+        label: Updated At
+        searchable: true
+        type: datetime
+    peer_tenant_info:
+        label: "Business Info"
+        searchable: true
+        type: text
+    peer_branch_info:
+        label: "Branch Info"
+        searchable: true
+        type: text        
+               
+           

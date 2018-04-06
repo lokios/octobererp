@@ -1,0 +1,4 @@
+title: Clients
+modelClass: Olabs\Social\Models\Clients
+toolbar:
+    buttons: reorder_toolbar

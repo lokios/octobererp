@@ -17,7 +17,7 @@ class OffroleEmployeeTransformer extends TransformerAbstract
     {$app = App::getInstance();
         $base = $app->getBaseEndpoint();
         $val = $item->toArray();
-$val['content_type'] = 'user';
+        $val['content_type'] = 'user';
 
 
         //$val['name'] = [$val['first_name'],$val['last_name']];//,'uid'.$app->getAppUserId(),'perm'.$app->hasPermission($org,'manage_his')];
@@ -105,6 +105,21 @@ $val['content_type'] = 'user';
         $val['main_image'] = $img?$img:$app->getBaseEndpointImages().'/themes/octobererp_theme1/assets/images/construction/default_about.jpg';
 
 
+          $modules = [];
+          $fmodules = [];
+          if($app->hasPermission($item,'manage_his')){
+              $val['can_edit'] = false;
+              
+              $this->addHRMModule($item,$fmodules);
+              
+
+          }
+
+          $modules = $fmodules;
+
+          $val['modules'] = $modules;
+            $val['actions'] = $modules[0];
+
 
         return $val;
         return [
@@ -112,5 +127,41 @@ $val['content_type'] = 'user';
             'created_at' => (string)$item->created_at,
             'updated_at' => (string)$item->updated_at,
         ];
+    }
+
+
+     public function addHRMModule($item,&$fmodules){
+
+        $app = App::getInstance();
+        $base = $app->getBaseEndpoint();
+
+          $modules = [];
+
+
+          $module = ['item_type'=>'post'
+          ,'data'=>['employee_type'=>'offrole','employee_id'=>$item->id,'project_id'=>$item->project_id]
+          ,'module'=>'attendance','url'=>$base.'/api/v1/attendances','edit_url'=>$base.'/api/v1/attendances','name'=>'Add Attendance'
+,'title'=>'Add Attendance'
+,'subtitle'=>$item->name
+          ,'format'=>'json','method'=>'post'];
+            $modules[] = $module;
+
+           $module =[  'item_type'=>'list','employee_id'=>$item->id,'name'=>'Attendance Entries','list'=>$base.'/api/v1/attendances?employee_type=offrole&employee_id='.$item->id,'module'=>'user','edit_url2'=>$base.'/api/v1/attendances','barcode_enabled'=>false,
+
+              'create2'=>[
+                  ['tenant_id'=>$item->id,'module'=>'user','url'=>$base.'/api/v1/attendances','title'=>'Add Employee','format'=>'json','method'=>'post'],
+                    
+
+              ]
+             ];
+             $modules[] = $module;
+
+          $module =[ 'item_type'=>'flat_list','name'=>'Attendance',
+
+              'items'=>$modules
+            ];
+
+            
+            $fmodules[] = $module;
     }
 }

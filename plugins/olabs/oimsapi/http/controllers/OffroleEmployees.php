@@ -20,6 +20,7 @@ class OffroleEmployees extends ApiController
 
 
     public $search_like_based = ['name'];
+    public $search_barcode_based = ['id'];
     /**
      * Eloquent model.
      *

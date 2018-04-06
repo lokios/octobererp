@@ -1,0 +1,23 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table olabs_social_entity_relations'
+    - builder_table_create_olabs_social_entity_relations.php
+1.0.3:
+    - 'Created table olabs_social_notifications'
+    - builder_table_create_olabs_social_notifications.php
+1.0.4:
+    - 'Created table olabs_social_clients'
+    - builder_table_create_olabs_social_clients.php
+1.0.5:
+    - 'Created table olabs_social_user_preferences'
+    - builder_table_create_olabs_social_user_preferences.php
+1.0.6:
+    - 'Updated table olabs_social_user_preferences'
+    - builder_table_update_olabs_social_user_preferences.php
+1.0.7:
+    - 'Updated table olabs_social_clients'
+    - builder_table_update_olabs_social_clients.php
+1.0.8:
+    - 'Created table olabs_social_clients_billing'
+    - builder_table_create_olabs_social_clients_billing.php

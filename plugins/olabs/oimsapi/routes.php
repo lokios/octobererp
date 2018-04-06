@@ -131,12 +131,17 @@ Route::post('a/signin', function () {
      $user = ['id'=>$user->id,'first_name'=>$user->first_name,'last_name'=>$user->last_name,'login'=>$user->login, 'email'=>$user->email,'phone'=>$user->contact_phone,'type'=>'otp'];
 
      $app = App::getInstance();
+     $app->user = $user1;
 
-     if($app->getAppId()=='vss'){
+  if($app->getAppId()=='vss'){
 
       //$base = 'http://oimsapp.opaclabs.com';
-      $app = App::getInstance();
+      
        $base = $app->getBaseEndpoint();
+
+
+        $main_modules = [];
+        $app->addMainModules($main_modules);
 
       
     $modules = [];
@@ -169,6 +174,8 @@ Route::post('a/signin', function () {
       }
 
       $status['app_settings']['projects'] = $projects;
+      $status['app_settings']['main_modules'] = $main_modules;
+
     
 
       return $status ;
@@ -195,8 +202,14 @@ Route::post('a/signin', function () {
     $status = ['s'=>'200','user'=>$user, 'groups'=>$user1->groups];//, 'my_organizations'=>$list];
 
 
+
+
     
 
     return $status ;
 });
+
+
+
+
 

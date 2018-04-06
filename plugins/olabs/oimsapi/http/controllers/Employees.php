@@ -22,6 +22,7 @@ class Employees extends ApiController
 
 
      public $search_like_based = ['first_name','last_name'];
+     public $search_barcode_based = ['id'];
     /**
      * Eloquent model.
      *

@@ -1,0 +1,73 @@
+fields:
+    client:
+        label: Client
+        oc.commentPosition: ''
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+    month:
+        label: Month
+        oc.commentPosition: ''
+        mode: datetime
+        span: auto
+        type: datepicker
+    sms_count:
+        label: 'SMS Count'
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    sms_total:
+        label: 'SMS Total Amount'
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    email_count:
+        label: 'Email Count'
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    email_total:
+        label: 'Email Total Amount'
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    total_amout:
+        label: 'Total Amount'
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    net_amount:
+        label: 'Net Amount'
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    payment_status:
+        label: 'Payment Status'
+        oc.commentPosition: ''
+        options:
+            NEW: NEW
+            FULLY_PAID: FULLY_PAID
+        span: auto
+        type: dropdown
+    payment_date:
+        label: 'Payment Date'
+        oc.commentPosition: ''
+        mode: datetime
+        span: auto
+        type: datepicker
+    payment_mode:
+        label: 'Payment Mode'
+        oc.commentPosition: ''
+        options:
+            cash: Cash
+            check: Check
+            online: Online
+        span: auto
+        type: dropdown
+    payment_info:
+        label: 'Payment Info / Notes'
+        size: ''
+        oc.commentPosition: ''
+        span: auto
+        type: textarea

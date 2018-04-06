@@ -1,0 +1,51 @@
+<div class="content">
+    <p class="small-txt"> </p>
+
+    <br>
+    <br>
+
+    <p class="company-info">
+          <strong>From - Mahesha Software Pvt Ltd</strong><br>
+         <strong>Messaging Invoice</strong><br>
+        
+        Tel. +91 - 120-4260490<br>
+               
+                E-mail: info@ezhealthtrack.com<br>
+         
+    </p>
+   
+    <p class="customer-info">
+        <strong>Towards:</strong> {{model.client.name}}<br>
+        <strong>Date:</strong> {{model.month}}<br>
+       
+    </p>
+
+   <p class="small-txt">Note: <strong>{{model.notes}}</p>
+
+
+    <table class="summary">
+        <tr>
+            <th>SMS Count</th>
+            <th>SMS Total Charges</th>
+            <th>Email Count</th>
+            <th>Email Total Charges</th>
+        </tr>
+
+          
+        <tr>
+            <td class="col-1 bt">{{model.sms_count}}</td>
+            <td class="col-2 bt">{{model.sms_total}} INR</td>
+            <td class="col-3 bt">{{model.email_count}}</td>
+            <td class="col-4 bt">{{model.email_total}} INR</td>
+        </tr>
+    </table>
+   <p>Total Amount:<strong>{{model.total_amout}} INR</strong></p>
+    <p>Net Amount Payable:<strong>{{model.net_amount}} INR</strong></p>
+     
+
+
+    
+    <p><strong></strong></p>
+
+    <p></p>
+</div>

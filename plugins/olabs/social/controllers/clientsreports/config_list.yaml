@@ -1,0 +1,11 @@
+list: $/olabs/social/models/clients/columns.yaml
+modelClass: Olabs\Social\Models\Clients
+title: Clients
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'olabs/social/clients/update/:id'

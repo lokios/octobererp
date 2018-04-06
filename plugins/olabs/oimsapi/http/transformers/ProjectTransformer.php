@@ -111,7 +111,7 @@ class ProjectTransformer extends TransformerAbstract
         $base = $app->getBaseEndpoint();
 
           $modules = [];
-          $module =[  'tenant_id'=>$item->id,'name'=>'Employees','list'=>$base.'/api/v1/employees','module'=>'user','edit_url2'=>$base.'/api/v1/employees',
+          $module =[  'tenant_id'=>$item->id,'name'=>'Employees','list'=>$base.'/api/v1/employees','module'=>'user','edit_url2'=>$base.'/api/v1/employees','barcode_enabled'=>true,
 
               'create2'=>[
                   ['tenant_id'=>$item->id,'module'=>'user','url'=>$base.'/api/v1/employees','title'=>'Add Employee','format'=>'json','method'=>'post'],
@@ -120,7 +120,8 @@ class ProjectTransformer extends TransformerAbstract
               ]
              ];$modules[] = $module;
 
-             $module =[  'tenant_id'=>$item->id,'name'=>'Offrole Employees','list'=>$base.'/api/v1/offroleemployees?project_id='.$item->id,'module'=>'patients','edit_url'=>$base.'/api/v1/offroleemployees',
+             $module =[  'tenant_id'=>$item->id,'name'=>'Offrole Employees','list'=>$base.'/api/v1/offroleemployees?project_id='.$item->id,'module'=>'patients'
+             ,'edit_url'=>$base.'/api/v1/offroleemployees','barcode_enabled'=>true,
 
               'create2'=>[
                   ['tenant_id'=>$item->id,'module'=>'patients','url'=>$base.'/api/v1/offroleemployees','title'=>'Add Employee','format'=>'json','method'=>'post'],

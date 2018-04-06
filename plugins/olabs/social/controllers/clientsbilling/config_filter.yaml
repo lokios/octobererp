@@ -1,0 +1,42 @@
+# ===================================
+# Filter Scope Definitions
+# ===================================
+
+scopes:
+
+    
+    payment_status:
+        label: "Payment Status"
+        type: group
+        conditions: payment_status in (:filtered)
+        options:
+            NEW: NEW
+            FULLY_PAID: 'Fully Paid'
+            
+      
+    clients_id:
+
+        # Filter name
+        label: 'Clients'
+
+        # Model Class name
+        modelClass: Olabs\Social\Models\Clients
+
+        # Model attribute to display for the name
+        nameFrom: name
+
+        # Apply query scope
+        scope: FilterCategories
+
+    created_at:
+
+        # Filter name
+        label: 'Created At'
+
+        # Filter type
+        type: daterange
+
+        # SQL Conditions
+        conditions: created_at >= ':after' AND created_at <= ':before'
+
+    

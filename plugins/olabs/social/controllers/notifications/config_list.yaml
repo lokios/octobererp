@@ -1,0 +1,13 @@
+list: $/olabs/social/models/notifications/columns.yaml
+modelClass: Olabs\Social\Models\Notifications
+title: Notifications
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'olabs/social/notifications/update/:id'
+# Filter widget configuration
+filter: config_filter.yaml

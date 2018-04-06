@@ -1,0 +1,36 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('olabs/social/clients') ?>">Clients</a></li>
+        <li><?= e($this->pageTitle) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+<?php if (!$this->fatalError): ?>
+
+    <div class="form-preview">
+
+    <h3>Customer:<?=$client->name?> - Month wise report</h3>
+
+    <?php //echo $this->makePartial('report',['client2'=>$client]); ?>
+
+    <table class="table data">
+        <tr><td>Month</td><td>SMS Count</td><td>Outstanding</td></tr>
+        <? foreach($client->getMonthlyRecords() as $record){?>
+           <tr><td><?=$record->month?>/<?=$record->year?></td><td><?=$record->sms_count?></td><td><?=$record->sms_count*0.20?></td></tr>
+
+
+        <?}?>
+
+     </table> 
+    </div>
+
+<?php else: ?>
+    <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+<?php endif ?>
+
+<p>
+    <a href="<?= Backend::url('olabs/social/notifications') ?>" class="btn btn-default oc-icon-chevron-left">
+        <?= e(trans('backend::lang.form.return_to_list')) ?>
+    </a>
+</p>
+

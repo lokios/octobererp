@@ -1,0 +1,40 @@
+fields:
+    excerpt:
+        label: Label
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    data:
+        label: Repeater
+        oc.commentPosition: ''
+        prompt: 'Add new item'
+        span: full
+        type: repeater
+        form:
+            fields:
+                type:
+                    label: Type
+                    oc.commentPosition: ''
+                    span: auto
+                    type: text
+                to:
+                    label: To
+                    oc.commentPosition: ''
+                    span: auto
+                    type: text
+                message:
+                    label: Message
+                    size: ''
+                    oc.commentPosition: ''
+                    span: auto
+                    type: textarea
+                status:
+                    label: Status
+                    oc.commentPosition: ''
+                    span: auto
+                    type: text
+    status:
+        label: Status
+        oc.commentPosition: ''
+        span: auto
+        type: text

@@ -1,0 +1,12 @@
+list: $/olabs/social/models/clientsbilling/columns.yaml
+modelClass: Olabs\Social\Models\ClientsBilling
+title: ClientsBilling
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'olabs/social/clientsbilling/update/:id'
+filter: config_filter.yaml

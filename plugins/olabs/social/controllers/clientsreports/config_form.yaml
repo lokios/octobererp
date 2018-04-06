@@ -1,0 +1,11 @@
+name: Clients
+modelClass: Olabs\Social\Models\Clients
+form: $/olabs/social/models/clients/fields.yaml
+defaultRedirect: olabs/social/clients
+create:
+    redirect: 'olabs/social/clients/update/:id'
+    redirectClose: olabs/social/clients
+update:
+    redirect: olabs/social/clients
+    redirectClose: olabs/social/clients
+preview: {  }
