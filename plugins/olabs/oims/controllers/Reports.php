@@ -1250,6 +1250,8 @@ td, th { border: 1px solid #ccc; }";
         $report = array();
         $from_date = false;
         $to_date = false;
+        $label_type = get('type',false);
+        
         if (post('reportSearch')) {
 
             $searchParams = post('reportSearch');
@@ -1272,7 +1274,7 @@ td, th { border: 1px solid #ccc; }";
             }
 
             $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
-
+            
             $projectModal = \Olabs\Oims\Models\Project::find($project);
         }
 
@@ -1282,6 +1284,8 @@ td, th { border: 1px solid #ccc; }";
         $this->vars['search'] = true;
         $this->vars['from_date'] = $from_date;
         $this->vars['to_date'] = $to_date;
+//        $this->vars['label_type'] = $label_type;
+        
         $searchParams = ['project'=> get('project',false)];
         $reports = $this->searchAssetsReport($searchParams);
 //        $manpowers = $this->vars['manpowers'];
@@ -1304,17 +1308,22 @@ td, th { border: 1px solid #ccc; }";
 
 //        $html .= "<h3>Assets Report</h3>";
 
-        $html .= $this->makePartial('assets_labels_list', [
+        if($label_type == 'all'){
+            $html .= $this->makePartial('assets_labels_list_all', [
             'reports' => $reports,
             'print_style' => get('style',40),
-//            'machineries' => $machineries,
-//            'expenseOnPcs' => $expenseOnPcs,
-//            'expenseOnMaterials' => $expenseOnMaterials,
             'from_date' => $from_date,
             'to_date' => $to_date,
-//            'total_days' => $total_days,
-//            'fix_expense' => $fix_expense,
             'oimsSetting' => $oimsSetting]);
+        }else {
+            $html .= $this->makePartial('assets_labels_list', [
+            'reports' => $reports,
+            'print_style' => get('style',40),
+            'from_date' => $from_date,
+            'to_date' => $to_date,
+            'oimsSetting' => $oimsSetting]);
+        }
+        
 
         $html .= "</body></html>";
 
