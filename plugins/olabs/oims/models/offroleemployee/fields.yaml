@@ -96,6 +96,7 @@ fields:
     idcard_print:
             label: 
             type: partial
+            context: [preview, update]
             path: ~/plugins/olabs/oims/models/offroleemployee/_idcard_print_link.htm  
             span: auto
 secondaryTabs:

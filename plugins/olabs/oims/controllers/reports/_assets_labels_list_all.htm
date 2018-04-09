@@ -74,7 +74,7 @@
     .barcode .style10 .barcode_site, .barcode .style10 .barcode_name { font-size: 16px; }
 
     .barcodea4 { width: 8.25in; height: 11.6in; display: block; border: 1px solid #CCC; margin: 10px auto; padding: 0.1in 0 0 0.1in; page-break-after:always; }
-    .barcodea4 .item { display: block; overflow: hidden; text-align: center; border: 1px dotted #CCC; font-size: 12px; line-height: 14px; text-transform: uppercase; float: left; }
+    .barcodea4 .item { display: block; overflow: hidden; text-align: center; border: 1px dotted #CCC; font-size: 11px; line-height: 14px; text-transform: uppercase; float: left; }
     .barcodea4 .style40 { width: 1.799in; height: 1.003in; margin: 0 0.07in; padding-top: 0.05in; }
     .barcodea4 .style24 { width: 2.48in; height: 1.335in; margin-left: 0.079in; padding-top: 0.05in; }
     .barcodea4 .style18 { width: 2.5in; height: 1.835in; margin-left: 0.079in; padding-top: 0.05in; font-size: 13px; line-height: 20px; }
@@ -87,7 +87,9 @@
     .barcodea4 .style24 .barcode_site, .barcodea4 .style24 .barcode_name { font-size: 14px; }
     .barcodea4 .style18 .barcode_site, .barcodea4 .style18 .barcode_name { font-size: 14px; font-weight: bold; }
     .barcodea4 .style12 .barcode_site, .barcodea4 .style12 .barcode_name { font-size: 15px; font-weight: bold; }
-
+    
+    .barcodea4 .barcode_image { margin-top: 8px; margin-bottom: -8px; }
+    
     @media print {
         .barcode, .barcodea4 { margin: 0; }
         .barcode, .barcode .item, .barcodea4, .barcodea4 .item, .style50, .div50 { border: none !important; }
@@ -128,13 +130,15 @@ if ($style == 12 || $style == 18 || $style == 24 || $style == 40) {
         ?>
 
     <div class="item style<?=$style?>" <?= ($style == 50 && $cf_width && $cf_height ?'style="width:'.$cf_width.'in;height:'.$cf_height.'in;border:0;"' : '')?>>
-        <span class="barcode_site"><?=$report->project->name?></span>
-        <span class="barcode_name"><?=$report->product->title?></span>
-        <span class="barcode_name"><?= "($count_quantity / $quantity)"?></span>
+         <span class="barcode_name"><?=$report->product->title?></span>
+         <span class="barcode_name"><?= "($count_quantity / $quantity)"?></span>
+         <span class="barcode_image"><?=$report->product->getBarCodeImageAttribute()?></span>
+         <span class="barcode_site"><?=$report->project->name?></span>
+        
+        
         
         <!--<span class="barcode_category"><?=isset($report->product->default_category) ? $report->product->default_category->title : ''?></span>-->
-        <span class="barcode_image"><?=$report->product->getBarCodeAttribute()?></span>
-
+        
     </div>
     
     <? 
