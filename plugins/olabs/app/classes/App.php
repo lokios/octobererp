@@ -325,4 +325,57 @@ function get_class_name($classname)
 
 
 
+
+public function addMainModules(&$fmodules){
+
+    if($this->getAppId()=='vss'){
+        $this->addMainModules_OIMS($fmodules);
+    }
+
+
+}
+
+public $user;
+public function addMainModules_OIMS(&$fmodules){
+
+
+        $app =$this;
+        $base = $app->getBaseEndpoint();
+
+          $modules = [];
+
+          if($this->user){
+
+            $userModel = new \Olabs\Oimsapi\Http\Transformers\EmployeeTransformer();
+            $userModel = $userModel->transform($this->user);
+          $module = ['item_type'=>'group'
+          ,'data'=>[]
+          ,'module'=>'user','name'=>'Welcome '.$app->user->first_name.' '.$app->user->last_name
+          ,'title'=>'My Profile','content'=>$userModel
+          ,'subtitle'=>$app->user->first_name.' '.$app->user->last_name
+          ,'format'=>'json','method'=>'post'];
+
+          $fmodules[] = $module;
+
+        }
+
+          $module = ['item_type'=>'post'
+          ,'data'=>[]
+          ,'module'=>'attendance','url'=>$base.'/api/v1/attendances','edit_url'=>$base.'/api/v1/attendances','name'=>'Add Attendance'
+,'title'=>'Add Attendance'
+,'subtitle'=>''
+          ,'format'=>'json','method'=>'post'];
+            $fmodules[] = $module;
+
+           $module =[  'item_type'=>'list','name'=>'Attendance Entries','list'=>$base.'/api/v1/attendances','module'=>'user','edit_url2'=>$base.'/api/v1/attendances','barcode_enabled'=>false,
+
+             
+             ];
+             $fmodules[] = $module;
+
+         
+    }
+
+
+
 }

@@ -55,6 +55,8 @@ $app = App::getInstance();
 
         $where = [];
         $where['project'] =  $this->request->input('project_id', false);
+        $q = $this->request->input('q', false);
+        if($q)$where['q'] = $q;
 
         $items = $this->searchAssets($where);
 
@@ -66,6 +68,15 @@ $app = App::getInstance();
             # code...
             $asset = $item;
             $product = \Olabs\Oims\Models\Product::find($asset->product_id);
+
+            if($q && $q!=''){
+
+              if(stripos($product->title, $q)=== FALSE){
+                 continue;
+              }
+
+            }
+
             $quantity = 0;
             $quantity = $asset->purchase_quantity + $asset->tf_quantity - $asset->tt_quantity - $asset->damage_quantity ;
 

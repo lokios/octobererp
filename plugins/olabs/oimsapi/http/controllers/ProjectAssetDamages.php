@@ -40,9 +40,14 @@ class ProjectAssetDamages extends ApiController
     }
 
 
-     public function getExtraConditions($action, Request $request , &$criteria ){
-           $this->scopeEquals($criteria,'project_id');
-           $this->scopeEquals($criteria,'product_id');
+      public function getExtraConditions($action, Request $request , &$criteria ){
+           $q2 =  $this->request->input('scope', false);
+           if($q2 =='all_recent_entries'){
+             $this->scopeEquals($criteria,'project_id');
 
+           }else{
+               $this->scopeEquals($criteria,'project_id');
+               $this->scopeEquals($criteria,'product_id');
+           }
     }
 }

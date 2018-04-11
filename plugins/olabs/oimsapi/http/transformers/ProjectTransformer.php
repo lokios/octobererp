@@ -161,7 +161,7 @@ class ProjectTransformer extends TransformerAbstract
 
 
              $modules = [];
-             $module =[  'tenant_id'=>$item->id,'name'=>'Assets Management'
+             $module =[  'tenant_id'=>$item->id,'name'=>'Assets Management 11'
              ,'list'=>$base.'/api/v1/products?project_id='.$item->id,'module'=>'product','edit_url2'=>$base.'/api/v1/employees','barcode_enabled'=>true,
 
               'create2'=>[
@@ -170,6 +170,8 @@ class ProjectTransformer extends TransformerAbstract
 
               ]
              ];
+
+             $module['actions'] = $this->addAssetActions();
              $modules[] = $module;
              /**
 
@@ -236,6 +238,39 @@ $modules[] = $module;
 
 
         }
+
+
+    public function addAssetActions(){
+
+          $fmodules = [];
+
+        $app = App::getInstance();
+        $base = $app->getBaseEndpoint();
+
+        $modules = [];
+        $val = [];
+        
+        $val['name'] = 'Recent Entries';//,'uid'.$app->getAppUserId(),'perm'.$app->hasPermission($org,'manage_his')];
+        
+
+         
+
+        $module =[  'item_type'=>'list','name'=>'Monitor Entries','list'=>$base.'/api/v1/projectassetmonitors?project_id=:project_id','module'=>'user','edit_url2'=>$base.'/api/v1/attendances','barcode_enabled'=>false
+             ];
+             $modules[] = $module;
+
+        $module =[  'item_type'=>'list','name'=>'Transfer Entries','list'=>$base.'/api/v1/projectassettransfers?project_id=:project_id','module'=>'user','edit_url2'=>$base.'/api/v1/attendances','barcode_enabled'=>false
+             ];
+             $modules[] = $module;
+    
+        $module =[  'item_type'=>'list','name'=>'Damages Entries','list'=>$base.'/api/v1/projectassetdamages?project_id=:project_id','module'=>'user','edit_url2'=>$base.'/api/v1/attendances','barcode_enabled'=>false
+             ];
+             $modules[] = $module;
+        
+            $val['actions']['items'] = $modules;
+
+            return $val;
+    }
 
 
 
