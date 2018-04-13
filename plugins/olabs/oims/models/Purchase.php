@@ -85,6 +85,21 @@ class Purchase extends BaseModel
         // Payment methods                            
         "payment_method",  // obsolete
     ];
+    
+    public $rules = [
+//        'title' => 'required|between:2,255',
+        'reference_number' => 'numeric|required|between:1,255|unique:olabs_oims_purchases',
+//        'reference_number' => [
+//            'required',
+////            'alpha_dash',
+//            'between:1,255',
+//            'unique:olabs_oims_purchases',
+//        ],        
+//        'ean_13'   => 'numeric|ean13',
+////        'default_category' => 'required',
+//        'retail_price_with_tax' => 'numeric|required',
+        
+    ];  
             
     protected $jsonable = [
         // Products
@@ -675,13 +690,17 @@ class Purchase extends BaseModel
     
 
     public function uniqueMRNumberCheck(){
+//        return true; // Not required to check, running default
+        
+        //Check MR Number uniqueness through out project
         if($this->id){
             $invalid = Purchase::where('reference_number', $this->reference_number)
-                               ->where('project_id', $this->project_id)
+//                               ->where('project_id', $this->project_id)
                                ->where('id', '<>', $this->id)->count();
         }else{
             $invalid = Purchase::where('reference_number', $this->reference_number)
-                               ->where('project_id', $this->project_id)->count();
+//                               ->where('project_id', $this->project_id)
+                               ->count();
         }
         
         if ($invalid) {

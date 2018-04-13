@@ -488,6 +488,7 @@ class Plugin extends PluginBase {
                 if (!$widget->model instanceof Backend\Models\User) {
                     return;
                 }
+                $widget->removeField('groups'); //removed form field Group from backend user added it again form user field option : Added Contect :[create], [update]
                 $configFile = __DIR__ . '/models/backenduser/fields.yaml';
                 $config = Yaml::parse(File::get($configFile));
                 $widget->addTabFields($config);

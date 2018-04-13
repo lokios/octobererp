@@ -42,6 +42,7 @@ fields:
             oc.commentPosition: ''
             span: auto
             type: text
+            required: 1
         
         
         quote:
