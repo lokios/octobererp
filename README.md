@@ -2,7 +2,8 @@
 Open Source Inventory and Project Management suite  Built on Laravel &amp; OctoberCMS! 
 
 # Documentation 
-octobererp.com
+Official Website:  http://octobererp.com
+
 Contact: enquiry@opaclabs.com
 
 Please write to us for wistlist and improvements.
