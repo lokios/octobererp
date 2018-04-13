@@ -1,6 +1,61 @@
 # octobererp
 Open Source Inventory and Project Management suite  Built on Laravel &amp; OctoberCMS! 
 
+# Documentation 
+Official Website:  http://octobererp.com
+
+Contact: enquiry@opaclabs.com
+
+Please write to us for wistlist and improvements.
+
+# Roles & User Groups
+ 
+  Project Encharge			 
+  
+  Project Accountant			 
+  
+  Inventory Supplier			 
+  
+  Inventory Customer 
+  
+  Inventory Administrator
+  
+  Head Office Accountant	 
+  
+  Employee
+
+# Demo 
+http://demo.octobererp.com
+
+## Passwords for all Demo accounts is : demo@123!
+Demo User Accounts:
+
+Project Encharge		:
+  projectencharge1@demo.com
+  projectencharge2@demo.com
+  
+Project Accountant	:
+   projectaccountant1@demo.com
+   projectaccountant2@demo.com
+   
+Inventory Supplier		:
+   supplier1@demo.com
+   supplier2@demo.com
+   
+Inventory Customer		0	 
+
+Inventory Administrator		:
+   inventoryadmin1@demo.com
+   inventoryadmin2@demo.com
+   
+Head Office Accountant		:
+  hoaccountant1@demo.com
+  hoaccountant2@demo.com
+  
+Employee
+   employee1@demo.com
+   employee2@demo.com
+
 ## highlights
 ### Project Management
 Multi Site project managemnt, project tracking, project planning, project monitoring. Generate DPR (Daily Progress Reports), manage & track profits and loss. Receive alerts and notifications
@@ -29,6 +84,8 @@ Initally we have :
 ### Built on Laravel and OctoberCMS
 
 ### Open source & FREE under Apache License
+
+
 
  
  
