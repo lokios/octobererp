@@ -1,0 +1,12 @@
+// Spinner variants
+
+.spinner-variant(@up-btn-height; @down-btn-height; @line-height) {
+  & + .ui-spinner-button {
+    height: @up-btn-height;
+    line-height: @line-height;
+  }
+  & + .ui-spinner-button + .ui-spinner-button {
+    height: @down-btn-height;
+    line-height: @line-height;
+  }
+}

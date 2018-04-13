@@ -1,0 +1,119 @@
+title = "Project"
+url = "/portfolio/project/:id"
+layout = "default"
+==
+<?php
+use Olabs\Tenant\Classes\Tenant;
+use Olabs\Tenant\Models\Contents;
+use rainlab\blog\models\Post;
+use RainLab\Blog\Models\Post as BlogPost;
+use RainLab\Blog\Models\Category as BlogCategory;
+function onInit()
+{
+
+  }
+function onStart()
+{
+
+//$currentHostUrl = Request::getHost();
+$this['currentHostUrl'] = Tenant::getHost();
+$this['org'] = Tenant::getOrg();
+
+$types = array('excursions'=>array('title'=>'Excursions','slug'=>'excursions'),'gallery'=>array('title'=>'Gallery','slug'=>'gallery'));
+
+/*
+* List all the posts, eager load their categories
+*/
+$post = BlogPost::where('id',$this->param('id'))->first();
+$this['post'] = $post;
+}
+?>
+==
+{% put styles %}
+    <link href="{{ [
+        'assets/vendor/slick/slick.css',
+    ]|theme }}" rel="stylesheet">
+{% endput %}
+{% put scripts %}
+    <script src="{{ [
+        'assets/vendor/slick/slick.js',
+    ]|theme }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#projectImages').slick({
+                dots: true,
+                infinite: true,
+                speed: 800,
+                fade: true,
+                cssEase: 'linear',
+                slidesToShow: 1,
+                autoplay: true,
+                autoplaySpeed: 4000,
+                pauseOnHover: true
+            });
+        })
+    </script>
+{% endput %}
+
+<section id="layout-title">
+    <div class="container">
+        <h3>{{post.title}}</h3>
+    </div>
+</section>
+
+<div class="container">
+
+    <div id="projectImages" class="project-images">
+        {% for page_section in post.featured_images %}
+        <div>
+            <div class="image"><img src="{{ post.imageMain(page_section) }}" class="img-responsive" alt="" /></div>
+            <div class="caption">{{post.title}}</div>
+        </div>
+       {% endfor %}
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-9">
+
+            <!-- Project description -->
+            <div class="project-description">
+                <p>{{post.content_html|raw}}</p>
+            </div>
+
+        </div>
+        <div class="col-md-3">
+
+            <!-- Project information -->
+            <ul class="project-info">
+
+            </ul>
+            <a href="#" class="hide btn btn-info btn-lg btn-block">Project page</a>
+
+        </div>
+    </div>
+
+    <!-- Quote -->
+    <!--<h4 class="headline"><span>What the client said</span></h4>
+    <blockquote>
+        <p>As busy as a dob how flat out like a butcher. She'll be right boozer how it'll be ankle biter. Stands out like a feral heaps stands out like a big smoke. Mad as a franger flamin lets throw a compo. You little ripper bitzer how she'll be right slacker. Shazza got us some swagger no dramas get a dog up ya boozer. Shazza got us some coldie with gutful of dole bludger.</p>
+        <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+    </blockquote>-->
+
+    <!-- Pagination -->
+    <!--<ul class="pager pull-right">
+        <li class="previous">
+            <a href="#">
+                <span class="fui-arrow-left"></span>
+                Previous
+            </a>
+        </li>
+        <li class="next">
+            <a href="#">
+                Next
+                <span class="fui-arrow-right"></span>
+            </a>
+        </li>
+    </ul>-->
+
+</div>

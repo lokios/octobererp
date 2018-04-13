@@ -1,0 +1,32 @@
+//
+// Iconic List
+// --------------------------------------------------
+// 
+
+.iconic-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  > li {
+    > a {
+      color: mix(@brand-primary, white, 85%);
+      font-size: ceil((@component-font-size-base * 0.933)); // ~14px
+      display: block;
+      line-height: 24px;
+      font-weight: 700;
+      
+      &:hover,
+      &:focus {
+        color: mix(@brand-secondary, black, 85%);
+      }
+
+      > [class^="fui-"],
+      > [class*=" fui-"] {
+        margin-right: 10px;
+        font-size: ceil((@component-font-size-base * 1.071)); // ~15px
+        vertical-align: middle;
+      }
+    }
+  }
+}

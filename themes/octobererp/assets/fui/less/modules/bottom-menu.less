@@ -1,0 +1,135 @@
+//
+// Bottom Menu
+// --------------------------------------------------
+
+.bottom-menu {
+  background-color: @bottom-menu-bg;
+  color: @bottom-menu-color;
+  padding-top: 42px;
+  padding-bottom: 42px;
+  line-height: 1;
+
+  .bottom-menu-brand {
+    display: inline-block;
+    font-size: floor((@component-font-size-base * 1.6)); // ~24px
+    line-height: 1;
+    font-weight: 900;   
+    margin: 0 15px 15px;
+    transition: none;
+
+    @media (min-width: @grid-float-breakpoint) {
+      margin: 0;
+    }     
+  }
+  .title {
+    font-size: floor((@component-font-size-base * 0.933)); // ~14px
+    font-weight: 700;    
+    margin: 0 15px 10px;
+    padding-top: 10px;
+
+    @media (min-width: @grid-float-breakpoint) {
+      margin-right: 0;
+      margin-left: 0;
+      padding-top: 0;
+    }     
+  }
+  a {
+    color: @bottom-menu-link-color;
+
+    .active &,
+    &:hover,
+    &:focus {
+      color: @bottom-menu-link-hover-color;
+    }
+  }
+  .label,
+  .badge {
+    vertical-align: middle;
+  }
+}
+
+// Inversed bottom menu
+.bottom-menu-inverse {
+  background-color: @bottom-menu-inverse-bg;
+  color: @bottom-menu-inverse-color;
+
+  a {
+    color: @bottom-menu-inverse-link-color;
+
+    .active &,
+    &:hover,
+    &:focus { 
+      color: @bottom-menu-inverse-link-hover-color; 
+    }
+  }
+}
+
+// Large size
+.bottom-menu-large {
+  padding-bottom: 41px;
+  padding-top: 56px;
+
+  @media (min-width: @grid-float-breakpoint) {
+    padding-bottom: 52px;
+  } 
+}
+
+// Bottom menu lists
+.bottom-menu-list,
+.bottom-menu-iconic-list{
+  margin: 0 15px;
+  padding: 0;
+  list-style: none;
+  .clearfix();
+
+  li {
+    display: block;
+  }
+  a {
+    display: inline-block;
+    line-height: 24px;
+  }
+}
+
+// Unstiled list
+.bottom-menu-list {
+  font-size: ceil((@component-font-size-base * 0.933)); // ~14px
+  line-height: 1.286; // ~18px
+  margin-bottom: 15px;
+
+  @media (min-width: @grid-float-breakpoint) {
+    margin-right: 0;
+    margin-left: 0;
+    margin-bottom: 0;
+
+    & > li {
+      display: inline-block;
+      margin-right: 23px;
+    }
+    .title + & {
+      li {
+        display: block;
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+// Iconic list
+.bottom-menu-iconic-list {
+  font-size: floor((@component-font-size-base * 1.067)); // ~16px
+  line-height: 1;
+
+  li {
+    display: inline-block;
+    margin-right: 18px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  @media (min-width: @grid-float-breakpoint) {
+    margin-right: 0;
+    margin-left: 0;
+  }  
+}

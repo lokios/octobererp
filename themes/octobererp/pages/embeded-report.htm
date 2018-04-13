@@ -1,0 +1,14 @@
+title = "Embeded Report"
+url = "/embeded-report"
+layout = "default"
+is_hidden = 0
+
+[ReporticoEngine]
+startMode = "menu"
+accessMode = "oneproject"
+project = "inventory"
+report = "mr_register"
+jquery_status = "loadjquery"
+bootstrap_status = "loadbootstrap"
+==
+{% component 'ReporticoEngine' %}

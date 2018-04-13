@@ -1,0 +1,36 @@
+//
+// Badges
+// --------------------------------------------------
+
+
+// Base class
+.badge {
+  font-size: floor((@component-font-size-base * 0.867)); // ~13px
+  font-weight: @badge-font-weight;
+  color: @badge-color;
+  line-height: @badge-line-height;
+  background-color: @badge-bg;
+  border-radius: @badge-border-radius;
+  padding: 0 8px;
+
+  // Quick fix for badges in buttons
+  .btn & {
+    position: relative;
+    top: -1px;
+  }
+
+  // Hover state, but only for links
+  a& {
+    &:hover,
+    &:focus {
+      color: @badge-link-hover-color;
+    }
+  }
+
+  // Account for counters in navs
+  a.list-group-item > &,
+  .nav-pills > li > a > & {
+    color: @badge-active-color;
+    background-color: @badge-active-bg;
+  }
+}

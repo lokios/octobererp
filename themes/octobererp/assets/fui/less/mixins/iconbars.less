@@ -1,0 +1,20 @@
+// Iconbar variant
+
+.iconbar-variant(@color) {
+  background-color: @color;
+  > ul {
+    > li {
+      &.active {
+        > a {
+          color: mix(@color, black, 66%);
+        }
+      }
+      > a {
+        &:hover, &:focus {
+          color: mix(@color, black, 66%);
+        }
+      }
+    }
+  }
+  .iconbar-unread { background-color: mix(@color, black, 66%); }
+}

@@ -1,0 +1,151 @@
+
+body.page-shop-shop {
+
+}
+
+.shop-product {
+    height: 230px;
+    margin: 10px 0 20px;
+    text-align: center;
+    overflow: hidden;
+
+    img {
+        max-height: 100px;
+        margin: 0 auto;
+    }
+    h6 {
+        font-size: 13px;
+        text-transform: uppercase;
+        font-weight: 400;
+    }
+    &.featured:before {
+        color: #ed3e49;
+        position: absolute;
+        top: 0;
+        left: 35px;
+        .icon(@certificate);
+        font-size: 36px;
+    }
+    &.featured:after {
+        color: #fff;
+        position: absolute;
+        top: 16px;
+        left: 39px;
+        content: "New";
+        font-weight: 400;
+        font-size: 11px;
+    }
+}
+
+.shop-product {
+    .price .old {
+        color: @brand-danger;
+        text-decoration: line-through;
+    }
+    .price .new {
+        font-weight: bold;
+    }
+}
+
+//
+// Shop item
+//
+
+.shop-item {
+
+    .shop-images {
+        position: relative;
+
+        > div {
+            background: #fff;
+            display: none;
+        }
+
+        > div:first-child {
+            display: block;
+        }
+
+        &.slick-initialized {
+            > div, .caption { display: block; }
+        }
+    }
+
+    .reviews {
+        font-size: 12px;
+        margin-left: 10px;
+    }
+    .price-block {
+        display: inline-block;
+        margin-bottom: 15px;
+        padding: 10px;
+        background: #eee;
+        border-radius: 3px;
+        .form-control {
+            display: inline-block;
+            width: 60px;
+        }
+        .price {
+            margin-right: 10px;
+            vertical-align: middle;
+            font-size: 20px;
+            font-weight: 600;
+        }
+    }
+}
+
+.rating {
+    display: inline-block;
+    margin-left: 0px;
+    li {
+        margin: 0;
+        padding: 0;
+        color: #F7C41F;
+        font-size: 14px;
+    }
+}
+
+
+//
+// Cart
+//
+
+.shopping-cart {
+
+    table > thead > tr > th {
+        border-bottom-width: 1px;
+    }
+    table > tbody > tr > td {
+        vertical-align: middle;
+    }
+    table img {
+        float: left;
+        max-width: 100px;
+        margin: 0 10px 10px 0;
+        border-radius: 3px;
+    }
+    table .item {
+        overflow: hidden;
+    }
+    @media (max-width: 767px) {
+        table img {
+            margin: 0 0 10px 0;
+            max-width: 100%;
+            float: none;
+        }
+        table .item {
+            overflow: visible;
+        }
+    }
+    .form-control {
+        width: 60px;
+    }
+    .checkout {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    .checkout > li {
+        margin: 10px 0;
+    }
+}
+

@@ -1,0 +1,109 @@
+//
+// Popovers
+// --------------------------------------------------
+
+.popover {
+  background-color: @popover-bg;
+  border: none;
+  padding: 0;
+  z-index: @zindex-popover;
+  max-width: @popover-max-width;
+  border-radius: @border-radius-large;
+  box-shadow: none;
+
+  // Offset the popover to account for the popover arrow
+  &.top     { margin-top:  -((@popover-arrow-width + 5)); }
+  &.right   { margin-left:  (@popover-arrow-width + 5); }
+  &.bottom  { margin-top:   (@popover-arrow-width + 5); }
+  &.left    { margin-left: -((@popover-arrow-width + 5)); }
+}
+
+// Popover title
+.popover-title {
+  margin: 0; // reset heading margin
+  background-color: @popover-title-bg;
+  color: @inverse;
+  font-size: @component-font-size-base;
+  line-height: 1.2;
+  font-weight: 700;
+  padding: 10px 20px 11px;
+  border: none;
+  .border-top-radius((@border-radius-large - 1));
+
+  &:not(:empty) + .popover-content > p {
+    margin-bottom: 0;
+  }
+}
+
+// Popover content wrapper
+.popover-content {
+  padding: 9px 20px;
+  font-size: ceil((@component-font-size-base * 0.933)); // ~14px
+  line-height: 1.286; // 18px
+
+  p {
+    font-size: inherit;
+    line-height: inherit;
+  }
+}
+
+// Arrows
+//
+// .arrow is outer, .arrow:after is inner
+
+.popover > .arrow {
+  &,
+  &:after {
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+  }
+}
+.popover > .arrow {
+  border-width: @popover-arrow-outer-width;
+}
+.popover > .arrow:after {
+  border-width: @popover-arrow-width;
+}
+
+.popover {
+  &.top > .arrow {
+    margin-left: -@popover-arrow-outer-width;
+    border-top-color: @popover-arrow-outer-color;
+    bottom: -@popover-arrow-outer-width;
+    &:after {
+      margin-left: -@popover-arrow-width;
+      border-top-color: @popover-arrow-color;
+    }
+  }
+  &.right > .arrow {
+    left: -@popover-arrow-outer-width;
+    margin-top: -@popover-arrow-outer-width;
+    border-right-color: @popover-arrow-outer-color;
+    &:after {
+      bottom: -@popover-arrow-width;
+      border-right-color: @popover-arrow-color;
+    }
+  }
+  &.bottom > .arrow {
+    margin-left: -@popover-arrow-outer-width;
+    border-bottom-color: @popover-arrow-outer-color;
+    top: -@popover-arrow-outer-width;
+    &:after {
+      margin-left: -@popover-arrow-width;
+      border-bottom-color: @popover-arrow-color;
+    }
+  }
+  &.left > .arrow {
+    right: -@popover-arrow-outer-width;
+    margin-top: -@popover-arrow-outer-width;
+    border-left-color: @popover-arrow-outer-color;
+    &:after {
+      border-left-color: @popover-arrow-color;
+      bottom: -@popover-arrow-width;
+    }
+  }
+}

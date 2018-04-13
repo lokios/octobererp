@@ -1,0 +1,266 @@
+description = "Default layout"
+[olabs_session]
+security = "all"
+==
+<?php
+use Olabs\Tenant\Classes\Tenant;
+
+function onInit()
+{
+
+  }
+function onStart()
+{
+$sessionUser = OlabsAuth::getUser();
+if($sessionUser){
+  //$sessionProfile = Profiles::getByUserId($sessionUser->id);
+$this['sessionUser'] = $sessionUser;
+//$this['sessionProfile'] = $sessionProfile;
+}
+//$currentHostUrl = Request::getHost();
+$this['currentHostUrl'] = Tenant::getHost();
+$this['org'] = Tenant::getOrg();
+
+
+}
+?>
+==
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{org.name}} - {{ this.page.title }}</title>
+    <meta name="author" content="{{org.name}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{ 'assets/images/logo.png'|theme }}"/>
+    {% styles %}
+    <link href="{{ [
+            'assets/fui/dist/css/vendor/css/bootstrap.min.css'
+        ]|theme }}" rel="stylesheet">
+
+        
+ <link href="{{ [
+            'assets/font-awesome/css/font-awesome.min.css'
+        ]|theme }}" rel="stylesheet">
+
+<link href="{{ [
+            'assets/css/modern-business.css'
+        ]|theme }}" rel="stylesheet">
+
+   <link href="{{ [
+            'assets/css/custom.css'
+        ]|theme }}" rel="stylesheet">
+
+    
+    <style>
+        
+    </style>
+</head>
+<body >
+
+ <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">VSS BUILDCON Pvt. Ltd.</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/#about">About</a>
+                    </li>
+<!--                     <li class="dropdown hide">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="http://oimsinfo.opaclabs.com">OIMS - Inventory Management</a>
+                            </li>
+                            <li>
+                                <a href="portfolio-2-col.html">IOT - Weather Station</a>
+                            </li>
+                           
+                        </ul>
+                    </li>-->
+                    <li>
+                        <a href="/#services">Services</a>
+                    </li>
+                     <li>
+                        <a href="/#practices">Portfolio</a>
+                    </li>
+<!--                    <li>
+                        <a href="/#team">Team</a>
+                    </li>-->
+                    <li>
+                        <a href="/backend">Login</a>
+                    </li>
+                    <li>
+                        <a href="contact1">Contact</a>
+                    </li>
+                   
+<!--                    <li class="dropdown hide">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="blog-home-1.html">Blog Home 1</a>
+                            </li>
+                            <li>
+                                <a href="blog-home-2.html">Blog Home 2</a>
+                            </li>
+                            <li>
+                                <a href="blog-post.html">Blog Post</a>
+                            </li>
+                        </ul>
+                    </li>-->
+<!--                    <li class="dropdown hide">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Other Pages <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="full-width.html">Full Width Page</a>
+                            </li>
+                            <li>
+                                <a href="sidebar.html">Sidebar Page</a>
+                            </li>
+                            <li>
+                                <a href="faq.html">FAQ</a>
+                            </li>
+                            <li>
+                                <a href="404.html">404</a>
+                            </li>
+                            <li>
+                                <a href="pricing.html">Pricing Table</a>
+                            </li>
+                        </ul>
+                    </li>-->
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+
+<!-- Header Carousel -->
+    <header id="myCarousel" class="carousel slide" style="margin-top2: 120px;height: 320px;">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+
+        <style type="text/css">
+            .carousel-inner img{height: 120px;}
+            #portfolio22 img{height: 120px;}
+
+        </style>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <div class="fill" style="background-image:url('{{ 'assets/images/banner1.jpg'|theme }}');"></div>
+                <div class="carousel-caption">
+                     <img src="{{ 'assets/images/cloud.jpg'|theme }}">
+                    <h2>Delivering Software Solutions on modern stacks &amp; cloud</h2>
+                    <p> We build solutions based on modern infrastructures, Stacks and Frameworks.
+                                    We leverage Open Source,  Cloud computing , MBAAS, and platform as a services and scale out architecture principles</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="fill" style="background-image:url('{{ 'assets/images/banner1.jpg'|theme }}');"></div>
+                <div class="carousel-caption">
+                    <img src="{{ 'assets/images/mobiledev.jpg'|theme }}">
+                    <h2>Engaging Mobile Apps</h2>
+                    <p> OPACLabs specializes in Android/iOS native and Hybrid Apps to deliver engaging UI/UX enterprise grade apps.</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="fill" style="background-image:url('{{ 'assets/images/banner1.jpg'|theme }}');"></div>
+                <div class="carousel-caption">
+                   <img src="{{ 'assets/images/tech1.png'|theme }}">
+                    <h2>Open Source Specialization</h2>
+                    <p>
+                        OPACLabs specializes in wide range of modern and popular stacks and frameworks to deliver engaging UI/UX enterprise grade apps.
+
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="icon-prev"></span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="icon-next"></span>
+        </a>
+    </header>
+<!-- Page Content -->
+    <div class="container">
+    {% page %}
+
+      <hr>
+      <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; OPACLabs Software Pvt Ltd 2011</p>
+                </div>
+            </div>
+        </footer>
+</div>
+
+
+
+<!-- Scripts -->
+<script src="{{ [
+            'assets/javascript/jquery.js',
+            'assets/vendor/bootstrap/js/transition.js',
+            'assets/vendor/bootstrap/js/alert.js',
+            'assets/vendor/bootstrap/js/button.js',
+            'assets/vendor/bootstrap/js/carousel.js',
+            'assets/vendor/bootstrap/js/collapse.js',
+            'assets/vendor/bootstrap/js/dropdown.js',
+            'assets/vendor/bootstrap/js/modal.js',
+            'assets/vendor/bootstrap/js/tooltip.js',
+            'assets/vendor/bootstrap/js/popover.js',
+            'assets/vendor/bootstrap/js/scrollspy.js',
+            'assets/vendor/bootstrap/js/tab.js',
+            'assets/vendor/bootstrap/js/affix.js',
+            'assets/vendor/flat-ui/js/bootstrap-select.js',
+            'assets/vendor/flat-ui/js/bootstrap-switch.js',
+            'assets/vendor/flat-ui/js/flatui-checkbox.js',
+            'assets/vendor/flat-ui/js/flatui-radio.js',
+            'assets/vendor/flat-ui/js/jquery.tagsinput.js',
+            'assets/vendor/flat-ui/js/jquery.placeholder.js',
+            'assets/javascript/app.js',
+        ]|theme }}"></script>
+<!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
+<script>
+
+    $(function () {
+        // Only enable if the document has a long scroll bar
+        // Note the window height + offset
+        if (($(window).height() + 100) < $(document).height()) {
+            $('#top-link-block').removeClass('hidden').affix({
+                // how far to scroll down before link "slides" into view
+                offset: {top: 100}
+            });
+        }
+    });
+</script>
+{% framework extras %}
+{% scripts %}
+
+</body>
+</html>

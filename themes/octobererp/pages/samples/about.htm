@@ -1,0 +1,171 @@
+title = "About"
+url = "/about/:section?"
+layout = "default"
+==
+<?php
+use Olabs\Tenant\Classes\Tenant;
+use Olabs\Tenant\Models\Contents;
+function onInit()
+{
+
+  }
+function onStart()
+{
+
+//$currentHostUrl = Request::getHost();
+$this['currentHostUrl'] = Tenant::getHost();
+
+$org = Tenant::getOrg();
+$this['org'] = $org;
+
+$types = array('excursions'=>array('title'=>'Excursions','slug'=>'excursions'),'gallery'=>array('title'=>'Gallery','slug'=>'gallery')
+,'itineraries'=>array('title'=>'Itineraries','slug'=>'itineraries')
+,'activities'=>array('title'=>'Activities','slug'=>'activities')
+,'facilities'=>array('title'=>'Facilities','slug'=>'facilities')
+
+);
+
+if(isset($types[$this->param('section')])){
+$type = $types[$this->param('section')];
+if($type){
+
+
+$this['page_sections'] = Contents::where('tags','like','%'.$type['slug'].'%')->orderBy('name', 'asc')->get();
+$this['type'] = $type;
+        }
+}else{
+  $type = 'home';
+
+
+}
+$this['slides'] = Contents::where(['tenant_id'=>$org->id])->where('tags','like','%home_slider%')->orderBy('name', 'asc')->get();
+
+}
+?>
+==
+{% put styles %}
+<link href="{{ [
+        'assets/vendor/slick/slick.css',
+    ]|theme }}" rel="stylesheet">
+{% endput %}
+{% put scripts %}
+<script src="{{ [
+        'assets/vendor/slick/slick.js',
+    ]|theme }}"></script>
+<script>
+    $('#projectImages').removeClass('hide')
+    $(document).ready(function() {
+        $('#projectImages').slick({
+            dots: true,
+            infinite: true,
+            speed: 800,
+            fade: true,
+            cssEase: 'linear',
+            slidesToShow: 1,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            pauseOnHover: true
+        });
+    })
+</script>
+{% endput %}
+
+
+{% if page_sections %}
+<section id="layout-title">
+    <div class="container">
+        <h3>{{type.title}}</h3>
+    </div>
+</section>
+
+<div class="container">
+
+
+    <div class="row">
+        {% for page_section in page_sections %}
+        {{page_section.content|raw}}
+
+        {% endfor %}
+        </div>
+    </div>
+{% else %}
+<section id="layout-title">
+    <div class="container">
+        <h3>About us</h3>
+    </div>
+</section>
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-sm-6">
+            <h4 class="headline"><span>Welcome at {{org.name}}</span></h4>
+            <p>{{org.description|raw}}</p>
+            <p><a href="{{ 'samples/contact'|page }}" class="btn btn-lg btn-primary">Contact Us</a></p>
+        </div>
+        <div class="col-sm-5 col-sm-offset-1 player-wrapper2">
+            <div class2="player">
+                <div id="projectImages" class="project-images hide">
+                    {% for page_section in org.featured_images %}
+                    <div>
+                        <div class="image"><img src="{{ org.imageMain(page_section) }}" class="img-responsive" alt="" /></div>
+                        <div class="caption">{{ page_section.name }} </div>
+                    </div>
+                    {% endfor %}
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row our-team hide">
+        <div class="col-sm-12">
+            <h4 class="headline"><span>Our team</span></h4>
+            <div class="row">
+                <div class="col-sm-3 col-xs-6">
+                    <div class="team-member text-center">
+                        <img class="img-responsive center-block" src="{{ 'assets/images/team/aleksey.png'|theme }}" alt="">
+                        <div class="info">
+                            John Doe
+                            <p class="text-muted">Founder</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <div class="team-member text-center">
+                        <img class="img-responsive center-block" src="{{ 'assets/images/team/sam.png'|theme }}" alt="">
+                        <div class="info">
+                            John Doe
+                            <p class="text-muted">Engineer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <div class="team-member text-center">
+                        <img class="img-responsive center-block" src="{{ 'assets/images/team/aleksey.png'|theme }}" alt="">
+                        <div class="info">
+                            John Doe
+                            <p class="text-muted">Sales</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <div class="team-member text-center">
+                        <img class="img-responsive center-block" src="{{ 'assets/images/team/sam.png'|theme }}" alt="">
+                        <div class="info">
+                            John Doe
+                            <p class="text-muted">Admin Team</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endif %}

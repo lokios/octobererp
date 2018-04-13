@@ -1,0 +1,30 @@
+title = "Account"
+url = "/account/:action/:code?"
+layout = "default"
+description = "Sign in, registration and account management."
+hidden = "0"
+
+[olabs_account]
+redirect = "account"
+paramCode = "code"
+paramAction = "action"
+
+==
+<?php
+//use Olabs\Tenant\models\Profiles;
+function onForgotPassword(){
+
+  return Profiles::onForgotPassword(Input::all());
+}
+
+?>
+==
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">{% component 'olabs_account' %}</div>
+    </div>
+</div>
+
+
+<!--<hr />-->
+
