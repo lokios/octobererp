@@ -4,13 +4,25 @@ Open Source Inventory and Project Management suite  Built on Laravel &amp; Octob
 ![Logo](oerplogo.png)
 
 # Documentation 
+https://github.com/lokios/octobererp/wiki/Setup-Guide
+
+https://github.com/lokios/octobererp/wiki/User-Manual
+
+https://github.com/lokios/octobererp/wiki/Roadmap
+
+
+# About Team & Offcial Website
 Official Website:  http://octobererp.com
 
 Contact: enquiry@opaclabs.com
 
 Please write to us for wistlist and improvements.
 
-# Roles & User Groups
+
+# Demo 
+http://demo.octobererp.com
+
+## Roles & User Groups
  
   Project Encharge			 
   
@@ -25,9 +37,6 @@ Please write to us for wistlist and improvements.
   Head Office Accountant	 
   
   Employee
-
-# Demo 
-http://demo.octobererp.com
 
 ## Passwords for all Demo accounts is : demo@123!
 Demo User Accounts:
