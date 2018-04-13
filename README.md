@@ -9,18 +9,26 @@ Please write to us for wistlist and improvements.
 
 # Roles & User Groups
  
-Project Encharge			 
-Project Accountant			 
-Inventory Supplier			 
-Inventory Customer 
-Inventory Administrator
-Head Office Accountant	 
-Employee
+  Project Encharge			 
+  
+  Project Accountant			 
+  
+  Inventory Supplier			 
+  
+  Inventory Customer 
+  
+  Inventory Administrator
+  
+  Head Office Accountant	 
+  
+  Employee
 
 # Demo 
 http://demo.octobererp.com
 
+## Passwords for all Demo accounts is : demo@123!
 Demo User Accounts:
+
 Project Encharge		:
   projectencharge1@demo.com
   projectencharge2@demo.com
@@ -34,6 +42,7 @@ Inventory Supplier		:
    supplier2@demo.com
    
 Inventory Customer		0	 
+
 Inventory Administrator		:
    inventoryadmin1@demo.com
    inventoryadmin2@demo.com
