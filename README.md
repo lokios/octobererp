@@ -1,6 +1,7 @@
 # octobererp
 Open Source Inventory and Project Management suite  Built on Laravel &amp; OctoberCMS! 
-![Logo](logo.png)
+
+![Logo](oerplogo.png)
 
 # Documentation 
 Official Website:  http://octobererp.com
