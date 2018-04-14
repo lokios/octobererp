@@ -1,0 +1,20 @@
+
+
+Install Olabs.Social plugin
+php artisan plugin:refresh olabs.social
+
+
+Timelog sync all entries:
+==========================
+
+All sync log requests are logged in olabs_social_entity_relations table with data column:
+
+relation:
+sync
+
+status:
+L (not post-processed)
+
+data:
+
+{"data":[{"check_in":"14-04-2018  17:04","employee_type":"offrole","employee_id":"O00001832","employee_name":"RAMDARAS","supplier_name":"VINOD RAI","project_name":"LADLU","deleted_images":[],"brdata":[{"title":"Code","name":"code","value":"offrole|O00001832|RAMDARAS|VINOD RAI|LADLU"},{"title":"Code Type","name":"code_type"},{"title":"Employee Type","name":"employee_type","value":"offrole"},{"title":"Employee ID","name":"employee_id","value":"O00001832"},{"title":"Employee Name","name":"employee_name","value":"RAMDARAS"},{"title":"Supplier Name","name":"supplier_id","value":"VINOD RAI"},{"title":"Project ID","name":"project_id","value":"LADLU"}],"project_id":8,"key":"rd_attendance__1523705633563"},{"check_in":"14-04-2018  17:04","employee_type":"offrole","employee_id":"O00001832","employee_name":"RAMDARAS","supplier_name":"VINOD RAI","project_name":"LADLU","deleted_images":[],"brdata":[{"title":"Code","name":"code","value":"offrole|O00001832|RAMDARAS|VINOD RAI|LADLU"},{"title":"Code Type","name":"code_type"},{"title":"Employee Type","name":"employee_type","value":"offrole"},{"title":"Employee ID","name":"employee_id","value":"O00001832"},{"title":"Employee Name","name":"employee_name","value":"RAMDARAS"},{"title":"Supplier Name","name":"supplier_id","value":"VINOD RAI"},{"title":"Project ID","name":"project_id","value":"LADLU"}],"project_id":8,"key":"rd_attendance__1523705643087"}]}
