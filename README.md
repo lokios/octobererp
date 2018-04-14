@@ -42,6 +42,9 @@ https://github.com/lokios/octobererp/wiki/Roadmap
 Sample video: How to add a supplier
 https://youtu.be/EzLljUrE0TQ
 
+Case Study: http://octobererp.com/posts/case-studies
+VSS Buildcon Constructions utilises OctoberERP to automate there business processes
+
 
 # About Team & Offcial Website
 Official Website:  http://octobererp.com
