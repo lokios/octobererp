@@ -45,6 +45,7 @@ https://youtu.be/EzLljUrE0TQ
 
 # About Team & Offcial Website
 Official Website:  http://octobererp.com
+Download: https://github.com/lokios/octobererp
 
 Contact: enquiry@opaclabs.com
 
