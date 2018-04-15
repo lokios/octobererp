@@ -23,10 +23,18 @@ Logs/and reports to reports to monitor project wide assets counts
 - Contacts/ Timesheet / attendance/ wages & salary management
 
 ### Android App
-Initally we have :
- - Assets management
- - project wise employees/ offrole employees attendance/contacts
- - More coming soon like : notifications/ material requisition approvals via push notifications
+ OctoberERP.com mobile app to track and monitor:
+** Built on react-native
+
+Demo link: https://youtu.be/MGb3U6iPD_g
+
+ - Projects
+ - HRMS / Employee contacts/Offline attendance
+ - Asset Management - monitor / transfer/ and report damages
+ - Project level Assets live reporting
+ - Material requisitions (MR)  and fast approvals
+
+More features coming soon..
 
 ### Built on Laravel and OctoberCMS
 
