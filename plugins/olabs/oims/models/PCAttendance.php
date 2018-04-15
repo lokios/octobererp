@@ -113,6 +113,10 @@ class PCAttendance extends BaseModel {
             'Olabs\Oims\Models\PaymentGateway',
             'key' => 'payment_gateway_id'
         ],
+        'supplier' => [
+            'Backend\Models\User', 
+            'key' => 'user_id'
+        ],   
     ];
     public $belongsToMany = [];
     public $morphTo = [];

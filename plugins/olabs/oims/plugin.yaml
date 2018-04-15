@@ -170,6 +170,12 @@ navigation:
                 icon: icon-life-ring
                 permissions:
                     - olabs.oims.reports
+            pcattendance_report:
+                label: 'PC Attendance Report'
+                url: olabs/oims/reports/pcattendance_report
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.reports
             assets_report:
                 label: 'Assets Report'
                 url: olabs/oims/reports/assets_report
