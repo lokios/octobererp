@@ -10,9 +10,11 @@ scopes:
 #        nameFrom: name
 #        conditions: status in (:filtered)
        
-    supplier_type:
-        label: Supplier Type
-        modelClass: Olabs\Oims\Models\Supplier
+    project:
+        label: Project
+        modelClass: Olabs\Oims\Models\BaseModel
         nameFrom: name
-        options: getSupplierTypeOptions
-        conditions: supplier_type in (:filtered)
+        options: getProjectOptions
+        conditions: project_id in (:filtered)
+        
+    

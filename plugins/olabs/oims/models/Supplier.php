@@ -75,7 +75,7 @@ class Supplier extends User {
 
         
 
-        return  $this->SUPPLIER_TYPES;;
+        return  $this->SUPPLIER_TYPES;
     }
     
     public function getSupplierType($code) {

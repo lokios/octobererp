@@ -1,4 +1,8 @@
 columns:
+    id:
+        label: olabs.oims::lang.purchases.id
+        searchable: true
+        
     first_name:
         label: backend::lang.user.first_name
         searchable: true
@@ -22,6 +26,10 @@ columns:
 
     email:
         label: backend::lang.user.email
+        searchable: true
+    
+    contact_phone:
+        label: Contact Phone
         searchable: true
         
 #    supplier_type:
