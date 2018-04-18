@@ -1,9 +1,9 @@
 ![Logo](oerplogo.png)
 
-# octobererp
-Open Source Inventory and Project Management suite  Built on Laravel &amp; OctoberCMS! 
+# OctoberERP
+Open Source ERP suite built on Laravel &amp; OctoberCMS! 
 
-## highlights
+## Highlights
 ### Project Management
  - Multi Site project managemnt
  - Project tracking & monitoring
