@@ -716,6 +716,37 @@ class Purchase extends BaseModel
         if ($this->quote) {
             $fields->user_id->value = $this->quote->user_id;
         }
+        
+        if($fields->payment_method){
+//            dd($fields->{'paid_detail[payment_from]'});
+            $fields->{'paid_detail[payment_from]'}->hidden = true;
+            $fields->{'paid_detail[payment_to]'}->hidden = true;
+            $fields->{'paid_detail[transaction_id]'}->hidden = true;
+            
+            $fields->{'paid_detail[cheque_number]'}->hidden = true;
+            $fields->{'paid_detail[cheque_date]'}->hidden = true;
+            $fields->{'paid_detail[cheque_account]'}->hidden = true;
+            
+            $fields->{'paid_detail[dd_number]'}->hidden = true;
+            $fields->{'paid_detail[issuing_bank]'}->hidden = true;
+            $fields->{'paid_detail[issue_date]'}->hidden = true;
+            
+            if($fields->payment_method->value == PaymentReceivable::PAYMENT_METHOD_CHEQUE){
+                $fields->{'paid_detail[cheque_number]'}->hidden = false;
+                $fields->{'paid_detail[cheque_date]'}->hidden = false;
+                $fields->{'paid_detail[cheque_account]'}->hidden = false;
+            }else if($fields->payment_method->value == PaymentReceivable::PAYMENT_METHOD_BANK_TRANSFER){
+                $fields->{'paid_detail[payment_from]'}->hidden = false;
+                $fields->{'paid_detail[payment_to]'}->hidden = false;
+                $fields->{'paid_detail[transaction_id]'}->hidden = false;
+            }else if($fields->payment_method->value == PaymentReceivable::PAYMENT_METHOD_DEMAND_DRAFT){
+                $fields->{'paid_detail[dd_number]'}->hidden = false;
+                $fields->{'paid_detail[issuing_bank]'}->hidden = false;
+                $fields->{'paid_detail[issue_date]'}->hidden = false;
+            }
+                
+        }
+        
     }
 
 }
