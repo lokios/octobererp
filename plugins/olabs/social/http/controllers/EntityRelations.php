@@ -5,14 +5,16 @@ namespace Olabs\Social\Http\Controllers;
 use Olabs\Social\Models\EntityRelations as EntityRelationsModel;
 use Olabs\Social\Http\Transformers\EntityRelationsTransformer;
 use Autumn\Api\Classes\ApiController;
-
+use Illuminate\Http\Request;
 class EntityRelations extends ApiController
 {
 
     protected $defaultLimit = 5;
 
      protected $fillable  =['data','actor_id',"data","target_type","target_id","relation"];
- protected $fillable2  =['actor_id'];
+     protected $fillable2  =['actor_id'];
+
+     public $images_field = 'images';
 
 
     /**
@@ -33,5 +35,10 @@ class EntityRelations extends ApiController
     protected function transformer()
     {
         return new EntityRelationsTransformer;
+    }
+
+    public function getExtraConditions($action, Request $request , &$criteria ){
+           $this->scopeEquals($criteria,'relation');
+           $this->scopeEquals($criteria,'status');
     }
 }

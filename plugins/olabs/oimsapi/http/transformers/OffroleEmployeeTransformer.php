@@ -117,8 +117,8 @@ class OffroleEmployeeTransformer extends TransformerAbstract
 
           $modules = $fmodules;
 
-          $val['modules'] = $modules;
-            $val['actions'] = $modules[0];
+          //$val['modules'] = $modules;
+         //   $val['actions'] = $modules[0];
 
 
         return $val;

@@ -161,7 +161,7 @@ class ProjectTransformer extends TransformerAbstract
 
 
              $modules = [];
-             $module =[  'tenant_id'=>$item->id,'name'=>'Assets Management 11'
+             $module =[  'tenant_id'=>$item->id,'name'=>'Assets Management'
              ,'list'=>$base.'/api/v1/products?project_id='.$item->id,'module'=>'product','edit_url2'=>$base.'/api/v1/employees','barcode_enabled'=>true,
 
               'create2'=>[

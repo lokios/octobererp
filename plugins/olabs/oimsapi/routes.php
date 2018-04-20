@@ -126,14 +126,17 @@ Route::post('a/signin', function () {
 
      $user1 = $user;
      
+     $app = App::getInstance();
+     $app->user = $user1;
+
+     return $app->getSessionData();
+     
      BaseModel::$feature_enabled = true; 
 
      $user = ['id'=>$user->id,'first_name'=>$user->first_name,'last_name'=>$user->last_name,'login'=>$user->login, 'email'=>$user->email,'phone'=>$user->contact_phone,'type'=>'otp'];
 
-     $app = App::getInstance();
-     $app->user = $user1;
-
-  if($app->getAppId()=='vss'){
+     
+     if($app->getAppId()=='vss'){
 
       //$base = 'http://oimsapp.opaclabs.com';
       

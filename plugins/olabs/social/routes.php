@@ -3,11 +3,16 @@
     //
 Route::group(['prefix' => 'social/api/v1'], function () {
     //
+
+   Route::post('entityrelations/upload', 'Olabs\Social\Http\Controllers\EntityRelations@upload');
+
     Route::resource('entityrelations', 'Olabs\Social\Http\Controllers\EntityRelations');
 
     Route::resource('notifications', 'Olabs\Social\Http\Controllers\Notifications');
 
     Route::resource('userpreferences', 'Olabs\Social\Http\Controllers\UserPreferences');
+
+
 
 });
 

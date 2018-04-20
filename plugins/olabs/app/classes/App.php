@@ -61,10 +61,16 @@ class App extends TransformerAbstract{
 
      public function getAppUser(){
 
+        if($this->user){
+          return $this->user;
+        }
+
         $user_id = self::getAppUserId();
         $user = OlabsAuth::findUserById($user_id);
         if($user)
         OlabsAuth::login($user);
+
+        $this->user = $user;
 
         return $user;
 
@@ -359,21 +365,178 @@ public function addMainModules_OIMS(&$fmodules){
 
         }
 
+          if($this->hasTimesheetManagePermission()){
+
           $module = ['item_type'=>'post'
           ,'data'=>[]
           ,'module'=>'attendance','url'=>$base.'/api/v1/attendances','edit_url'=>$base.'/api/v1/attendances','name'=>'Add Attendance'
-,'title'=>'Add Attendance'
-,'subtitle'=>''
+          ,'title'=>'Add Attendance'
+          ,'subtitle'=>''
           ,'format'=>'json','method'=>'post'];
             $fmodules[] = $module;
 
-           $module =[  'item_type'=>'list','name'=>'Attendance Entries','list'=>$base.'/api/v1/attendances','module'=>'user','edit_url2'=>$base.'/api/v1/attendances','barcode_enabled'=>false,
+           $module =[  'item_type'=>'list','name'=>'Recent Attendance Entries','list'=>$base.'/social/api/v1/entityrelations?relation=attendance','module'=>'user','edit_url2'=>$base.'/social/api/v1/entityrelations?relation=attendance','barcode_enabled'=>false,
 
              
              ];
              $fmodules[] = $module;
 
+           }
+
+
+          if($this->hasMREntryCreatePermission()){
+
+             $module = ['item_type'=>'post'
+          ,'data'=>[]
+          ,'module'=>'mr_entry','url'=>$base.'/social/api/v1/entityrelations'
+          ,'edit_url'=>$base.'/api/v1/entityrelations'
+          ,'upload_url'=>$base.'/social/api/v1/entityrelations/upload'
+          ,'name'=>'Add MR Entry'
+          ,'title'=>'Add MR Entry'
+          ,'subtitle'=>''
+          ,'format'=>'json','method'=>'post'];
+
+
+          if($this->hasMREntryCreatePermission()){
+             $module['form_id'] = 'mr_entry_backdate';
+
+          }
+
+
+
+            $fmodules[] = $module;
+
+           $module =[  'item_type'=>'list','name'=>'Recent MR Entries','list'=>$base.'/social/api/v1/entityrelations?relation=mr_entry','module'=>'mr_entry','edit_url2'=>$base.'/api/v1/entityrelations','barcode_enabled'=>false,
+
+             
+             ];
+             $fmodules[] = $module;
+
+           }
+
          
+    }
+
+    public function hasTimesheetManagePermission(){
+
+      return true;
+    }
+
+    public function hasMREntryCreatePermission(){
+
+      return true;
+    }
+
+     public function hasMREntryCreateWithBackdatePermission(){
+
+      return true;
+    }
+
+
+    public function getSessionData(){
+
+        $user1 = $this->getAppUser();
+        $user = $user1;
+       
+     
+     BaseModel::$feature_enabled = true; 
+
+     $user = ['id'=>$user->id,'first_name'=>$user->first_name,'last_name'=>$user->last_name,'login'=>$user->login, 'email'=>$user->email,'phone'=>$user->contact_phone,'type'=>'otp'];
+
+     $app = $this;
+     
+
+     if($app->getAppId()=='vss'){
+
+      //$base = 'http://oimsapp.opaclabs.com';
+      
+       $base = $app->getBaseEndpoint();
+
+
+        $main_modules = [];
+        $app->addMainModules($main_modules);
+
+      
+    $modules = [];
+    $modules['my_organizations'] = [
+   'module'=>'my_organizations','list'=>$base.'/api/v1/projects',
+       'is_paid'=>'Y','gproduct_id'=>'demo','balance'=>0,'edit_url'=>$base.'/api/v1/projects'
+  
+
+    ];
+
+    $service_types = [
+       'for_enquiry'=>'For Enquiry',
+       'for_scheduled_appointment'=>'For Appointment',
+       'for_sale'=>'For Sale',
+      
+    ];
+
+    $module['service_types'] = $service_types;
+    //$modules = json_decode($modules,true);
+    $user['modules'] = $modules;
+
+
+     $status = ['version'=>'1.0', 'base'=>Config::get('olabs.tenant::app_url', 'http://opaclabs.com'),'s'=>'200','user'=>$user, 'groups'=>$user1->groups,'app_settings'=>[]];//, 'my_organizations'=>$list];
+
+      $projects = [];
+      if (!$user1->isAdmin()) {
+//            foreach ($user->projects as $project) {
+//                $list[$project->id] = $project->name;
+//            }
+            $list = $user1->projects;
+        } else {
+            $list = \Olabs\Oims\Models\Project::where([])->get();
+        }
+      foreach ($list as $key => $value) {
+        # code...
+        $projects[$value->id.''] = $value->name;
+      }
+
+      $status['app_settings']['projects'] = $projects;
+
+      $featured = [];
+      foreach ($list as $key => $value) {
+        # code...
+        $model = new \Olabs\Oimsapi\Http\Transformers\ProjectTransformer();
+            $project = $model->transform($value);
+            $featured[] = $project;
+      }
+      $status['app_settings']['featured'] = $featured;
+      $status['app_settings']['main_modules'] = $main_modules;
+
+    
+
+      return $status ;
+
+     }
+
+
+     if($app->getAppId()=='medihubplus'){
+
+     
+    $modules = [];
+    $modules['my_organizations'] = [
+   'module'=>'my_organizations','list'=>'http://opaclabs.com/tenant/api/v1/'.$user1->id.'/organizations','add_permission'=>'paid_product',
+       'is_paid'=>'Y','gproduct_id'=>'demo','balance'=>0,'edit_url'=>'http://opaclabs.com/tenant/api/v1/organizations'
+  
+
+    ];
+    //$modules = json_decode($modules,true);
+    $user['modules'] = $modules;
+
+  }
+
+
+    $status = ['s'=>'200','user'=>$user, 'groups'=>$user1->groups];//, 'my_organizations'=>$list];
+
+
+
+
+    
+
+    return $status ;
+
     }
 
 

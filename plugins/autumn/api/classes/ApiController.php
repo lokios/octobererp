@@ -110,6 +110,9 @@ abstract class ApiController extends Controller
     public $orderBy = 'id';
     public $orderByOrder = 'desc';
     public $filter_scopes =false;
+    public $app;
+
+    public $share_session_data = false;
 
 
 
@@ -123,6 +126,7 @@ abstract class ApiController extends Controller
 
         $app = App::getInstance();
         $app->getAppUser();
+        $this->app = $app;
         $this->model = $this->model();
         $this->transformer = $this->transformer();
 
@@ -913,7 +917,15 @@ $file->save();
         $meta =$listData['meta'];
         unset($listData['meta']);
 
+
+        if($this->share_session_data)
+        $session_data = $this->app->getSessionData();
+
+
         $status = ['data'=>$listData,'meta'=>$meta];
+        if($session_data){
+            $status['session_data'] = $session_data;
+        }
         return $this->respond($status);
 
         //return $this->respond($rootScope->toArray());
