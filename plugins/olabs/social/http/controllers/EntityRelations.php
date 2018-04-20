@@ -11,7 +11,7 @@ class EntityRelations extends ApiController
 
     protected $defaultLimit = 5;
 
-     protected $fillable  =['data','actor_id',"data","target_type","target_id","relation"];
+     protected $fillable  =['data','actor_id',"data","target_type","target_id","relation","request_id"];
      protected $fillable2  =['actor_id'];
 
      public $images_field = 'images';
