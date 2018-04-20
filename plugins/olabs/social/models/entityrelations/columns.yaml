@@ -5,3 +5,18 @@ columns:
     excerpt:
         label: Excerpt
         type: text
+    relation:
+        label: Relation
+        type: text
+    target_type:
+        label: 'Target Type'
+        type: text
+    target_id:
+        label: 'Target ID'
+        type: text
+    created_at:
+        label: 'Created AT'
+        type: datetime
+    actor_id:
+        label: 'Actor '
+        type: text

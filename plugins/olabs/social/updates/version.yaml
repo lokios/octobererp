@@ -24,3 +24,6 @@
 1.0.9:
     - 'Updated table olabs_social_entity_relations'
     - builder_table_update_olabs_social_entity_relations.php
+1.0.10:
+    - 'Updated table olabs_social_entity_relations'
+    - builder_table_update_olabs_social_entity_relations_2.php

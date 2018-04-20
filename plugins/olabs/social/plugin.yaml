@@ -22,3 +22,7 @@ navigation:
                 label: 'Clients Billing'
                 url: /olabs/social/clientsbilling
                 icon: icon-sitemap
+            side-menu-item4:
+                label: Activities
+                url: /olabs/social/entityrelations
+                icon: icon-sitemap

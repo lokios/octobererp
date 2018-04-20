@@ -5,26 +5,15 @@ fields:
         span: auto
         type: text
     data:
-        label: Repeater
+        label: Data
         oc.commentPosition: ''
         prompt: 'Add new item'
-        span: full
+        span: auto
         type: repeater
         form:
             fields:
-                type:
-                    label: Type
+                mr_id:
+                    label: 'MR NO.'
                     oc.commentPosition: ''
                     span: auto
                     type: text
-                to:
-                    label: To
-                    oc.commentPosition: ''
-                    span: auto
-                    type: text
-                message:
-                    label: Message
-                    size: ''
-                    oc.commentPosition: ''
-                    span: auto
-                    type: textarea
