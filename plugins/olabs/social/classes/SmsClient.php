@@ -25,14 +25,12 @@ class SmsClient{
 
 		//Yii::log("************* SmsClient::publish ", CLogger::LEVEL_INFO);
 		$status = array('s'=>'100');
-         //require 'aws-autoloader.php';
-		//require_once('/home/ezpt/ezhealthtrack/protected' .'/extensions/aws.phar');
-
+        
 
 		$sns = \Aws\Sns\SnsClient::factory(array(
         'credentials' => array(
-            'key' => 'AKIAIIQMM5CBVSK3BK4A',
-            'secret' => '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'
+            'key' => '',
+            'secret' => '/ZDfJZ'
         ),
         'region' => 'ap-southeast-1',
         'version' => 'latest'
