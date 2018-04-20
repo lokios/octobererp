@@ -82,10 +82,10 @@ class EntityRelations extends Model
 
                          $cer->target_id = $entry['employee_id'];
                          $cer->relation = 'created';
-                         isset($entry['request_id'])
+                         if( isset($entry['request_id']))
                          $cer->request_id = $entry['request_id'];
 
-                         
+
                          $cer->data = [$entry];
                          $cer->status = 'L';
                          $cer->save();
@@ -103,7 +103,7 @@ class EntityRelations extends Model
                          $cer->relation = 'created';
                          $cer->target_id = $entry['mr_id'];
 
-                         isset($entry['request_id'])
+                        if( isset($entry['request_id']))
                          $cer->request_id = $entry['request_id'];
                          $cer->data = [$entry];
                          $cer->status = 'L';

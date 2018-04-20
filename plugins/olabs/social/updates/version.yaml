@@ -21,3 +21,6 @@
 1.0.8:
     - 'Created table olabs_social_clients_billing'
     - builder_table_create_olabs_social_clients_billing.php
+1.0.9:
+    - 'Updated table olabs_social_entity_relations'
+    - builder_table_update_olabs_social_entity_relations.php
