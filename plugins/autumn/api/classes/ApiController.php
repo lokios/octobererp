@@ -513,6 +513,9 @@ public function scopeEquals(&$criteria, $field){
 
         $item = $this->model->create($fdata);
 
+
+
+       /**
         if(isset($data['images'])){
             foreach ($data['images'] as $key => $value) {
 
@@ -524,7 +527,7 @@ public function scopeEquals(&$criteria, $field){
 
                $item->{$this->images_field}()->add($file);
             }
-        }
+        }**/
 
          BaseModel::$feature_enabled = true;
 
@@ -917,15 +920,20 @@ $file->save();
         $meta =$listData['meta'];
         unset($listData['meta']);
 
+         $status = ['data'=>$listData,'meta'=>$meta];
 
-        if($this->share_session_data)
+        if($this->share_session_data){
         $session_data = $this->app->getSessionData();
 
 
-        $status = ['data'=>$listData,'meta'=>$meta];
+       
         if($session_data){
             $status['session_data'] = $session_data;
         }
+
+    }
+
+
         return $this->respond($status);
 
         //return $this->respond($rootScope->toArray());

@@ -1,30 +1,51 @@
 fields:
+    request_id:
+        label: Request ID
+        oc.commentPosition: ''
+        span: auto
+        type: text
     relation:
         label: Relation
         oc.commentPosition: ''
         span: auto
         type: text
+    target_type:
+        label: Target Type
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    target_id:
+        label: Target ID
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    status:
+        label: Status
+        oc.commentPosition: ''
+        span: auto
+        type: text           
+    images:
+             label:  Images
+             type: fileupload
+             mode: image
+             imageWidth: 200
+             imageHeight: 200    
     data:
-        label: Repeater
+        label: Data
         oc.commentPosition: ''
         prompt: 'Add new item'
-        span: full
+        span: auto
         type: repeater
         form:
             fields:
-                type:
-                    label: Type
+                mr_id:
+                    label: 'MR NO.'
                     oc.commentPosition: ''
                     span: auto
                     type: text
-                to:
-                    label: To
+                check_in:
+                    label: 'Check in date time.'
                     oc.commentPosition: ''
                     span: auto
                     type: text
-                message:
-                    label: Message
-                    size: ''
-                    oc.commentPosition: ''
-                    span: auto
-                    type: textarea
+    

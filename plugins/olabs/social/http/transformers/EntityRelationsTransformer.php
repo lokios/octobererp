@@ -33,9 +33,9 @@ class EntityRelationsTransformer extends App
         
 
         $name = [];
-        if($item->relation == 'mr_entry'){
+        if($item->target_type == 'mr_entry'){
             $name[] = 'MR Entry';
-            $name[] = $item->context_id;
+            $name[] = $item->target_id;
         
 
 
@@ -47,7 +47,7 @@ class EntityRelationsTransformer extends App
         
 
          $attributes  = [];
-         $attributes[] =['name'=>'MR No.','value'=>$item->context_id];
+         $attributes[] =['name'=>'MR No.','value'=>$item->target_id];
          $attributes[] =['name'=>'Dated','value'=>date('Y-m-d H:i', strtotime($item->created_at))];
 
 
@@ -56,9 +56,9 @@ class EntityRelationsTransformer extends App
 
      }
 
-     if($item->relation == 'attendance'){
+     if($item->target_type == 'attendance'){
             $name[] = 'Attendance Entry/ Emp ID: ';
-            $name[] = $item->context_id;
+            $name[] = $item->target_id;
         
 
 
@@ -68,7 +68,7 @@ class EntityRelationsTransformer extends App
         
 
          $attributes  = [];
-         $attributes[] =['name'=>'Employee ID.','value'=>$item->context_id];
+         $attributes[] =['name'=>'Employee ID.','value'=>$item->target_id];
          
          $data = $item->data;
          if($data && is_array($data)){

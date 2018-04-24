@@ -406,7 +406,7 @@ public function addMainModules_OIMS(&$fmodules){
 
             $fmodules[] = $module;
 
-           $module =[  'item_type'=>'list','name'=>'Recent MR Entries','list'=>$base.'/social/api/v1/entityrelations?relation=mr_entry','module'=>'mr_entry','edit_url2'=>$base.'/api/v1/entityrelations','barcode_enabled'=>false,
+           $module =[  'item_type'=>'list','name'=>'Recent MR Entries','list'=>$base.'/social/api/v1/entityrelations?target_type=mr_entry','module'=>'mr_entry','edit_url2'=>$base.'/api/v1/entityrelations','barcode_enabled'=>false,
 
              
              ];
