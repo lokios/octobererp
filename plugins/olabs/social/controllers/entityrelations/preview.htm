@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('olabs/social/notifications') ?>">Notifications</a></li>
+        <li><a href="<?= Backend::url('olabs/social/entityrelations') ?>">EntityRelations</a></li>
         <li><?= e($this->pageTitle) ?></li>
     </ul>
 <?php Block::endPut() ?>
@@ -8,11 +8,7 @@
 <?php if (!$this->fatalError): ?>
 
     <div class="form-preview">
-
-    hello world
-
-    <?php echo $this->makePartial('report'); ?>
-      
+        <?= $this->formRenderPreview() ?>
     </div>
 
 <?php else: ?>
@@ -20,8 +16,7 @@
 <?php endif ?>
 
 <p>
-    <a href="<?= Backend::url('olabs/social/notifications') ?>" class="btn btn-default oc-icon-chevron-left">
+    <a href="<?= Backend::url('olabs/social/entityrelations') ?>" class="btn btn-default oc-icon-chevron-left">
         <?= e(trans('backend::lang.form.return_to_list')) ?>
     </a>
 </p>
-

@@ -1,0 +1,10 @@
+name: EntityRelations
+form: $/olabs/social/models/entityrelations/fields.yaml
+modelClass: Olabs\Social\Models\EntityRelations
+defaultRedirect: olabs/social/entityrelations
+create:
+    redirect: 'olabs/social/entityrelations/update/:id'
+    redirectClose: olabs/social/entityrelations
+update:
+    redirect: olabs/social/entityrelations
+    redirectClose: olabs/social/entityrelations
