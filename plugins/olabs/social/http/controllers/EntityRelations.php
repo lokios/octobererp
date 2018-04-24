@@ -39,6 +39,7 @@ class EntityRelations extends ApiController
 
     public function getExtraConditions($action, Request $request , &$criteria ){
            $this->scopeEquals($criteria,'target_type');
+           $this->scopeEquals($criteria,'actor_id');
            $this->scopeEquals($criteria,'status');
     }
 }

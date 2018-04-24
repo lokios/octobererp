@@ -375,7 +375,7 @@ public function addMainModules_OIMS(&$fmodules){
           ,'format'=>'json','method'=>'post'];
             $fmodules[] = $module;
 
-           $module =[  'item_type'=>'list','name'=>'Recent Attendance Entries','list'=>$base.'/social/api/v1/entityrelations?relation=attendance','module'=>'user','edit_url2'=>$base.'/social/api/v1/entityrelations?relation=attendance','barcode_enabled'=>false,
+           $module =[  'item_type'=>'list','name'=>'Recent Attendance Entries','list'=>$base.'/social/api/v1/entityrelations?target_type=attendance&actor_id='.$app->user->id,'module'=>'user','edit_url2'=>$base.'/social/api/v1/entityrelations?target_type=attendance&actor_id='.$app->user->id,'barcode_enabled'=>false,
 
              
              ];
@@ -406,7 +406,7 @@ public function addMainModules_OIMS(&$fmodules){
 
             $fmodules[] = $module;
 
-           $module =[  'item_type'=>'list','name'=>'Recent MR Entries','list'=>$base.'/social/api/v1/entityrelations?target_type=mr_entry','module'=>'mr_entry','edit_url2'=>$base.'/api/v1/entityrelations','barcode_enabled'=>false,
+           $module =[  'item_type'=>'list','name'=>'Recent MR Entries','list'=>$base.'/social/api/v1/entityrelations?target_type=mr_entry&actor_id='.$app->user->id,'module'=>'mr_entry','edit_url2'=>$base.'/api/v1/entityrelations','barcode_enabled'=>false,
 
              
              ];
@@ -419,15 +419,30 @@ public function addMainModules_OIMS(&$fmodules){
 
     public function hasTimesheetManagePermission(){
 
+      //olabs.oims.attendances
+
+      if ($this->user->hasPermission([
+         'olabs.oims.attendances',
+         //'acme.blog.access_categories'
+   ])) 
+
       return true;
     }
 
     public function hasMREntryCreatePermission(){
+       if ($this->user->hasPermission([
+         'olabs.oims.purchases',
+         //'acme.blog.access_categories'
+   ])) 
 
       return true;
     }
 
      public function hasMREntryCreateWithBackdatePermission(){
+       if ($this->user->hasPermission([
+         'olabs.oims.record_approvals',
+         //'acme.blog.access_categories'
+   ])) 
 
       return true;
     }

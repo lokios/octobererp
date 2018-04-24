@@ -2,6 +2,8 @@
 
 use Model;
 
+use Olabs\App\Classes\App;
+
 /**
  * Model
  */
@@ -22,6 +24,8 @@ class EntityRelations extends Model
 
     public function beforeSave(){
 
+          $app = App::getInstance();
+          $this->actor_id = $app->getAppUserId();
          if($this->target_type == 'sync' && !$this->status){
             $this->status = 'L';
 
@@ -43,11 +47,17 @@ class EntityRelations extends Model
                          $this->target_type= 'mr_entry';
                          $this->relation = 'created';
                          $this->target_id = $entry['mr_id'];
+                         if(isset($entry['data'])){
+                            unset($entry['data']);
+                         }
+
                          $this->data = [$entry];
                          $this->status = 'L';
                          
 
          }
+
+
 
     }
 
@@ -84,6 +94,11 @@ class EntityRelations extends Model
                          $cer->relation = 'created';
                          if( isset($entry['request_id']))
                          $cer->request_id = $entry['request_id'];
+
+
+                         if(isset($entry['data'])){
+                            unset($entry['data']);
+                         }
 
 
                          $cer->data = [$entry];
