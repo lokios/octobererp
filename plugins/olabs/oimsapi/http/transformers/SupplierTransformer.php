@@ -71,6 +71,8 @@ class SupplierTransformer extends TransformerAbstract
 
 
         $img = false;
+        $img = "http://www.gravatar.com/avatar/cdf4c4e253e9b87c54caca8c99032795?s=90&d=mm";
+
         $val['bg_image'] = $img?$img:$app->getBaseEndpointImages().'/themes/octobererp_theme1/assets/images/construction/default_bg_image.jpg';
         $val['main_image'] = $img?$img:$app->getBaseEndpointImages().'/themes/octobererp_theme1/assets/images/construction/default_about.jpg';
 

@@ -352,8 +352,11 @@ public function addMainModules_OIMS(&$fmodules){
 
           if($this->user){
 
+            $employee = \Olabs\Oims\Models\Employee::where(['id'=>$this->user->id])->first();
+
             $userModel = new \Olabs\Oimsapi\Http\Transformers\EmployeeTransformer();
-            $userModel = $userModel->transform($this->user);
+            $userModel = $userModel->transform($employee);
+            $userModel['nav_title'] = 'My Profile';
           $module = ['item_type'=>'group'
           ,'data'=>[]
           ,'module'=>'user','name'=>'Welcome '.$app->user->first_name.' '.$app->user->last_name
