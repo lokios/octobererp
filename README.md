@@ -1,34 +1,134 @@
-# octobererp
-Open Source Inventory and Project Management suite  Built on Laravel &amp; OctoberCMS! 
+![Logo](oerplogo.png)
 
-## highlights
+# OctoberERP
+Open Source ERP suite built on Laravel &amp; OctoberCMS! 
+
+## Highlights
 ### Project Management
-Multi Site project managemnt, project tracking, project planning, project monitoring. Generate DPR (Daily Progress Reports), manage & track profits and loss. Receive alerts and notifications
+ - Multi Site project managemnt
+ - Project tracking & monitoring
+ - Project planning
+ 
+ Critical reports to :
+  - Generate DPR (Daily Progress Reports)
+  - Manage & track profits and loss
+  - Receive alerts and notifications on critical business events
 
 ### Multi Site Inventory
-- Multi Site management, user and group management, product, inventory and warehouse management
-- Daily project progress reports
-- Profit and loss comparion reports
+- Multi Site warehouse & inventory management
+- Category wise products management
+- Inventory reporting
 - Project wide work orders tracking - plan/ track/ compare progress and P/L
-- Material requisition/ purchase orders / supplier wise sales/purchases 
+- Material requisition/ purchase orders business processess
+- supplier database & sales/purchases workflow / reporting 
 
 ### Asset Managent
-Project wise purchases, transfers, monitoring and report damages
-Logs/and reports to reports to monitor project wide assets counts
+- Project wise assets purchases, transfers, monitoring and report damages
+- Audit Logs on assets states 
+- Project wise reports track & monitor assets counts/and details
 
 ### HRMS
 - Employee & Offrole employee management
-- Contacts/ Timesheet / attendance/ wages & salary management
+- Contacts databases
+- Timesheet / attendance
+- Wages & salary management
 
 ### Android App
-Initally we have :
- - Assets management
- - project wise employees/ offrole employees attendance/contacts
- - More coming soon like : notifications/ material requisition approvals via push notifications
+#### Built on react-native
+OctoberERP.com mobile app to track and monitor your business anytime / anywhere:
+
+- Certain modules are provided with offline capabilities:
+   - Attendance 
+   - Material requistions 
+
+Demo link: https://youtu.be/MGb3U6iPD_g
+
+ - Projects
+ - HRMS / Employee contacts/Offline attendance
+ - Asset Management - monitor / transfer/ and report damages
+ - Project level Assets live reporting
+ - Material requisitions (MR)  and fast approvals
+
+More features coming soon..
 
 ### Built on Laravel and OctoberCMS
 
 ### Open source & FREE under Apache License
+
+# Documentation 
+https://github.com/lokios/octobererp/wiki/Setup-Guide
+
+https://github.com/lokios/octobererp/wiki/User-Manual
+
+https://github.com/lokios/octobererp/wiki/Roadmap
+
+Sample video: How to add a supplier
+https://youtu.be/EzLljUrE0TQ
+
+Case Study: http://octobererp.com/posts/case-studies
+VSS Buildcon Constructions utilises OctoberERP to automate there business processes
+
+
+# About Team & Offcial Website
+Official Website:  http://octobererp.com
+Download: https://github.com/lokios/octobererp
+
+Contact: enquiry@opaclabs.com
+
+Please write to us for wistlist and improvements.
+
+
+# Demo 
+http://demo.octobererp.com
+
+## Roles & User Groups
+ 
+  Project Encharge			 
+  
+  Project Accountant			 
+  
+  Inventory Supplier			 
+  
+  Inventory Customer 
+  
+  Inventory Administrator
+  
+  Head Office Accountant	 
+  
+  Employee
+
+## Passwords for all Demo accounts is : demo@123!
+Demo User Accounts:
+
+Project Encharge		:
+  projectencharge1@demo.com
+  projectencharge2@demo.com
+  
+Project Accountant	:
+   projectaccountant1@demo.com
+   projectaccountant2@demo.com
+   
+Inventory Supplier		:
+   supplier1@demo.com
+   supplier2@demo.com
+   
+Inventory Customer		0	 
+
+Inventory Administrator		:
+   inventoryadmin1@demo.com
+   inventoryadmin2@demo.com
+   
+Head Office Accountant		:
+  hoaccountant1@demo.com
+  hoaccountant2@demo.com
+  
+Employee
+   employee1@demo.com
+   employee2@demo.com
+
+
+
+
 
  
  

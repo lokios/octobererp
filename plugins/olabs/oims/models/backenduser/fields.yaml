@@ -7,6 +7,12 @@ projects:
     label: Projects
     commentAbove: Assign projects for OIMS
     type: relation
+groups:
+    context: [create, update]
+    label: backend::lang.user.groups
+    commentAbove: backend::lang.user.groups_comment
+    type: checkboxlist
+    tab: backend::lang.user.groups
 contact_email:
     label: Contact Email
     tab: Details

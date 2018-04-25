@@ -1,0 +1,20 @@
+# ===================================
+# Filter Scope Definitions
+# ===================================
+
+scopes:
+
+#    purchasestatus:
+#        label: olabs.oims::lang.purchases.purchasestatus
+#        modelClass: Olabs\Oims\Models\Status
+#        nameFrom: name
+#        conditions: status in (:filtered)
+       
+    project:
+        label: Project
+        modelClass: Olabs\Oims\Models\BaseModel
+        nameFrom: name
+        options: getProjectOptions
+        conditions: project_id in (:filtered)
+        
+    

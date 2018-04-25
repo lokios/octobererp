@@ -1,6 +1,0 @@
-plugin:
-    name: 'olabs.principles::lang.plugin.name'
-    description: 'olabs.principles::lang.plugin.description'
-    author: olabs
-    icon: oc-icon-adjust
-    homepage: ''

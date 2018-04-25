@@ -91,7 +91,7 @@ class Employee extends User {
         return $manager->getBarcode($format, $params['data'], strtoupper($params['type']), $params['width'], $params['height'], $params['color']);
     }
 
-    public function getBarCodeAttribute() {
+    public function getBarCodeImageAttribute() {
         $bar_code_image = $this->getBarcode('PNG');
         if ($bar_code_image != null) {
             return '<img src="data:image/png;base64,' . $bar_code_image . '" alt="barcode" width="80px" />';

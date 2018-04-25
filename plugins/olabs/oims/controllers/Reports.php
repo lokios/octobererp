@@ -1117,6 +1117,203 @@ td, th { border: 1px solid #ccc; }";
     }
 
     
+    //Petty Contractor Attendance Report
+    public function pcAttendance_report() {
+        BackendMenu::setContext('Olabs.Oims', 'reports', 'pcattendance_report');
+        $this->searchFormWidget = $this->createAttendanceSearchFormWidget();
+        $this->pageTitle = 'Petty Contractor Attendance Report';
+        $reports = array();
+
+        $oimsSetting = \Olabs\Oims\Models\Settings::instance();
+
+        $searchForm = $this->searchFormWidget;
+
+        $this->vars['search'] = false;
+        $this->vars['msg'] = false;
+        $this->vars['searchFormWidget'] = $searchForm;
+        $this->vars['reports'] = $reports;
+
+        $this->vars['oimsSetting'] = $oimsSetting;
+    }
+
+    public function onPcAttendanceSearch() {
+        $reports = array();
+
+        if (post('reportSearch')) {
+
+            $searchParams = post('reportSearch');
+
+            // get dpr components
+            $this->searchPcAttendanceReport($searchParams);
+        }
+
+        $oimsSetting = \Olabs\Oims\Models\Settings::instance();
+
+        $this->vars['search'] = true;
+        $this->vars['oimsSetting'] = $oimsSetting;
+    }
+
+    public function onPcAttendanceReportExport() {
+
+
+        //generate PDF html
+        $report = array();
+
+        if (post('reportSearch')) {
+
+            $searchParams = post('reportSearch');
+
+            // get dpr components
+            $this->searchPcAttendanceReport($searchParams);
+
+            $search_from_date = isset($searchParams['from_date']) ? $searchParams['from_date'] : '';
+            $search_to_date = isset($searchParams['to_date']) ? $searchParams['to_date'] : '';
+//
+            $from_date = false;
+            if ($search_from_date != '') {
+                $from_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_from_date); //date('Y-m-d 00:00:00', strtotime($from_date));
+            }
+
+            $to_date = false;
+            if ($search_to_date != '') {
+                $timeFormat = '23:59:59';
+                $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
+            }
+
+            $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
+
+            $projectModal = \Olabs\Oims\Models\Project::find($project);
+        }
+
+        $oimsSetting = \Olabs\Oims\Models\Settings::instance();
+
+        $this->vars['search'] = true;
+        $this->vars['from_date'] = $from_date;
+        $this->vars['to_date'] = $to_date;
+
+        $reports = $this->vars['reports'];
+//        $manpowers = $this->vars['manpowers'];
+//        $machineries = $this->vars['machineries'];
+//        $expenseOnMaterials = $this->vars['expenseOnMaterials'];
+//        $expenseOnPcs = $this->vars['expenseOnPcs'];
+//        $fix_expense = $this->vars['fix_expense'];
+//
+//        $total_days = $this->vars['total_days'];
+
+        $style = ".product-title { width: 315px; display: inline-block; }
+.product-quantity { width: 50px; display: inline-block; }
+.product-price-without-tax { width: 100px; display: inline-block; text-align: right; }
+.product-tax { width: 100px; display: inline-block; text-align: right; }
+.product-price { width: 130px; display: inline-block; text-align: right; }
+table { width: 100%; border-collapse: collapse; font-size:12px;}
+td, th { border: 1px solid #ccc; }";
+
+        $html = "<html><head><style>" . $style . "</style></head><body>";
+
+        $html .= "<h3>Petty Contractor Attendance Report From : " . \Olabs\Oims\Models\Settings::convertToDisplayDate($from_date) . " To : " . \Olabs\Oims\Models\Settings::convertToDisplayDate($to_date) . "</h3>";
+
+        $html .= $this->makePartial('pc_attendance_report_list', [
+            'reports' => $reports,
+            'from_date' => $from_date,
+            'to_date' => $to_date,
+            'oimsSetting' => $oimsSetting]);
+
+        $html .= "</body></html>";
+
+
+        // Generate invoice
+        $fileName = 'pc_attendance_report_' . time();
+        $invoiceTempFile = temp_path() . "/" . $fileName . ".pdf";
+        $pdf = App::make('dompdf.wrapper');
+
+
+        $pdf->loadHtml($html);
+
+        // (Optional) Setup the paper size and orientation
+        $pdf->setPaper('A4', 'landscape'); //landscape
+        // Output the generated PDF to Browser
+        $pdf->save($invoiceTempFile);
+
+        return \Redirect::to('/backend/olabs/oims/reports/downloadPdf?name=' . $fileName);
+    }
+    
+    protected function searchPcAttendanceReport($searchParams) {
+        $reports = array();
+        $msg = false;
+        $search_from_date = isset($searchParams['from_date']) ? $searchParams['from_date'] : '';
+        $search_to_date = isset($searchParams['to_date']) ? $searchParams['to_date'] : '';
+
+        $from_date = false;
+        if ($search_from_date != '') {
+            $from_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_from_date); //date('Y-m-d 00:00:00', strtotime($from_date));
+        }
+
+        $to_date = false;
+        if ($search_to_date != '') {
+            $timeFormat = '23:59:59';
+            $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
+        }
+
+        $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
+        $supplier = ( trim($searchParams['supplier']) != "" ) ? $searchParams['supplier'] : false;
+//        $attendance_type = ( isset($searchParams['attendance_type'])  ) ? $searchParams['attendance_type'] : 'offrole';
+
+        $baseModel = new \Olabs\Oims\Models\BaseModel();
+        $assigned_projects = [];
+//        $user = BackendAuth::getUser();
+
+        $params = array();
+//        $params['employee_type'] = $attendance_type;//'offrole';
+
+        if ($project) {
+            $assigned_projects = [$project];
+        } else {
+            $assigned_projects = array_keys($baseModel->getProjectOptions());
+        }
+        if ($supplier) {
+            $params['user_id'] = $supplier;
+        }
+
+        $model = \Olabs\Oims\Models\PCAttendance::where($params)
+//                ->with('employee_offrole')
+                ->whereIn('project_id', $assigned_projects);
+
+        if ($from_date && $to_date) {
+            $datetime1 = new DateTime($from_date);
+            $datetime2 = new DateTime($to_date);
+            $interval = $datetime1->diff($datetime2);
+            $total_days = $interval->format('%d') + 1; //to add current date 
+
+            $model->whereBetween('context_date', [$from_date, $to_date]);
+        } else if ($from_date) {
+            $model->whereDate('context_date', '>=', $from_date);
+        } else if ($to_date) {
+            $model->whereDate('context_date', '<=', $to_date);
+        }
+//        if($report_type == 'supplier_wise'){
+        $model->orderBy('project_id');
+        $model->orderBy('user_id');
+        $model->orderBy('context_date');
+//        $model->orderBy('check_in');
+//        }else{
+//            $model->orderBy('project_id', 'check_in', 'supplier_id');
+//        }
+
+
+        $reports = $model->get();
+        $msg = false;
+        if (!$from_date && !$to_date && !count($params)) {
+            $msg = 'Please select atleast one filter';
+        }
+
+        $this->vars['from_date'] = $from_date;
+        $this->vars['to_date'] = $to_date;
+        $this->vars['reports'] = $reports;
+//        $this->vars['report_type'] = $report_type;
+        $this->vars['msg'] = $msg;
+    }
+    
+    
     //Project Assets Report
     public function assets_report() {
         BackendMenu::setContext('Olabs.Oims', 'reports', 'assets_report');
@@ -1250,6 +1447,8 @@ td, th { border: 1px solid #ccc; }";
         $report = array();
         $from_date = false;
         $to_date = false;
+        $label_type = get('type',false);
+        
         if (post('reportSearch')) {
 
             $searchParams = post('reportSearch');
@@ -1272,7 +1471,7 @@ td, th { border: 1px solid #ccc; }";
             }
 
             $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
-
+            
             $projectModal = \Olabs\Oims\Models\Project::find($project);
         }
 
@@ -1282,6 +1481,8 @@ td, th { border: 1px solid #ccc; }";
         $this->vars['search'] = true;
         $this->vars['from_date'] = $from_date;
         $this->vars['to_date'] = $to_date;
+//        $this->vars['label_type'] = $label_type;
+        
         $searchParams = ['project'=> get('project',false)];
         $reports = $this->searchAssetsReport($searchParams);
 //        $manpowers = $this->vars['manpowers'];
@@ -1304,17 +1505,22 @@ td, th { border: 1px solid #ccc; }";
 
 //        $html .= "<h3>Assets Report</h3>";
 
-        $html .= $this->makePartial('assets_labels_list', [
+        if($label_type == 'all'){
+            $html .= $this->makePartial('assets_labels_list_all', [
             'reports' => $reports,
             'print_style' => get('style',40),
-//            'machineries' => $machineries,
-//            'expenseOnPcs' => $expenseOnPcs,
-//            'expenseOnMaterials' => $expenseOnMaterials,
             'from_date' => $from_date,
             'to_date' => $to_date,
-//            'total_days' => $total_days,
-//            'fix_expense' => $fix_expense,
             'oimsSetting' => $oimsSetting]);
+        }else {
+            $html .= $this->makePartial('assets_labels_list', [
+            'reports' => $reports,
+            'print_style' => get('style',40),
+            'from_date' => $from_date,
+            'to_date' => $to_date,
+            'oimsSetting' => $oimsSetting]);
+        }
+        
 
         $html .= "</body></html>";
 
@@ -1419,5 +1625,5 @@ td, th { border: 1px solid #ccc; }";
         return $reports;
     }
     
-
+    
 }

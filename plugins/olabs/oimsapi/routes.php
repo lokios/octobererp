@@ -64,7 +64,7 @@ Route::resource('visits', 'Olabs\Ehr\Http\Controllers\WorkflowInstances');
 /**
  * curl --data "param1=value1&param2=value2" https://example.com/resource.cgi
 
- curl --data "login=admin&password=mkb@123!" http://opaclabs.com/a/signin
+ curl --data "login=admin&password=m***" http://opaclabs.com/a/signin
 
  */
 Route::post('a/signin', function () {

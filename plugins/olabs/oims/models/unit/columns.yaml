@@ -16,6 +16,6 @@ columns:
         sortable: true
     status:
         label: status
-        type: text
+        type: switch
         searchable: true
         sortable: true

@@ -44,6 +44,14 @@
             class="btn btn-primary assetsLabel ">
             Assets Labels
         </a>
+        
+        <a
+            href="javascript:void(0);"
+            
+            target="_blank"
+            class="btn btn-primary assetsLabelAllQuantity ">
+            Assets Labels All Quantity
+        </a>
     </div>
 </div>
 <?= Form::close() ?>
@@ -63,6 +71,22 @@
 
 <script>
     $(document).ready(function(){
+        $('.assetsLabelAllQuantity').on('click',function(e){
+            e.preventDefault();
+            
+            var that = $(this);
+            var url = "/backend/olabs/oims/reports/onAssetsLabelExport";
+            var project_id = $('#Form-reportSearch-field-reportSearch-project').val();
+            var print_style = $('#Form-reportSearch-field-reportSearch-print_style').val();
+            var type = 'all';
+            if(project_id === ''){
+                alert('Kindly Select Project!');
+            }else{
+                url += "?project="+project_id+"&style="+print_style +"&type="+type;
+                window.open(url,'_blank');
+            }
+        });
+        
         $('.assetsLabel').on('click',function(e){
             e.preventDefault();
             

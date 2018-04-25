@@ -42,6 +42,7 @@ fields:
             oc.commentPosition: ''
             span: auto
             type: text
+            required: 1
         
         
         quote:
@@ -319,11 +320,85 @@ tabs:
             type: datepicker
             span: auto            
                             
-        paid_detail:
-            label: olabs.oims::lang.purchases.paid_detail
+#        paid_detail:
+#            label: olabs.oims::lang.purchases.paid_detail
+#            tab: olabs.oims::lang.purchases.payment_method
+#            type: partial
+#            path: ~/plugins/olabs/oims/models/purchase/_paid_detail_field.htm
+
+        paid_detail[payment_from]:
+            label: Payment From Bank
             tab: olabs.oims::lang.purchases.payment_method
-            type: partial
-            path: ~/plugins/olabs/oims/models/purchase/_paid_detail_field.htm
+            span: auto
+            type: dropdown
+            options: getBankAccountOptions  
+            hidden: true
+            dependsOn: payment_method
+
+        paid_detail[payment_to]:
+            label: Payment To Bank
+            tab: olabs.oims::lang.purchases.payment_method
+            span: auto
+            type: dropdown
+            options: getBankAccountOptions  
+            hidden: true
+            dependsOn: payment_method
+
+        paid_detail[transaction_id]:
+            label: Transaction Id
+            tab: olabs.oims::lang.purchases.payment_method
+            span: auto
+            hidden: true
+            dependsOn: payment_method
+
+       #Payment Method Cheque         
+        paid_detail[cheque_number]:
+            label: Cheque Number
+            tab: olabs.oims::lang.purchases.payment_method
+            span: auto
+            hidden: true
+            dependsOn: payment_method
+
+        paid_detail[cheque_date]:
+            label: Cheque Date
+            tab: olabs.oims::lang.purchases.payment_method
+            span: auto
+            hidden: true
+            dependsOn: payment_method
+
+        paid_detail[cheque_account]:
+            label: Cheque Account
+            tab: olabs.oims::lang.purchases.payment_method
+            span: auto
+            type: dropdown
+            options: getBankAccountOptions  
+            hidden: true
+            dependsOn: payment_method
+
+#        Payment Method Demand Draft
+        paid_detail[dd_number]:
+            label: Demant Draft Number
+            tab: olabs.oims::lang.purchases.payment_method
+            span: auto
+            hidden: true
+            dependsOn: payment_method
+
+        paid_detail[issuing_bank]:
+            label: Demant Draft Issuing Bank
+            tab: olabs.oims::lang.purchases.payment_method
+            span: auto
+            hidden: true
+            dependsOn: payment_method
+
+        paid_detail[issue_date]:
+            label: Demant Draft Issue Date
+            tab: olabs.oims::lang.purchases.payment_method
+            span: auto
+            type: datepicker
+            hidden: true
+            dependsOn: payment_method
+        
+        
 secondaryTabs:
     stretch: true
     fields:

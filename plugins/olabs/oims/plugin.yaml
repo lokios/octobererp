@@ -170,6 +170,12 @@ navigation:
                 icon: icon-life-ring
                 permissions:
                     - olabs.oims.reports
+            pcattendance_report:
+                label: 'PC Attendance Report'
+                url: olabs/oims/reports/pcattendance_report
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.reports
             assets_report:
                 label: 'Assets Report'
                 url: olabs/oims/reports/assets_report
@@ -209,6 +215,12 @@ navigation:
                 icon: icon-university
                 permissions:
                     - olabs.oims.companies
+            bank_accounts:
+                label: Bank Accounts
+                url: olabs/oims/bankAccounts
+                icon: icon-sitemap
+                permissions:
+                    - olabs.oims.bank_accounts
             suppliers:
                 label: Suppliers
                 url: olabs/oims/suppliers
@@ -264,12 +276,7 @@ navigation:
                 icon: icon-sitemap
                 permissions:
                     - olabs.oims.employee_types
-            bank_accounts:
-                label: Bank Accounts
-                url: olabs/oims/bankAccounts
-                icon: icon-sitemap
-                permissions:
-                    - olabs.oims.bank_accounts
+            
             oims_status:
                 label: Statuses
                 url: olabs/oims/statuses

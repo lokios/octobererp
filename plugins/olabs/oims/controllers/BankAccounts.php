@@ -16,6 +16,6 @@ class BankAccounts extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Olabs.Oims', 'oims_setup', 'bank_accounts');
+        BackendMenu::setContext('Olabs.Oims', 'oims_projects', 'bank_accounts');
     }
 }
