@@ -10,4 +10,4 @@ columns:
         type: text
     status:
         label: status
-        type: text
+        type: switch

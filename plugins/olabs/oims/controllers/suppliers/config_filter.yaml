@@ -4,28 +4,15 @@
 
 scopes:
 
-    groups:
-        # Filter name
-        label: rainlab.user::lang.group.label
-        # Model Class name
-        modelClass: Backend\Models\UserGroup
-        # Model attribute to display for the name
+#    purchasestatus:
+#        label: olabs.oims::lang.purchases.purchasestatus
+#        modelClass: Olabs\Oims\Models\Status
+#        nameFrom: name
+#        conditions: status in (:filtered)
+       
+    supplier_type:
+        label: Supplier Type
+        modelClass: Olabs\Oims\Models\Supplier
         nameFrom: name
-        # Filter scope
-        scope: filterByGroup
-
-
-    created_date:
-        label: rainlab.user::lang.user.created_at
-        type: daterange
-        conditions: created_at >= ':after' AND created_at <= ':before'
-
-    activated:
-        # Filter name
-        label: rainlab.user::lang.user.status_activated
-        # Filter type
-        type: switch
-        # SQL conditions
-        conditions:
-            - is_activated = '0'
-            - is_activated = '1'
+        options: getSupplierTypeOptions
+        conditions: supplier_type in (:filtered)

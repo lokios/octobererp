@@ -42,7 +42,7 @@ Route::delete('a/signin', function () {
 /**
  * curl --data "param1=value1&param2=value2" https://example.com/resource.cgi
 
- curl --data "login=admin&password=mkb@123!" http://resort2.schoolengage.opaclabs.com/a/signin
+ curl --data "login=admin&password=m****" http://resort2.schoolengage.opaclabs.com/a/signin
 
  */
 Route::post('old/a/signin', function () {

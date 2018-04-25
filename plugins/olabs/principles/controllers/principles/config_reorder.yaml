@@ -1,4 +1,0 @@
-title: Principles
-modelClass: Olabs\Principles\Models\Principles
-toolbar:
-    buttons: reorder_toolbar

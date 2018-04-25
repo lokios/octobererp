@@ -67,11 +67,11 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
     private $requestStackSize = 0;
     private $resetServices = false;
 
-    const VERSION = '3.4.0';
-    const VERSION_ID = 30400;
+    const VERSION = '3.4.4';
+    const VERSION_ID = 30404;
     const MAJOR_VERSION = 3;
     const MINOR_VERSION = 4;
-    const RELEASE_VERSION = 0;
+    const RELEASE_VERSION = 4;
     const EXTRA_VERSION = '';
 
     const END_OF_MAINTENANCE = '11/2020';
@@ -398,7 +398,7 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
     public function loadClassCache($name = 'classes', $extension = '.php')
     {
         if (\PHP_VERSION_ID >= 70000) {
-            @trigger_error(__METHOD__.'() is deprecated since version 3.3, to be removed in 4.0.', E_USER_DEPRECATED);
+            @trigger_error(__METHOD__.'() is deprecated since Symfony 3.3, to be removed in 4.0.', E_USER_DEPRECATED);
         }
 
         $this->loadClassCache = array($name, $extension);
@@ -412,7 +412,7 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
     public function setClassCache(array $classes)
     {
         if (\PHP_VERSION_ID >= 70000) {
-            @trigger_error(__METHOD__.'() is deprecated since version 3.3, to be removed in 4.0.', E_USER_DEPRECATED);
+            @trigger_error(__METHOD__.'() is deprecated since Symfony 3.3, to be removed in 4.0.', E_USER_DEPRECATED);
         }
 
         file_put_contents(($this->warmupDir ?: $this->getCacheDir()).'/classes.map', sprintf('<?php return %s;', var_export($classes, true)));
@@ -464,7 +464,7 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
     protected function doLoadClassCache($name, $extension)
     {
         if (\PHP_VERSION_ID >= 70000) {
-            @trigger_error(__METHOD__.'() is deprecated since version 3.3, to be removed in 4.0.', E_USER_DEPRECATED);
+            @trigger_error(__METHOD__.'() is deprecated since Symfony 3.3, to be removed in 4.0.', E_USER_DEPRECATED);
         }
         $cacheDir = $this->warmupDir ?: $this->getCacheDir();
 
@@ -581,81 +581,103 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
         $class = $this->getContainerClass();
         $cacheDir = $this->warmupDir ?: $this->getCacheDir();
         $cache = new ConfigCache($cacheDir.'/'.$class.'.php', $this->debug);
+        $oldContainer = null;
         if ($fresh = $cache->isFresh()) {
-            $this->container = require $cache->getPath();
-            $fresh = \is_object($this->container);
-        }
-        if (!$fresh) {
-            if ($this->debug) {
-                $collectedLogs = array();
-                $previousHandler = set_error_handler(function ($type, $message, $file, $line) use (&$collectedLogs, &$previousHandler) {
-                    if (E_USER_DEPRECATED !== $type && E_DEPRECATED !== $type) {
-                        return $previousHandler ? $previousHandler($type, $message, $file, $line) : false;
-                    }
-
-                    if (isset($collectedLogs[$message])) {
-                        ++$collectedLogs[$message]['count'];
-
-                        return;
-                    }
-
-                    $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 3);
-                    // Clean the trace by removing first frames added by the error handler itself.
-                    for ($i = 0; isset($backtrace[$i]); ++$i) {
-                        if (isset($backtrace[$i]['file'], $backtrace[$i]['line']) && $backtrace[$i]['line'] === $line && $backtrace[$i]['file'] === $file) {
-                            $backtrace = array_slice($backtrace, 1 + $i);
-                            break;
-                        }
-                    }
-
-                    $collectedLogs[$message] = array(
-                        'type' => $type,
-                        'message' => $message,
-                        'file' => $file,
-                        'line' => $line,
-                        'trace' => $backtrace,
-                        'count' => 1,
-                    );
-                });
-            }
-
+            // Silence E_WARNING to ignore "include" failures - don't use "@" to prevent silencing fatal errors
+            $errorLevel = error_reporting(\E_ALL ^ \E_WARNING);
+            $fresh = $oldContainer = false;
             try {
-                $container = null;
-                $container = $this->buildContainer();
-                $container->compile();
-            } finally {
-                if ($this->debug) {
-                    restore_error_handler();
-
-                    file_put_contents($cacheDir.'/'.$class.'Deprecations.log', serialize(array_values($collectedLogs)));
-                    file_put_contents($cacheDir.'/'.$class.'Compiler.log', null !== $container ? implode("\n", $container->getCompiler()->getLog()) : '');
+                if (\is_object($this->container = include $cache->getPath())) {
+                    $this->container->set('kernel', $this);
+                    $oldContainer = $this->container;
+                    $fresh = true;
                 }
+            } catch (\Throwable $e) {
+            } catch (\Exception $e) {
+            } finally {
+                error_reporting($errorLevel);
             }
-
-            $oldContainer = file_exists($cache->getPath()) && is_object($oldContainer = @include $cache->getPath()) ? new \ReflectionClass($oldContainer) : false;
-
-            $this->dumpContainer($cache, $container, $class, $this->getContainerBaseClass());
-            $this->container = require $cache->getPath();
         }
-
-        $this->container->set('kernel', $this);
 
         if ($fresh) {
             return;
         }
+
+        if ($this->debug) {
+            $collectedLogs = array();
+            $previousHandler = defined('PHPUNIT_COMPOSER_INSTALL');
+            $previousHandler = $previousHandler ?: set_error_handler(function ($type, $message, $file, $line) use (&$collectedLogs, &$previousHandler) {
+                if (E_USER_DEPRECATED !== $type && E_DEPRECATED !== $type) {
+                    return $previousHandler ? $previousHandler($type, $message, $file, $line) : false;
+                }
+
+                if (isset($collectedLogs[$message])) {
+                    ++$collectedLogs[$message]['count'];
+
+                    return;
+                }
+
+                $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 3);
+                // Clean the trace by removing first frames added by the error handler itself.
+                for ($i = 0; isset($backtrace[$i]); ++$i) {
+                    if (isset($backtrace[$i]['file'], $backtrace[$i]['line']) && $backtrace[$i]['line'] === $line && $backtrace[$i]['file'] === $file) {
+                        $backtrace = array_slice($backtrace, 1 + $i);
+                        break;
+                    }
+                }
+
+                $collectedLogs[$message] = array(
+                    'type' => $type,
+                    'message' => $message,
+                    'file' => $file,
+                    'line' => $line,
+                    'trace' => $backtrace,
+                    'count' => 1,
+                );
+            });
+        }
+
+        try {
+            $container = null;
+            $container = $this->buildContainer();
+            $container->compile();
+        } finally {
+            if ($this->debug && true !== $previousHandler) {
+                restore_error_handler();
+
+                file_put_contents($cacheDir.'/'.$class.'Deprecations.log', serialize(array_values($collectedLogs)));
+                file_put_contents($cacheDir.'/'.$class.'Compiler.log', null !== $container ? implode("\n", $container->getCompiler()->getLog()) : '');
+            }
+        }
+
+        if (null === $oldContainer) {
+            $errorLevel = error_reporting(\E_ALL ^ \E_WARNING);
+            try {
+                $oldContainer = include $cache->getPath();
+            } catch (\Throwable $e) {
+            } catch (\Exception $e) {
+            } finally {
+                error_reporting($errorLevel);
+            }
+        }
+        $oldContainer = is_object($oldContainer) ? new \ReflectionClass($oldContainer) : false;
+
+        $this->dumpContainer($cache, $container, $class, $this->getContainerBaseClass());
+        $this->container = require $cache->getPath();
+        $this->container->set('kernel', $this);
 
         if ($oldContainer && get_class($this->container) !== $oldContainer->name) {
             // Because concurrent requests might still be using them,
             // old container files are not removed immediately,
             // but on a next dump of the container.
             $oldContainerDir = dirname($oldContainer->getFileName());
-            foreach (glob(dirname($oldContainerDir).'/*.legacyContainer') as $legacyContainer) {
-                if ($oldContainerDir.'.legacyContainer' !== $legacyContainer && @unlink($legacyContainer)) {
-                    (new Filesystem())->remove(substr($legacyContainer, 0, -16));
+            foreach (glob(dirname($oldContainerDir).'/*.legacy') as $legacyContainer) {
+                if ($oldContainerDir.'.legacy' !== $legacyContainer && @unlink($legacyContainer)) {
+                    (new Filesystem())->remove(substr($legacyContainer, 0, -7));
                 }
             }
 
-            touch($oldContainerDir.'.legacyContainer');
+            touch($oldContainerDir.'.legacy');
         }
 
         if ($this->container->has('cache_warmer')) {
@@ -829,7 +851,7 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
             'file' => $cache->getPath(),
             'as_files' => true,
             'debug' => $this->debug,
-            'inline_class_loader_parameter' => !$this->loadClassCache && !class_exists(ClassCollectionLoader::class, false) ? 'container.dumper.inline_class_loader' : null,
+            'inline_class_loader_parameter' => \PHP_VERSION_ID >= 70000 && !$this->loadClassCache && !class_exists(ClassCollectionLoader::class, false) ? 'container.dumper.inline_class_loader' : null,
         ));
 
         $rootCode = array_pop($content);
@@ -840,6 +862,7 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
             $fs->dumpFile($dir.$file, $code);
             @chmod($dir.$file, 0666 & ~umask());
         }
+        @unlink(dirname($dir.$file).'.legacy');
 
         $cache->write($rootCode, $container->getResources());
     }

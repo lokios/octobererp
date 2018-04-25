@@ -467,7 +467,15 @@ class FormController extends ControllerBehavior
             $redirectUrl = RouterHelper::parseValues($model, array_keys($model->getAttributes()), $redirectUrl);
         }
 
-        return ($redirectUrl) ? Backend::redirect($redirectUrl) : null;
+        if (starts_with($redirectUrl, 'http://') || starts_with($redirectUrl, 'https://')) {
+            // Process absolute redirects
+            $redirect = Redirect::to($redirectUrl);
+        } else {
+            // Process relative redirects
+            $redirect = ($redirectUrl) ? Backend::redirect($redirectUrl) : null;
+        }
+
+        return $redirect;
     }
 
     /**
@@ -489,7 +497,7 @@ class FormController extends ControllerBehavior
         // source for the default redirect being default[redirect]
         $redirects['default'] = $this->getConfig('defaultRedirect', '');
 
-        if (!isset($redirects[$context])) {
+        if (empty($redirects[$context])) {
             return $redirects['default'];
         }
 

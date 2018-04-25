@@ -85,6 +85,21 @@ class Purchase extends BaseModel
         // Payment methods                            
         "payment_method",  // obsolete
     ];
+    
+    public $rules = [
+//        'title' => 'required|between:2,255',
+        'reference_number' => 'numeric|required|between:1,255|unique:olabs_oims_purchases',
+//        'reference_number' => [
+//            'required',
+////            'alpha_dash',
+//            'between:1,255',
+//            'unique:olabs_oims_purchases',
+//        ],        
+//        'ean_13'   => 'numeric|ean13',
+////        'default_category' => 'required',
+//        'retail_price_with_tax' => 'numeric|required',
+        
+    ];  
             
     protected $jsonable = [
         // Products
@@ -675,13 +690,17 @@ class Purchase extends BaseModel
     
 
     public function uniqueMRNumberCheck(){
+//        return true; // Not required to check, running default
+        
+        //Check MR Number uniqueness through out project
         if($this->id){
             $invalid = Purchase::where('reference_number', $this->reference_number)
-                               ->where('project_id', $this->project_id)
+//                               ->where('project_id', $this->project_id)
                                ->where('id', '<>', $this->id)->count();
         }else{
             $invalid = Purchase::where('reference_number', $this->reference_number)
-                               ->where('project_id', $this->project_id)->count();
+//                               ->where('project_id', $this->project_id)
+                               ->count();
         }
         
         if ($invalid) {
@@ -697,6 +716,37 @@ class Purchase extends BaseModel
         if ($this->quote) {
             $fields->user_id->value = $this->quote->user_id;
         }
+        
+        if($fields->payment_method){
+//            dd($fields->{'paid_detail[payment_from]'});
+            $fields->{'paid_detail[payment_from]'}->hidden = true;
+            $fields->{'paid_detail[payment_to]'}->hidden = true;
+            $fields->{'paid_detail[transaction_id]'}->hidden = true;
+            
+            $fields->{'paid_detail[cheque_number]'}->hidden = true;
+            $fields->{'paid_detail[cheque_date]'}->hidden = true;
+            $fields->{'paid_detail[cheque_account]'}->hidden = true;
+            
+            $fields->{'paid_detail[dd_number]'}->hidden = true;
+            $fields->{'paid_detail[issuing_bank]'}->hidden = true;
+            $fields->{'paid_detail[issue_date]'}->hidden = true;
+            
+            if($fields->payment_method->value == PaymentReceivable::PAYMENT_METHOD_CHEQUE){
+                $fields->{'paid_detail[cheque_number]'}->hidden = false;
+                $fields->{'paid_detail[cheque_date]'}->hidden = false;
+                $fields->{'paid_detail[cheque_account]'}->hidden = false;
+            }else if($fields->payment_method->value == PaymentReceivable::PAYMENT_METHOD_BANK_TRANSFER){
+                $fields->{'paid_detail[payment_from]'}->hidden = false;
+                $fields->{'paid_detail[payment_to]'}->hidden = false;
+                $fields->{'paid_detail[transaction_id]'}->hidden = false;
+            }else if($fields->payment_method->value == PaymentReceivable::PAYMENT_METHOD_DEMAND_DRAFT){
+                $fields->{'paid_detail[dd_number]'}->hidden = false;
+                $fields->{'paid_detail[issuing_bank]'}->hidden = false;
+                $fields->{'paid_detail[issue_date]'}->hidden = false;
+            }
+                
+        }
+        
     }
 
 }
