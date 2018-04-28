@@ -18,6 +18,8 @@ class Attendance extends BaseModel {
     protected $dates = ['deleted_at', 'check_in', 'check_out'];
     
     public $attendance_date;
+    
+    public $execute_validation = True;
 
     const CNAME = 'attendances';
     
@@ -55,7 +57,12 @@ class Attendance extends BaseModel {
      * @var array Fillable fields
      */
     protected $fillable = [
-        'total_working_hour'
+        'total_working_hour',
+        'employee_id',
+        'employee_type',
+        'check_in',
+        'check_out',
+        'execute_validation',
     ];
 //    protected $dates = ['paid_date'];
 
@@ -229,9 +236,9 @@ class Attendance extends BaseModel {
                 $this->employee_type = self::EMPLOYEE_TYPE_ONROLE;
             }
            
-//            if (!$this->employee_id) {
-//                $this->employee_id = $this->employee_onrole;
-//            }
+            if (!$this->employee_id) {
+                $this->employee_id = $this->employee_onrole;
+            }
             
         }
         
@@ -239,6 +246,11 @@ class Attendance extends BaseModel {
 
     //validatoin for checking same employee is not adding twice
     public function beforeValidate() {
+        
+        //If dont want to execute validation : use in Entity Relation data sync from mobile
+        if(!$this->execute_validation){
+            return;
+        }
         
         if($this->employee_onrole && $this->employee_offrole){
             throw new \ValidationException(['employee_id' => 'Select either onrole or offrole employee.']);

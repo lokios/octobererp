@@ -15,4 +15,11 @@ class EntityRelations extends Controller
         parent::__construct();
         BackendMenu::setContext('Olabs.Social', 'main-menu-item', 'side-menu-item4');
     }
+    
+    public function syncData(){
+        $model = new \Olabs\Social\Models\EntityRelations();
+        $status = $model->SyncData();
+        echo $status;
+        
+    }
 }
