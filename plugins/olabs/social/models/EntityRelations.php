@@ -63,6 +63,33 @@ class EntityRelations extends Model {
             $this->data = [$entry];
             $this->status = 'L';
         }
+
+        if ($this->target_type == 'attendance' && !$this->status) {
+            $this->status = 'L';
+
+            $entry = $this->data;
+            if (!$entry)
+                return;
+            $entry = $entry[0];
+
+            if (!isset($entry['employee_id']))
+                return;
+
+
+
+            //$this->created_at = date('Y-m-d H:i:s');
+            $this->created_at = date('Y-m-d H:i:s', strtotime($entry['check_in']));
+            //$this->created_by = $this->created_by;
+            $this->target_type = 'attendance';
+            $this->relation = 'created';
+            $this->target_id = $entry['employee_id'];
+            if (isset($entry['data'])) {
+                unset($entry['data']);
+            }
+
+            $this->data = [$entry];
+            $this->status = 'L';
+        }
     }
 
     public $attachMany = [
@@ -134,7 +161,7 @@ class EntityRelations extends Model {
             
         }
         //Sync all data :
-        $this->SyncData();
+       // $this->SyncData();
     }
 
     //Sync all entity relation data with respective models : attendance, mr_entry

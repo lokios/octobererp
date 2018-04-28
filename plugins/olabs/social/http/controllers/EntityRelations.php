@@ -52,12 +52,24 @@ class EntityRelations extends ApiController
 
             if($item){
                 //duplicate request -- so simply update this item object
-                return $item;
+                //return $item;
             }
 
         }
 
-        return  $this->model->create($fdata);
+
+        if(!$item){
+
+           $item =  $this->model->create($fdata);
+       }
+
+       if($item){
+         $m = new EntityRelationsModel();
+         $m->id = $item->id;
+         return $m;
+       }
+
+       return $item;
 
     }
 }
