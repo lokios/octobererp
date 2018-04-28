@@ -1,0 +1,14 @@
+// generate docs css
+
+@import "./variables.scss";
+@import "./bootstrap/_mixins.scss";
+@import "./custom/syntax.scss";
+@import "./custom/docs.scss";
+
+.docs-example > .media-list-users {
+  max-width: 500px;
+}
+
+.docs-example .modal-content {
+  box-shadow: none !important;
+}

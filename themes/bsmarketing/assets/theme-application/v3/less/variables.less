@@ -1,0 +1,173 @@
+@import "./bootstrap/variables.less";
+
+// icons
+@icon-font-path: "../fonts/";
+@icon-font-name: "toolkit-entypo";
+
+// Body
+@body-bg: #f5f8fa;
+
+// Component borders
+// Create a custom variable to base the border-color off the body background.
+@toolkit-border-color:  darken(#f5f8fa, 10%);
+// Then apply that to key components
+@panel-default-border:  @toolkit-border-color;
+@panel-inner-border:    @toolkit-border-color;
+@panel-footer-bg:       @body-bg;
+@list-group-border:     @toolkit-border-color;
+@navbar-default-border: @toolkit-border-color;
+
+// Gray Scale
+@gray-darker:   #122a38;
+@gray-dark:     #1e3948;
+@gray:          #536570;
+@gray-light:    #9da9b0;
+@gray-lighter:  #d4dbe0;
+@gray-lightest: #f5f8fa;
+
+
+// Brand Scale
+@brand-primary: #3097D1;
+@brand-success: #4eb76e;
+@brand-warning: #cbb956;
+@brand-danger:  #bf5329;
+@brand-info:    #8eb4cb;
+
+
+// alerts
+@alert-warning-border: #E6D0A1;
+
+
+// Text Color
+@font-family-sans-serif: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+@text-color:             @gray-dark;
+@letter-spacing-base:    0;
+@line-height-base:       1.6;
+@font-weight-base:       300;
+
+
+// lead
+@lead-font-size:      floor((@font-size-base * 1.15));
+@lead-font-size-sm:   floor((@font-size-base * 1.5));
+@lead-font-weight:    300;
+@lead-line-height:    1.4;
+@lead-letter-spacing: 0;
+
+
+// Headings
+@headings-font-weight: 600;
+@headings-line-height: 1.2;
+
+
+// Btns
+@btn-font-size:      @font-size-base;
+@btn-text-transform: default;
+@btn-letter-spacing: none;
+@btn-default-color:  #536570;
+@btn-default-bg:     #fff;
+@btn-default-border: #d4dbe0;
+@btn-toolbar-divider-bg: @gray-lighter;
+
+
+// Inputs
+@input-border:            #d4dbe0;
+@input-color-placeholder: @gray-light;
+
+
+// z-index
+@zindex-zoom:  1080;
+@zindex-growl: 1090;
+
+
+// containers
+@container-desktop:       (960px + @grid-gutter-width);
+@container-large-desktop: (1200px + @grid-gutter-width);
+
+
+// Large screen / wide desktop
+@screen-lg:         (@container-large-desktop + @grid-gutter-width);
+@screen-lg-min:     @screen-lg;
+@screen-lg-desktop: @screen-lg-min;
+@screen-md-max:     (@screen-lg-min - 1);
+
+
+// navbar
+@navbar-default-bg:                         #fff;
+@navbar-default-link-active-color:          #333;
+@navbar-default-link-active-bg:             transparent;
+@navbar-margin-bottom:                      0;
+@navbar-nav-active-font-weight:             inherit;
+
+@navbar-inverse-color:  #fff;
+@navbar-inverse-bg:     @brand-primary;
+@navbar-inverse-border: #1C73A5;
+
+@navbar-inverse-link-color:           rgba(255,255,255,.8);
+@navbar-inverse-link-hover-color:     #fff;
+@navbar-inverse-link-active-color:    @navbar-inverse-link-hover-color;
+@navbar-inverse-link-active-bg:       transparent;
+
+@navbar-inverse-toggle-border-color:  #1C73A5;
+@navbar-inverse-toggle-hover-bg:      darken(@navbar-inverse-bg, 2%);
+
+
+// nav hover
+@nav-link-hover-bg: @gray-lightest;
+
+
+// nav bordered
+@nav-bordered-color:              inherit;
+@nav-bordered-color-active:       @brand-primary;
+@nav-bordered-font-weight:        300;
+@nav-bordered-font-weight-active: 500;
+
+
+// popover
+@popover-fallback-border-color: @gray-lighter;
+@popover-border-color:          @gray-lighter;
+
+
+
+// modal
+@modal-content-fallback-border-color: @gray-light;
+
+
+// misc colors
+@headings-small-color: inherit;
+
+
+// dropdowns
+@dropdown-link-color:     @navbar-default-color;
+@dropdown-border:         rgba(0,0,0,.05);
+@dropdown-padding:        10px 0;
+@dropdown-anchor-padding: 5px 20px;
+@dropdown-link-hover-bg:  @gray-lightest;
+
+
+// Spacing
+@spacer:   20px;
+@spacer-x: @spacer;
+@spacer-y: @spacer;
+
+
+// zoom
+@zoom-overlay-bg: #fff;
+
+
+// list group
+@list-group-hover-bg: @gray-lightest;
+
+// Custom forms
+@custom-select-color:       @input-color;
+@custom-select-bg:          @input-bg;
+@custom-select-disabled-bg: @input-bg-disabled;
+
+@custom-control-indicator-bg:     @input-bg;
+@custom-control-indicator-border: rgba(0,0,0,.15);
+
+@custom-control-indicator-checked-bg:      @brand-primary;
+@custom-control-indicator-checked-border:  @brand-primary;
+@custom-control-indicator-active-bg:       lighten(@brand-primary, 15%);
+@custom-control-indicator-active-border:   lighten(@brand-primary, 15%);
+@custom-control-indicator-disabled-bg:     darken(@input-bg, 5%);
+@custom-control-indicator-disabled-border: @custom-control-indicator-border;

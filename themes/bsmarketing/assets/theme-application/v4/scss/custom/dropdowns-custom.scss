@@ -1,0 +1,12 @@
+// dropdowns
+.dropdown-menu {
+  padding-top: $dropdown-padding-y;
+  padding-bottom: $dropdown-padding-y;
+
+  > li > a {
+    padding-top: $dropdown-item-padding-y;
+    padding-bottom: $dropdown-item-padding-y;
+    padding-left: $dropdown-item-padding-x;
+    padding-right: $dropdown-item-padding-x;
+  }
+}

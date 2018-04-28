@@ -1,0 +1,52 @@
+.media-list-conversation {
+  .media-object {
+    width: 42px;
+    margin-right: 5px;
+  }
+  .media-body-text {
+    position: relative;
+    padding: 10px 15px;
+    background-color: @gray-lightest;
+    border-radius: 9px;
+  }
+  .media-body-text + .media-body-text {
+    margin-top: 5px;
+  }
+  .media-body-text:first-child:before {
+    position: absolute;
+    top: 16px;
+    left: -8px;
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top:    6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-right:  6px solid @gray-lightest;
+  }
+  .media-footer a {
+    font-weight: 400;
+  }
+
+  .media-current-user {
+    .media-body-text {
+      color: #fff;
+      background-color: @brand-primary;
+
+      &:first-child:before {
+        left: auto;
+        right: -8px;
+        margin-left: 0;
+        margin-right: 2px;
+        border-right: 0;
+        border-left: 6px solid @brand-primary;
+      }
+    }
+    .media-object {
+      margin-left: 5px;
+      margin-right: 0;
+    }
+  }
+}

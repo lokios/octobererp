@@ -1,0 +1,53 @@
+@import "./variables.less";
+
+// General
+@body-bg: #000;
+
+
+// panels
+@navbar-transparent-color: #000;
+@panel-bg:                 #151515;
+@panel-border-radius:      0;
+@panel-body-padding:       30px;
+@panel-danger-border:      @brand-danger;
+
+
+// button colors
+@btn-default-color:  #fff;
+@btn-default-bg:     #444;
+@btn-default-border: transparent;
+@btn-primary-color:  #000;
+
+
+// hr
+@hr-border:         #fff;
+
+
+// blocks
+@block-bg-inverted: #151515;
+
+
+// Stage
+@stage-bg:                    #000;
+@stage-shelf-width:           250px;
+@stage-toggle-offset:         20px;
+@stage-toggle-zindex:         100;
+@stage-toggle-padding:        4px 12px;
+@stage-toggle-color:          #fff;
+@stage-toggle-bg:             #000;
+@stage-toggle-border-radius:  0;
+@stage-toggle-hover-color:    #fff;
+@stage-toggle-hover-bg:       #000;
+
+
+@import "./components.less";
+
+html {
+  background-color: @body-bg;
+}
+body {
+  position: relative;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+}

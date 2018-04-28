@@ -1,0 +1,31 @@
+.card-profile {
+  .card-title {
+    margin-bottom: 5px;
+  }
+  .card-header {
+    height: 150px;
+    background-size: cover;
+  }
+}
+
+.card-profile-img {
+  max-width: 100px;
+  margin-top: -70px;
+  margin-bottom: 5px;
+  border: 3px solid #fff;
+  border-radius: 100%;
+  box-shadow: 0 1px 1px rgba(0,0,0,.1);
+}
+
+.card-menu {
+  list-style: none;
+  padding: 0;
+}
+.card-menu-item {
+  display: inline-block;
+  padding: 0 10px;
+  border-right: 1px solid $gray-200;
+}
+.card-menu-item:last-child {
+  border-right: 0;
+}

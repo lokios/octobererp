@@ -1,0 +1,88 @@
+.text-ribbon {
+  position: relative;
+  left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #000;
+  overflow: hidden;
+}
+.text-ribbon:before {
+  position: absolute;
+  top: 0;
+  right: 100%;
+  content: '';
+  width: 20px;
+  height: 100%;
+  bottom: 0;
+  background-color: inherit;
+}
+.text-ribbon span {
+  position: relative;
+  left: -10px;
+}
+
+// this is the super legit way to do text-ribbons,
+// but we only allow firefox to do this for browser support reasons
+@-moz-document url-prefix() {
+  .text-ribbon {
+    box-decoration-break: clone;
+    left: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  // undo hack above for firefox as well
+  .text-ribbon span {
+    left: auto;
+  }
+  .text-ribbon:before {
+    display: none;
+  }
+}
+
+.text-ribbon-input {
+  display: block;
+  width: 100%;
+  margin: 0 0 10px;
+  padding: 10px;
+  font-weight: normal;
+  color: inherit;
+  background-color: #000;
+  border: 0;
+  -webkit-appearance: none;
+  border-radius: 0;
+
+  .placeholder(inherit);
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.text-ribbon-inputs-split {
+  .clearfix();
+
+  .text-ribbon-input {
+    float: left;
+    width: 49%;
+
+    + .text-ribbon-input {
+      margin-left: 2%;
+    }
+  }
+}
+
+.text-ribbon-primary {
+  background-color: @brand-primary;
+}
+.text-ribbon-success {
+  background-color: @brand-success;
+}
+.text-ribbon-warning {
+  background-color: @brand-warning;
+}
+.text-ribbon-danger  {
+  background-color: @brand-danger;
+}
+.text-ribbon-info    {
+  background-color: @brand-info;
+}

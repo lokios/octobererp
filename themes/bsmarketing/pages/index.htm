@@ -1,0 +1,46 @@
+title = "Home"
+url = "/"
+layout = "layout"
+
+[olabs_resetPassword]
+[olabs_account]
+[olabs_session]
+security = "all"
+==
+<?php
+use Olabs\Tenant\Classes\Tenant;
+use Olabs\Tenant\Models\Organizations;
+use Olabs\Pages\Models\Page;
+use Olabs\Pages\Models\PageSection;
+use Olabs\Pages\Models\PageComponent;
+use Olabs\Pages\Models\Theme;
+use Olabs\Pages\Models\SiteRegister;
+use Olabs\Pages\Models\EntityRelations;
+use Olabs\Appoint\Models\Services;
+
+function onInit()
+{
+   Organizations::setPageContextOnStart($this);
+
+}
+
+function onStart()
+{
+  Organizations::setPageContextOnStart($this);
+  $services = Services::where(['status'=>'L'])->get();
+  $this['services'] = $services;
+  $pageService =  new PageSection();
+  $pageService->org = $this['org'];
+  $this['pageService'] = $pageService;
+
+  $slug = $this->param('slug');
+  if(!$slug)$slug ='index';
+  $page = Page::findBySlug($slug);
+
+  $this['page'] = $page;
+  $this['sections'] = $page->sections_sorted;
+  
+}
+==
+
+{% partial org_page %}
