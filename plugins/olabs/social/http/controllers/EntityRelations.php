@@ -42,4 +42,22 @@ class EntityRelations extends ApiController
            $this->scopeEquals($criteria,'actor_id');
            $this->scopeEquals($criteria,'status');
     }
+
+
+    public function createAction($fdata){
+        $item = false;
+        if(isset($fdata['request_id'])){
+
+            $item = $this->model->where(['request_id'=>$fdata['request_id']])->first();
+
+            if($item){
+                //duplicate request -- so simply update this item object
+                return $item;
+            }
+
+        }
+
+        return  $this->model->create($fdata);
+
+    }
 }
