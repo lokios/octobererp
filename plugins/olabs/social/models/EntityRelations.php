@@ -5,6 +5,7 @@ namespace Olabs\Social\Models;
 use Model;
 use Olabs\App\Classes\App;
 use Olabs\Oims\Models\Attendance;
+
 /**
  * Model
  */
@@ -20,6 +21,7 @@ class EntityRelations extends Model {
     const TARGET_TYPE_ATTENDANCE = 'attendance';
     const STATUS_LIVE = 'L';
     const STATUS_DONE = 'O';
+    const STATUS_ERROR = 'E';
 
     public $rules = [
     ];
@@ -130,8 +132,6 @@ class EntityRelations extends Model {
 
             $this->status = 'O';
             $this->save();
-
-            
         }
         //Sync all data :
         $this->SyncData();
@@ -144,60 +144,85 @@ class EntityRelations extends Model {
                         ->where('status', self::STATUS_LIVE)->get();
 
         foreach ($records as $record) {
-            if ($record->target_type == self::TARGET_TYPE_ATTENDANCE) {
+            try {
 
-                if (isset($record->data)) {
 
-                    foreach ($record->data as $key => $entry) {
+                if ($record->target_type == self::TARGET_TYPE_ATTENDANCE) {
+
+                    if (isset($record->data)) {
+                        foreach ($record->data as $key => $entry) {
 //                        var_dump($entry);
-                        //Create attendace entry
-                        $employee_id = $entry['employee_id'];
-                        $employee_id = (int)substr($employee_id, 1); //First character is O or E
-                        $employee_type = $entry['employee_type'];
-                        $check_in = date('Y-m-d H:i:s', strtotime($entry['check_in']));
-                        $from_date = date('Y-m-d',strtotime($check_in)) . " 00:00:00";
-                        $to_date = date('Y-m-d',strtotime($check_in)) . " 23:59:59";
-                        $attendace = \Olabs\Oims\Models\Attendance::where('employee_id', $employee_id)
-                                ->where('employee_type', $employee_type)
-                                ->whereBetween('check_in', [$from_date, $to_date])
-                                ->first();
-                        
-                        if (!$attendace) {
-                            $attendace = new \Olabs\Oims\Models\Attendance();
-                            if($employee_type == Attendance::EMPLOYEE_TYPE_OFFROLE){
-                                $attendace->employee_offrole = \Olabs\Oims\Models\OffroleEmployee::find($employee_id);
+                            //Create attendace entry
+                            $employee_id = $entry['employee_id'];
+                            $employee_id = (int) substr($employee_id, 1); //First character is O or E
+                            $employee_type = $entry['employee_type'];
+                            $check_in = date('Y-m-d H:i:s', strtotime($entry['check_in']));
+                            $from_date = date('Y-m-d', strtotime($check_in)) . " 00:00:00";
+                            $to_date = date('Y-m-d', strtotime($check_in)) . " 23:59:59";
+                            $attendace = \Olabs\Oims\Models\Attendance::where('employee_id', $employee_id)
+                                    ->where('employee_type', $employee_type)
+                                    ->whereBetween('check_in', [$from_date, $to_date])
+                                    ->first();
+
+                            if (!$attendace) {
+                                $attendace = new \Olabs\Oims\Models\Attendance();
+                                if ($employee_type == Attendance::EMPLOYEE_TYPE_OFFROLE) {
+                                    $attendace->employee_offrole = \Olabs\Oims\Models\OffroleEmployee::find($employee_id);
 //                                $attendace->employee_id = $employee_id;
+                                }
+                                if ($employee_type == Attendance::EMPLOYEE_TYPE_ONROLE) {
+                                    $attendace->employee_onrole = $employee_id; //\Olabs\Oims\Models\Employee::find($employee_id);
+                                    $attendace->employee_id = $employee_id;
+                                    $attendace->employee_offrole = FALSE;
+                                }
+                                $attendace->employee_type = $employee_type;
+                                $attendace->check_in = $check_in;
+                                $attendace->created_by = $entry['created_by'];
+                                $attendace->created_at = date('Y-m-d H:i:s');
                             }
-                            if($employee_type == Attendance::EMPLOYEE_TYPE_ONROLE){
-                                $attendace->employee_onrole = $employee_id;//\Olabs\Oims\Models\Employee::find($employee_id);
-                                $attendace->employee_id = $employee_id;
-                                $attendace->employee_offrole = FALSE;
-                            }
-                            $attendace->employee_type = $employee_type;
-                            $attendace->check_in = $check_in;
-                            $attendace->created_by = $entry['created_by'];
-                            $attendace->created_at = date('Y-m-d H:i:s');
-                        }
-                        
+
 //                        dd($attendace->employee_onrole);
 
-                        $attendace->check_out = $check_in;
-                        $attendace->updated_by = $entry['created_by'];
-                        $attendace->updated_at = date('Y-m-d H:i:s');
-                        
-                        $attendace->execute_validation = false;
-                        
-                        $attendace->calculateWages();
-                        $attendace->save();
+                            $attendace->check_out = $check_in;
+                            $attendace->updated_by = $entry['created_by'];
+                            $attendace->updated_at = date('Y-m-d H:i:s');
+
+                            $attendace->execute_validation = false;
+
+                            $attendace->calculateWages();
+                            $attendace->save();
+                        }
                     }
                 }
-            }
-            if ($record->target_type == self::TARGET_TYPE_MR_ENTRY) {
-                //Create mr entry
-            }
+                if ($record->target_type == self::TARGET_TYPE_MR_ENTRY) {
+                    //Create mr entry
+                    if (isset($record->data)) {
+                        foreach ($record->data as $key => $entry) {
+                            $purchase = new \Olabs\Oims\Models\Purchase();
+                            $purchase->project_id = $entry['to_project_id'];
+                            $purchase->context_date = date('Y-m-d H:i:s', strtotime($entry['check_in']));
+                            $purchase->reference_number = $record->target_id;
+                            foreach ($record->images as $image) {
+//                                dd($image);
+                                $file = new \System\Models\File;
+                                $file->data = $image->getPath();
+                                $file->save();
+                                $purchase->featured_images()->add($file);
+//                                $purchase->featured_images()->create(['data' => $image->getPath()]);
+                             
+                            }
+//                            dd($purchase->featured_images);
+                            $purchase->save();
+                        }
+                    }
+                }
 
-            $record->status = self::STATUS_DONE;
-            $record->save();
+                $record->status = self::STATUS_DONE;
+                $record->save();
+            } catch (Exception $ex) {
+                $record->status = self::STATUS_ERROR;
+                $record->save();
+            }
         }
     }
 
