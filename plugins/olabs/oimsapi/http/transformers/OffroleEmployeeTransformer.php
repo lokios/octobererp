@@ -63,11 +63,7 @@ class OffroleEmployeeTransformer extends TransformerAbstract
 
          }
 
-         if($item->project){
-            //$overview[] =  'Project - '.$item->project->name;
-            $attributes[] =['name'=>'Project','value'=>$item->project->name];
-
-         }
+        
 
          if($item->supplier){
            // $overview[] =  'Supplier - '.$item->supplier->first_name.' '.$item->supplier->last_name;
@@ -101,8 +97,10 @@ class OffroleEmployeeTransformer extends TransformerAbstract
 
         
         $img = false;
+        $img = "http://www.gravatar.com/avatar/cdf4c4e253e9b87c54caca8c99032795?s=90&d=mm";
         $val['bg_image'] = $img?$img:$app->getBaseEndpointImages().'/themes/octobererp_theme1/assets/images/construction/default_bg_image.jpg';
         $val['main_image'] = $img?$img:$app->getBaseEndpointImages().'/themes/octobererp_theme1/assets/images/construction/default_about.jpg';
+        $val['bg_image'] = "https://orig00.deviantart.net/dcd7/f/2014/027/2/0/mountain_background_by_pukahuna-d73zlo5.png";//$app->
 
 
           $modules = [];

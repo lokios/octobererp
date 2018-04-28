@@ -41,7 +41,7 @@ class EntityRelationsTransformer extends App
 
        
         $this->val['name'] = implode(" | ", $name);
-        $this->val['subtitle'] = ' dated: '.date('Y-m-d H:i', strtotime($item->created_at));
+        $subtitle[] = ' dated: '.date('Y-m-d H:i', strtotime($item->created_at));
 
         $this->val['data'] = $item->data;
         
@@ -51,13 +51,35 @@ class EntityRelationsTransformer extends App
          $attributes[] =['name'=>'Dated','value'=>date('Y-m-d H:i', strtotime($item->created_at))];
 
 
+         $data = $item->data;
+
+         if($data && is_array($data)){
+            $data = $data[0];
+            if(isset($data['to_project_id'])){
+                $project = \Olabs\Oims\Models\Project::where(['id'=>$data['to_project_id']])->first();
+
+
+                if($project){
+                    $attributes[] =['name'=>'Project','value'=> $project->name ];
+                    $subtitle[] = $project->name;
+
+                }
+         }
+
+         $this->val['subtitle'] = implode(" | ", $subtitle);
+
+     }
+
+
+
+
 
          $this->val['attributes'] = $attributes;
 
      }
 
      if($item->target_type == 'attendance'){
-            $name[] = 'Attendance Entry/ Emp ID: ';
+            $name[] = 'Attendance Entry, Emp ID: ';
             $name[] = $item->target_id;
         
 

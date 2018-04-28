@@ -463,7 +463,11 @@ public function scopeEquals(&$criteria, $field){
 
 
 
-    
+    public function createAction($fdata){
+
+        return  $this->model->create($fdata);
+
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -511,7 +515,7 @@ public function scopeEquals(&$criteria, $field){
             unset($fdata['images']);
         }
 
-        $item = $this->model->create($fdata);
+        $item = $this->createAction($fdata);
 
 
 
