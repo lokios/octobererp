@@ -199,8 +199,6 @@ class EntityRelations extends Model {
                                 }
                                 if ($employee_type == Attendance::EMPLOYEE_TYPE_ONROLE) {
                                     $attendace->employee_onrole = $employee_id; //\Olabs\Oims\Models\Employee::find($employee_id);
-                                    $attendace->employee_id = $employee_id;
-                                    $attendace->employee_offrole = FALSE;
                                 }
                                 $attendace->employee_type = $employee_type;
                                 $attendace->check_in = $check_in;
@@ -209,7 +207,12 @@ class EntityRelations extends Model {
                             }
 
 //                        dd($attendace->employee_onrole);
-
+                            //Unset employee Offrole 
+                            if ($employee_type == Attendance::EMPLOYEE_TYPE_ONROLE) {
+                                $attendace->employee_id = $employee_id;
+                                $attendace->employee_offrole = FALSE;
+                            }
+                            
                             $attendace->check_out = $check_in;
                             $attendace->updated_by = $entry['created_by'];
                             $attendace->updated_at = date('Y-m-d H:i:s');
@@ -232,9 +235,22 @@ class EntityRelations extends Model {
                             foreach ($record->images as $image) {
 //                                dd($image);
                                 $file = new \System\Models\File;
-                                $file->data = $image->getPath();
-                                $file->save();
-                                $purchase->featured_images()->add($file);
+                                // we use DIRECTORY_SEPERATOR to make sure we are OS independant.
+//                                $file = $file->fromFile(base_path(). DIRECTORY_SEPARATOR. 'storage'. DIRECTORY_SEPARATOR. 'app'. DIRECTORY_SEPARATOR.  $image->getDiskPath() );
+                                $file = $file->fromFile($image->getLocalPath() );
+                                
+                                // Copy over the original uploaded file name
+                                $file->file_name = $image->file_name;
+                                // Copy over the custom title if that was set
+                                $file->title = $image->title;
+                                // Copy over the custom description if that was set
+                                $file->description = $image->description;
+                                // This is the magic part :-) acutally attach the file.
+                                $purchase->featured_images()->setSimpleValue($file);
+                                
+//                                $file->data = $image->getPath();
+//                                $file->save();
+//                                $purchase->featured_images()->add($file);
 //                                $purchase->featured_images()->create(['data' => $image->getPath()]);
                              
                             }

@@ -23,3 +23,6 @@ columns:
     actor_id:
         label: 'Actor '
         type: text
+    status:
+        label: 'Status '
+        type: text
