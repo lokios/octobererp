@@ -1,0 +1,75 @@
+// Bootstrap mixins
+@import "./bootstrap/_mixins.scss";
+
+// Reset and dependencies
+@import "./bootstrap/_print.scss";
+
+// Core CSS
+@import "./bootstrap/_root.scss";
+@import "./bootstrap/_reboot.scss";
+@import "./bootstrap/_type.scss";
+@import "./bootstrap/_images.scss";
+@import "./bootstrap/_code.scss";
+@import "./bootstrap/_grid.scss";
+@import "./bootstrap/_tables.scss";
+@import "./bootstrap/_forms.scss";
+@import "./bootstrap/_buttons.scss";
+
+// Components
+@import "./bootstrap/_transitions.scss";
+@import "./bootstrap/_dropdown.scss";
+@import "./bootstrap/_button-group.scss";
+@import "./bootstrap/_input-group.scss";
+@import "./bootstrap/_custom-forms.scss";
+@import "./bootstrap/_nav.scss";
+@import "./bootstrap/_navbar.scss";
+@import "./bootstrap/_card.scss";
+@import "./bootstrap/_breadcrumb.scss";
+@import "./bootstrap/_pagination.scss";
+@import "./bootstrap/_badge.scss";
+@import "./bootstrap/_jumbotron.scss";
+@import "./bootstrap/_alert.scss";
+@import "./bootstrap/_progress.scss";
+@import "./bootstrap/_media.scss";
+@import "./bootstrap/_list-group.scss";
+@import "./bootstrap/_close.scss";
+
+// Components w/ JavaScript
+@import "./bootstrap/_modal.scss";
+@import "./bootstrap/_tooltip.scss";
+@import "./bootstrap/_popover.scss";
+@import "./bootstrap/_carousel.scss";
+
+// Utility classes
+@import "./bootstrap/_utilities.scss";
+
+// Extended Bootstrap components
+@import "./custom/type-custom.scss";
+@import "./custom/alerts-custom.scss";
+@import "./custom/buttons-custom.scss";
+@import "./custom/buttons-radius.scss";
+@import "./custom/modals-custom.scss";
+@import "./custom/container-custom.scss";
+@import "./custom/dropdowns-custom.scss";
+
+// Custom theme components
+@import "./custom/icons.scss";
+@import "./custom/text-inherit.scss";
+@import "./custom/navbar-utilities.scss";
+@import "./custom/nav-bordered.scss";
+@import "./custom/zoom.scss";
+@import "./custom/avatar-list.scss";
+@import "./custom/growl.scss";
+@import "./custom/profile-header.scss";
+@import "./custom/media-list.scss";
+@import "./custom/media-list-stream.scss";
+@import "./custom/media-list-conversation.scss";
+@import "./custom/media-list-users.scss";
+@import "./custom/cards-profile.scss";
+@import "./custom/cards-link-list.scss";
+
+// override
+html {
+  // set optimal base size
+  font-size: $font-size-root;
+}

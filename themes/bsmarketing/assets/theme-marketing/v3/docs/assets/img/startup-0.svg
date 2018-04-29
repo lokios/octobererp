@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1440px" height="655px" viewBox="0 0 1440 655" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch Beta 3.4 (15009) - http://www.bohemiancoding.com/sketch -->
+    <title>graph</title>
+    <desc>Created with Sketch Beta.</desc>
+    <defs>
+        <linearGradient x1="96.9276526%" y1="17.8090447%" x2="9.57939241%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#4CC7FF" stop-opacity="0.15" offset="0%"></stop>
+            <stop stop-color="#2595FF" stop-opacity="0.15" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="WINNER" sketch:type="MSArtboardGroup" transform="translate(0.000000, -177.000000)">
+            <g id="header" sketch:type="MSLayerGroup" transform="translate(-36.000000, -166.000000)">
+                <g id="backgroun" transform="translate(9.000000, 157.000000)" sketch:type="MSShapeGroup">
+                    <g transform="translate(-83.000000, 3.000000)" id="graph">
+                        <g transform="translate(110.000000, 184.000000)">
+                            <path d="M0,583 C0,583 96.7695313,469.421875 184.878906,473.9375 C272.988281,478.453125 335.605469,545.191402 401.21875,545.191406 C466.832031,545.191411 537.488281,431.839843 612.132812,431.839844 C686.777344,431.839844 763.753906,535.441406 819.679687,516.117188 C875.605469,496.792969 964.378906,370.460938 986.769531,327.941406 C1009.16016,285.421875 1110.4375,160.890625 1239.97266,133.140625 C1369.50781,105.390625 1422.32812,49.4238283 1440,5.68434189e-14 L1440,654.000003 L0,654 L0,583 Z" id="Path-539" fill="url(#linearGradient-1)"></path>
+                            <path d="M0,583 C0,583 96.7695313,469.421875 184.878906,473.9375 C272.988281,478.453125 335.605469,545.191402 401.21875,545.191406 C466.832031,545.191411 537.488281,431.839843 612.132812,431.839844 C686.777344,431.839844 763.753906,535.441406 819.679688,516.117188 C875.605469,496.792969 964.378906,370.460938 986.769531,327.941406 C1009.16016,285.421875 1110.4375,160.890625 1239.97266,133.140625 C1369.50781,105.390625 1422.32812,50.0332031 1440,0" id="Path-539" stroke="#2595FF" stroke-width="3"></path>
+                            <g id="graph-dots" transform="translate(167.000000, 116.000000)" stroke="#2595FF" stroke-width="2">
+                                <circle id="Oval-60" fill="#2A689A" cx="8" cy="357" r="8"></circle>
+                                <circle id="Oval-60" fill="#2E6F9D" cx="237" cy="428" r="8"></circle>
+                                <circle id="Oval-60" fill="#3275A2" cx="440" cy="315" r="8"></circle>
+                                <circle id="Oval-60" fill="#32749A" cx="639" cy="403" r="8"></circle>
+                                <circle id="Oval-60" fill="#347FAA" cx="831" cy="193" r="8"></circle>
+                                <circle id="Oval-60" fill="#34789C" cx="1110" cy="8" r="8"></circle>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -516,6 +516,7 @@ public function scopeEquals(&$criteria, $field){
         }
 
         $item = $this->createAction($fdata);
+        //$this->model->create($fdata);
 
 
 

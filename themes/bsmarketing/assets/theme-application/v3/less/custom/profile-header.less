@@ -1,0 +1,93 @@
+.profile-header {
+  position: relative;
+  display: table;
+  width: 100%;
+  height: 300px;
+  padding-bottom: (@jumbotron-padding * 1.6);
+  margin-bottom: 0;
+  text-align: center;
+  background-size: cover;
+  border: 0;
+}
+.profile-header .container,
+.profile-header .container-fluid {
+  display: table-cell;
+  width: 1000000px; // table width hack
+  text-align: center;
+  vertical-align: middle;
+}
+.profile-header .container-inner {
+  max-width: 300px;
+  margin: 0 auto;
+}
+.profile-header .media-object {
+  display: inline-block;
+  width: 80px;
+  margin-right: 0;
+  .box-shadow(0 1px 3px rgba(0,0,0,.05));
+}
+.profile-header-bio {
+  font-size: 16px;
+  color: #fff;
+}
+.profile-header-user {
+  margin-top: 20px;
+  color: #fff;
+}
+@media (min-width: @screen-phone) {
+  .profile-header {
+    height: 400px;
+  }
+}
+@media (min-width: @screen-tablet) {
+  .profile-header {
+    height: 500px;
+  }
+  .profile-header .media-object {
+    width: 110px;
+  }
+}
+
+
+// profile header Nav
+.profile-header-nav {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  line-height: 0;
+}
+.profile-header-nav .nav {
+  display: inline-block;
+  border-bottom: 0;
+}
+.profile-header-nav .nav > li > a {
+  padding: 0 10px 18px;
+  font-size: 16px;
+  color: rgba(255,255,255,.5);
+}
+.profile-header-nav .nav-tabs > li > a {
+  .transition(color .2s ease-in-out);
+}
+.profile-header-nav .nav-tabs > li > a:focus,
+.profile-header-nav .nav-tabs > li > a:hover,
+.profile-header-nav .nav > li.active > a {
+  color: #fff;
+  background: transparent;
+  border-color: transparent;
+}
+.profile-header-nav .active:after {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  content: '';
+  margin-left: -10px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid @nav-tabs-active-link-hover-bg;
+}
+@media (min-width: @screen-tablet) {
+  .profile-header-nav .nav > li > a {
+    padding-bottom: 0 15px 23px;
+  }
+}

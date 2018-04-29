@@ -1,0 +1,201 @@
+description = "Default layout"
+
+[olabs_resetPassword]
+[olabs_account]
+[olabs_session]
+security = "all"
+==
+<?php
+use Olabs\Tenant\Classes\Tenant;
+use Olabs\Pages\Models\Page;
+use Olabs\Pages\Models\PageSection;
+use Olabs\Pages\Models\PageComponent;
+use Olabs\Pages\Models\Theme;
+use Olabs\Pages\Models\SiteRegister;
+use Olabs\Pages\Models\EntityRelations;
+
+
+function onInit()
+{
+$pages = Page::where(['include_in_top_menu'=>'Y','status'=>'L'])->orderBy('top_menu_order', 'desc')->get();
+$menu = [];
+
+foreach($pages as $page){
+$menuItem =  ['name'=>$page->name, 'link'=>$page->slug,'slug'=>$page->slug, 'target'=>'','page'=>$page];
+
+if($page->isExternalLink()){
+
+$external_url = $page->external_url;
+if(!$external_url){
+$external_url='#';
+}
+
+$menuItem = ['name'=>$page->name, 'link'=>$external_url, 'slug'=>$page->slug, 'target'=>'_blank','page'=>$page];
+
+
+}
+if($this->param('slug') == $page->slug){
+$menuItem['css_class'] = ' active ';
+}
+$menu[] =  $menuItem;
+
+$this['menu'] = $menu;
+}
+
+
+$sessionUser = OlabsAuth::getUser();
+if($sessionUser){
+//$sessionProfile = Profiles::getByUserId($sessionUser->id);
+$this['sessionUser'] = $sessionUser;
+//$this['sessionProfile'] = $sessionProfile;
+}
+//$currentHostUrl = Request::getHost();
+$this['currentHostUrl'] = Tenant::getHost();
+$org = Tenant::getOrg();
+$this['org'] = $org;
+$this['site'] = $org;
+
+$theme = Theme::where(['tenant_id'=>$org->id])->first();
+if(!$theme){
+  $theme = new Theme();
+  $theme->theme = 'celurean';
+}
+if($theme){
+  $tcss = [
+     'assets/themes/4-alpha/'.$theme->theme.'/bootstrap.min.css'
+   ];
+
+   $this['theme'] = $theme;
+
+}else{
+   $tcss = [
+      'assets/fui/dist/css/vendor/css/bootstrap.min.css'
+   ];
+}
+
+
+
+
+$default_pc = [
+'layout_main_header_menu'=> '_header_menu',
+'layout_main_includes'=>'_includes', 
+'layout_main_footer'=>"_footer",
+'layout_main_include_js'=>'_include_js',
+'layout_main_carousel'=>"carousel",
+
+'profiles'=>'_profiles','profile'=>'_profile'
+,'services'=>'services', 
+ 'charts'=>"_charts",'portfolio'=>'_portfolio',
+'portfolio_grid'=>'_portfolio_grid',
+'portfolio_slick'=>'_portfolio_slick',
+ 'project'=>'_project',
+'contact_us_mini_footer'=>'contact_us_mini_footer',
+'posts'=>'_posts','team_dynamic'=>'_team_dynamic',
+'dforms'=>'_dforms2','start'=>'_start',
+'org_about_section'=>'about_section',
+'carousel_dynamic'=>'carousel',
+'portfolio_dynamic'=>'text_with_image_optional_row',
+'text_with_image_optional_row'=>'text_with_image_optional_row',
+'text_with_image_left_optional_row'=> 'text_with_image_left_optional_row',
+'map_and_contact'=>'map_and_contact',
+'info_blocks'=>'info_blocks',
+ 'signin'=>'_login_main',
+ 'signup'=>'_login_main',
+ 'error'=>'_error',
+
+
+ ];
+
+ $rq_pc = [
+  'layout_main_header_menu'=> 'rq1/_header_menu',
+  'layout_main_includes'=>'rq1/_includes',
+  'layout_main_footer'=>"rq1/_footer",
+  'layout_main_include_js'=>'rq1/_include_js',
+  'layout_main_carousel'=>"rq1/carousel",
+
+ 'charts'=>"rq1/_charts",
+'text_with_image_optional_row'=>'rq1/text_with_image_optional_row',
+'text_with_image_left_optional_row'=> 'rq1/text_with_image_left_optional_row',
+
+'info_blocks'=>'rq1/info_blocks',
+
+
+ ];
+
+ $rq_pc = array_merge($default_pc,$rq_pc);
+
+ 
+if($theme->theme == 'rq1' ){
+    $pc = $rq_pc;
+}else {
+    $pc = $default_pc;
+}
+ 
+
+
+$this['pc'] = $pc;
+
+
+
+
+
+$this['tcss'] = $tcss;
+
+}
+
+
+function onStart()
+{
+
+
+
+
+
+}
+
+
+
+function onSiteRegister()
+{
+$params = Input::all();
+
+return SiteRegister::onSiteRegister($params);
+}
+
+function onDyFormSubmit()
+{
+$params = Input::all();
+
+$er = new EntityRelations();
+return $er->onDyFormSubmit($params);
+}
+
+function onAddBlock()
+{
+$params = Input::all();
+
+$pageComponent = PageComponent::where(['code'=>$params['block_code']])->first();
+$ps = $pageComponent->onAddBlock($params);
+
+if($ps && $ps->id){
+$status = ['params'=>$params, 's'=>'200','page_section'=>$ps];
+}else{
+$status = ['params'=>$params, 's'=>'500','m'=>'Add block error.' ];
+}
+
+return $status;
+}
+
+function onRemoveBlock()
+{
+$params = Input::all();
+
+$pageComponent = PageSection::where(['id'=>$params['section_id']])->first();
+$ps = $pageComponent->delete();
+
+$status = ['params'=>$params, 's'=>'200'];
+
+return $status;
+}
+?>
+==

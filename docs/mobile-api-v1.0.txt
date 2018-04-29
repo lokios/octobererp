@@ -1,0 +1,4 @@
+
+
+
+curl -H "Content-Type: application/json" -X POST --data '{"data":{"relation":"attendance"}}' http://oimsapp.opaclabs.com/social/api/v1/entityrelations

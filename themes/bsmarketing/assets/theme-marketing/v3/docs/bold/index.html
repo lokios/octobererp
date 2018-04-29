@@ -1,0 +1,457 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <title>
+      
+        Bold &middot; 
+      
+    </title>
+
+    
+      <link href="http://fonts.googleapis.com/css?family=Lora:400,400italic|Roboto:100,300,400,700" rel="stylesheet">
+      <link href="../assets/css/toolkit-bold.css" rel="stylesheet">
+      <link href="../assets/css/application-bold.css" rel="stylesheet">
+    
+
+    
+
+    <style>
+      /* note: this is a hack for ios iframe for bootstrap themes shopify page */
+      /* this chunk of css is not part of the toolkit :) */
+      /* …curses ios, etc… */
+      @media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
+        body {
+          width: 1px;
+          min-width: 100%;
+          *width: 100%;
+        }
+        #stage {
+          height: 1px;
+          overflow: auto;
+          min-height: 100vh;
+          -webkit-overflow-scrolling: touch;
+        }
+      }
+    </style>
+  </head>
+
+
+<body>
+  
+
+
+
+<div class="stage-shelf hidden" id="sidebar">
+  <ul class="nav nav-bordered nav-stacked">
+    <li class="nav-header"><small>Examples</small></li>
+    <li class="active">
+      <a href="../bold/index.html">Bold</a>
+    </li>
+    <li>
+      <a href="../index.html">Startup</a>
+    </li>
+    <li>
+      <a href="../minimal/index.html">Minimal</a>
+    </li>
+
+    <li class="nav-divider"></li>
+
+    <li class="nav-header"><small>Sections</small></li>
+
+    <li>
+      <a href="#grid" data-target="#stage" data-toggle="stage">Grid</a>
+    </li>
+    <li>
+      <a href="#chainz" data-target="#stage" data-toggle="stage">2 Chainz</a>
+    </li>
+    <li>
+      <a href="#pricing" data-target="#stage" data-toggle="stage">Pricing</a>
+    </li>
+    <li>
+      <a href="#footer" data-target="#stage" data-toggle="stage">About</a>
+    </li>
+
+    <li class="nav-divider"></li>
+
+    <li class="nav-header"><small>Docs</small></li>
+
+    <li>
+      <a href="../docs/index.html">Theme</a>
+    </li>
+    <li>
+      <a href="http://getbootstrap.com">Bootstrap</a>
+    </li>
+
+  </ul>
+</div>
+
+
+<div class="stage" id="stage">
+
+  <div class="block block-fill-height app-block-wayne"
+       style="background-image: url(../assets/img/lilwayne.jpg)">
+
+    <button class="btn btn-link stage-toggle" data-target="#stage" data-toggle="stage">
+      <span class="icon icon-menu stage-toggle-icon"></span>
+      Menu
+    </button>
+
+    <div class="block-sm-middle block-xs-bottom">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-5">
+            <h1 class="block-title m-b-md">
+              <span class="text-ribbon text-ribbon-primary">
+                <span>Music. Live.</span>
+              </span>
+            </h1>
+            <p class="lead">
+              <span class="text-ribbon text-ribbon-primary">
+                <span>
+                  Live recordings of your favorite artists before their hit albums drop.
+                </span>
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="block block-inverse block-transparent p-y-0 app-block-grid">
+
+    <div class="block-bg-clip">
+      <div class="block-bg">
+        <div class="block-bg-img"></div>
+      </div>
+    </div>
+
+    <div class="container" id="grid">
+      <div class="row">
+        <div class="col-lg-4 col-sm-6">
+          <div class="row m-b">
+            <div class="col-lg-12">
+              <div class="panel panel-bold panel-danger m-b-0 app-box-shadow">
+                <img src="../assets/img/azalea.jpg">
+                <div class="panel-body p-b-lg">
+                  <h4 class="m-b-0">Iggy Azalea</h4>
+                  <p class="text-serif"><em>Released on Dropp 6 weeks early</em></p>
+                  <hr>
+                  <p class="text-serif"><em>Ms. Azalea was the first artist to reach out to Dropp to coordinate her leak. We knew it was going to be the largest unofficial album drop in history. We doubled server capacity and made a lot ton of coffee.</em></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row m-b hidden-xs">
+            <div class="col-lg-12">
+              <img src="../assets/img/minaj.jpg">
+           </div>
+          </div>
+        </div>
+        <div class="col-lg-8 col-sm-6">
+          <div class="row">
+            <div class="col-lg-6 m-b">
+              <div class="app-box-shadow">
+                <img src="../assets/img/childish.jpg">
+              </div>
+            </div>
+            <div class="col-lg-6 m-b">
+              <div class="app-box-shadow">
+                <img src="../assets/img/yeezus.jpg">
+              </div>
+            </div>
+          </div>
+          <div class="row hidden-xs">
+            <div class="col-lg-12">
+              <img src="../assets/img/cudi.jpg">
+           </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block block-fill-height block-transparent block-angle app-block-chainz" id="chainz">
+
+    <div class="block-bg-clip">
+      <div class="block-bg">
+        <div class="block-bg-img block-bg-img-top"
+             style="background-image: url(../assets/img/2chainz.jpg)">
+        </div>
+      </div>
+    </div>
+
+    <div class="block-sm-middle block-xs-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-5 col-sm-offset-7">
+            <h1 class="block-title m-b-md">
+              <span class="text-ribbon text-ribbon-primary">
+                <span>Hand Picked.</span>
+              </span>
+            </h1>
+            <p class="lead">
+              <span class="text-ribbon text-ribbon-primary">
+                <span>
+                  Every album, song, and video we leak is the very best in class.
+                </span>
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block block-fill-height block-transparent block-inverse block-angle app-block-kanye">
+    <div class="block-bg-clip">
+      <div class="block-bg">
+        <div class="block-bg-img block-bg-img-top"
+             style="background-image: url(../assets/img/kanye.jpg)">
+        </div>
+      </div>
+    </div>
+
+    <div class="block-xs-middle">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-5">
+            <h1 class="block-title m-b-md">
+              <span class="text-ribbon">
+                <span>Music Videos.</span>
+              </span>
+            </h1>
+            <p class="lead">
+              <span class="text-ribbon">
+                <span>
+                  We stream all leaks alongside music videos cause we don't play games.
+                </span>
+              </span>
+            </p>
+          </div>
+        </div>
+        <div class="row m-b-lg">
+          <div class="col-sm-8">
+            <div class="embed-responsive embed-responsive-16by9">
+              <iframe width="682" height="384" src="https://www.youtube.com/embed/Bm5iA4Zupek?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block block-transparent block-fill-height block-angle block-app-mosdef">
+    <div class="block-bg-clip">
+      <div class="block-bg">
+        <div class="block-bg-img block-bg-img-top"
+             style="background-image: url(../assets/img/mosdef.jpg)">
+        </div>
+      </div>
+    </div>
+
+    <div class="block-xs-middle">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-6">
+            <h1 class="block-title m-b-md">
+              <span class="text-ribbon text-ribbon-primary">
+                <span>Sign up now.</span>
+              </span>
+            </h1>
+
+            <div class="text-ribbon-inputs-split">
+              <input type="text" class="h4 text-ribbon-input text-ribbon-primary" placeholder="Name">
+              <input type="text" class="h4 text-ribbon-input text-ribbon-primary" placeholder="Email">
+            </div>
+            <input type="text" class="h4 text-ribbon-input text-ribbon-input-half text-ribbon-primary" placeholder="Promo code">
+            <button type="button" class="btn btn-square btn-primary btn-lg btn-block">
+              Get the beta early
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block block-fill-height block-inverse app-block-nicki"
+       style="background-image: url(../assets/img/nicki.jpg)"
+       id="pricing">
+    <div class="block-xs-middle">
+      <div class="container">
+        <div class="row m-b-md">
+          <div class="col-lg-5">
+            <h1 class="block-title m-b-md">
+              <span class="text-ribbon">
+                <span>Easy Pricing.</span>
+              </span></h1>
+            <p class="lead">
+              <span class="text-ribbon text-muted">
+                <span>
+                  One yearly payment of $99 and get unlimited leaked tracks.
+                </span>
+              </span>
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="panel">
+              <div class="panel-body">
+                <h3 class="panel-title">Basic Trial</h3>
+                <h4 class="text-muted text-serif m-t-0 m-b">
+                  <em>$0/yr</em>
+                </h4>
+                <p class="text-serif m-b">
+                  <em>
+                    Endless stations based on artists, genres, and moods, including You FM, your own personalized station.
+                  </em>
+                </p>
+                <hr>
+                <ul class="iconlist text-serif m-b-md">
+                  <li class="active">
+                    <span class="icon icon-check"></span>
+                    <em>Unlimited streaming</em>
+                  </li>
+                  <li>
+                    <span class="icon icon-cross"></span>
+                    <em>Day of leak access</em>
+                  </li>
+                  <li>
+                    <span class="icon icon-cross"></span>
+                    <em>Offline sync</em>
+                  </li>
+                </ul>
+                <button class="btn btn-default btn-square btn-block btn-lg">Start a basic trial</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="panel accent-primary">
+              <div class="panel-body">
+                <h3 class="panel-title">Anual Access</h3>
+                <h4 class="text-primary text-serif m-t-0 m-b">
+                  <em>$99/yr</em>
+                </h4>
+                <p class="text-serif m-b">
+                  <em>
+                    Endless stations based on artists, genres, and moods, including You FM, your own personalized station.
+                  </em>
+                </p>
+                <hr>
+                <ul class="iconlist text-serif m-b-md">
+                  <li class="active">
+                    <span class="icon icon-check"></span>
+                    <em>Unlimited streaming</em>
+                  </li>
+                  <li class="active">
+                    <span class="icon icon-check"></span>
+                    <em>Day of leak access</em>
+                  </li>
+                  <li>
+                    <span class="icon icon-cross"></span>
+                    <em>Offline sync</em>
+                  </li>
+                </ul>
+                <button class="btn btn-primary btn-square btn-block btn-lg">Start a basic trial</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="panel">
+              <div class="panel-body">
+                <h3 class="panel-title">Celebrity Look</h3>
+                <h4 class="text-muted text-serif m-t-0 m-b">
+                  <em>$299/yr</em>
+                </h4>
+                <p class="text-serif m-b">
+                  <em>
+                    Endless stations based on artists, genres, and moods, including You FM, your own personalized station.
+                  </em>
+                <hr>
+                <ul class="iconlist text-serif m-b-md">
+                  <li class="active">
+                    <span class="icon icon-check"></span>
+                    <em>Unlimited streaming</em>
+                  </li>
+                  <li class="active">
+                    <span class="icon icon-check"></span>
+                    <em>Day of leak access</em>
+                  </li>
+                  <li class="active">
+                    <span class="icon icon-check"></span>
+                    <em>Offline sync</em>
+                  </li>
+                </ul>
+                <button class="btn btn-default btn-square btn-block btn-lg">Start a basic trial</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="block block-inverse accent-primary" id="footer">
+    <div class="container">
+      <div class="row text-serif">
+        <div class="col-sm-2 m-b-md">
+          <ul class="list-unstyled list-spaced">
+            <li><h4>Tech</h4></li>
+            <li class="text-muted"><em>Overview</em></li>
+            <li class="text-muted"><em>Design</em></li>
+            <li class="text-muted"><em>Display</em></li>
+            <li class="text-muted"><em>Technology</em></li>
+          </ul>
+        </div>
+        <div class="col-sm-2 m-b-md">
+          <ul class="list-unstyled list-spaced">
+            <li><h4>Press</h4></li>
+            <li class="text-muted"><em>Overview</em></li>
+            <li class="text-muted"><em>Design</em></li>
+            <li class="text-muted"><em>Display</em></li>
+            <li class="text-muted"><em>Technology</em></li>
+          </ul>
+        </div>
+        <div class="col-sm-2 m-b-md">
+          <ul class="list-unstyled list-spaced">
+            <li><h4>Other</h4></li>
+            <li class="text-muted"><em>Overview</em></li>
+            <li class="text-muted"><em>Design</em></li>
+            <li class="text-muted"><em>Display</em></li>
+            <li class="text-muted"><em>Technology</em></li>
+          </ul>
+        </div>
+        <div class="col-sm-6 m-b-md">
+          <ul class="list-unstyled list-spaced">
+            <li><h4>Photography</h4></li>
+            <li class="text-muted">
+              <em>Background photos: <a href="https://www.flickr.com/photos/demxx/8702542709/">2 Chainz by demxx</a> and <a href="https://www.flickr.com/photos/carnivalridexx/6048218344/">Nicki Minaj by Jennifer</a> are shared under the <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0 license</a>. <a href="https://www.flickr.com/photos/ddalledo/2204168450/">Kanye West by Daniele Dalledonne</a> is shared under the <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0 license<a>. <a href="https://commons.wikimedia.org/wiki/Category:Lil_Wayne#/media/File:Lil_Wayne.jpg">Lil Wayne by RJ Shaughnessy</a>, and <a href="https://www.flickr.com/photos/didy_b/8150029917">Mos Def by Eddy BERTHIER</a> are public domain works. Concert portraits: <a href="https://www.flickr.com/photos/histrionicss/13951485730">Iggy Azalea by Laura Murray</a>, <a href="https://www.flickr.com/photos/32999928@N05/7213700394/">Childish Gambino by Eli Watson</a>, and <a href="https://www.flickr.com/photos/scissorfighter/5169715083/">Kid Cudi by Dana Beveridge</a> are shared under the <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0 license</a>.<a href="https://www.flickr.com/photos/jasonpersse/5710284405/"> Kanye West by Jason Persse</a> and <a href="https://www.flickr.com/photos/tamtam7683/5990345195">Nicki Minaj by tamtam7683</a> are shared under the <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0 license</a>.</em>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/toolkit.js"></script>
+    <script src="../assets/js/application.js"></script>
+  </body>
+</html>
+

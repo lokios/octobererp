@@ -1,0 +1,16 @@
+.avatar-list {
+  list-style: none;
+  padding: 0;
+}
+.avatar-list-item {
+  display: inline-block;
+  width: 32px;
+  margin-right: 5px;
+  vertical-align: top;
+}
+.avatar-list-item:last-child {
+  margin-right: 0;
+}
+.avatar-list-item img {
+  width: 100%;
+}

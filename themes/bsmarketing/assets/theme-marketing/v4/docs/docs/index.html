@@ -1,0 +1,1847 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <title>
+      
+        Documentation &middot; 
+      
+    </title>
+
+    
+      <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700" rel="stylesheet">
+      <link href="../assets/css/toolkit-minimal.css" rel="stylesheet">
+      <link href="../assets/css/application-minimal.css" rel="stylesheet">
+    
+
+    
+      <link href="../assets/css/docs.css" rel="stylesheet">
+    
+
+    <style>
+      /* note: this is a hack for ios iframe for bootstrap themes shopify page */
+      /* this chunk of css is not part of the toolkit :) */
+      /* …curses ios, etc… */
+      @media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
+        body {
+          width: 1px;
+          min-width: 100%;
+          *width: 100%;
+        }
+        #stage {
+          height: 1px;
+          overflow: auto;
+          min-height: 100vh;
+          -webkit-overflow-scrolling: touch;
+        }
+      }
+    </style>
+  </head>
+
+
+<body>
+  <div class="stage-shelf hidden" id="sidebar">
+  <ul class="nav nav-bordered nav-stacked flex-column">
+    <li class="nav-header">Examples</li>
+    <li class="nav-item">
+      <a class="nav-link" href="../index.html">Startup</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="../minimal/index.html">Minimal</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="../bold/index.html">Bold</a>
+    </li>
+    <li class="nav-divider"></li>
+    <li class="nav-header">Docs</li>
+    <li class="nav-item">
+      <a class="nav-link active" href="../docs/index.html">Toolkit</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="http://getbootstrap.com">Bootstrap</a>
+    </li>
+  </ul>
+</div>
+
+
+  <div class="stage" id="app-stage">
+
+    <button class="btn btn-link stage-toggle" data-target="#app-stage" data-toggle="stage">
+      <span class="icon icon-menu stage-toggle-icon"></span>
+      Menu
+    </button>
+
+    
+      <div class="docs-header" id="content">
+        <div class="container">
+          <h1>Documentation</h1>
+          <p>Find out what's included in your Bootstrap theme and how to compile source files. Includes live examples and code snippets for every new component.</p>
+        </div>
+      </div>
+      <div class="container docs-content">
+        
+<h1 id="contents">Contents</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#contents" id="markdown-toc-contents">Contents</a></li>
+  <li><a href="#intro" id="markdown-toc-intro">Intro</a></li>
+  <li><a href="#whats-included" id="markdown-toc-whats-included">What’s included</a>    <ul>
+      <li><a href="#getting-started" id="markdown-toc-getting-started">Getting started</a></li>
+      <li><a href="#gulpfilejs" id="markdown-toc-gulpfilejs">Gulpfile.js</a></li>
+      <li><a href="#theme-source-code" id="markdown-toc-theme-source-code">Theme source code</a></li>
+    </ul>
+  </li>
+  <li><a href="#custom-builds" id="markdown-toc-custom-builds">Custom builds</a></li>
+  <li><a href="#basic-template" id="markdown-toc-basic-template">Basic template</a></li>
+  <li><a href="#new-components" id="markdown-toc-new-components">New components</a>    <ul>
+      <li><a href="#entypo" id="markdown-toc-entypo">Entypo</a>        <ul>
+          <li><a href="#available-icons" id="markdown-toc-available-icons">Available icons</a></li>
+          <li><a href="#examples" id="markdown-toc-examples">Examples</a></li>
+        </ul>
+      </li>
+      <li><a href="#pill-buttons" id="markdown-toc-pill-buttons">Pill buttons</a></li>
+      <li><a href="#blocks" id="markdown-toc-blocks">Blocks</a></li>
+      <li><a href="#text-ribbons" id="markdown-toc-text-ribbons">Text ribbons</a></li>
+      <li><a href="#transparent-navbar" id="markdown-toc-transparent-navbar">Transparent navbar</a></li>
+      <li><a href="#nav-bordered" id="markdown-toc-nav-bordered">Nav bordered</a></li>
+      <li><a href="#carousel-light" id="markdown-toc-carousel-light">Carousel Light</a></li>
+      <li><a href="#callouts" id="markdown-toc-callouts">Callouts</a></li>
+      <li><a href="#featured-lists" id="markdown-toc-featured-lists">Featured lists</a></li>
+      <li><a href="#pull-quotes" id="markdown-toc-pull-quotes">Pull Quotes</a></li>
+      <li><a href="#icon-list" id="markdown-toc-icon-list">Icon list</a></li>
+      <li><a href="#stat-cards" id="markdown-toc-stat-cards">Stat cards</a></li>
+    </ul>
+  </li>
+  <li><a href="#plugins" id="markdown-toc-plugins">Plugins</a>    <ul>
+      <li><a href="#zoom" id="markdown-toc-zoom">Zoom</a>        <ul>
+          <li><a href="#data-api" id="markdown-toc-data-api">Data API</a></li>
+        </ul>
+      </li>
+      <li><a href="#enter" id="markdown-toc-enter">Enter</a>        <ul>
+          <li><a href="#options" id="markdown-toc-options">Options</a></li>
+          <li><a href="#javascript-api" id="markdown-toc-javascript-api">JavaScript API</a></li>
+          <li><a href="#data-api-1" id="markdown-toc-data-api-1">Data API</a></li>
+        </ul>
+      </li>
+      <li><a href="#image-grids" id="markdown-toc-image-grids">Image grids</a>        <ul>
+          <li><a href="#options-1" id="markdown-toc-options-1">Options</a></li>
+          <li><a href="#javascript-api-1" id="markdown-toc-javascript-api-1">JavaScript API</a></li>
+          <li><a href="#data-api-2" id="markdown-toc-data-api-2">Data Api</a></li>
+        </ul>
+      </li>
+      <li><a href="#stage" id="markdown-toc-stage">Stage</a>        <ul>
+          <li><a href="#options-2" id="markdown-toc-options-2">Options</a></li>
+          <li><a href="#customizing" id="markdown-toc-customizing">Customizing</a></li>
+          <li><a href="#example" id="markdown-toc-example">Example</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="intro">Intro</h1>
+
+<p>Hey there! You’re looking at the docs for an Official Bootstrap Theme—thanks for your purchase! This theme has been lovingly crafted by Bootstrap’s founders and friends to help you build awesome projects on the web. Let’s dive in.</p>
+
+<p>Each theme is designed as it’s own toolkit—a series of well designed, intuitive, and cohesive components—built on top of Bootstrap. If you’ve used Bootstrap itself, you’ll find this all super familiar, but with new aesthetics, new components, beautiful and extensive examples, and easy-to-use build tools and documentation.</p>
+
+<p>Since this theme is based on Bootstrap, and includes nearly everything Bootstrap itself does, you’ll want to give the <a href="http://getbootstrap.com">official project documentation</a> a once over before continuing. There’s also <a href="../bootstrap/index.html">the kitchen sink</a>—a one-page view of all Bootstrap’s components restyled by this theme.</p>
+
+<p>For everything else, including compiling and using this Bootstrap theme, read through the docs below.</p>
+
+<p>Thanks, and enjoy!</p>
+
+<h1 id="whats-included">What’s included</h1>
+
+<p>Within your Bootstrap theme you’ll find the following directories and files, grouping common resources and providing both compiled and minified distribution files, as well as raw source files.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">theme/
+  ├── v3
+  └── v4
+      ├── gulpfile.js
+      ├── package.json
+      ├── README.md
+      ├── docs/
+      ├── scss/
+      │   ├── bootstrap/
+      │   ├── custom/
+      │   ├── variables.scss
+      │   └── toolkit.scss
+      ├── js/
+      │   ├── bootstrap/
+      │   └── custom/
+      ├── fonts/
+      │   ├── bootstrap-entypo.eot
+      │   ├── bootstrap-entypo.svg
+      │   ├── bootstrap-entypo.ttf
+      │   ├── bootstrap-entypo.woff
+      │   └── bootstrap-entypo.woff2
+      └── dist/
+          ├── toolkit.css
+          ├── toolkit.css.map
+          ├── toolkit.min.css
+          ├── toolkit.min.css.map
+          ├── toolkit.js
+          └── toolkit.min.js</code></pre></figure>
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>At the top level of your bootstrap theme you’ll find a directory for each major Bootstrap version that’s supported (currently both <code class="highlighter-rouge">v3</code> and <code class="highlighter-rouge">v4</code>). Within each directory you have all the relevant files for that version.</p>
+
+<p>To view your Bootstrap Theme documentation, simply find the docs directory and open index.html in your favorite browser.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>open docs/index.html</code></pre></figure>
+
+<h2 id="gulpfilejs">Gulpfile.js</h2>
+
+<p>If you’re after more customization we’ve also included a custom <a href="http://gulpjs.com">Gulp</a> file, which can be used to quickly re-compile a theme’s CSS and JS. You’ll need to install both <a href="https://nodejs.org/en/download/">Node</a> and Gulp before using our included <code class="highlighter-rouge">gulpfile.js</code>.</p>
+
+<p>Once node is installed, run the following npm command to install Gulp.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>npm install gulp -g</code></pre></figure>
+
+<p>When you’re done, make sure you’ve installed the rest of the theme’s dependencies:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>npm install</code></pre></figure>
+
+<p>Now, modify your source files and run <code class="highlighter-rouge">gulp</code> to generate new local <code class="highlighter-rouge">dist/</code> files automatically. <strong>Be aware that this replaces existing <code class="highlighter-rouge">dist/</code> files</strong>, so proceed with caution.</p>
+
+<h2 id="theme-source-code">Theme source code</h2>
+
+<p>The <code class="highlighter-rouge">scss/</code>, <code class="highlighter-rouge">js/</code>, and <code class="highlighter-rouge">fonts/</code> directories contain the source code for our CSS, JS, and icon fonts (respectively). Within the <code class="highlighter-rouge">scss/</code> and <code class="highlighter-rouge">js/</code> directories you’ll find two subdirectories:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">bootstrap/</code>, which contains the most recently released version of Bootstrap (v4.0.0).</li>
+  <li><code class="highlighter-rouge">custom/</code>, which contains all of the custom components and overrides authored specifically for this theme.</li>
+</ul>
+
+<p>The <code class="highlighter-rouge">dist/</code> folder includes everything above, built into single CSS and JS files that can easily be integrated into your project.</p>
+
+<p>The <code class="highlighter-rouge">docs/</code> folder includes the source code for our documentation, as well as a handful of live examples.</p>
+
+<p>The remaining files not specifically mentioned above provide support for packages, license information, and development.</p>
+
+<h1 id="custom-builds">Custom builds</h1>
+
+<p>Leverage the included source files and <code class="highlighter-rouge">gulpfile.js</code> to customize your Bootstrap Theme for your exact needs. Change variables, exclude components, and more.</p>
+
+<ul>
+  <li><code class="highlighter-rouge">toolkit-*.scss</code> is the entry point for Sass files - to build your own custom build, simply modify your local custom files or edit the includes listed here. Note: some themes also rely on a shared <code class="highlighter-rouge">components.scss</code> file, which you can find imported in your <code class="highlighter-rouge">toolkit-*.scss</code>.</li>
+  <li><code class="highlighter-rouge">variables.scss</code> is home to your theme’s variables. Note that your theme’s <code class="highlighter-rouge">variables</code> file depends on and overrides an existing Bootstrap variable file (found in <code class="highlighter-rouge">/scss/bootstrap/_variables.scss</code>).</li>
+</ul>
+
+<h1 id="basic-template">Basic template</h1>
+
+<p>The basic template is a guideline for how to structure your pages when building with a Bootstrap Theme. Included below are all the necessary bits for using the theme’s CSS and JS, as well as some friendly reminders.</p>
+
+<p>Copy the example below into a new HTML file to get started with it.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="c">&lt;!-- These meta tags come first. --&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"X-UA-Compatible"</span> <span class="na">content=</span><span class="s">"IE=edge"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;title&gt;</span>Bootstrap Theme Example<span class="nt">&lt;/title&gt;</span>
+
+    <span class="c">&lt;!-- Include the CSS --&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">"dist/toolkit.min.css"</span> <span class="na">rel=</span><span class="s">"stylesheet"</span><span class="nt">&gt;</span>
+
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>Hello, world!<span class="nt">&lt;/h1&gt;</span>
+
+    <span class="c">&lt;!-- Include jQuery (required) and the JS --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"dist/toolkit.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span></code></pre></figure>
+
+<h1 id="new-components">New components</h1>
+
+<h2 id="entypo">Entypo</h2>
+
+<p><a href="http://entypo.com">Entypo</a> is an awesome, high quality set of icon glyphs made by <a href="http://www.danielbruce.se">Daniel Bruce</a>. We’ve replaced Bootstrap’s default icon font, <a href="http://glyphicons.com">Glyhpicons</a>, with the complete Entypo set and Entypo social extension.</p>
+
+<p>Simply use the new <code class="highlighter-rouge">icon</code> class and an <code class="highlighter-rouge">icon-{modifier}</code> on an inline element. See the examples below for more details.</p>
+
+<h3 id="available-icons">Available icons</h3>
+
+<p>Below are all the original and social icons from Entypo that you can choose from:</p>
+
+<div class="docs-icons">
+  <span class="icon icon-add-to-list"></span>
+  <span class="icon icon-add-user"></span>
+  <span class="icon icon-address"></span>
+  <span class="icon icon-adjust"></span>
+  <span class="icon icon-air"></span>
+  <span class="icon icon-aircraft"></span>
+  <span class="icon icon-aircraft-landing"></span>
+  <span class="icon icon-aircraft-take-off"></span>
+  <span class="icon icon-align-bottom"></span>
+  <span class="icon icon-align-horizontal-middle"></span>
+  <span class="icon icon-align-left"></span>
+  <span class="icon icon-align-right"></span>
+  <span class="icon icon-align-top"></span>
+  <span class="icon icon-align-vertical-middle"></span>
+  <span class="icon icon-archive"></span>
+  <span class="icon icon-area-graph"></span>
+  <span class="icon icon-arrow-bold-down"></span>
+  <span class="icon icon-arrow-bold-left"></span>
+  <span class="icon icon-arrow-bold-right"></span>
+  <span class="icon icon-arrow-bold-up"></span>
+  <span class="icon icon-arrow-down"></span>
+  <span class="icon icon-arrow-left"></span>
+  <span class="icon icon-arrow-right"></span>
+  <span class="icon icon-arrow-up"></span>
+  <span class="icon icon-arrow-long-down"></span>
+  <span class="icon icon-arrow-long-left"></span>
+  <span class="icon icon-arrow-long-right"></span>
+  <span class="icon icon-arrow-long-up"></span>
+  <span class="icon icon-arrow-with-circle-down"></span>
+  <span class="icon icon-arrow-with-circle-left"></span>
+  <span class="icon icon-arrow-with-circle-right"></span>
+  <span class="icon icon-arrow-with-circle-up"></span>
+  <span class="icon icon-attachment"></span>
+  <span class="icon icon-awareness-ribbon"></span>
+  <span class="icon icon-back-in-time"></span>
+  <span class="icon icon-back"></span>
+  <span class="icon icon-bar-graph"></span>
+  <span class="icon icon-battery"></span>
+  <span class="icon icon-beamed-note"></span>
+  <span class="icon icon-bell"></span>
+  <span class="icon icon-blackboard"></span>
+  <span class="icon icon-block"></span>
+  <span class="icon icon-book"></span>
+  <span class="icon icon-bookmark"></span>
+  <span class="icon icon-bookmarks"></span>
+  <span class="icon icon-bowl"></span>
+  <span class="icon icon-box"></span>
+  <span class="icon icon-briefcase"></span>
+  <span class="icon icon-browser"></span>
+  <span class="icon icon-brush"></span>
+  <span class="icon icon-bucket"></span>
+  <span class="icon icon-bug"></span>
+  <span class="icon icon-cake"></span>
+  <span class="icon icon-calculator"></span>
+  <span class="icon icon-calendar"></span>
+  <span class="icon icon-camera"></span>
+  <span class="icon icon-ccw"></span>
+  <span class="icon icon-cw"></span>
+  <span class="icon icon-chat"></span>
+  <span class="icon icon-check"></span>
+  <span class="icon icon-chevron-down"></span>
+  <span class="icon icon-chevron-left"></span>
+  <span class="icon icon-chevron-right"></span>
+  <span class="icon icon-chevron-up"></span>
+  <span class="icon icon-chevron-small-down"></span>
+  <span class="icon icon-chevron-small-left"></span>
+  <span class="icon icon-chevron-small-right"></span>
+  <span class="icon icon-chevron-small-up"></span>
+  <span class="icon icon-chevron-thin-down"></span>
+  <span class="icon icon-chevron-thin-left"></span>
+  <span class="icon icon-chevron-thin-right"></span>
+  <span class="icon icon-chevron-thin-up"></span>
+  <span class="icon icon-chevron-with-circle-down"></span>
+  <span class="icon icon-chevron-with-circle-left"></span>
+  <span class="icon icon-chevron-with-circle-right"></span>
+  <span class="icon icon-chevron-with-circle-up"></span>
+  <span class="icon icon-circle-with-cross"></span>
+  <span class="icon icon-circle-with-minus"></span>
+  <span class="icon icon-circle-with-plus"></span>
+  <span class="icon icon-circle"></span>
+  <span class="icon icon-circular-graph"></span>
+  <span class="icon icon-clapperboard"></span>
+  <span class="icon icon-classic-computer"></span>
+  <span class="icon icon-clipboard"></span>
+  <span class="icon icon-clock"></span>
+  <span class="icon icon-cloud"></span>
+  <span class="icon icon-code"></span>
+  <span class="icon icon-cog"></span>
+  <span class="icon icon-colours"></span>
+  <span class="icon icon-compass"></span>
+  <span class="icon icon-controller-fast-backward"></span>
+  <span class="icon icon-controller-fast-forward"></span>
+  <span class="icon icon-controller-jump-to-start"></span>
+  <span class="icon icon-controller-next"></span>
+  <span class="icon icon-controller-paus"></span>
+  <span class="icon icon-controller-play"></span>
+  <span class="icon icon-controller-record"></span>
+  <span class="icon icon-controller-stop"></span>
+  <span class="icon icon-controller-volume"></span>
+  <span class="icon icon-copy"></span>
+  <span class="icon icon-creative-commons"></span>
+  <span class="icon icon-creative-commons-attribution"></span>
+  <span class="icon icon-creative-commons-noderivs"></span>
+  <span class="icon icon-creative-commons-noncommercial-eu"></span>
+  <span class="icon icon-creative-commons-noncommercial-us"></span>
+  <span class="icon icon-creative-commons-public-domain"></span>
+  <span class="icon icon-creative-commons-remix"></span>
+  <span class="icon icon-creative-commons-share"></span>
+  <span class="icon icon-creative-commons-sharealike"></span>
+  <span class="icon icon-credit-card"></span>
+  <span class="icon icon-credit"></span>
+  <span class="icon icon-crop"></span>
+  <span class="icon icon-cross"></span>
+  <span class="icon icon-cup"></span>
+  <span class="icon icon-cycle"></span>
+  <span class="icon icon-database"></span>
+  <span class="icon icon-dial-pad"></span>
+  <span class="icon icon-direction"></span>
+  <span class="icon icon-document"></span>
+  <span class="icon icon-document-landscape"></span>
+  <span class="icon icon-documents"></span>
+  <span class="icon icon-dot-single"></span>
+  <span class="icon icon-dots-two-horizontal"></span>
+  <span class="icon icon-dots-three-horizontal"></span>
+  <span class="icon icon-dots-two-vertical"></span>
+  <span class="icon icon-dots-three-vertical"></span>
+  <span class="icon icon-download"></span>
+  <span class="icon icon-drink"></span>
+  <span class="icon icon-drive"></span>
+  <span class="icon icon-drop"></span>
+  <span class="icon icon-edit"></span>
+  <span class="icon icon-email"></span>
+  <span class="icon icon-emoji-flirt"></span>
+  <span class="icon icon-emoji-happy"></span>
+  <span class="icon icon-emoji-neutral"></span>
+  <span class="icon icon-emoji-sad"></span>
+  <span class="icon icon-erase"></span>
+  <span class="icon icon-eraser"></span>
+  <span class="icon icon-export"></span>
+  <span class="icon icon-eye"></span>
+  <span class="icon icon-eye-with-line"></span>
+  <span class="icon icon-feather"></span>
+  <span class="icon icon-fingerprint"></span>
+  <span class="icon icon-flag"></span>
+  <span class="icon icon-flash"></span>
+  <span class="icon icon-flashlight"></span>
+  <span class="icon icon-flat-brush"></span>
+  <span class="icon icon-flow-branch"></span>
+  <span class="icon icon-flow-cascade"></span>
+  <span class="icon icon-flow-line"></span>
+  <span class="icon icon-flow-parallel"></span>
+  <span class="icon icon-flow-tree"></span>
+  <span class="icon icon-flower"></span>
+  <span class="icon icon-folder"></span>
+  <span class="icon icon-folder-images"></span>
+  <span class="icon icon-folder-music"></span>
+  <span class="icon icon-folder-video"></span>
+  <span class="icon icon-forward"></span>
+  <span class="icon icon-funnel"></span>
+  <span class="icon icon-game-controller"></span>
+  <span class="icon icon-gauge"></span>
+  <span class="icon icon-globe"></span>
+  <span class="icon icon-graduation-cap"></span>
+  <span class="icon icon-grid"></span>
+  <span class="icon icon-hair-cross"></span>
+  <span class="icon icon-hand"></span>
+  <span class="icon icon-heart"></span>
+  <span class="icon icon-heart-outlined"></span>
+  <span class="icon icon-help"></span>
+  <span class="icon icon-help-with-circle"></span>
+  <span class="icon icon-home"></span>
+  <span class="icon icon-hour-glass"></span>
+  <span class="icon icon-image"></span>
+  <span class="icon icon-image-inverted"></span>
+  <span class="icon icon-images"></span>
+  <span class="icon icon-inbox"></span>
+  <span class="icon icon-infinity"></span>
+  <span class="icon icon-info"></span>
+  <span class="icon icon-info-with-circle"></span>
+  <span class="icon icon-install"></span>
+  <span class="icon icon-key"></span>
+  <span class="icon icon-keyboard"></span>
+  <span class="icon icon-lab-flask"></span>
+  <span class="icon icon-landline"></span>
+  <span class="icon icon-language"></span>
+  <span class="icon icon-laptop"></span>
+  <span class="icon icon-layers"></span>
+  <span class="icon icon-leaf"></span>
+  <span class="icon icon-level-down"></span>
+  <span class="icon icon-level-up"></span>
+  <span class="icon icon-lifebuoy"></span>
+  <span class="icon icon-light-bulb"></span>
+  <span class="icon icon-light-down"></span>
+  <span class="icon icon-light-up"></span>
+  <span class="icon icon-line-graph"></span>
+  <span class="icon icon-link"></span>
+  <span class="icon icon-list"></span>
+  <span class="icon icon-location-pin"></span>
+  <span class="icon icon-location"></span>
+  <span class="icon icon-lock"></span>
+  <span class="icon icon-lock-open"></span>
+  <span class="icon icon-login"></span>
+  <span class="icon icon-log-out"></span>
+  <span class="icon icon-loop"></span>
+  <span class="icon icon-magnet"></span>
+  <span class="icon icon-magnifying-glass"></span>
+  <span class="icon icon-mail"></span>
+  <span class="icon icon-man"></span>
+  <span class="icon icon-map"></span>
+  <span class="icon icon-mask"></span>
+  <span class="icon icon-medal"></span>
+  <span class="icon icon-megaphone"></span>
+  <span class="icon icon-menu"></span>
+  <span class="icon icon-merge"></span>
+  <span class="icon icon-message"></span>
+  <span class="icon icon-mic"></span>
+  <span class="icon icon-minus"></span>
+  <span class="icon icon-mobile"></span>
+  <span class="icon icon-modern-mic"></span>
+  <span class="icon icon-moon"></span>
+  <span class="icon icon-mouse-pointer"></span>
+  <span class="icon icon-mouse"></span>
+  <span class="icon icon-music"></span>
+  <span class="icon icon-network"></span>
+  <span class="icon icon-new-message"></span>
+  <span class="icon icon-new"></span>
+  <span class="icon icon-news"></span>
+  <span class="icon icon-newsletter"></span>
+  <span class="icon icon-note"></span>
+  <span class="icon icon-notification"></span>
+  <span class="icon icon-notifications-off"></span>
+  <span class="icon icon-old-mobile"></span>
+  <span class="icon icon-old-phone"></span>
+  <span class="icon icon-open-book"></span>
+  <span class="icon icon-palette"></span>
+  <span class="icon icon-paper-plane"></span>
+  <span class="icon icon-pencil"></span>
+  <span class="icon icon-phone"></span>
+  <span class="icon icon-pie-chart"></span>
+  <span class="icon icon-pin"></span>
+  <span class="icon icon-plus"></span>
+  <span class="icon icon-popup"></span>
+  <span class="icon icon-power-plug"></span>
+  <span class="icon icon-price-ribbon"></span>
+  <span class="icon icon-price-tag"></span>
+  <span class="icon icon-print"></span>
+  <span class="icon icon-progress-empty"></span>
+  <span class="icon icon-progress-one"></span>
+  <span class="icon icon-progress-two"></span>
+  <span class="icon icon-progress-full"></span>
+  <span class="icon icon-publish"></span>
+  <span class="icon icon-quote"></span>
+  <span class="icon icon-radio"></span>
+  <span class="icon icon-rainbow"></span>
+  <span class="icon icon-remove-user"></span>
+  <span class="icon icon-reply-all"></span>
+  <span class="icon icon-reply"></span>
+  <span class="icon icon-resize-100"></span>
+  <span class="icon icon-resize-full-screen"></span>
+  <span class="icon icon-retweet"></span>
+  <span class="icon icon-rocket"></span>
+  <span class="icon icon-round-brush"></span>
+  <span class="icon icon-rss"></span>
+  <span class="icon icon-ruler"></span>
+  <span class="icon icon-save"></span>
+  <span class="icon icon-scissors"></span>
+  <span class="icon icon-select-arrows"></span>
+  <span class="icon icon-share-alternative"></span>
+  <span class="icon icon-share"></span>
+  <span class="icon icon-shareable"></span>
+  <span class="icon icon-shield"></span>
+  <span class="icon icon-shop"></span>
+  <span class="icon icon-shopping-bag"></span>
+  <span class="icon icon-shopping-basket"></span>
+  <span class="icon icon-shopping-cart"></span>
+  <span class="icon icon-shuffle"></span>
+  <span class="icon icon-signal"></span>
+  <span class="icon icon-sound-mix"></span>
+  <span class="icon icon-sound"></span>
+  <span class="icon icon-sound-mute"></span>
+  <span class="icon icon-sports-club"></span>
+  <span class="icon icon-spreadsheet"></span>
+  <span class="icon icon-squared-cross"></span>
+  <span class="icon icon-squared-minus"></span>
+  <span class="icon icon-squared-plus"></span>
+  <span class="icon icon-star"></span>
+  <span class="icon icon-star-outlined"></span>
+  <span class="icon icon-stopwatch"></span>
+  <span class="icon icon-suitcase"></span>
+  <span class="icon icon-swap"></span>
+  <span class="icon icon-sweden"></span>
+  <span class="icon icon-switch"></span>
+  <span class="icon icon-tablet"></span>
+  <span class="icon icon-tablet-mobile-combo"></span>
+  <span class="icon icon-tag"></span>
+  <span class="icon icon-untag"></span>
+  <span class="icon icon-text-document"></span>
+  <span class="icon icon-text-document-inverted"></span>
+  <span class="icon icon-text"></span>
+  <span class="icon icon-thermometer"></span>
+  <span class="icon icon-thumbs-up"></span>
+  <span class="icon icon-thumbs-down"></span>
+  <span class="icon icon-thunder-cloud"></span>
+  <span class="icon icon-ticket"></span>
+  <span class="icon icon-time-slot"></span>
+  <span class="icon icon-tools"></span>
+  <span class="icon icon-traffic-cone"></span>
+  <span class="icon icon-trash"></span>
+  <span class="icon icon-tree"></span>
+  <span class="icon icon-triangle-down"></span>
+  <span class="icon icon-triangle-left"></span>
+  <span class="icon icon-triangle-right"></span>
+  <span class="icon icon-triangle-up"></span>
+  <span class="icon icon-trophy"></span>
+  <span class="icon icon-tv"></span>
+  <span class="icon icon-typing"></span>
+  <span class="icon icon-uninstall"></span>
+  <span class="icon icon-unread"></span>
+  <span class="icon icon-upload-to-cloud"></span>
+  <span class="icon icon-upload"></span>
+  <span class="icon icon-user"></span>
+  <span class="icon icon-users"></span>
+  <span class="icon icon-v-card"></span>
+  <span class="icon icon-video-camera"></span>
+  <span class="icon icon-video"></span>
+  <span class="icon icon-vinyl"></span>
+  <span class="icon icon-voicemail"></span>
+  <span class="icon icon-wallet"></span>
+  <span class="icon icon-warning"></span>
+  <span class="icon icon-water"></span>
+</div>
+
+<div class="docs-icons">
+  <span class="icon icon-500px"></span>
+  <span class="icon icon-500px-with-circle"></span>
+  <span class="icon icon-app-store"></span>
+  <span class="icon icon-baidu"></span>
+  <span class="icon icon-basecamp"></span>
+  <span class="icon icon-behance"></span>
+  <span class="icon icon-creative-cloud"></span>
+  <span class="icon icon-dribbble"></span>
+  <span class="icon icon-dribbble-with-circle"></span>
+  <span class="icon icon-dropbox"></span>
+  <span class="icon icon-evernote"></span>
+  <span class="icon icon-facebook"></span>
+  <span class="icon icon-facebook-with-circle"></span>
+  <span class="icon icon-flattr"></span>
+  <span class="icon icon-flickr"></span>
+  <span class="icon icon-flickr-with-circle"></span>
+  <span class="icon icon-foursquare"></span>
+  <span class="icon icon-github"></span>
+  <span class="icon icon-github-with-circle"></span>
+  <span class="icon icon-google-drive"></span>
+  <span class="icon icon-google-hangouts"></span>
+  <span class="icon icon-google-play"></span>
+  <span class="icon icon-google-plus"></span>
+  <span class="icon icon-google-plus-with-circle"></span>
+  <span class="icon icon-grooveshark"></span>
+  <span class="icon icon-houzz"></span>
+  <span class="icon icon-icloud"></span>
+  <span class="icon icon-instagram"></span>
+  <span class="icon icon-instagram-with-circle"></span>
+  <span class="icon icon-lastfm"></span>
+  <span class="icon icon-lastfm-with-circle"></span>
+  <span class="icon icon-linkedin"></span>
+  <span class="icon icon-linkedin-with-circle"></span>
+  <span class="icon icon-mail-with-circle"></span>
+  <span class="icon icon-medium"></span>
+  <span class="icon icon-medium-with-circle"></span>
+  <span class="icon icon-mixi"></span>
+  <span class="icon icon-onedrive"></span>
+  <span class="icon icon-paypal"></span>
+  <span class="icon icon-picasa"></span>
+  <span class="icon icon-pinterest"></span>
+  <span class="icon icon-pinterest-with-circle"></span>
+  <span class="icon icon-qq"></span>
+  <span class="icon icon-qq-with-circle"></span>
+  <span class="icon icon-raft"></span>
+  <span class="icon icon-raft-with-circle"></span>
+  <span class="icon icon-rdio"></span>
+  <span class="icon icon-rdio-with-circle"></span>
+  <span class="icon icon-renren"></span>
+  <span class="icon icon-scribd"></span>
+  <span class="icon icon-sina-weibo"></span>
+  <span class="icon icon-skype"></span>
+  <span class="icon icon-skype-with-circle"></span>
+  <span class="icon icon-slideshare"></span>
+  <span class="icon icon-smashing"></span>
+  <span class="icon icon-soundcloud"></span>
+  <span class="icon icon-spotify"></span>
+  <span class="icon icon-spotify-with-circle"></span>
+  <span class="icon icon-stumbleupon"></span>
+  <span class="icon icon-stumbleupon-with-circle"></span>
+  <span class="icon icon-swarm"></span>
+  <span class="icon icon-tripadvisor"></span>
+  <span class="icon icon-tumblr"></span>
+  <span class="icon icon-tumblr-with-circle"></span>
+  <span class="icon icon-twitter"></span>
+  <span class="icon icon-twitter-with-circle"></span>
+  <span class="icon icon-vimeo"></span>
+  <span class="icon icon-vimeo-with-circle"></span>
+  <span class="icon icon-vine"></span>
+  <span class="icon icon-vine-with-circle"></span>
+  <span class="icon icon-vk"></span>
+  <span class="icon icon-vk-with-circle"></span>
+  <span class="icon icon-vk-alternitive"></span>
+  <span class="icon icon-windows-store"></span>
+  <span class="icon icon-xing"></span>
+  <span class="icon icon-xing-with-circle"></span>
+  <span class="icon icon-yelp"></span>
+  <span class="icon icon-youko"></span>
+  <span class="icon icon-youko-with-circle"></span>
+  <span class="icon icon-youtube"></span>
+  <span class="icon icon-youtube-with-circle"></span>
+</div>
+
+<h3 id="examples">Examples</h3>
+
+<p>Entypo icons can be placed in just about any other element, so long as they are a separate HTML element (e.g., a <code class="highlighter-rouge">&lt;span&gt;</code>). See the examples below for how to put them to use.</p>
+
+<div class="docs-example" data-example-id="">
+<button class="btn btn-secondary" type="button">
+  <span class="icon icon-thumbs-up"></span>
+  Like
+</button>
+<button class="btn btn-primary" type="button">
+  <span class="icon icon-thumbs-up"></span>
+  Liked!
+</button>
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"btn btn-secondary"</span> <span class="na">type=</span><span class="s">"button"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"icon icon-thumbs-up"</span><span class="nt">&gt;&lt;/span&gt;</span>
+  Like
+<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"btn btn-primary"</span> <span class="na">type=</span><span class="s">"button"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"icon icon-thumbs-up"</span><span class="nt">&gt;&lt;/span&gt;</span>
+  Liked!
+<span class="nt">&lt;/button&gt;</span></code></pre></div>
+
+<div class="docs-example" data-example-id="">
+<ul class="nav nav-pills">
+  <li class="nav-item">
+    <a class="nav-link active" href="#">
+      <span class="icon icon-chat"></span>
+      Discussions
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">
+      <span class="icon icon-bell"></span>
+      Notifications
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">
+      <span class="icon icon-users"></span>
+      Members
+    </a>
+  </li>
+</ul>
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"nav nav-pills"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"nav-item"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"nav-link active"</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"icon icon-chat"</span><span class="nt">&gt;&lt;/span&gt;</span>
+      Discussions
+    <span class="nt">&lt;/a&gt;</span>
+  <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"nav-item"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"nav-link"</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"icon icon-bell"</span><span class="nt">&gt;&lt;/span&gt;</span>
+      Notifications
+    <span class="nt">&lt;/a&gt;</span>
+  <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"nav-item"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"nav-link"</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"icon icon-users"</span><span class="nt">&gt;&lt;/span&gt;</span>
+      Members
+    <span class="nt">&lt;/a&gt;</span>
+  <span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span></code></pre></div>
+
+<h2 id="pill-buttons">Pill buttons</h2>
+
+<p>Add <code class="highlighter-rouge">.btn-pill</code> to any button to make them more rounded.</p>
+
+<div class="docs-example" data-example-id="">
+<button type="button" class="btn btn-lg btn-pill btn-primary">Primary</button>
+<button type="button" class="btn btn-lg btn-pill btn-secondary">Secondary</button>
+<button type="button" class="btn btn-lg btn-pill btn-success">Success</button>
+<button type="button" class="btn btn-lg btn-pill btn-info">Info</button>
+<button type="button" class="btn btn-lg btn-pill btn-warning">Warning</button>
+<button type="button" class="btn btn-lg btn-pill btn-danger">Danger</button>
+<button type="button" class="btn btn-lg btn-pill btn-link">Link</button>
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-lg btn-pill btn-primary"</span><span class="nt">&gt;</span>Primary<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-lg btn-pill btn-secondary"</span><span class="nt">&gt;</span>Secondary<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-lg btn-pill btn-success"</span><span class="nt">&gt;</span>Success<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-lg btn-pill btn-info"</span><span class="nt">&gt;</span>Info<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-lg btn-pill btn-warning"</span><span class="nt">&gt;</span>Warning<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-lg btn-pill btn-danger"</span><span class="nt">&gt;</span>Danger<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-lg btn-pill btn-link"</span><span class="nt">&gt;</span>Link<span class="nt">&lt;/button&gt;</span></code></pre></div>
+
+<div class="docs-example" data-example-id="">
+<button type="button" class="btn btn-pill btn-primary">Primary</button>
+<button type="button" class="btn btn-pill btn-secondary">Secondary</button>
+<button type="button" class="btn btn-pill btn-success">Success</button>
+<button type="button" class="btn btn-pill btn-info">Info</button>
+<button type="button" class="btn btn-pill btn-warning">Warning</button>
+<button type="button" class="btn btn-pill btn-danger">Danger</button>
+<button type="button" class="btn btn-pill btn-link">Link</button>
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-pill btn-primary"</span><span class="nt">&gt;</span>Primary<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-pill btn-secondary"</span><span class="nt">&gt;</span>Secondary<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-pill btn-success"</span><span class="nt">&gt;</span>Success<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-pill btn-info"</span><span class="nt">&gt;</span>Info<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-pill btn-warning"</span><span class="nt">&gt;</span>Warning<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-pill btn-danger"</span><span class="nt">&gt;</span>Danger<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-pill btn-link"</span><span class="nt">&gt;</span>Link<span class="nt">&lt;/button&gt;</span></code></pre></div>
+
+<div class="docs-example" data-example-id="">
+<button type="button" class="btn btn-sm btn-pill btn-primary">Primary</button>
+<button type="button" class="btn btn-sm btn-pill btn-secondary">Secondary</button>
+<button type="button" class="btn btn-sm btn-pill btn-success">Success</button>
+<button type="button" class="btn btn-sm btn-pill btn-info">Info</button>
+<button type="button" class="btn btn-sm btn-pill btn-warning">Warning</button>
+<button type="button" class="btn btn-sm btn-pill btn-danger">Danger</button>
+<button type="button" class="btn btn-sm btn-pill btn-link">Link</button>
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-sm btn-pill btn-primary"</span><span class="nt">&gt;</span>Primary<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-sm btn-pill btn-secondary"</span><span class="nt">&gt;</span>Secondary<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-sm btn-pill btn-success"</span><span class="nt">&gt;</span>Success<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-sm btn-pill btn-info"</span><span class="nt">&gt;</span>Info<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-sm btn-pill btn-warning"</span><span class="nt">&gt;</span>Warning<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-sm btn-pill btn-danger"</span><span class="nt">&gt;</span>Danger<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-sm btn-pill btn-link"</span><span class="nt">&gt;</span>Link<span class="nt">&lt;/button&gt;</span></code></pre></div>
+
+<div class="docs-example" data-example-id="">
+<button type="button" class="btn btn-xs btn-pill btn-primary">Primary</button>
+<button type="button" class="btn btn-xs btn-pill btn-secondary">Default</button>
+<button type="button" class="btn btn-xs btn-pill btn-success">Success</button>
+<button type="button" class="btn btn-xs btn-pill btn-info">Info</button>
+<button type="button" class="btn btn-xs btn-pill btn-warning">Warning</button>
+<button type="button" class="btn btn-xs btn-pill btn-danger">Danger</button>
+<button type="button" class="btn btn-xs btn-pill btn-link">Link</button>
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-xs btn-pill btn-primary"</span><span class="nt">&gt;</span>Primary<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-xs btn-pill btn-secondary"</span><span class="nt">&gt;</span>Default<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-xs btn-pill btn-success"</span><span class="nt">&gt;</span>Success<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-xs btn-pill btn-info"</span><span class="nt">&gt;</span>Info<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-xs btn-pill btn-warning"</span><span class="nt">&gt;</span>Warning<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-xs btn-pill btn-danger"</span><span class="nt">&gt;</span>Danger<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-xs btn-pill btn-link"</span><span class="nt">&gt;</span>Link<span class="nt">&lt;/button&gt;</span></code></pre></div>
+
+<h2 id="blocks">Blocks</h2>
+
+<p>Blocks are a brand new composing metaphor exclusively for use with our Marketing toolkit. Build your site up by stacking several blocks on top of each other to provide focused, attention grabbing units of content.</p>
+
+<div class="docs-example" data-example-id="">
+<div class="block text-center">
+  <h1 class="block-title">A basic block</h1>
+  <h4 class="text-muted">Use these to package stackable, image driven content.</h4>
+  <button class="btn btn-primary mt-1">With a simple button</button>
+</div>
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"block text-center"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">"block-title"</span><span class="nt">&gt;</span>A basic block<span class="nt">&lt;/h1&gt;</span>
+  <span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"text-muted"</span><span class="nt">&gt;</span>Use these to package stackable, image driven content.<span class="nt">&lt;/h4&gt;</span>
+  <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"btn btn-primary mt-1"</span><span class="nt">&gt;</span>With a simple button<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></div>
+
+<p>We have several basic block types, including an inverse block.</p>
+
+<div class="docs-example" data-example-id="">
+<div class="block block-inverse text-center">
+  <h1 class="block-title">An inverse block</h1>
+  <h4 class="text-muted">Use the inverse modifier for working over dark images.</h4>
+  <button class="btn btn-primary mt-1">With a simple button</button>
+</div>
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"block block-inverse text-center"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">"block-title"</span><span class="nt">&gt;</span>An inverse block<span class="nt">&lt;/h1&gt;</span>
+  <span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"text-muted"</span><span class="nt">&gt;</span>Use the inverse modifier for working over dark images.<span class="nt">&lt;/h4&gt;</span>
+  <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"btn btn-primary mt-1"</span><span class="nt">&gt;</span>With a simple button<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></div>
+
+<p>We’ve also made it easy to integrate embeded content for more interactive block backgrounds.</p>
+
+<div class="docs-example" data-example-id="">
+<div class="block block-inverse text-center">
+  <div class="block-foreground">
+    <h1 class="block-title">An embed block</h1>
+    <h4 class="text-muted">Use block-background to integrate interactive backgrounds.</h4>
+    <button class="btn btn-outline-secondary mt-1">With a simple button</button>
+  </div>
+  <div class="block-background">
+    <iframe frameborder="0" src="https://a.tiles.mapbox.com/v4/jacobthornton.6681fb42/attribution.html?access_token=pk.eyJ1IjoiamFjb2J0aG9ybnRvbiIsImEiOiJlMGRmZmJlNDZkNDhlN2EzMTQ0YWFiNjhlN2RiZWY1ZCJ9.hO-UNIIplnebJYkya-8TEQ"></iframe>
+  </div>
+</div>
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"block block-inverse text-center"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"block-foreground"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">"block-title"</span><span class="nt">&gt;</span>An embed block<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"text-muted"</span><span class="nt">&gt;</span>Use block-background to integrate interactive backgrounds.<span class="nt">&lt;/h4&gt;</span>
+    <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"btn btn-outline-secondary mt-1"</span><span class="nt">&gt;</span>With a simple button<span class="nt">&lt;/button&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"block-background"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;iframe</span> <span class="na">frameBorder=</span><span class="s">"0"</span> <span class="na">src=</span><span class="s">"https://a.tiles.mapbox.com/v4/jacobthornton.6681fb42/attribution.html?access_token=pk.eyJ1IjoiamFjb2J0aG9ybnRvbiIsImEiOiJlMGRmZmJlNDZkNDhlN2EzMTQ0YWFiNjhlN2RiZWY1ZCJ9.hO-UNIIplnebJYkya-8TEQ"</span><span class="nt">&gt;&lt;/iframe&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></div>
+
+<p>Use different modifiers like <code class="highlighter-rouge">block-bordered</code> and <code class="highlighter-rouge">block-angle</code> to experiment with different visual treatments and flows between your blocks.</p>
+
+<div class="docs-example" data-example-id="">
+<div class="block text-center">
+  <div class="container-fluid">
+    <h4 class="mb-4">
+      Join over 900,000 designers already using Bootstrap. Get Bootstrap <strong>free</strong> forever!
+    </h4>
+    <form class="form-inline d-flex justify-content-center">
+      <input class="form-control mb-3" placeholder="email address" />
+      <input class="form-control mb-3 mx-1" type="password" placeholder="Create a Password" />
+      <button class="btn btn-primary mb-3">Get started - free forever</button>
+    </form>
+    <small class="text-muted">
+      By clicking "get started – free Forever!" I agree to Bootstraps
+      <a href="#">Terms of service</a>
+    </small>
+  </div>
+</div>
+<div class="block block-bordered text-center">
+  <div class="container-fluid">
+   <blockquote class="pull-quote">
+      <p>
+        “Notice that simple inset border above. Isn't it lovely.”
+      </p>
+      <cite>Mark Otto, Huge Nerd</cite>
+    </blockquote>
+  </div>
+</div>
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"block text-center"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container-fluid"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"mb-4"</span><span class="nt">&gt;</span>
+      Join over 900,000 designers already using Bootstrap. Get Bootstrap <span class="nt">&lt;strong&gt;</span>free<span class="nt">&lt;/strong&gt;</span> forever!
+    <span class="nt">&lt;/h4&gt;</span>
+    <span class="nt">&lt;form</span> <span class="na">class=</span><span class="s">"form-inline d-flex justify-content-center"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">"form-control mb-3"</span> <span class="na">placeholder=</span><span class="s">"email address"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">"form-control mb-3 mx-1"</span> <span class="na">type=</span><span class="s">"password"</span> <span class="na">placeholder=</span><span class="s">"Create a Password"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"btn btn-primary mb-3"</span><span class="nt">&gt;</span>Get started - free forever<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/form&gt;</span>
+    <span class="nt">&lt;small</span> <span class="na">class=</span><span class="s">"text-muted"</span><span class="nt">&gt;</span>
+      By clicking "get started – free Forever!" I agree to Bootstraps
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Terms of service<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;/small&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"block block-bordered text-center"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container-fluid"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;blockquote</span> <span class="na">class=</span><span class="s">"pull-quote"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;p&gt;</span>
+        “Notice that simple inset border above. Isn't it lovely.”
+      <span class="nt">&lt;/p&gt;</span>
+      <span class="nt">&lt;cite&gt;</span>Mark Otto, Huge Nerd<span class="nt">&lt;/cite&gt;</span>
+    <span class="nt">&lt;/blockquote&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></div>
+
+<p>Use the <code class="highlighter-rouge">block-fill-height</code> modifier to make your block fill a user’s screen, and then use the responsive alignment classes like <code class="highlighter-rouge">block-xs-middle</code> or <code class="highlighter-rouge">block-md-bottom</code> to align your content within the block.</p>
+
+<div class="docs-example" data-example-id="">
+<div class="block block-fill-height text-center">
+  <div class="block-xs-bottom">
+    <div class="container-fluid">
+     <blockquote class="pull-quote">
+        <p>
+          “Started at the bottom… etc”
+        </p>
+        <cite>Drake, OVO</cite>
+      </blockquote>
+    </div>
+  </div>
+</div>
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"block block-fill-height text-center"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"block-xs-bottom"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container-fluid"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;blockquote</span> <span class="na">class=</span><span class="s">"pull-quote"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+          “Started at the bottom… etc”
+        <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;cite&gt;</span>Drake, OVO<span class="nt">&lt;/cite&gt;</span>
+      <span class="nt">&lt;/blockquote&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></div>
+
+<h2 id="text-ribbons">Text ribbons</h2>
+
+<p>Create culti-line, inline ribbons on your text. Useful for breaking up content and adding strong visual flourishes.</p>
+
+<div class="docs-example" data-example-id="">
+<h2 class="mt-0">
+  <strong class="text-ribbon text-ribbon-primary">
+    <span>Gucci Flip flops</span>
+  </strong>
+</h2>
+<p class="mt-4">
+  <span class="text-ribbon text-ribbon-primary">
+    <span>Aenean lacinia bibendum nulla sed consectetur. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Curabitur blandit tempus porttitor.</span>
+  </span>
+</p>
+
+<h2 class="mt-5">
+  <strong class="text-ribbon text-ribbon-success">
+    <span>Gucci Flip flops</span>
+  </strong>
+</h2>
+<p class="mt-4">
+  <span class="text-ribbon text-ribbon-success">
+    <span>Aenean lacinia bibendum nulla sed consectetur. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Curabitur blandit tempus porttitor.</span>
+  </span>
+</p>
+
+<h2 class="mt-5">
+  <strong class="text-ribbon text-ribbon-info">
+    <span>Gucci Flip flops</span>
+  </strong>
+</h2>
+<p class="mt-4">
+  <span class="text-ribbon text-ribbon-info">
+    <span>Aenean lacinia bibendum nulla sed consectetur. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Curabitur blandit tempus porttitor.</span>
+  </span>
+</p>
+
+<h2 class="mt-5">
+  <strong class="text-ribbon text-ribbon-warning">
+    <span>Gucci Flip flops</span>
+  </strong>
+</h2>
+<p class="mt-4">
+  <span class="text-ribbon text-ribbon-warning">
+    <span>Aenean lacinia bibendum nulla sed consectetur. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Curabitur blandit tempus porttitor.</span>
+  </span>
+</p>
+
+<h2 class="mt-5">
+  <strong class="text-ribbon text-ribbon-danger">
+    <span>Gucci Flip flops</span>
+  </strong>
+</h2>
+<p class="mt-4">
+  <span class="text-ribbon text-ribbon-danger">
+    <span>Aenean lacinia bibendum nulla sed consectetur. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Curabitur blandit tempus porttitor.</span>
+  </span>
+</p>
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;h2</span> <span class="na">class=</span><span class="s">"mt-0"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;strong</span> <span class="na">class=</span><span class="s">"text-ribbon text-ribbon-primary"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span&gt;</span>Gucci Flip flops<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;/strong&gt;</span>
+<span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"mt-4"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"text-ribbon text-ribbon-primary"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span&gt;</span>Aenean lacinia bibendum nulla sed consectetur. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Curabitur blandit tempus porttitor.<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;h2</span> <span class="na">class=</span><span class="s">"mt-5"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;strong</span> <span class="na">class=</span><span class="s">"text-ribbon text-ribbon-success"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span&gt;</span>Gucci Flip flops<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;/strong&gt;</span>
+<span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"mt-4"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"text-ribbon text-ribbon-success"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span&gt;</span>Aenean lacinia bibendum nulla sed consectetur. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Curabitur blandit tempus porttitor.<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;h2</span> <span class="na">class=</span><span class="s">"mt-5"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;strong</span> <span class="na">class=</span><span class="s">"text-ribbon text-ribbon-info"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span&gt;</span>Gucci Flip flops<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;/strong&gt;</span>
+<span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"mt-4"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"text-ribbon text-ribbon-info"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span&gt;</span>Aenean lacinia bibendum nulla sed consectetur. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Curabitur blandit tempus porttitor.<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;h2</span> <span class="na">class=</span><span class="s">"mt-5"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;strong</span> <span class="na">class=</span><span class="s">"text-ribbon text-ribbon-warning"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span&gt;</span>Gucci Flip flops<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;/strong&gt;</span>
+<span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"mt-4"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"text-ribbon text-ribbon-warning"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span&gt;</span>Aenean lacinia bibendum nulla sed consectetur. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Curabitur blandit tempus porttitor.<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;h2</span> <span class="na">class=</span><span class="s">"mt-5"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;strong</span> <span class="na">class=</span><span class="s">"text-ribbon text-ribbon-danger"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span&gt;</span>Gucci Flip flops<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;/strong&gt;</span>
+<span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"mt-4"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"text-ribbon text-ribbon-danger"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span&gt;</span>Aenean lacinia bibendum nulla sed consectetur. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Curabitur blandit tempus porttitor.<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/p&gt;</span></code></pre></div>
+
+<h2 id="transparent-navbar">Transparent navbar</h2>
+
+<p>Use the new <code class="highlighter-rouge">.navbar-transparent</code> variation for placing navbars over backgrounds and interactive content.</p>
+
+<div class="docs-example" data-example-id="">
+<div class="py-5 px-1" style="background: url(../assets/img/kanye.jpg) top center; background-size: cover">
+
+
+  <nav class="navbar navbar-transparent navbar-padded navbar-expand-sm">
+    <a class="navbar-brand" href="#">
+      <h4 class="text-uppercase my-0">Project Name</h4>
+    </a>
+
+    <button class="navbar-toggler navbar-toggler-right d-md-none" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="nav navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </nav>
+
+</div>
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"py-5 px-1"</span> <span class="na">style=</span><span class="s">"background: url(../assets/img/kanye.jpg) top center; background-size: cover"</span><span class="nt">&gt;</span>
+
+
+  <span class="nt">&lt;nav</span> <span class="na">class=</span><span class="s">"navbar navbar-transparent navbar-padded navbar-expand-sm"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"navbar-brand"</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"text-uppercase my-0"</span><span class="nt">&gt;</span>Project Name<span class="nt">&lt;/h4&gt;</span>
+    <span class="nt">&lt;/a&gt;</span>
+
+    <span class="nt">&lt;button</span>
+      <span class="na">class=</span><span class="s">"navbar-toggler navbar-toggler-right d-md-none"</span>
+      <span class="na">type=</span><span class="s">"button"</span>
+      <span class="na">data-toggle=</span><span class="s">"collapse"</span>
+      <span class="na">data-target=</span><span class="s">"#navbarResponsive"</span>
+      <span class="na">aria-controls=</span><span class="s">"navbarResponsive"</span>
+      <span class="na">aria-expanded=</span><span class="s">"false"</span>
+      <span class="na">aria-label=</span><span class="s">"Toggle navigation"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"navbar-toggler-icon"</span><span class="nt">&gt;&lt;/span&gt;</span>
+    <span class="nt">&lt;/button&gt;</span>
+
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"collapse navbar-collapse"</span> <span class="na">id=</span><span class="s">"navbarResponsive"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"nav navbar-nav ml-auto"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"nav-item"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"nav-link"</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Home<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"nav-item"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"nav-link"</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>About<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"nav-item"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"nav-link"</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Contact<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/div&gt;</span><span class="c">&lt;!--/.nav-collapse --&gt;</span>
+  <span class="nt">&lt;/nav&gt;</span>
+
+<span class="nt">&lt;/div&gt;</span></code></pre></div>
+
+<h2 id="nav-bordered">Nav bordered</h2>
+
+<p>The bordered nav builds on Bootstrap’s <code class="highlighter-rouge">.nav</code> base styles with a new, bolder variation to nav links.</p>
+
+<div class="docs-example" data-example-id="">
+<ul class="nav nav-bordered">
+  <li class="nav-item">
+    <a class="nav-link active" href="#">Bold</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Minimal</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Components</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Docs</a>
+  </li>
+</ul>
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"nav nav-bordered"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"nav-item"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"nav-link active"</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Bold<span class="nt">&lt;/a&gt;</span>
+  <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"nav-item"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"nav-link"</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Minimal<span class="nt">&lt;/a&gt;</span>
+  <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"nav-item"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"nav-link"</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Components<span class="nt">&lt;/a&gt;</span>
+  <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"nav-item"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"nav-link"</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Docs<span class="nt">&lt;/a&gt;</span>
+  <span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span></code></pre></div>
+
+<p>Bordered nav links can also be stacked:</p>
+
+<div class="docs-example" data-example-id="">
+<ul class="nav nav-bordered nav-stacked flex-column">
+  <li class="nav-header">Examples</li>
+  <li class="nav-item">
+    <a class="nav-link active" href="#">Bold</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Minimal</a>
+  </li>
+  
+  <li class="nav-header">Sections</li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="#">Grid</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Pricing</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">About</a>
+  </li>
+</ul>
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"nav nav-bordered nav-stacked flex-column"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"nav-header"</span><span class="nt">&gt;</span>Examples<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"nav-item"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"nav-link active"</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Bold<span class="nt">&lt;/a&gt;</span>
+  <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"nav-item"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"nav-link"</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Minimal<span class="nt">&lt;/a&gt;</span>
+  <span class="nt">&lt;/li&gt;</span>
+  
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"nav-header"</span><span class="nt">&gt;</span>Sections<span class="nt">&lt;/li&gt;</span>
+
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"nav-item"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"nav-link"</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Grid<span class="nt">&lt;/a&gt;</span>
+  <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"nav-item"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"nav-link"</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Pricing<span class="nt">&lt;/a&gt;</span>
+  <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"nav-item"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"nav-link"</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>About<span class="nt">&lt;/a&gt;</span>
+  <span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span></code></pre></div>
+
+<h2 id="carousel-light">Carousel Light</h2>
+
+<p>The light carousel is a modified version of Bootstrap’s default carousel, using lighter styles on all carousel controls.</p>
+
+<div class="docs-example" data-example-id="">
+<div id="carousel-example-generic-2" class="carousel carousel-light slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-example-generic-2" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-example-generic-2" data-slide-to="1"></li>
+    <li data-target="#carousel-example-generic-2" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner" role="listbox">
+    <div class="carousel-item active">
+      <img class="d-block img-fluid" src="https://placehold.it/1140x500/fff/333" alt="First slide" />
+    </div>
+    <div class="carousel-item">
+      <img class="d-block img-fluid" src="https://placehold.it/1140x500/fff/333" alt="Second slide" />
+    </div>
+    <div class="carousel-item">
+      <img class="d-block img-fluid" src="https://placehold.it/1140x500/fff/333" alt="Third slide" />
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carousel-example-generic-2" role="button" data-slide="prev">
+    <span class="icon icon-chevron-thin-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carousel-example-generic-2" role="button" data-slide="next">
+    <span class="icon icon-chevron-thin-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"carousel-example-generic-2"</span> <span class="na">class=</span><span class="s">"carousel carousel-light slide"</span> <span class="na">data-ride=</span><span class="s">"carousel"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;ol</span> <span class="na">class=</span><span class="s">"carousel-indicators"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">data-target=</span><span class="s">"#carousel-example-generic-2"</span> <span class="na">data-slide-to=</span><span class="s">"0"</span> <span class="na">class=</span><span class="s">"active"</span><span class="nt">&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">data-target=</span><span class="s">"#carousel-example-generic-2"</span> <span class="na">data-slide-to=</span><span class="s">"1"</span><span class="nt">&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">data-target=</span><span class="s">"#carousel-example-generic-2"</span> <span class="na">data-slide-to=</span><span class="s">"2"</span><span class="nt">&gt;&lt;/li&gt;</span>
+  <span class="nt">&lt;/ol&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"carousel-inner"</span> <span class="na">role=</span><span class="s">"listbox"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"carousel-item active"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;img</span> <span class="na">class=</span><span class="s">"d-block img-fluid"</span> <span class="na">src=</span><span class="s">"https://placehold.it/1140x500/fff/333"</span> <span class="na">alt=</span><span class="s">"First slide"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"carousel-item"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;img</span> <span class="na">class=</span><span class="s">"d-block img-fluid"</span> <span class="na">src=</span><span class="s">"https://placehold.it/1140x500/fff/333"</span> <span class="na">alt=</span><span class="s">"Second slide"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"carousel-item"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;img</span> <span class="na">class=</span><span class="s">"d-block img-fluid"</span> <span class="na">src=</span><span class="s">"https://placehold.it/1140x500/fff/333"</span> <span class="na">alt=</span><span class="s">"Third slide"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"carousel-control-prev"</span> <span class="na">href=</span><span class="s">"#carousel-example-generic-2"</span> <span class="na">role=</span><span class="s">"button"</span> <span class="na">data-slide=</span><span class="s">"prev"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"icon icon-chevron-thin-left"</span> <span class="na">aria-hidden=</span><span class="s">"true"</span><span class="nt">&gt;&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"sr-only"</span><span class="nt">&gt;</span>Previous<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;/a&gt;</span>
+  <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"carousel-control-next"</span> <span class="na">href=</span><span class="s">"#carousel-example-generic-2"</span> <span class="na">role=</span><span class="s">"button"</span> <span class="na">data-slide=</span><span class="s">"next"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"icon icon-chevron-thin-right"</span> <span class="na">aria-hidden=</span><span class="s">"true"</span><span class="nt">&gt;&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"sr-only"</span><span class="nt">&gt;</span>Next<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></div>
+
+<h2 id="callouts">Callouts</h2>
+
+<p>Use callouts to quickly draw attention to specific actions with an extended explanation.</p>
+
+<div class="docs-example" data-example-id="">
+<div class="callout">
+  <div class="callout-content">
+    <strong>Explore this thing.</strong> Learn more about this thing.
+  </div>
+
+  <div class="callout-secondary">
+    <button class="btn btn-primary">Get started</button>
+  </div>
+</div>
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"callout"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"callout-content"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;strong&gt;</span>Explore this thing.<span class="nt">&lt;/strong&gt;</span> Learn more about this thing.
+  <span class="nt">&lt;/div&gt;</span>
+
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"callout-secondary"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"btn btn-primary"</span><span class="nt">&gt;</span>Get started<span class="nt">&lt;/button&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></div>
+
+<h2 id="featured-lists">Featured lists</h2>
+
+<p>Featured lists are common marketing components used for associating visual icons with a list of topics.</p>
+
+<div class="docs-example" data-example-id="">
+<div class="container-fluid">
+  <div class="row my-4">
+    <div class="col-sm-6">
+      <ul class="featured-list featured-list-bordered">
+        <li class="mb-5">
+          <div class="featured-list-icon">
+            <span class="icon icon-dropbox"></span>
+          </div>
+
+          <h3>Save things</h3>
+          <p>
+            Use dropbox to save things in the "cloud" because throwing things away is stressful and this way you don't have to.
+          </p>
+        </li>
+
+        <li>
+          <div class="featured-list-icon">
+            <span class="icon icon-github"></span>
+          </div>
+          <h3>Fork things</h3>
+          <p>
+            Use github to share things on the internet then change them. Make things better. Free software? But not as in beer.
+          </p>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-6">
+      <ul class="featured-list featured-list-bordered">
+        <li class="mb-5">
+          <div class="featured-list-icon">
+            <span class="icon icon-medium"></span>
+          </div>
+
+          <h3>Write things</h3>
+          <p>
+            Use Medium to write things down and sound smart. Also when you write, your writings looks pretty and that is cool.
+          </p>
+        </li>
+
+        <li>
+          <div class="featured-list-icon">
+            <span class="icon icon-twitter"></span>
+          </div>
+          <h3>Tweet things</h3>
+          <p>
+            Use twitter to share 140 characters worth of anything you want. Pictures, videos, etc. It doesn't really matter.
+          </p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container-fluid"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row my-4"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-sm-6"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"featured-list featured-list-bordered"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"mb-5"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"featured-list-icon"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"icon icon-dropbox"</span><span class="nt">&gt;&lt;/span&gt;</span>
+          <span class="nt">&lt;/div&gt;</span>
+
+          <span class="nt">&lt;h3&gt;</span>Save things<span class="nt">&lt;/h3&gt;</span>
+          <span class="nt">&lt;p&gt;</span>
+            Use dropbox to save things in the "cloud" because throwing things away is stressful and this way you don't have to.
+          <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+
+        <span class="nt">&lt;li&gt;</span>
+          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"featured-list-icon"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"icon icon-github"</span><span class="nt">&gt;&lt;/span&gt;</span>
+          <span class="nt">&lt;/div&gt;</span>
+          <span class="nt">&lt;h3&gt;</span>Fork things<span class="nt">&lt;/h3&gt;</span>
+          <span class="nt">&lt;p&gt;</span>
+            Use github to share things on the internet then change them. Make things better. Free software? But not as in beer.
+          <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-sm-6"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"featured-list featured-list-bordered"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"mb-5"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"featured-list-icon"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"icon icon-medium"</span><span class="nt">&gt;&lt;/span&gt;</span>
+          <span class="nt">&lt;/div&gt;</span>
+
+          <span class="nt">&lt;h3&gt;</span>Write things<span class="nt">&lt;/h3&gt;</span>
+          <span class="nt">&lt;p&gt;</span>
+            Use Medium to write things down and sound smart. Also when you write, your writings looks pretty and that is cool.
+          <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+
+        <span class="nt">&lt;li&gt;</span>
+          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"featured-list-icon"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"icon icon-twitter"</span><span class="nt">&gt;&lt;/span&gt;</span>
+          <span class="nt">&lt;/div&gt;</span>
+          <span class="nt">&lt;h3&gt;</span>Tweet things<span class="nt">&lt;/h3&gt;</span>
+          <span class="nt">&lt;p&gt;</span>
+            Use twitter to share 140 characters worth of anything you want. Pictures, videos, etc. It doesn't really matter.
+          <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></div>
+
+<h2 id="pull-quotes">Pull Quotes</h2>
+
+<p>Transform normal blockquotes into stylized pull quotes.</p>
+
+<div class="docs-example" data-example-id="">
+<blockquote class="pull-quote">
+  <img class="rounded-circle" src="../assets/img/avatar-mdo.png" />
+  <p>
+    “They need to stop sleeping on me and get some understanding about this here game I spit!”
+  </p>
+  <cite>Mark Otto, Huge Nerd</cite>
+</blockquote>
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;blockquote</span> <span class="na">class=</span><span class="s">"pull-quote"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;img</span> <span class="na">class=</span><span class="s">"rounded-circle"</span> <span class="na">src=</span><span class="s">"../assets/img/avatar-mdo.png"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;p&gt;</span>
+    “They need to stop sleeping on me and get some understanding about this here game I spit!”
+  <span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;cite&gt;</span>Mark Otto, Huge Nerd<span class="nt">&lt;/cite&gt;</span>
+<span class="nt">&lt;/blockquote&gt;</span></code></pre></div>
+
+<h2 id="icon-list">Icon list</h2>
+
+<p>Use an icon list to place custom icons next to a list of items.</p>
+
+<div class="docs-example" data-example-id="">
+<ul class="iconlist">
+  <li>
+    <span class="icon icon-check"></span>
+    Single
+  </li>
+  <li>
+    <span class="icon icon-check"></span>
+    Taken
+  </li>
+  <li class="active">
+    <span class="icon icon-check"></span>
+    Pokémon Master
+  </li>
+</ul>
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"iconlist"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;li&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"icon icon-check"</span><span class="nt">&gt;&lt;/span&gt;</span>
+    Single
+  <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"icon icon-check"</span><span class="nt">&gt;&lt;/span&gt;</span>
+    Taken
+  <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"active"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"icon icon-check"</span><span class="nt">&gt;&lt;/span&gt;</span>
+    Pokémon Master
+  <span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span></code></pre></div>
+
+<h2 id="stat-cards">Stat cards</h2>
+
+<p>Use stat cards to easily display large numbers, great for any kind of simple metrics and dashboard content.</p>
+
+<div class="docs-example" data-example-id="">
+<div class="statcard p-3">
+  <h3 class="statcard-number">12,938</h3>
+  <span class="statcard-desc">Page views</span>
+</div>
+<div class="statcard p-3 text-xs-center">
+  <h3 class="statcard-number">758</h3>
+  <span class="statcard-desc">Downloads</span>
+</div>
+<div class="statcard p-3 text-xs-right">
+  <h3 class="statcard-number">1,293</h3>
+  <span class="statcard-desc">Sign-ups</span>
+</div>
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"statcard p-3"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h3</span> <span class="na">class=</span><span class="s">"statcard-number"</span><span class="nt">&gt;</span>12,938<span class="nt">&lt;/h3&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"statcard-desc"</span><span class="nt">&gt;</span>Page views<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"statcard p-3 text-xs-center"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h3</span> <span class="na">class=</span><span class="s">"statcard-number"</span><span class="nt">&gt;</span>758<span class="nt">&lt;/h3&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"statcard-desc"</span><span class="nt">&gt;</span>Downloads<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"statcard p-3 text-xs-right"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h3</span> <span class="na">class=</span><span class="s">"statcard-number"</span><span class="nt">&gt;</span>1,293<span class="nt">&lt;/h3&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"statcard-desc"</span><span class="nt">&gt;</span>Sign-ups<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></div>
+
+<p>With optional carets:</p>
+
+<div class="docs-example" data-example-id="">
+<div class="statcard p-3">
+  <h3 class="statcard-number">
+    12,938
+    <small class="delta-indicator delta-positive">5%</small>
+  </h3>
+  <span class="statcard-desc">Page views</span>
+</div>
+<div class="statcard p-3">
+  <h3 class="statcard-number">
+    758
+    <small class="delta-indicator delta-negative">1.3%</small>
+  </h3>
+  <span class="statcard-desc">Downloads</span>
+</div>
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"statcard p-3"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h3</span> <span class="na">class=</span><span class="s">"statcard-number"</span><span class="nt">&gt;</span>
+    12,938
+    <span class="nt">&lt;small</span> <span class="na">class=</span><span class="s">"delta-indicator delta-positive"</span><span class="nt">&gt;</span>5%<span class="nt">&lt;/small&gt;</span>
+  <span class="nt">&lt;/h3&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"statcard-desc"</span><span class="nt">&gt;</span>Page views<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"statcard p-3"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h3</span> <span class="na">class=</span><span class="s">"statcard-number"</span><span class="nt">&gt;</span>
+    758
+    <span class="nt">&lt;small</span> <span class="na">class=</span><span class="s">"delta-indicator delta-negative"</span><span class="nt">&gt;</span>1.3%<span class="nt">&lt;/small&gt;</span>
+  <span class="nt">&lt;/h3&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"statcard-desc"</span><span class="nt">&gt;</span>Downloads<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></div>
+
+<p>With background variations:</p>
+
+<div class="docs-example" data-example-id="">
+<div class="statcard statcard-primary p-4 mb-2">
+  <h3 class="statcard-number">
+    12,938
+    <small class="delta-indicator delta-positive">5%</small>
+  </h3>
+  <span class="statcard-desc">Page views</span>
+</div>
+<div class="statcard statcard-success p-4 mb-2">
+  <h3 class="statcard-number">
+    758
+    <small class="delta-indicator delta-negative">1.3%</small>
+  </h3>
+  <span class="statcard-desc">Downloads</span>
+</div>
+<div class="statcard statcard-info p-4 mb-2">
+  <h3 class="statcard-number">
+    758
+    <small class="delta-indicator delta-negative">1.3%</small>
+  </h3>
+  <span class="statcard-desc">Downloads</span>
+</div>
+<div class="statcard statcard-danger p-4 mb-2">
+  <h3 class="statcard-number">
+    1,293
+    <small class="delta-indicator delta-positive">6.75%</small>
+  </h3>
+  <span class="statcard-desc">Sign-ups</span>
+</div>
+<div class="statcard statcard-warning p-4 mb-2">
+  <h3 class="statcard-number">
+    1,293
+    <small class="delta-indicator delta-positive">6.75%</small>
+  </h3>
+  <span class="statcard-desc">Sign-ups</span>
+</div>
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"statcard statcard-primary p-4 mb-2"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h3</span> <span class="na">class=</span><span class="s">"statcard-number"</span><span class="nt">&gt;</span>
+    12,938
+    <span class="nt">&lt;small</span> <span class="na">class=</span><span class="s">"delta-indicator delta-positive"</span><span class="nt">&gt;</span>5%<span class="nt">&lt;/small&gt;</span>
+  <span class="nt">&lt;/h3&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"statcard-desc"</span><span class="nt">&gt;</span>Page views<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"statcard statcard-success p-4 mb-2"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h3</span> <span class="na">class=</span><span class="s">"statcard-number"</span><span class="nt">&gt;</span>
+    758
+    <span class="nt">&lt;small</span> <span class="na">class=</span><span class="s">"delta-indicator delta-negative"</span><span class="nt">&gt;</span>1.3%<span class="nt">&lt;/small&gt;</span>
+  <span class="nt">&lt;/h3&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"statcard-desc"</span><span class="nt">&gt;</span>Downloads<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"statcard statcard-info p-4 mb-2"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h3</span> <span class="na">class=</span><span class="s">"statcard-number"</span><span class="nt">&gt;</span>
+    758
+    <span class="nt">&lt;small</span> <span class="na">class=</span><span class="s">"delta-indicator delta-negative"</span><span class="nt">&gt;</span>1.3%<span class="nt">&lt;/small&gt;</span>
+  <span class="nt">&lt;/h3&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"statcard-desc"</span><span class="nt">&gt;</span>Downloads<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"statcard statcard-danger p-4 mb-2"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h3</span> <span class="na">class=</span><span class="s">"statcard-number"</span><span class="nt">&gt;</span>
+    1,293
+    <span class="nt">&lt;small</span> <span class="na">class=</span><span class="s">"delta-indicator delta-positive"</span><span class="nt">&gt;</span>6.75%<span class="nt">&lt;/small&gt;</span>
+  <span class="nt">&lt;/h3&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"statcard-desc"</span><span class="nt">&gt;</span>Sign-ups<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"statcard statcard-warning p-4 mb-2"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h3</span> <span class="na">class=</span><span class="s">"statcard-number"</span><span class="nt">&gt;</span>
+    1,293
+    <span class="nt">&lt;small</span> <span class="na">class=</span><span class="s">"delta-indicator delta-positive"</span><span class="nt">&gt;</span>6.75%<span class="nt">&lt;/small&gt;</span>
+  <span class="nt">&lt;/h3&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"statcard-desc"</span><span class="nt">&gt;</span>Sign-ups<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></div>
+
+<p>And use the grid system to size and align them:</p>
+
+<div class="docs-example" data-example-id="">
+<div class="row">
+  <div class="col-sm-6">
+    <div class="statcard statcard-primary p-4">
+      <h3 class="statcard-number">
+        12,938
+        <small class="delta-indicator delta-positive">5%</small>
+      </h3>
+      <span class="statcard-desc">Page views</span>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="statcard statcard-success p-4">
+      <h3 class="statcard-number">
+        758
+        <small class="delta-indicator delta-negative">1.3%</small>
+      </h3>
+      <span class="statcard-desc">Downloads</span>
+    </div>
+  </div>
+</div>
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-sm-6"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"statcard statcard-primary p-4"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;h3</span> <span class="na">class=</span><span class="s">"statcard-number"</span><span class="nt">&gt;</span>
+        12,938
+        <span class="nt">&lt;small</span> <span class="na">class=</span><span class="s">"delta-indicator delta-positive"</span><span class="nt">&gt;</span>5%<span class="nt">&lt;/small&gt;</span>
+      <span class="nt">&lt;/h3&gt;</span>
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"statcard-desc"</span><span class="nt">&gt;</span>Page views<span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-sm-6"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"statcard statcard-success p-4"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;h3</span> <span class="na">class=</span><span class="s">"statcard-number"</span><span class="nt">&gt;</span>
+        758
+        <span class="nt">&lt;small</span> <span class="na">class=</span><span class="s">"delta-indicator delta-negative"</span><span class="nt">&gt;</span>1.3%<span class="nt">&lt;/small&gt;</span>
+      <span class="nt">&lt;/h3&gt;</span>
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"statcard-desc"</span><span class="nt">&gt;</span>Downloads<span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></div>
+
+<h1 id="plugins">Plugins</h1>
+
+<h2 id="zoom">Zoom</h2>
+
+<p>The zoom plugin provides simple image zoom functionality. Add a <code class="highlighter-rouge">data-action="zoom"</code> attribute to any image you want to make zoomable. Zoomed images can be closed by scroll, <code class="highlighter-rouge">esc</code>, or click. Use the meta key to open raw element in new tab.</p>
+
+<h3 id="data-api">Data API</h3>
+
+<div class="docs-example" data-example-id="">
+<img data-action="zoom" style="width: 150px;" src="../assets/img/avatar-mdo.png" />
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;img</span> <span class="na">data-action=</span><span class="s">"zoom"</span> <span class="na">style=</span><span class="s">"width: 150px;"</span> <span class="na">src=</span><span class="s">"../assets/img/avatar-mdo.png"</span><span class="nt">&gt;</span></code></pre></div>
+
+<h2 id="enter">Enter</h2>
+
+<p>Enter is a brand new plugin built to transition elements into view on scroll and offer subtle visual flourishes. Simply add a <code class="highlighter-rouge">data-transition="entrance"</code> attribute and a <code class="highlighter-rouge">transform</code> style to any element that you’d like to <em>enter</em> in when a user scrolls the element into view.</p>
+
+<h3 id="options">Options</h3>
+
+<ul>
+  <li>easing: <code class="highlighter-rouge">cubic-bezier(.2,.7,.5,1)</code>,</li>
+  <li>duration: 1200,</li>
+  <li>delay: 0</li>
+</ul>
+
+<h3 id="javascript-api">JavaScript API</h3>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">(</span><span class="s1">'.js-enter'</span><span class="p">).</span><span class="nx">enter</span><span class="p">()</span></code></pre></figure>
+
+<h3 id="data-api-1">Data API</h3>
+
+<div class="docs-example" data-example-id="">
+<div style="overflow: hidden">
+  <div data-transition="entrance" style="transform: translateY(50px)">
+    <p>
+      Etiam porta sem malesuada magna mollis euismod. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+    </p>
+    <p>
+      Donec sed odio dui. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Curabitur blandit tempus porttitor. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.
+    </p>
+  </div>
+</div>
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">"overflow: hidden"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">data-transition=</span><span class="s">"entrance"</span> <span class="na">style=</span><span class="s">"transform: translateY(50px)"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;p&gt;</span>
+      Etiam porta sem malesuada magna mollis euismod. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+    <span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;p&gt;</span>
+      Donec sed odio dui. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Curabitur blandit tempus porttitor. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.
+    <span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></div>
+
+<h2 id="image-grids">Image grids</h2>
+
+<p>Use the image grid plugin to quickly layout multi sized images in a grid. For the image grid to work properly, it needs to get the raw image sizes (either from a data attribute, like <code class="highlighter-rouge">data-width</code> and <code class="highlighter-rouge">data-height</code> or you need to wait for image load before calling <code class="highlighter-rouge">.imageGrid</code>).</p>
+
+<h3 id="options-1">Options</h3>
+
+<ul>
+  <li>padding: 10,</li>
+  <li>targetHeight: 300,</li>
+  <li>display: ‘inline-block’</li>
+</ul>
+
+<h3 id="javascript-api-1">JavaScript API</h3>
+
+<div class="docs-example" data-example-id="">
+$('.myGrid').imageGrid()
+</div>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">(</span><span class="s1">'.myGrid'</span><span class="p">).</span><span class="nx">imageGrid</span><span class="p">()</span></code></pre></div>
+
+<h3 id="data-api-2">Data Api</h3>
+
+<div class="docs-example" data-example-id="">
+<div data-grid="images">
+  <img data-width="350" data-height="300" src="https://placehold.it/350x300/EEE04A/ffffff" />
+  <img data-width="420" data-height="320" src="https://placehold.it/420x320/5cb85c/ffffff" />
+  <img data-width="320" data-height="380" src="https://placehold.it/320x380/5bc0de/ffffff" />
+  <img data-width="472" data-height="500" src="https://placehold.it/472x500/f0ad4e/ffffff" />
+  <img data-width="540" data-height="360" src="https://placehold.it/540x360/FF3167/ffffff" />
+</div>
+</div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">data-grid=</span><span class="s">"images"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;img</span> <span class="na">data-width=</span><span class="s">"350"</span> <span class="na">data-height=</span><span class="s">"300"</span> <span class="na">src=</span><span class="s">"https://placehold.it/350x300/EEE04A/ffffff"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;img</span> <span class="na">data-width=</span><span class="s">"420"</span> <span class="na">data-height=</span><span class="s">"320"</span> <span class="na">src=</span><span class="s">"https://placehold.it/420x320/5cb85c/ffffff"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;img</span> <span class="na">data-width=</span><span class="s">"320"</span> <span class="na">data-height=</span><span class="s">"380"</span> <span class="na">src=</span><span class="s">"https://placehold.it/320x380/5bc0de/ffffff"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;img</span> <span class="na">data-width=</span><span class="s">"472"</span> <span class="na">data-height=</span><span class="s">"500"</span> <span class="na">src=</span><span class="s">"https://placehold.it/472x500/f0ad4e/ffffff"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;img</span> <span class="na">data-width=</span><span class="s">"540"</span> <span class="na">data-height=</span><span class="s">"360"</span> <span class="na">src=</span><span class="s">"https://placehold.it/540x360/FF3167/ffffff"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></div>
+
+<h2 id="stage">Stage</h2>
+
+<p>Use the stage plugin to reveal a hidden “shelf” of content, like some common offscreen navigation. Stage will slide in your hidden content—from the left (default) or right—and shift your page contents.</p>
+
+<p>Add <code class="highlighter-rouge">data-toggle="stage"</code> and a <code class="highlighter-rouge">data-target</code> to any clickable element that you want to trigger a stage transition. When sliding in from the right, use a negative distance like <code class="highlighter-rouge">data-distance="-250"</code>.</p>
+
+<h3 id="options-2">Options</h3>
+
+<ul>
+  <li>easing: <code class="highlighter-rouge">cubic-bezier(.2,.7,.5,1)</code></li>
+  <li>duration: 300</li>
+  <li>delay: 0</li>
+  <li>distance: 250</li>
+  <li>hiddenElements: <code class="highlighter-rouge">#sidebar</code> - hidden elements visibility will be toggle’d on open/close of the stage. This is done for performance reasons in chrome.</li>
+</ul>
+
+<h3 id="customizing">Customizing</h3>
+
+<p>Stage shelves—the hidden content areas—can house just about any content, but you’ll likely have to tweak some styles depending on what you place within them.</p>
+
+<p>Be sure to match any <code class="highlighter-rouge">data-distance</code> values with the CSS-based <code class="highlighter-rouge">width</code> on the <code class="highlighter-rouge">.stage-shelf</code>.</p>
+
+<h3 id="example">Example</h3>
+
+<p>For an interactive demo, refer to the <code class="highlighter-rouge">Menu</code> button at the top of this page. <strong>The example below shows the minimal required markup.</strong></p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"stage"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"btn btn-link stage-toggle"</span> <span class="na">data-target=</span><span class="s">".stage"</span> <span class="na">data-toggle=</span><span class="s">"stage"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"icon icon-menu"</span><span class="nt">&gt;&lt;/span&gt;</span>
+    Menu
+  <span class="nt">&lt;/button&gt;</span>
+
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"stage-shelf"</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- Hidden shelf content --&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+
+  <span class="c">&lt;!-- All other page content --&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></figure>
+
+<p>For a right-aligned stage shelf and button, the <strong>minimal required markup looks like this:</strong></p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"stage"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"btn btn-link stage-toggle stage-toggle-right"</span> <span class="na">data-target=</span><span class="s">".stage"</span> <span class="na">data-toggle=</span><span class="s">"stage"</span> <span class="na">data-distance=</span><span class="s">"-250"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"icon icon-menu"</span><span class="nt">&gt;&lt;/span&gt;</span>
+    Menu
+  <span class="nt">&lt;/button&gt;</span>
+
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"stage-shelf stage-shelf-right"</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- Hidden shelf content --&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+
+  <span class="c">&lt;!-- All other page content --&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></figure>
+
+
+
+        <a class="docs-top" style="display: none" href="#">Back to top</a>
+      </div>
+    
+
+  </div>
+
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/popper.min.js"></script>
+    <script src="../assets/js/toolkit.js"></script>
+    <script src="../assets/js/application.js"></script>
+    <script>
+      // execute/clear BS loaders for docs
+      $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})
+    </script>
+</body>
+</html>
+
