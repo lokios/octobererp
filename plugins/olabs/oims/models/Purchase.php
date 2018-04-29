@@ -21,6 +21,8 @@ class Purchase extends BaseModel
 
     const CNAME = 'purchases';
     
+    public $execute_validation = True;
+    
     
     public function getEntityType()
     {
@@ -84,6 +86,7 @@ class Purchase extends BaseModel
 
         // Payment methods                            
         "payment_method",  // obsolete
+        "execute_validation",
     ];
     
     public $rules = [
@@ -691,6 +694,11 @@ class Purchase extends BaseModel
 
     public function uniqueMRNumberCheck(){
 //        return true; // Not required to check, running default
+        
+        //If dont want to execute validation : use in Entity Relation data sync from mobile
+        if(!$this->execute_validation){
+            return;
+        }
         
         //Check MR Number uniqueness through out project
         if($this->id){

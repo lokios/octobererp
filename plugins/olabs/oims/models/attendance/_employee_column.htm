@@ -1,8 +1,8 @@
 <?php
 
-if (class_exists("\Backend\Models\User") && ($record->employee_id > 0 && $record->employee_type == 'onrole')) {
+if (class_exists("\Backend\Models\User") && ($record->employee_onrole && $record->employee_type == 'onrole')) {
     // User exist
-    $user = \Backend\Models\User::find($record->employee_id);
+    $user = \Backend\Models\User::find($record->employee_onrole);
     if ($user!=null) {
         // echo $user->id." | ".$user->fullname;
         echo $user->fullname;

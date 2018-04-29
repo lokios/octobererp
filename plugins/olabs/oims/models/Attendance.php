@@ -102,7 +102,7 @@ class Attendance extends BaseModel {
             $fields->project_id->value = $this->employee_offrole->project_id;
             $fields->supplier_id->value = $this->employee_offrole->supplier_id;
             $fields->working_hour->value = $this->employee_offrole->working_hour > 0 ? $this->employee_offrole->working_hour : 8;
-            $fields->check_in->value = date('Y-m-d H:i:s');
+//            $fields->check_in->value = date('Y-m-d H:i:s');
         }
     }
     
@@ -116,6 +116,7 @@ class Attendance extends BaseModel {
         $this->attendance_date = $this->check_in;
         if($this->employee_type == self::EMPLOYEE_TYPE_ONROLE){
             $this->employee_onrole = $this->employee_id;
+            $this->employee_offrole = FALSE;
         }
 
     }

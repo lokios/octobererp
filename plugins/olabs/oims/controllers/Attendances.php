@@ -39,7 +39,7 @@ class Attendances extends Controller
     //handle back date entry :
 
     public function formExtendFields($form) {
-
+        
         //Get if field have already value (EDIT MODE)
         $checkOutDate = isset($form->data->attributes['check_out']) ? $form->data->attributes['check_out'] : false;
         if ($form->removeField('check_out')) {

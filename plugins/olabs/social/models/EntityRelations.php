@@ -79,8 +79,8 @@ class EntityRelations extends Model {
 
 
 
-            //$this->created_at = date('Y-m-d H:i:s');
-            $this->created_at = date('Y-m-d H:i:s', strtotime($entry['check_in']));
+            $this->created_at = date('Y-m-d H:i:s');
+//            $this->created_at = date('Y-m-d H:i:s', strtotime($entry['check_in']));
             //$this->created_by = $this->created_by;
             $this->target_type = 'attendance';
             $this->relation = 'created';
@@ -161,7 +161,7 @@ class EntityRelations extends Model {
             $this->save();
         }
         //Sync all data :
-       // $this->SyncData();
+        $this->SyncData();
     }
 
     //Sync all entity relation data with respective models : attendance, mr_entry
@@ -212,7 +212,7 @@ class EntityRelations extends Model {
                                 $attendace->employee_id = $employee_id;
                                 $attendace->employee_offrole = FALSE;
                             }
-                            
+
                             $attendace->check_out = $check_in;
                             $attendace->updated_by = $entry['created_by'];
                             $attendace->updated_at = date('Y-m-d H:i:s');
@@ -232,28 +232,31 @@ class EntityRelations extends Model {
                             $purchase->project_id = $entry['to_project_id'];
                             $purchase->context_date = date('Y-m-d H:i:s', strtotime($entry['check_in']));
                             $purchase->reference_number = $record->target_id;
-                            foreach ($record->images as $image) {
+                            if ($record->images) {
+                                foreach ($record->images as $image) {
 //                                dd($image);
-                                $file = new \System\Models\File;
-                                // we use DIRECTORY_SEPERATOR to make sure we are OS independant.
+                                    $file = new \System\Models\File;
+                                    // we use DIRECTORY_SEPERATOR to make sure we are OS independant.
 //                                $file = $file->fromFile(base_path(). DIRECTORY_SEPARATOR. 'storage'. DIRECTORY_SEPARATOR. 'app'. DIRECTORY_SEPARATOR.  $image->getDiskPath() );
-                                $file = $file->fromFile($image->getLocalPath() );
-                                
-                                // Copy over the original uploaded file name
-                                $file->file_name = $image->file_name;
-                                // Copy over the custom title if that was set
-                                $file->title = $image->title;
-                                // Copy over the custom description if that was set
-                                $file->description = $image->description;
-                                // This is the magic part :-) acutally attach the file.
-                                $purchase->featured_images()->setSimpleValue($file);
-                                
+                                    $file = $file->fromFile($image->getLocalPath());
+
+                                    // Copy over the original uploaded file name
+                                    $file->file_name = $image->file_name;
+                                    // Copy over the custom title if that was set
+                                    $file->title = $image->title;
+                                    // Copy over the custom description if that was set
+                                    $file->description = $image->description;
+                                    // This is the magic part :-) acutally attach the file.
+                                    $purchase->featured_images()->setSimpleValue($file);
+
 //                                $file->data = $image->getPath();
 //                                $file->save();
 //                                $purchase->featured_images()->add($file);
 //                                $purchase->featured_images()->create(['data' => $image->getPath()]);
-                             
+                                }
                             }
+
+                            $purchase->execute_validation = false;
 //                            dd($purchase->featured_images);
                             $purchase->save();
                         }
