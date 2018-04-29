@@ -62,8 +62,20 @@ https://github.com/lokios/octobererp/wiki/User-Manual
 
 https://github.com/lokios/octobererp/wiki/Roadmap
 
+How to create a Material Receipt with Work Order
+https://youtu.be/lbhLamU490w
+
+OctoberERP: How to create a Material Receipt
+https://youtu.be/jBZuEQ89QBU
+
 Sample video: How to add a supplier
 https://youtu.be/EzLljUrE0TQ
+
+October erp mobile app v0.2
+
+https://youtu.be/LcxNeEGap3g
+
+
 
 Case Study: http://octobererp.com/posts/case-studies
 VSS Buildcon Constructions utilises OctoberERP to automate there business processes
