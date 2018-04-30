@@ -21,7 +21,7 @@ class Notifications extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Olabs.Social', 'main-menu-item');
+        BackendMenu::setContext('Olabs.Social', 'messaging', 'notifications');
     }
 
 

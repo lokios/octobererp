@@ -16,7 +16,7 @@ class ClientsBilling extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Olabs.Social', 'main-menu-item', 'side-menu-item3');
+        BackendMenu::setContext('Olabs.Social', 'messaging', 'clientsbilling');
     }
 
 

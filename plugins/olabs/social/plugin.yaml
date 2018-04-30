@@ -5,24 +5,34 @@ plugin:
     icon: oc-icon-adjust
     homepage: ''
 navigation:
-    main-menu-item:
+    messaging:
         label: Messaging
         url: /olabs/social/notifications
         icon: icon-bell
+        permissions:
+            - olabs.social.notifications
         sideMenu:
-            side-menu-item:
+            clients:
                 label: Clients
                 url: /olabs/social/clients
                 icon: icon-sitemap
-            side-menu-item2:
+                permissions:
+                    - olabs.social.clients
+            notifications:
                 label: Messages
                 url: /olabs/social/notifications
                 icon: icon-sitemap
-            side-menu-item3:
+                permissions:
+                    - olabs.social.notifications
+            clientsbilling:
                 label: 'Clients Billing'
                 url: /olabs/social/clientsbilling
                 icon: icon-sitemap
-            side-menu-item4:
+                permissions:
+                    - olabs.social.clientsbilling
+            entityrelations:
                 label: Activities
                 url: /olabs/social/entityrelations
                 icon: icon-sitemap
+                permissions:
+                    - olabs.social.entityrelations
