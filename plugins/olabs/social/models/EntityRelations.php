@@ -163,7 +163,7 @@ class EntityRelations extends Model {
         //Sync all data :
         $this->SyncData();
     }
-
+    
     //Sync all entity relation data with respective models : attendance, mr_entry
     public function SyncData() {
 
@@ -221,6 +221,11 @@ class EntityRelations extends Model {
 
                             $attendace->calculateWages();
                             $attendace->save();
+                            
+                                                        
+                            //update record with context id & type
+                            $record->context_id = $attendace->id;
+                            $record->context_type = $attendace->getEntityType();
                         }
                     }
                 }
@@ -228,7 +233,17 @@ class EntityRelations extends Model {
                     //Create mr entry
                     if (isset($record->data)) {
                         foreach ($record->data as $key => $entry) {
-                            $purchase = new \Olabs\Oims\Models\Purchase();
+                            
+                            //find by context id 
+                            $purchase = \Olabs\Oims\Models\Purchase::find($record->context_id);
+                            if(!$purchase){
+                                $purchase = new \Olabs\Oims\Models\Purchase();
+                                
+
+                                $purchase->created_at = date('Y-m-d H:i:s');
+                                $purchase->created_by = $entry['created_by'];
+                            }
+                            
                             $purchase->project_id = $entry['to_project_id'];
                             $purchase->context_date = date('Y-m-d H:i:s', strtotime($entry['check_in']));
                             $purchase->reference_number = $record->target_id;
@@ -255,10 +270,16 @@ class EntityRelations extends Model {
 //                                $purchase->featured_images()->create(['data' => $image->getPath()]);
                                 }
                             }
-
+                            $purchase->updated_at = date('Y-m-d H:i:s');
+                            $purchase->updated_by = $entry['created_by'];
                             $purchase->execute_validation = false;
 //                            dd($purchase->featured_images);
                             $purchase->save();
+                            
+                            //update record with context id & type in entity relation table
+                            $record->context_id = $purchase->id;
+                            $record->context_type = $purchase->getEntityType();
+//                            $record->save();
                         }
                     }
                 }

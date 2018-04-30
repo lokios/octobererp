@@ -59,6 +59,7 @@ fields:
             span: auto
             type: dropdown
             options: getSupplierOptions 
+            required: 1
             dependsOn: quote
             
         invoice_download:

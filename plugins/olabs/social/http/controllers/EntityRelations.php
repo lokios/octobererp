@@ -6,24 +6,20 @@ use Olabs\Social\Models\EntityRelations as EntityRelationsModel;
 use Olabs\Social\Http\Transformers\EntityRelationsTransformer;
 use Autumn\Api\Classes\ApiController;
 use Illuminate\Http\Request;
-class EntityRelations extends ApiController
-{
+
+class EntityRelations extends ApiController {
 
     protected $defaultLimit = 5;
-
-     protected $fillable  =['data','actor_id',"data","target_type","target_id","relation","request_id"];
-     protected $fillable2  =['actor_id'];
-
-     public $images_field = 'images';
-
+    protected $fillable = ['data', 'actor_id', "data", "target_type", "target_id", "relation", "request_id"];
+    protected $fillable2 = ['actor_id'];
+    public $images_field = 'images';
 
     /**
      * Eloquent model.
      *
      * @return \October\Rain\Database\Model
      */
-    protected function model()
-    {
+    protected function model() {
         return new EntityRelationsModel;
     }
 
@@ -32,44 +28,57 @@ class EntityRelations extends ApiController
      *
      * @return \League\Fractal\TransformerAbstract
      */
-    protected function transformer()
-    {
+    protected function transformer() {
         return new EntityRelationsTransformer;
     }
 
-    public function getExtraConditions($action, Request $request , &$criteria ){
-           $this->scopeEquals($criteria,'target_type');
-           $this->scopeEquals($criteria,'actor_id');
-           $this->scopeEquals($criteria,'status');
+    public function getExtraConditions($action, Request $request, &$criteria) {
+        $this->scopeEquals($criteria, 'target_type');
+        $this->scopeEquals($criteria, 'actor_id');
+        $this->scopeEquals($criteria, 'status');
     }
 
-
-    public function createAction($fdata){
+    public function createAction($fdata) {
         $item = false;
-        if(isset($fdata['request_id'])){
+        if (isset($fdata['request_id'])) {
 
-            $item = $this->model->where(['request_id'=>$fdata['request_id']])->first();
+            $item = $this->model->where(['request_id' => $fdata['request_id']])->first();
 
-            if($item){
+            if ($item) {
                 //duplicate request -- so simply update this item object
                 //return $item;
             }
-
         }
 
 
-        if(!$item){
+        if (!$item) {
 
-           $item =  $this->model->create($fdata);
-       }
+            $item = $this->model->create($fdata);
+        }
 
-       if($item){
-         $m = new EntityRelationsModel();
-         $m->id = $item->id;
-         return $m;
-       }
+        if ($item) {
+            $m = new EntityRelationsModel();
+            $m->id = $item->id;
+            return $m;
+        }
 
-       return $item;
-
+        return $item;
     }
+    
+//    public function upload(Request $request) {
+//        
+//        $id = $request->input('id', false);
+//        $item = $this->findItem($id);
+//        if (!$item) {
+//            return $this->errorNotFound();
+//        }
+//        $item->status = 'L1';
+//        $item->save();
+//        
+//        parent::upload($request);
+//        
+//        
+//        
+//    }
+
 }

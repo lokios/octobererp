@@ -16,17 +16,18 @@ use Olabs\Tenant\Models\BaseModel;
 use Carbon\Carbon;
 use Olabs\App\Classes\App;
 use OlabsAuth;
+
 /**
 
-https://laravel.io/forum/07-21-2015-eloquent-between-two-dates-from-database
+  https://laravel.io/forum/07-21-2015-eloquent-between-two-dates-from-database
 
-http://opaclabs.com/ehr/api/v1/users?tenant_id=72&created_at_from=2017-12-24
+  http://opaclabs.com/ehr/api/v1/users?tenant_id=72&created_at_from=2017-12-24
 
 
 
-**/
-abstract class ApiController extends Controller
-{
+ * */
+abstract class ApiController extends Controller {
+
     /**
      * Http status code.
      *
@@ -97,32 +98,23 @@ abstract class ApiController extends Controller
      * @var string
      */
     protected $resourceKeyPlural = 'data';
-
     protected $fillable = false;
-
-
-
-
     public $search_boolean_based = false;
     public $search_like_based = false;
     public $search_barcode_based = false;
     public $images_field = 'featured_images';
     public $orderBy = 'id';
     public $orderByOrder = 'desc';
-    public $filter_scopes =false;
+    public $filter_scopes = false;
     public $app;
-
     public $share_session_data = false;
-
-
 
     /**
      * Constructor.
      *
      * @param Request $request
      */
-    public function __construct(Request $request)
-    {
+    public function __construct(Request $request) {
 
         $app = App::getInstance();
         $app->getAppUser();
@@ -159,61 +151,50 @@ abstract class ApiController extends Controller
      *
      * @return \League\Fractal\Serializer\SerializerAbstract
      */
-    protected function serializer()
-    {
+    protected function serializer() {
         return new ArraySerializer();
     }
 
-public function scopeCreatedDaysAgo($query, $days = 7)
-{
-    return $query->where('created_at', '>=', Carbon::now()->subDays($days));
-}
+    public function scopeCreatedDaysAgo($query, $days = 7) {
+        return $query->where('created_at', '>=', Carbon::now()->subDays($days));
+    }
+
+    public function scopeEquals(&$criteria, $field) {
+        if ($this->filter_scopes) {
+            if (!isset($this->filter_scopes[$field])) {
+                return;
+            }
+        }
+        $q = $this->request->input($field, false);
+        if ($q) {
 
 
-
-
-public function scopeEquals(&$criteria, $field){
-    if($this->filter_scopes){
-        if(!isset($this->filter_scopes[$field])){
-            return;
+            $criteria->where($field, $q);
         }
     }
-        $q =  $this->request->input($field, false);
-        if($q){
 
-            
-           $criteria->where($field, $q);
-        }
+    public function scopeDateBetween(&$criteria, $field) {
+        $q = $this->request->input($field . '_from', false);
+        if ($q) {
 
-  }
-  public function scopeDateBetween(&$criteria, $field){
-        $q =  $this->request->input($field.'_from', false);
-        if($q){
-
-            $fromDate = date('Y-m-d' . ' 00:00:00', strtotime($q)); 
+            $fromDate = date('Y-m-d' . ' 00:00:00', strtotime($q));
             $toDate = false;
-            $q2 =  $this->request->input($field.'_to', false);
-            if($q2){
-                 $toDate = date('Y-m-d' . ' 22:00:40', strtotime($q2)); 
-             
-            }else{
-               $toDate = date('Y-m-d' . ' 22:00:40', time()); 
+            $q2 = $this->request->input($field . '_to', false);
+            if ($q2) {
+                $toDate = date('Y-m-d' . ' 22:00:40', strtotime($q2));
+            } else {
+                $toDate = date('Y-m-d' . ' 22:00:40', time());
             }
 
-           $criteria->whereBetween($field, [$fromDate, $toDate]);
+            $criteria->whereBetween($field, [$fromDate, $toDate]);
         }
-
-  }
-
-
-   public function getExtraConditions($action, Request $request , &$criteria ){
-
     }
 
+    public function getExtraConditions($action, Request $request, &$criteria) {
+        
+    }
 
-
-    public function getQueryBuilder(Request $request )
-    {
+    public function getQueryBuilder(Request $request) {
 
         BaseModel::$feature_enabled = false;
 
@@ -224,100 +205,79 @@ public function scopeEquals(&$criteria, $field){
         $where = [];
         $criteria = get_class($this->model())::where($where);
 
-        
-        $this->scopeEquals($criteria,'tenant_id');
-        $this->scopeEquals($criteria,'status');
-        $this->scopeEquals($criteria,'project_id');
-        $this->scopeEquals($criteria,'user_id');
-        $this->scopeEquals($criteria,'services_id');
-        $this->scopeEquals($criteria,'category_id');
-        $this->scopeEquals($criteria,'parent_id');
-        $this->scopeDateBetween($criteria,'created_at');
-        $this->scopeDateBetween($criteria,'updated_at');
-        $this->scopeDateBetween($criteria,'published_at');
+
+        $this->scopeEquals($criteria, 'tenant_id');
+        $this->scopeEquals($criteria, 'status');
+        $this->scopeEquals($criteria, 'project_id');
+        $this->scopeEquals($criteria, 'user_id');
+        $this->scopeEquals($criteria, 'services_id');
+        $this->scopeEquals($criteria, 'category_id');
+        $this->scopeEquals($criteria, 'parent_id');
+        $this->scopeDateBetween($criteria, 'created_at');
+        $this->scopeDateBetween($criteria, 'updated_at');
+        $this->scopeDateBetween($criteria, 'published_at');
 
 
 
-         if($this->search_barcode_based && count($this->search_barcode_based)>0){
-            $q =  $this->request->input('bcode', false);
-            if($q){
+        if ($this->search_barcode_based && count($this->search_barcode_based) > 0) {
+            $q = $this->request->input('bcode', false);
+            if ($q) {
 
-                  $criteria->where($this->search_barcode_based[0],  $q);
-                    
-
+                $criteria->where($this->search_barcode_based[0], $q);
             }
-         }
+        }
 
 
-        
 
 
-        $q =  $this->request->input('q', false);
-        $qtype =  $this->request->input('qtype', false);
 
-        if($qtype && $qtype=='barcode'){
-            if($this->search_barcode_based && count($this->search_barcode_based)==1){
-                 $value = $this->search_barcode_based[0];
-                  $criteria->where($value,  $q);
-                 
-             }
+        $q = $this->request->input('q', false);
+        $qtype = $this->request->input('qtype', false);
 
-        }else  if($q){
+        if ($qtype && $qtype == 'barcode') {
+            if ($this->search_barcode_based && count($this->search_barcode_based) == 1) {
+                $value = $this->search_barcode_based[0];
+                $criteria->where($value, $q);
+            }
+        } else if ($q) {
             //$criteria->where('first_name', 'like', $q.'%');
 
-            if($this->search_boolean_based){
+            if ($this->search_boolean_based) {
                 /** $items->whereRaw(
-             "MATCH(customer_name,customer_phone,customer_email) AGAINST(? IN BOOLEAN MODE)", 
-             array($q.'*')); **/
-
-              $criteria->whereRaw(
-             "MATCH(".$this->search_boolean.") AGAINST(? IN BOOLEAN MODE)", 
-             array($q.'*'));
-
+                  "MATCH(customer_name,customer_phone,customer_email) AGAINST(? IN BOOLEAN MODE)",
+                  array($q.'*')); * */
+                $criteria->whereRaw(
+                        "MATCH(" . $this->search_boolean . ") AGAINST(? IN BOOLEAN MODE)", array($q . '*'));
             }
 
-             if($this->search_like_based && count($this->search_like_based)>1){
+            if ($this->search_like_based && count($this->search_like_based) > 1) {
 
-                  $search_like_based = $this->search_like_based;
+                $search_like_based = $this->search_like_based;
 
-                   $criteria->where(function ($query)use ($search_like_based, $q) {
+                $criteria->where(function ($query)use ($search_like_based, $q) {
 
-                     foreach ($this->search_like_based as $key => $value) {
-                    # code...
+                    foreach ($this->search_like_based as $key => $value) {
+                        # code...
 
-                         if($value=='id'){
-                             $query->orWhere($value,  $q);
-                    
-
-                         }else{
-                              $query->orWhere($value, 'like', $q.'%');
-                         }
-                      }
-                   });
-
-                
-
-             }else  if($this->search_like_based && count($this->search_like_based)==1){
-                 $value = $this->search_like_based[0];
-                 if($value=='id'){
-                             $criteria->where($value,  $q);
-                    
-
-                         }else{
-                              $criteria->where($value, 'like', $q.'%');
-                         }
-
-             }
-
-            
+                        if ($value == 'id') {
+                            $query->orWhere($value, $q);
+                        } else {
+                            $query->orWhere($value, 'like', $q . '%');
+                        }
+                    }
+                });
+            } else if ($this->search_like_based && count($this->search_like_based) == 1) {
+                $value = $this->search_like_based[0];
+                if ($value == 'id') {
+                    $criteria->where($value, $q);
+                } else {
+                    $criteria->where($value, 'like', $q . '%');
+                }
+            }
         }
 
         return $criteria;
-
-
-
-     }
-
+    }
 
     /**
      * Display a listing of the resource.
@@ -325,8 +285,7 @@ public function scopeEquals(&$criteria, $field){
      *
      * @return Response
      */
-    public function index(Request $request )
-    {
+    public function index(Request $request) {
 
         BaseModel::$feature_enabled = false;
 
@@ -337,31 +296,28 @@ public function scopeEquals(&$criteria, $field){
         $where = [];
         $criteria = $this->getQueryBuilder($request);
 
-        
-        
-
-        $this->getExtraConditions('index',$request,$criteria);
-
-        
 
 
-        $items = $limit
-            ? $criteria->with($with)->skip($skip)->limit($limit)
-            : $criteria->with($with);
 
-         if($this->orderBy){
-            $items->orderBy($this->orderBy,$this->orderByOrder);
-         }   
+        $this->getExtraConditions('index', $request, $criteria);
 
-         $items = $items->get();
+
+
+
+        $items = $limit ? $criteria->with($with)->skip($skip)->limit($limit) : $criteria->with($with);
+
+        if ($this->orderBy) {
+            $items->orderBy($this->orderBy, $this->orderByOrder);
+        }
+
+        $items = $items->get();
 
         $result = $this->respondWithCollection($items, $skip, $limit);
         BaseModel::$feature_enabled = true;
         return $result;
     }
 
-
-    public function report(Request $request ){
+    public function report(Request $request) {
 
         BaseModel::$feature_enabled = false;
 
@@ -372,74 +328,65 @@ public function scopeEquals(&$criteria, $field){
         $where = [];
         $criteria = $this->getQueryBuilder($request);
 
-        
-        
-
-        $this->getExtraConditions('index',$request,$criteria);
-
-        
 
 
-        $items = $limit
-            ? $criteria->with($with)->skip($skip)->limit($limit)
-            : $criteria->with($with);
 
-         if($this->orderBy){
-            $items->orderBy($this->orderBy,$this->orderByOrder);
-         }   
+        $this->getExtraConditions('index', $request, $criteria);
 
-         $items = $items->get();
+
+
+
+        $items = $limit ? $criteria->with($with)->skip($skip)->limit($limit) : $criteria->with($with);
+
+        if ($this->orderBy) {
+            $items->orderBy($this->orderBy, $this->orderByOrder);
+        }
+
+        $items = $items->get();
 
         $result = $this->respondWithCollection($items, $skip, $limit);
         BaseModel::$feature_enabled = true;
         return $result;
     }
 
-
- /**
+    /**
      * Display a listing of the resource.
      * GET /api/{resource}.
      *
      * @return Response
      */
-    public function indexByTenan22(Request $request, $org=null)
-    {
+    public function indexByTenan22(Request $request, $org = null) {
 
         BaseModel::$feature_enabled = false;
 
-        
+
 
         $with = $this->getEagerLoad();
         $skip = (int) $this->request->input('skip', 0);
         $limit = $this->calculateLimit();
 
-        $where = ['tenant_id'=>$org];//,'site_domain_code'=>'ehr'];
+        $where = ['tenant_id' => $org]; //,'site_domain_code'=>'ehr'];
 
         $criteria = get_class($this->model())::where($where);
 
-        $q =  $this->request->input('q', false);
-        if($q){
+        $q = $this->request->input('q', false);
+        if ($q) {
             //$criteria->where('first_name', 'like', $q.'%');
 
-             $items->whereRaw(
-             "MATCH(customer_name,customer_phone,customer_email) AGAINST(? IN BOOLEAN MODE)", 
-             array($q.'*'));
+            $items->whereRaw(
+                    "MATCH(customer_name,customer_phone,customer_email) AGAINST(? IN BOOLEAN MODE)", array($q . '*'));
         }
 
         //$criteria->whereIn('profile_type',['his_clinic','his_lab']);
 
-        $items = $limit
-            ? $criteria->with($with)->skip($skip)->limit($limit)->get()
-            : $criteria->with($with)->get();
+        $items = $limit ? $criteria->with($with)->skip($skip)->limit($limit)->get() : $criteria->with($with)->get();
         $response = $this->respondWithCollection($items, $skip, $limit);
         BaseModel::$feature_enabled = true;
 
         return $response;
-
     }
 
-
-/**
+    /**
      * Creates a file object from raw data.
      *
      * @param $data string Raw data
@@ -447,12 +394,11 @@ public function scopeEquals(&$criteria, $field){
      *
      * @return $this
      */
-    public function fromData($data, $filename)
-    {
+    public function fromData($data, $filename) {
         if ($data === null) {
             return;
         }
-        $file1 =  new \System\Models\File();
+        $file1 = new \System\Models\File();
         $tempPath = temp_path($filename);
         FileHelper::put($tempPath, $data);
         $file = $file1->fromFile($tempPath);
@@ -460,13 +406,9 @@ public function scopeEquals(&$criteria, $field){
         return $file;
     }
 
+    public function createAction($fdata) {
 
-
-
-    public function createAction($fdata){
-
-        return  $this->model->create($fdata);
-
+        return $this->model->create($fdata);
     }
 
     /**
@@ -475,13 +417,12 @@ public function scopeEquals(&$criteria, $field){
      *
      * @return Response
      */
-    public function store()
-    {
+    public function store() {
 
-         BaseModel::$feature_enabled = false;
+        BaseModel::$feature_enabled = false;
         $data = $this->request->json()->get($this->resourceKeySingular);
 
-        if (! $data) {
+        if (!$data) {
             return $this->errorWrongArgs('Empty data');
         }
 
@@ -493,25 +434,23 @@ public function scopeEquals(&$criteria, $field){
         $this->unguardIfNeeded();
 
         $fdata = $data;
-        if($this->fillable){
+        if ($this->fillable) {
             $fdata = [];
             foreach ($this->fillable as $key => $value) {
-               if(isset($data[$value])){
-                  $fdata[$value] =  $data[$value];
-               }
+                if (isset($data[$value])) {
+                    $fdata[$value] = $data[$value];
+                }
             }
         }
 
-        if(isset($fdata['context_date'])){
+        if (isset($fdata['context_date'])) {
             $fdata['context_date'] = date("Y-m-d H:i:s", strtotime($fdata['context_date']));
-
-            
-        }else{
+        } else {
             //$fdata['context_date'] = date("Y-m-d H:i:s");
         }
 
 
-        if(isset($fdata['images'])){
+        if (isset($fdata['images'])) {
             unset($fdata['images']);
         }
 
@@ -520,34 +459,30 @@ public function scopeEquals(&$criteria, $field){
 
 
 
-       /**
-        if(isset($data['images'])){
-            foreach ($data['images'] as $key => $value) {
+        /**
+          if(isset($data['images'])){
+          foreach ($data['images'] as $key => $value) {
 
-               $idata = base64_decode($value['data']);
-               
-               $file = $this->fromData($idata, 'photo_'.$key);
-               $file->is_public = true;
-               $file->save();
+          $idata = base64_decode($value['data']);
 
-               $item->{$this->images_field}()->add($file);
-            }
-        }**/
+          $file = $this->fromData($idata, 'photo_'.$key);
+          $file->is_public = true;
+          $file->save();
 
-         BaseModel::$feature_enabled = true;
+          $item->{$this->images_field}()->add($file);
+          }
+          }* */
+        BaseModel::$feature_enabled = true;
 
         return $this->respondWithItem($item);
     }
 
+    public function storeByUser(Request $request, $tenant_id = null, $user_id = null) {
 
-
-   public function storeByUser(Request $request,$tenant_id=null, $user_id=null)
-    {
-
-         BaseModel::$feature_enabled = false;
+        BaseModel::$feature_enabled = false;
         $data = $this->request->json()->get($this->resourceKeySingular);
 
-        if (! $data) {
+        if (!$data) {
             return $this->errorWrongArgs('Empty data');
         }
 
@@ -559,50 +494,46 @@ public function scopeEquals(&$criteria, $field){
         $this->unguardIfNeeded();
 
         $fdata = $data;
-        if($this->fillable){
+        if ($this->fillable) {
             $fdata = [];
             foreach ($this->fillable as $key => $value) {
-               if(isset($data[$value])){
-                  $fdata[$value] =  $data[$value];
-               }
+                if (isset($data[$value])) {
+                    $fdata[$value] = $data[$value];
+                }
             }
         }
 
         $fdata['user_id'] = $user_id;
         $fdata['tenant_id'] = $tenant_id;
-        if(isset($fdata['images'])){
+        if (isset($fdata['images'])) {
             unset($fdata['images']);
         }
         $item = $this->model->create($fdata);
 
-        if(isset($data['images'])){
+        if (isset($data['images'])) {
             foreach ($data['images'] as $key => $value) {
 
-               $idata = base64_decode($value['data']);
-               
-               $file = $this->fromData($idata, 'photo_'.$key);
-               $file->is_public = true;
-               $file->save();
+                $idata = base64_decode($value['data']);
 
-               $item->{$this->images_field}()->add($file);
+                $file = $this->fromData($idata, 'photo_' . $key);
+                $file->is_public = true;
+                $file->save();
+
+                $item->{$this->images_field}()->add($file);
             }
         }
 
-         BaseModel::$feature_enabled = true;
+        BaseModel::$feature_enabled = true;
 
         return $this->respondWithItem($item);
     }
 
+    public function storeByService(Request $request, $tenant_id = null, $services_id = null) {
 
-
-
-    public function storeByService(Request $request,$tenant_id=null,$services_id=null)
-    {
-
-         BaseModel::$feature_enabled = false;
+        BaseModel::$feature_enabled = false;
         $data = $this->request->json()->get($this->resourceKeySingular);
 
-        if (! $data) {
+        if (!$data) {
             return $this->errorWrongArgs('Empty data');
         }
 
@@ -614,38 +545,38 @@ public function scopeEquals(&$criteria, $field){
         $this->unguardIfNeeded();
 
         $fdata = $data;
-        if($this->fillable){
+        if ($this->fillable) {
             $fdata = [];
             foreach ($this->fillable as $key => $value) {
-               if(isset($data[$value])){
-                  $fdata[$value] =  $data[$value];
-               }
+                if (isset($data[$value])) {
+                    $fdata[$value] = $data[$value];
+                }
             }
         }
-        
+
 
         $fdata['services_id'] = $services_id;
-        
+
         $fdata['tenant_id'] = $tenant_id;
-        if(isset($fdata['images'])){
+        if (isset($fdata['images'])) {
             unset($fdata['images']);
         }
         $item = $this->model->create($fdata);
 
-        if(isset($data['images'])){
+        if (isset($data['images'])) {
             foreach ($data['images'] as $key => $value) {
 
-               $idata = base64_decode($value['data']);
-               
-               $file = $this->fromData($idata, 'photo_'.$key);
-               $file->is_public = true;
-               $file->save();
+                $idata = base64_decode($value['data']);
 
-               $item->{$this->images_field}()->add($file);
+                $file = $this->fromData($idata, 'photo_' . $key);
+                $file->is_public = true;
+                $file->save();
+
+                $item->{$this->images_field}()->add($file);
             }
         }
 
-         BaseModel::$feature_enabled = true;
+        BaseModel::$feature_enabled = true;
 
         return $this->respondWithItem($item);
     }
@@ -658,47 +589,45 @@ public function scopeEquals(&$criteria, $field){
      *
      * @return Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         $with = $this->getEagerLoad();
 
         $item = $this->findItem($id, $with);
-        if (! $item) {
+        if (!$item) {
             return $this->errorNotFound();
         }
 
         return $this->respondWithItem($item);
-    }
+        }
 
 
 
 
 
-   public function echo(Request $request){
-        
+        public function echo(Request $request){
 
-return $this->respond(['s'=>'echo']);
-        return ['s'=>'echo'];
+
+        return $this->respond(['s' => 'echo']);
+        return ['s' => 'echo'];
 
         return \Response::json(array('success' => true));
     }
 
-
-   public function upload2(Request $request){
+    public function upload2(Request $request) {
         $id = $request->input('id', false);
         $files = $request->file('images');
 
 
         $item = $this->findItem($id);
-        if (! $item) {
+        if (!$item) {
             return $this->errorNotFound();
         }
 
 
 
-        if(!empty($files)):
+        if (!empty($files)):
 
-            foreach($files as $file):
+            foreach ($files as $file):
                 Storage::put($file->getClientOriginalName(), file_get_contents($file));
             endforeach;
 
@@ -707,46 +636,45 @@ return $this->respond(['s'=>'echo']);
         return \Response::json(array('success' => true));
     }
 
-    public function upload(Request $request){
+    public function upload(Request $request) {
 
-         BaseModel::$feature_enabled = false;
+        BaseModel::$feature_enabled = false;
         $id = $request->input('id', false);
         $files = $request->file('images');
 
 
         $item = $this->findItem($id);
-        if (! $item) {
+        if (!$item) {
             return $this->errorNotFound();
         }
 
-       $count = 0;
+        $count = 0;
 
-        if(!empty($files)){
+        if (!empty($files)) {
 
             //return $this->respond(['s'=>'echo', 'files'=>count($files)]);
 
-             foreach($files as $file1) {
+            foreach ($files as $file1) {
 
                 $file = new \System\Models\File();
-$file->data = $file1;
-$file->is_public = true;
-$file->save();
+                $file->data = $file1;
+                $file->is_public = true;
+                $file->save();
 
-               $item->{$this->images_field}()->add($file);
-               $count++;
+                $item->{$this->images_field}()->add($file);
+                $count++;
             }
         }
+        
+        //Amit : 30/04/2018 => to resync uploaded image with actual models
+        $item->status = 'L';
+        $item->save();
+        //    return $this->respond(['s'=>'echo', 'files'=>$count]);
 
-       // $item->save();
-
-       //    return $this->respond(['s'=>'echo', 'files'=>$count]);
-
-       BaseModel::$feature_enabled = true;
+        BaseModel::$feature_enabled = true;
 
         return $this->respondWithItem($item);
     }
-
-
 
     /**
      * Update the specified resource in storage.
@@ -756,20 +684,19 @@ $file->save();
      *
      * @return Response
      */
-    public function update($id)
-    {
-         BaseModel::$feature_enabled = false;
+    public function update($id) {
+        BaseModel::$feature_enabled = false;
         $data = $this->request->json()->get($this->resourceKeySingular);
 
 
         $data1 = $this->request->json();
 
-        if (! $data) {
+        if (!$data) {
             return $this->errorWrongArgs('Empty data');
         }
 
         $item = $this->findItem($id);
-        if (! $item) {
+        if (!$item) {
             return $this->errorNotFound();
         }
 
@@ -782,53 +709,49 @@ $file->save();
 
 
         $fdata = $data;
-        if($this->fillable){
+        if ($this->fillable) {
             $fdata = [];
             foreach ($this->fillable as $key => $value) {
-               if(isset($data[$value])){
-                  $fdata[$value] =  $data[$value];
-               }
+                if (isset($data[$value])) {
+                    $fdata[$value] = $data[$value];
+                }
             }
         }
-        if(isset($fdata['images'])){
+        if (isset($fdata['images'])) {
             unset($fdata['images']);
         }
         $item->fill($fdata);
         $item->save();
 
-         if(isset($data['images'])){
+        if (isset($data['images'])) {
             foreach ($data['images'] as $key => $value) {
 
-               $idata = base64_decode($value['data']);
-               
-               $file = $this->fromData($idata, 'photo_'.$key);
-               $file->is_public = true;
-               $file->save();
+                $idata = base64_decode($value['data']);
 
-               $item->{$this->images_field}()->add($file);
+                $file = $this->fromData($idata, 'photo_' . $key);
+                $file->is_public = true;
+                $file->save();
+
+                $item->{$this->images_field}()->add($file);
             }
         }
 
-        if(isset($data['deleted_images'])){
+        if (isset($data['deleted_images'])) {
             foreach ($data['deleted_images'] as $key => $value) {
 
                 foreach ($item->{$this->images_field} as $key2 => $value2) {
                     # code...
-                    if($value2->id == $value['id']){
+                    if ($value2->id == $value['id']) {
                         $item->{$this->images_field}()->remove($value2);
                     }
                 }
-
-              
-
-               
             }
         }
 
         $item->save();
 
 
-         BaseModel::$feature_enabled = true;
+        BaseModel::$feature_enabled = true;
 
         return $this->respondWithItem($item);
     }
@@ -841,13 +764,12 @@ $file->save();
      *
      * @return Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
 
         BaseModel::$feature_enabled = false;
         $item = $this->findItem($id);
 
-        if (! $item) {
+        if (!$item) {
             return $this->errorNotFound();
         }
 
@@ -868,8 +790,7 @@ $file->save();
      *
      * @return Response
      */
-    public function create()
-    {
+    public function create() {
         return $this->errorNotImplemented();
     }
 
@@ -880,8 +801,7 @@ $file->save();
      *
      * @return Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         return $this->errorNotImplemented();
     }
 
@@ -892,8 +812,7 @@ $file->save();
      *
      * @return mixed
      */
-    protected function respondWithItem($item)
-    {
+    protected function respondWithItem($item) {
         $resource = new Item($item, $this->transformer, $this->resourceKeySingular);
 
         $rootScope = $this->prepareRootScope($resource);
@@ -910,8 +829,7 @@ $file->save();
      *
      * @return mixed
      */
-    protected function respondWithCollection($collection, $skip = 0, $limit = 0)
-    {
+    protected function respondWithCollection($collection, $skip = 0, $limit = 0) {
         $resource = new Collection($collection, $this->transformer, $this->resourceKeyPlural);
 
         if ($limit) {
@@ -922,21 +840,20 @@ $file->save();
         $rootScope = $this->prepareRootScope($resource);
 
         $listData = $rootScope->toArray();
-        $meta =$listData['meta'];
+        $meta = $listData['meta'];
         unset($listData['meta']);
 
-         $status = ['data'=>$listData,'meta'=>$meta];
+        $status = ['data' => $listData, 'meta' => $meta];
 
-        if($this->share_session_data){
-        $session_data = $this->app->getSessionData();
+        if ($this->share_session_data) {
+            $session_data = $this->app->getSessionData();
 
 
-       
-        if($session_data){
-            $status['session_data'] = $session_data;
+
+            if ($session_data) {
+                $status['session_data'] = $session_data;
+            }
         }
-
-    }
 
 
         return $this->respond($status);
@@ -949,8 +866,7 @@ $file->save();
      *
      * @return int
      */
-    protected function getStatusCode()
-    {
+    protected function getStatusCode() {
         return $this->statusCode;
     }
 
@@ -961,8 +877,7 @@ $file->save();
      *
      * @return $this
      */
-    protected function setStatusCode($statusCode)
-    {
+    protected function setStatusCode($statusCode) {
         $this->statusCode = $statusCode;
 
         return $this;
@@ -976,8 +891,7 @@ $file->save();
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respond($data = [], array $headers = [])
-    {
+    protected function respond($data = [], array $headers = []) {
         return response()->json($data, $this->statusCode, $headers);
     }
 
@@ -988,13 +902,12 @@ $file->save();
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respondWithError($message)
-    {
+    protected function respondWithError($message) {
         return $this->respond([
-            'error' => [
-                'message' => $message,
-                'status_code' => $this->statusCode,
-            ],
+                    'error' => [
+                        'message' => $message,
+                        'status_code' => $this->statusCode,
+                    ],
         ]);
     }
 
@@ -1005,8 +918,7 @@ $file->save();
      *
      * @return \League\Fractal\Scope
      */
-    protected function prepareRootScope($resource)
-    {
+    protected function prepareRootScope($resource) {
         return $this->fractal->createData($resource);
     }
 
@@ -1015,8 +927,7 @@ $file->save();
      *
      * @return array
      */
-    protected function rulesForCreate()
-    {
+    protected function rulesForCreate() {
         return [];
     }
 
@@ -1027,8 +938,7 @@ $file->save();
      *
      * @return array
      */
-    protected function rulesForUpdate($id)
-    {
+    protected function rulesForUpdate($id) {
         return [];
     }
 
@@ -1039,8 +949,7 @@ $file->save();
      *
      * @return Response
      */
-    protected function errorWrongArgs($message = 'Wrong Arguments')
-    {
+    protected function errorWrongArgs($message = 'Wrong Arguments') {
         return $this->setStatusCode(Response::HTTP_BAD_REQUEST)->respondWithError($message);
     }
 
@@ -1051,8 +960,7 @@ $file->save();
      *
      * @return Response
      */
-    protected function errorUnauthorized($message = 'Unauthorized')
-    {
+    protected function errorUnauthorized($message = 'Unauthorized') {
         return $this->setStatusCode(Response::HTTP_UNAUTHORIZED)->respondWithError($message);
     }
 
@@ -1063,8 +971,7 @@ $file->save();
      *
      * @return Response
      */
-    protected function errorForbidden($message = 'Forbidden')
-    {
+    protected function errorForbidden($message = 'Forbidden') {
         return $this->setStatusCode(Response::HTTP_FORBIDDEN)->respondWithError($message);
     }
 
@@ -1075,8 +982,7 @@ $file->save();
      *
      * @return Response
      */
-    protected function errorNotFound($message = 'Resource Not Found')
-    {
+    protected function errorNotFound($message = 'Resource Not Found') {
         return $this->setStatusCode(Response::HTTP_NOT_FOUND)->respondWithError($message);
     }
 
@@ -1087,8 +993,7 @@ $file->save();
      *
      * @return Response
      */
-    protected function errorNotAllowed($message = 'Method Not Allowed')
-    {
+    protected function errorNotAllowed($message = 'Method Not Allowed') {
         return $this->setStatusCode(Response::HTTP_METHOD_NOT_ALLOWED)->respondWithError($message);
     }
 
@@ -1099,8 +1004,7 @@ $file->save();
      *
      * @return Response
      */
-    protected function errorInternalError($message = 'Internal Error')
-    {
+    protected function errorInternalError($message = 'Internal Error') {
         return $this->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR)->respondWithError($message);
     }
 
@@ -1111,8 +1015,7 @@ $file->save();
      *
      * @return Response
      */
-    protected function errorNotImplemented($message = 'Not implemented')
-    {
+    protected function errorNotImplemented($message = 'Not implemented') {
         return $this->setStatusCode(Response::HTTP_NOT_IMPLEMENTED)->respondWithError($message);
     }
 
@@ -1121,8 +1024,7 @@ $file->save();
      *
      * @return array
      */
-    protected function getEagerLoad()
-    {
+    protected function getEagerLoad() {
         $includes = $this->transformer->getAvailableIncludes();
 
         return $includes ?: [];
@@ -1136,8 +1038,7 @@ $file->save();
      *
      * @return mixed
      */
-    protected function findItem($id, array $with = [])
-    {
+    protected function findItem($id, array $with = []) {
         if ($this->request->has('use_as_id')) {
             return $this->model->with($with)->where($this->request->input('use_as_id'), '=', $id)->first();
         }
@@ -1148,8 +1049,7 @@ $file->save();
     /**
      * Unguard eloquent model if needed.
      */
-    protected function unguardIfNeeded()
-    {
+    protected function unguardIfNeeded() {
         if ($this->unguard) {
             $this->model->unguard();
         }
@@ -1160,10 +1060,10 @@ $file->save();
      *
      * @return int
      */
-    protected function calculateLimit()
-    {
+    protected function calculateLimit() {
         $limit = (int) $this->request->input('limit', $this->defaultLimit);
 
         return ($this->maximumLimit && $this->maximumLimit < $limit) ? $this->maximumLimit : $limit;
     }
+
 }

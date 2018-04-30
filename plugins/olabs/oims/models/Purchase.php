@@ -44,6 +44,7 @@ class Purchase extends BaseModel
         
         // User - Rainlab User if exist
         "user",
+        "user_id",
         
         // Delivery address
         "ds_first_name",
@@ -91,6 +92,7 @@ class Purchase extends BaseModel
     
     public $rules = [
 //        'title' => 'required|between:2,255',
+        'user_id' => 'numeric|required',
         'reference_number' => 'numeric|required|between:1,255|unique:olabs_oims_purchases',
 //        'reference_number' => [
 //            'required',
@@ -725,7 +727,7 @@ class Purchase extends BaseModel
             $fields->user_id->value = $this->quote->user_id;
         }
         
-        if($fields->payment_method){
+        if($fields->payment_method && isset($fields->{'paid_detail[payment_from]'})){
 //            dd($fields->{'paid_detail[payment_from]'});
             $fields->{'paid_detail[payment_from]'}->hidden = true;
             $fields->{'paid_detail[payment_to]'}->hidden = true;
