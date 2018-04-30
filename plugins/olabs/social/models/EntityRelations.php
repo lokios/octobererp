@@ -37,11 +37,11 @@ class EntityRelations extends Model {
         $app = App::getInstance();
         $this->actor_id = $app->getAppUserId();
         if ($this->target_type == 'sync' && !$this->status) {
-            $this->status = 'L';
+            $this->status = self::STATUS_LIVE;
         }
 
-        if ($this->target_type == 'mr_entry' && !$this->status) {
-            $this->status = 'L';
+        if ($this->target_type == self::TARGET_TYPE_MR_ENTRY && !$this->status) {
+            $this->status = self::STATUS_LIVE;
 
             $entry = $this->data;
             if (!$entry)
@@ -55,19 +55,19 @@ class EntityRelations extends Model {
 
             $this->created_at = date('Y-m-d H:i:s');
             //$this->created_by = $this->created_by;
-            $this->target_type = 'mr_entry';
+            $this->target_type = self::TARGET_TYPE_MR_ENTRY;
             $this->relation = 'created';
-            $this->target_id = $entry['mr_id'];
+//            $this->target_id = $entry['mr_id'];
             if (isset($entry['data'])) {
                 unset($entry['data']);
             }
 
             $this->data = [$entry];
-            $this->status = 'L';
+            $this->status = self::STATUS_LIVE;
         }
 
-        if ($this->target_type == 'attendance' && !$this->status) {
-            $this->status = 'L';
+        if ($this->target_type == self::TARGET_TYPE_ATTENDANCE && !$this->status) {
+            $this->status = self::STATUS_LIVE;
 
             $entry = $this->data;
             if (!$entry)
@@ -82,15 +82,15 @@ class EntityRelations extends Model {
             $this->created_at = date('Y-m-d H:i:s');
 //            $this->created_at = date('Y-m-d H:i:s', strtotime($entry['check_in']));
             //$this->created_by = $this->created_by;
-            $this->target_type = 'attendance';
+            $this->target_type = self::TARGET_TYPE_ATTENDANCE;
             $this->relation = 'created';
-            $this->target_id = $entry['employee_id'];
+//            $this->target_id = $entry['employee_id'];
             if (isset($entry['data'])) {
                 unset($entry['data']);
             }
 
             $this->data = [$entry];
-            $this->status = 'L';
+            $this->status = self::STATUS_LIVE;
         }
     }
 
@@ -101,15 +101,15 @@ class EntityRelations extends Model {
 
     public function afterSave() {
 
-        if ($this->target_type == 'sync' && $this->status == 'L') {
+        if ($this->target_type == 'sync' && $this->status == self::STATUS_LIVE) {
 
             if (isset($this->data)) {
 
                 foreach ($this->data as $key => $entry) {
                     # code...
-                    $target_type = isset($entry['target_type']) ? $entry['target_type'] : 'attendance';
+                    $target_type = isset($entry['target_type']) ? $entry['target_type'] : self::TARGET_TYPE_ATTENDANCE;
 
-                    if ($target_type == 'attendance') {
+                    if ($target_type == self::TARGET_TYPE_ATTENDANCE) {
                         if (!isset($entry['check_in']) || !isset($entry['employee_id']))
                             continue;
 
@@ -118,9 +118,9 @@ class EntityRelations extends Model {
                         $cer->created_at = date('Y-m-d H:i:s', strtotime($entry['check_in']));
                         $cer->actor_id = $this->actor_id;
 
-                        $cer->target_type = 'attendance';
+                        $cer->target_type = self::TARGET_TYPE_ATTENDANCE;
 
-                        $cer->target_id = $entry['employee_id'];
+//                        $cer->target_id = $entry['employee_id'];
                         $cer->relation = 'created';
                         if (isset($entry['request_id']))
                             $cer->request_id = $entry['request_id'];
@@ -132,11 +132,11 @@ class EntityRelations extends Model {
 
 
                         $cer->data = [$entry];
-                        $cer->status = 'L';
+                        $cer->status = self::STATUS_LIVE;
                         $cer->save();
                     }
 
-                    if ($target_type == 'mr_entry') {
+                    if ($target_type == self::TARGET_TYPE_MR_ENTRY) {
                         if (!isset($entry['mr_id']))
                             continue;
 
@@ -144,20 +144,20 @@ class EntityRelations extends Model {
                         $cer = new EntityRelations();
                         $cer->created_at = date('Y-m-d H:i:s');
                         $cer->actor_id = $this->actor_id;
-                        $cer->target_type = 'mr_entry';
+                        $cer->target_type = self::TARGET_TYPE_MR_ENTRY;
                         $cer->relation = 'created';
-                        $cer->target_id = $entry['mr_id'];
+//                        $cer->target_id = $entry['mr_id'];
 
                         if (isset($entry['request_id']))
                             $cer->request_id = $entry['request_id'];
                         $cer->data = [$entry];
-                        $cer->status = 'L';
+                        $cer->status = self::STATUS_LIVE;
                         $cer->save();
                     }
                 }
             }
 
-            $this->status = 'O';
+            $this->status = self::STATUS_DONE;
             $this->save();
         }
         //Sync all data :
@@ -224,8 +224,8 @@ class EntityRelations extends Model {
                             
                                                         
                             //update record with context id & type
-                            $record->context_id = $attendace->id;
-                            $record->context_type = $attendace->getEntityType();
+                            $record->target_id = $attendace->id;
+//                            $record->context_type = $attendace->getEntityType();
                         }
                     }
                 }
@@ -235,7 +235,7 @@ class EntityRelations extends Model {
                         foreach ($record->data as $key => $entry) {
                             
                             //find by context id 
-                            $purchase = \Olabs\Oims\Models\Purchase::find($record->context_id);
+                            $purchase = \Olabs\Oims\Models\Purchase::find($record->target_id);
                             if(!$purchase){
                                 $purchase = new \Olabs\Oims\Models\Purchase();
                                 
@@ -246,7 +246,7 @@ class EntityRelations extends Model {
                             
                             $purchase->project_id = $entry['to_project_id'];
                             $purchase->context_date = date('Y-m-d H:i:s', strtotime($entry['check_in']));
-                            $purchase->reference_number = $record->target_id;
+                            $purchase->reference_number =  $entry['mr_id'];;
                             if ($record->images) {
                                 foreach ($record->images as $image) {
 //                                dd($image);
@@ -277,8 +277,8 @@ class EntityRelations extends Model {
                             $purchase->save();
                             
                             //update record with context id & type in entity relation table
-                            $record->context_id = $purchase->id;
-                            $record->context_type = $purchase->getEntityType();
+                            $record->target_id = $purchase->id;
+//                            $record->context_type = $purchase->getEntityType();
 //                            $record->save();
                         }
                     }
