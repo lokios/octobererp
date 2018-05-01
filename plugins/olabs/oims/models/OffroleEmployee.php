@@ -110,6 +110,41 @@ class OffroleEmployee extends BaseModel {
         return $name;
     }
     
+    public function getDOBAttribute(){
+        return $this->date_of_birth != '' ? date('d/m/Y', strtotime($this->date_of_birth)) : '';
+    }
+
+        public function getFullAddressAttribute() {
+
+        $temp = array();
+        if (!empty($this->address)) {
+            $temp[] = $this->address;
+        }
+        if (!empty($this->address_2)) {
+            $temp[] = $this->address_2;
+        }
+
+        if (!empty($this->city)) {
+            $temp[] = $this->city;
+        }
+
+        if (!empty($this->country)) {
+            $temp[] = $this->country;
+        }
+
+        $add = implode(', ', $temp);
+
+        if (!empty($this->postcode)) {
+            $add = ( trim($add) == "" ) ? $this->postcode : $add . ' - ' . $this->postcode;
+        }
+
+        return $add;
+    }
+
+    public function getContactNumberAttribute() {
+        return $this->contact_phone;
+    }
+    
     /**
      * Returns the public image file path to this user's avatar.
      */
