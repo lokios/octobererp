@@ -34,6 +34,10 @@ class EntityRelations extends Model {
 
     public function beforeSave() {
 
+       if($this->status == self::STATUS_DONE){
+          return;
+       }
+
         $app = App::getInstance();
         $this->actor_id = $app->getAppUserId();
         if ($this->target_type == 'sync' && !$this->status) {
@@ -161,7 +165,10 @@ class EntityRelations extends Model {
             $this->save();
         }
         //Sync all data :
-        $this->SyncData();
+
+
+        //$this->SyncDataRecord($this);
+        //$this->SyncData();
     }
     
     //Sync all entity relation data with respective models : attendance, mr_entry
@@ -171,6 +178,29 @@ class EntityRelations extends Model {
                         ->where('status', self::STATUS_LIVE)->get();
 
         foreach ($records as $record) {
+           
+           $this->SyncDataRecord($record);
+
+        }
+    }
+
+     public function SyncDataRecord($record) {
+               if ($record->target_type == self::TARGET_TYPE_ATTENDANCE) {
+                   return $this->SyncDataAttendance($record);
+
+                    
+                }
+                if ($record->target_type == self::TARGET_TYPE_MR_ENTRY) {
+                    $this->SyncDataMrEntry($record);
+                    
+                }
+        
+    }
+
+
+public function SyncDataAttendance() {
+
+        
             try {
 
 
@@ -229,7 +259,25 @@ class EntityRelations extends Model {
                         }
                     }
                 }
-                if ($record->target_type == self::TARGET_TYPE_MR_ENTRY) {
+               
+                $record->status = self::STATUS_DONE;
+                $record->save();
+            } catch(\October\Rain\Database\ModelException $me){
+
+                $record->status = self::STATUS_ERROR;
+                $record->save();
+
+            }catch (Exception $ex) {
+                $record->status = self::STATUS_ERROR;
+                $record->save();
+            }
+        
+    }
+
+
+public function SyncDataMrEntry($record) {
+        try{
+        
                     //Create mr entry
                     if (isset($record->data)) {
                         foreach ($record->data as $key => $entry) {
@@ -282,7 +330,7 @@ class EntityRelations extends Model {
 //                            $record->save();
                         }
                     }
-                }
+                
 
                 $record->status = self::STATUS_DONE;
                 $record->save();
@@ -290,7 +338,13 @@ class EntityRelations extends Model {
                 $record->status = self::STATUS_ERROR;
                 $record->save();
             }
-        }
+        
     }
 
+
+
+
+
 }
+
+

@@ -31,7 +31,7 @@ class EmployeeTransformer extends TransformerAbstract
 
         $val['name'] = [$val['first_name'],$val['last_name']];//,'uid'.$app->getAppUserId(),'perm'.$app->hasPermission($org,'manage_his')];
         $val['name']  =  implode(" ", $val['name']);
-        $val['name'] = $val['name'].' a1 ';
+        $val['name'] = $val['name'];
 
 
         $addr = [];

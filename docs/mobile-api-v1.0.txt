@@ -1,4 +1,86 @@
 
 
 
+
+
 curl -H "Content-Type: application/json" -X POST --data '{"data":{"relation":"attendance"}}' http://oimsapp.opaclabs.com/social/api/v1/entityrelations
+
+05-06 17:50:07.434 19104 23129 I ReactNativeJS: options :{"method":"post","headers":{"map":{"authorization":["Basic undefined"],"content-type":["application/x-www-form-urlencoded"],"app_id":["vss"],"user_id":["860"]}},"body":"{\"data\":{\"to_project_id\":\"8\",\"check_in\":\"06-05-2018  17:49\",\"mr_id\":\"dxf\",\"note\":null,\"created_by\":860,\"actor_id\":860,\"deleted_images\":[],\"EntityRelations_id\":320,\"images\":[],\"target_type\":\"mr_entry\",\"key\":\"off_mr_entry_v2_1525609193312\",\"request_id\":\"off_mr_entry_v2_1525609193312\",\"data\":[{\"to_project_id\":\"8\",\"check_in\":\"06-05-2018  17:49\",\"mr_id\":\"dxf\",\"note\":null,\"created_by\":860,\"actor_id\":860,\"deleted_images\":[],\"EntityRelations_id\":320,\"images\":[],\"target_type\":\"mr_entry\",\"key\":\"off_mr_entry_v2_1525609193312\",\"request_id\":\"off_mr_entry_v2_1525609193312\"}],\"retries\":2},\"app_id\":\"vss\",\"session_user_id\":860}"}
+
+
+
+
+
+
+
+https://github.com/lokios/octobererp/raw/master/oerplogo.png
+
+
+Dear sir,
+
+I am pleased to  announce the launch of OctoberERP - our Open Source ERP solution built on Laravel and OctoberCMS!
+
+OctoberERP - An Open Source ERP suite 
+Built on Laravel & OctoberCMS! 
+
+Official Website:  http://octobererp.com 
+Download: https://github.com/lokios/octobererp 
+Contact: enquiry@opaclabs.com 
+
+Business Productivity Tool - Now manage and monitor your business efficiently 
+Project management & planning, Sales/purchases & Site management, Inventories & Assets management, Employee HRMS, Assets/Accounting , Mobile apps for monitoring & tracking and more..
+
+
+OctoberERP is successfully integrated with VSS Buildcon constructions 
+Read the case study at -  VSS Buildcon Constructions utilized OctoberERP to automate there business processes
+http://octobererp.com/posts/case-studies
+
+Few How-tos/demos:
+How to create a Material Receipt with Work Order
+https://youtu.be/lbhLamU490w
+
+
+OctoberERP: How to create a Material Receipt
+https://youtu.be/jBZuEQ89QBU
+
+
+October erp mobile app v0.2
+https://youtu.be/LcxNeEGap3g
+
+
+
+Please write to us for wishtlist and improvements. We are looking forward for partners and companies that seeks similar solutions or have matching vision in similar space. 
+
+Lokendra Lodha
+CEO
+Opaclabs.com
+OctoberERP.com
+
+My mail: 
+lokendra@opaclabs.com
+enquiry@opaclabs.com
+
+
+
+
+How to create a Material Receipt with Work Order
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lbhLamU490w" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+https://youtu.be/lbhLamU490w
+
+
+OctoberERP: How to create a Material Receipt
+<iframe width="560" height="315" src="https://www.youtube.com/embed/jBZuEQ89QBU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+https://youtu.be/jBZuEQ89QBU
+
+Sample video: How to add a supplier
+https://youtu.be/EzLljUrE0TQ
+
+
+
+October erp mobile app v0.2
+<iframe width="560" height="315" src="https://www.youtube.com/embed/LcxNeEGap3g" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+https://youtu.be/LcxNeEGap3g

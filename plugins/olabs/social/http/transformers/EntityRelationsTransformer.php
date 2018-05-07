@@ -47,7 +47,7 @@ class EntityRelationsTransformer extends App
         
 
          $attributes  = [];
-         $attributes[] =['name'=>'MR No.','value'=>$item->target_id];
+         
          $attributes[] =['name'=>'Dated','value'=>date('Y-m-d H:i', strtotime($item->created_at))];
 
 
@@ -65,6 +65,15 @@ class EntityRelationsTransformer extends App
 
                 }
          }
+
+         if(isset($data['mr_id'])){
+            $name = [];
+            $name[] = 'MR Entry';
+            $name[] = $data['mr_id'];
+            
+           $this->val['name'] = implode(" | ", $name);
+           $attributes[] =['name'=>'MR No.','value'=>$data['mr_id']];
+        }
 
          $this->val['subtitle'] = implode(" | ", $subtitle);
 

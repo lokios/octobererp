@@ -6,6 +6,7 @@ use Olabs\Social\Models\EntityRelations as EntityRelationsModel;
 use Olabs\Social\Http\Transformers\EntityRelationsTransformer;
 use Autumn\Api\Classes\ApiController;
 use Illuminate\Http\Request;
+use Olabs\Tenant\Models\BaseModel;
 
 class EntityRelations extends ApiController {
 
@@ -54,15 +55,60 @@ class EntityRelations extends ApiController {
         if (!$item) {
 
             $item = $this->model->create($fdata);
+            $item->SyncDataRecord($item);
         }
 
         if ($item) {
+
             $m = new EntityRelationsModel();
             $m->id = $item->id;
             return $m;
         }
 
         return $item;
+    }
+
+
+    public function upload(Request $request) {
+
+        BaseModel::$feature_enabled = false;
+        $id = $request->input('id', false);
+        $files = $request->file('images');
+
+
+        $item = $this->findItem($id);
+        if (!$item) {
+            return $this->errorNotFound();
+        }
+
+        $count = 0;
+
+        if (!empty($files)) {
+
+            //return $this->respond(['s'=>'echo', 'files'=>count($files)]);
+
+            foreach ($files as $file1) {
+
+                $file = new \System\Models\File();
+                $file->data = $file1;
+                $file->is_public = true;
+                $file->save();
+
+                $item->{$this->images_field}()->add($file);
+                $count++;
+            }
+        }
+        
+        //Amit : 30/04/2018 => to resync uploaded image with actual models
+        //$item->status = 'L';
+        //$item->save();
+
+        $item->SyncDataRecord($item);
+        //    return $this->respond(['s'=>'echo', 'files'=>$count]);
+
+        BaseModel::$feature_enabled = true;
+
+        return $this->respondWithItem($item);
     }
     
 //    public function upload(Request $request) {
