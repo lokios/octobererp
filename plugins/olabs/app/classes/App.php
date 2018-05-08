@@ -181,6 +181,7 @@ function get_class_name($classname)
         //$model->avatar->getThumb(100, 100, ['mode' => 'crop']);
 
          $images = [];
+         $main_image = false;
         if(!$size)$size='thumb';
 
          if(!$this->images_field)return $images;
@@ -188,7 +189,13 @@ function get_class_name($classname)
 
             foreach($this->item->{$this->images_field} as $fi){
 
-               $images[] = ['uri'=>$this->getImageMain($fi),'id'=>$fi->id];
+               $image = $this->getImageMain($fi);
+               if(!$main_image){
+                   $main_image = $image;
+                   $this->val['main_image'] = $main_image;
+               }
+               $images[] = ['uri'=>$image,'id'=>$fi->id];
+               $this->val['has_images'] = true;
             }
         }
 
@@ -196,6 +203,34 @@ function get_class_name($classname)
 
         return $images;
     }
+
+
+    public function setFeatures($item, &$val){
+
+       $props = $this->getProps();
+       $props = $this->getProps();
+        foreach ($props as $key => $value) {
+            # code...
+            $val[$key] = $value;
+        }
+
+      if(isset($props['content_type'])){
+
+          $actor_id = $this->getAppUserId();
+          $target_type =$props['content_type'];
+          $target_id = $item->id;
+
+          if(isset($props['features']['follow'])){
+              $val['follow_label'] = EntityRelations::getStatusLabel('follow', $actor_id,$target_type, $target_id);
+          }
+
+          if(isset($props['features']['like'])){
+          
+             $val['like_label'] = EntityRelations::getStatusLabel('like', $actor_id,$target_type, $target_id);
+          }
+        }
+    }
+
 
     /**
      * Turn this item object into a generic array.
@@ -216,11 +251,9 @@ function get_class_name($classname)
 
         $val = $item->toArray();
 
-        $props = $this->getProps();
-        foreach ($props as $key => $value) {
-            # code...
-            $val[$key] = $value;
-        }
+        $this->setFeatures($item,$val);
+       
+        
 
         if(isset($val['name'])){
            $val['name'] = [$val['name']];//,'uid'.$app->getAppUserId(),'perm'.$app->hasPermission($org,'manage_his')];

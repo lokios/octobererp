@@ -181,9 +181,9 @@ abstract class ApiController extends Controller {
             $toDate = false;
             $q2 = $this->request->input($field . '_to', false);
             if ($q2) {
-                $toDate = date('Y-m-d' . ' 22:00:40', strtotime($q2));
+                $toDate = date('Y-m-d' . ' 23:59:59', strtotime($q2));
             } else {
-                $toDate = date('Y-m-d' . ' 22:00:40', time());
+                $toDate = date('Y-m-d' . ' 22:59:59', time());
             }
 
             $criteria->whereBetween($field, [$fromDate, $toDate]);
@@ -193,6 +193,101 @@ abstract class ApiController extends Controller {
     public function getExtraConditions($action, Request $request, &$criteria) {
         
     }
+
+
+    public function scopeByRelation(Request $request , &$criteria){
+        $app = App::getInstance();
+
+        $relation =  $this->request->input('relation', false);
+
+        if($relation){
+           $actor_id = $app->getAppUserId();
+           $target_type ='tenant';
+           
+           $list = 
+\Olabs\Social\Models\EntityRelations::findAll($relation, $actor_id,$target_type);
+
+           $idList = [];
+           foreach ($list as $key => $value) {
+               # code...
+               $idList[] =  $value->target_id;
+           }
+
+            if($idList && count($idList)==0){
+                 $idList =['-111'];
+            }
+
+          $criteria->whereIn('id',  $idList);
+
+
+          
+
+        }
+    }
+
+
+
+   public  function scopeByQuery(Request $request , &$criteria){
+     $q =  $this->request->input('q', false);
+        $qtype =  $this->request->input('qtype', false);
+
+        if($qtype && $qtype=='barcode'){
+            if($this->search_barcode_based && count($this->search_barcode_based)==1){
+                 $value = $this->search_barcode_based[0];
+                  $criteria->where($value,  $q);
+                 
+             }
+
+        }else  if($q){
+            //$criteria->where('first_name', 'like', $q.'%');
+
+            if($this->search_boolean_based){
+                /** $items->whereRaw(
+             "MATCH(customer_name,customer_phone,customer_email) AGAINST(? IN BOOLEAN MODE)", 
+             array($q.'*')); **/
+
+              $criteria->whereRaw(
+             "MATCH(".$this->search_boolean.") AGAINST(? IN BOOLEAN MODE)", 
+             array($q.'*'));
+
+            }
+
+             if($this->search_like_based && count($this->search_like_based)>1){
+
+                  $search_like_based = $this->search_like_based;
+
+                   $criteria->where(function ($query)use ($search_like_based, $q) {
+
+                     foreach ($this->search_like_based as $key => $value) {
+                    # code...
+
+                         if($value=='id'){
+                             $query->orWhere($value,  $q);
+                    
+
+                         }else{
+                              $query->orWhere($value, 'like', $q.'%');
+                         }
+                      }
+                   });
+
+                
+
+             }else  if($this->search_like_based && count($this->search_like_based)==1){
+                 $value = $this->search_like_based[0];
+                 if($value=='id'){
+                             $criteria->where($value,  $q);
+                    
+
+                         }else{
+                              $criteria->where($value, 'like', $q.'%');
+                         }
+
+             }
+
+            
+        }
+   }
 
     public function getQueryBuilder(Request $request) {
 
@@ -217,65 +312,18 @@ abstract class ApiController extends Controller {
         $this->scopeDateBetween($criteria, 'updated_at');
         $this->scopeDateBetween($criteria, 'published_at');
 
+           $this->scopeByQuery($request , $criteria);
 
 
-        if ($this->search_barcode_based && count($this->search_barcode_based) > 0) {
-            $q = $this->request->input('bcode', false);
-            if ($q) {
+          if($this->search_barcode_based && count($this->search_barcode_based)>0){
+            $q =  $this->request->input('bcode', false);
+            if($q){
 
-                $criteria->where($this->search_barcode_based[0], $q);
+                  $criteria->where($this->search_barcode_based[0],  $q);
+                    
+
             }
-        }
-
-
-
-
-
-        $q = $this->request->input('q', false);
-        $qtype = $this->request->input('qtype', false);
-
-        if ($qtype && $qtype == 'barcode') {
-            if ($this->search_barcode_based && count($this->search_barcode_based) == 1) {
-                $value = $this->search_barcode_based[0];
-                $criteria->where($value, $q);
-            }
-        } else if ($q) {
-            //$criteria->where('first_name', 'like', $q.'%');
-
-            if ($this->search_boolean_based) {
-                /** $items->whereRaw(
-                  "MATCH(customer_name,customer_phone,customer_email) AGAINST(? IN BOOLEAN MODE)",
-                  array($q.'*')); * */
-                $criteria->whereRaw(
-                        "MATCH(" . $this->search_boolean . ") AGAINST(? IN BOOLEAN MODE)", array($q . '*'));
-            }
-
-            if ($this->search_like_based && count($this->search_like_based) > 1) {
-
-                $search_like_based = $this->search_like_based;
-
-                $criteria->where(function ($query)use ($search_like_based, $q) {
-
-                    foreach ($this->search_like_based as $key => $value) {
-                        # code...
-
-                        if ($value == 'id') {
-                            $query->orWhere($value, $q);
-                        } else {
-                            $query->orWhere($value, 'like', $q . '%');
-                        }
-                    }
-                });
-            } else if ($this->search_like_based && count($this->search_like_based) == 1) {
-                $value = $this->search_like_based[0];
-                if ($value == 'id') {
-                    $criteria->where($value, $q);
-                } else {
-                    $criteria->where($value, 'like', $q . '%');
-                }
-            }
-        }
-
+         }
         return $criteria;
     }
 
@@ -304,7 +352,8 @@ abstract class ApiController extends Controller {
 
 
 
-        $items = $limit ? $criteria->with($with)->skip($skip)->limit($limit) : $criteria->with($with);
+        $items = $limit ? $criteria->with($with)->skip($skip)->limit($limit) 
+        : $criteria->with($with);
 
         if ($this->orderBy) {
             $items->orderBy($this->orderBy, $this->orderByOrder);
@@ -723,7 +772,7 @@ abstract class ApiController extends Controller {
         $item->fill($fdata);
         $item->save();
 
-        if (isset($data['images'])) {
+       /* if (isset($data['images'])) {
             foreach ($data['images'] as $key => $value) {
 
                 $idata = base64_decode($value['data']);
@@ -735,7 +784,7 @@ abstract class ApiController extends Controller {
                 $item->{$this->images_field}()->add($file);
             }
         }
-
+*/
         if (isset($data['deleted_images'])) {
             foreach ($data['deleted_images'] as $key => $value) {
 

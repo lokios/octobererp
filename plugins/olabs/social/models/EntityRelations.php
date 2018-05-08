@@ -4,7 +4,7 @@ namespace Olabs\Social\Models;
 
 use Model;
 use Olabs\App\Classes\App;
-use Olabs\Oims\Models\Attendance;
+
 
 /**
  * Model
@@ -35,6 +35,10 @@ class EntityRelations extends Model {
     public function beforeSave() {
 
        if($this->status == self::STATUS_DONE){
+          return;
+       }
+
+       if($this->status == self::STATUS_ERROR){
           return;
        }
 
@@ -227,7 +231,7 @@ public function SyncDataAttendance() {
                                     $attendace->employee_offrole = \Olabs\Oims\Models\OffroleEmployee::find($employee_id);
 //                                $attendace->employee_id = $employee_id;
                                 }
-                                if ($employee_type == Attendance::EMPLOYEE_TYPE_ONROLE) {
+                                if ($employee_type == \Olabs\Oims\Models\Attendance::EMPLOYEE_TYPE_ONROLE) {
                                     $attendace->employee_onrole = $employee_id; //\Olabs\Oims\Models\Employee::find($employee_id);
                                 }
                                 $attendace->employee_type = $employee_type;
@@ -238,7 +242,7 @@ public function SyncDataAttendance() {
 
 //                        dd($attendace->employee_onrole);
                             //Unset employee Offrole 
-                            if ($employee_type == Attendance::EMPLOYEE_TYPE_ONROLE) {
+                            if ($employee_type == \Olabs\Oims\Models\Attendance::EMPLOYEE_TYPE_ONROLE) {
                                 $attendace->employee_id = $employee_id;
                                 $attendace->employee_offrole = FALSE;
                             }
@@ -342,7 +346,63 @@ public function SyncDataMrEntry($record) {
     }
 
 
+public static function findAll($relation, $actor_id,$target_type){
 
+    $er = self::where(['actor_id'=>$actor_id
+                       ,'target_type'=>$target_type
+                      
+                        ,'relation'=>$relation
+                        ,'status'=>'L'
+                    ])->get();
+
+    return $er;
+   }
+
+
+
+   public static function getStatusLabel($relation, $actor_id,$target_type, $target_id){
+
+    $er = self::where(['actor_id'=>$actor_id
+                       ,'target_type'=>$target_type
+                       ,'target_id'=>$target_id
+                        ,'relation'=>$relation
+                    ])->first();
+       
+
+    if($er && $er->status){
+          switch ($relation) {
+              case 'follow':
+                  # code...
+                  return $er->status =='L'?'FOLLOWING':'FOLLOW';
+                  break;
+              case 'like':
+                  # code...
+                  return $er->status =='L'?'LIKED':'LIKE';
+                  break;    
+              
+              default:
+                  # code...
+                  break;
+          }
+    }
+
+
+    switch ($relation) {
+              case 'follow':
+                  # code...
+                  return 'FOLLOW';
+                  break;
+              case 'like':
+                  # code...
+                  return 'LIKE';
+                  break;    
+              
+              default:
+                  # code...
+                  break;
+          }
+
+   }
 
 
 }

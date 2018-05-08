@@ -15,6 +15,9 @@ class EntityRelations extends ApiController {
     protected $fillable2 = ['actor_id'];
     public $images_field = 'images';
 
+    public $after_create_event = true;
+    public $after_upload_event = true;
+
     /**
      * Eloquent model.
      *
@@ -55,14 +58,14 @@ class EntityRelations extends ApiController {
         if (!$item) {
 
             $item = $this->model->create($fdata);
-            $item->SyncDataRecord($item);
+           $item->SyncDataRecord($item);
         }
 
         if ($item) {
 
-            $m = new EntityRelationsModel();
-            $m->id = $item->id;
-            return $m;
+           // $m = new EntityRelationsModel();
+           // $m->id = $item->id;
+           // return $m;
         }
 
         return $item;
@@ -110,6 +113,101 @@ class EntityRelations extends ApiController {
 
         return $this->respondWithItem($item);
     }
+
+
+
+
+    /**
+     * Store a newly created resource in storage.
+     * POST /api/{resource}.
+     *
+     * @return Response
+     */
+    public function store()
+    {
+
+         BaseModel::$feature_enabled = false;
+        $data = $this->request->json()->get($this->resourceKeySingular);
+
+        if (! $data) {
+            return $this->errorWrongArgs('Empty data');
+        }
+
+        $validator = Validator::make($data, $this->rulesForCreate());
+        if ($validator->fails()) {
+            return $this->errorWrongArgs($validator->messages());
+        }
+
+        $this->unguardIfNeeded();
+
+        $fdata = $data;
+        if($this->fillable){
+            $fdata = [];
+            foreach ($this->fillable as $key => $value) {
+               if(isset($data[$value])){
+                  $fdata[$value] =  $data[$value];
+               }
+            }
+        }
+
+        if(isset($fdata['context_date'])){
+            $fdata['context_date'] = date("Y-m-d H:i:s", strtotime($fdata['context_date']));
+
+            
+        }else{
+            //$fdata['context_date'] = date("Y-m-d H:i:s");
+        }
+
+
+        if(isset($fdata['images'])){
+            unset($fdata['images']);
+        }
+
+        if(isset($fdata['relation'])){
+            $relation = $fdata['relation'];
+            if($relation == 'like'||$relation='follow'){
+                $er = EntityRelationsModel::where(['actor_id'=>$fdata['actor_id']
+                       ,'target_type'=>$fdata['target_type']
+                       ,'target_id'=>$fdata['target_id']
+                        ,'relation'=>$fdata['relation']
+                    ])->first();
+
+                if($er){
+                    if($er->status =='L'){
+                        $er->status = 'O';
+                    }else{
+                         $er->status = 'L';
+                    }
+
+                    $er->save();
+
+                   return $this->respondWithItem($er);
+                }
+            }
+        }
+
+        $fdata['status'] = 'L';
+
+        $item = $this->createAction($fdata);
+
+      /*  if(isset($data['images'])){
+            foreach ($data['images'] as $key => $value) {
+
+               $idata = base64_decode($value['data']);
+               
+               $file = $this->fromData($idata, 'photo_'.$key);
+               $file->is_public = true;
+               $file->save();
+
+               $item->{$this->images_field}()->add($file);
+            }
+        }*/
+
+         BaseModel::$feature_enabled = true;
+
+        return $this->respondWithItem($item);
+    }
+
     
 //    public function upload(Request $request) {
 //        
