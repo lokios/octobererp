@@ -239,6 +239,12 @@ navigation:
                 icon: icon-sitemap
                 permissions:
                     - olabs.oims.offrole_employees
+            project_books:
+                label: Project Books
+                url: olabs/oims/projectBooks
+                icon: icon-sitemap
+                permissions:
+                    - olabs.oims.project_books
     oims_setup:
         label: Masters
         url: olabs/oims/workgroups
