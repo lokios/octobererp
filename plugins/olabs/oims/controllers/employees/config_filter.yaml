@@ -3,29 +3,36 @@
 # ===================================
 
 scopes:
-
-    groups:
-        # Filter name
-        label: rainlab.user::lang.group.label
-        # Model Class name
-        modelClass: Backend\Models\UserGroup
-        # Model attribute to display for the name
+    
+    employee_project:
+        label: Project
+        modelClass: Olabs\Oims\Models\BaseModel
         nameFrom: name
-        # Filter scope
-        scope: filterByGroup
+        options: getProjectOptions
+        conditions: employee_project_id in (:filtered)
 
-
-    created_date:
-        label: rainlab.user::lang.user.created_at
-        type: daterange
-        conditions: created_at >= ':after' AND created_at <= ':before'
-
-    activated:
-        # Filter name
-        label: rainlab.user::lang.user.status_activated
-        # Filter type
-        type: switch
-        # SQL conditions
-        conditions:
-            - is_activated = '0'
-            - is_activated = '1'
+#    groups:
+#        # Filter name
+#        label: rainlab.user::lang.group.label
+#        # Model Class name
+#        modelClass: Backend\Models\UserGroup
+#        # Model attribute to display for the name
+#        nameFrom: name
+#        # Filter scope
+#        scope: filterByGroup
+#
+#
+#    created_date:
+#        label: rainlab.user::lang.user.created_at
+#        type: daterange
+#        conditions: created_at >= ':after' AND created_at <= ':before'
+#
+#    activated:
+#        # Filter name
+#        label: rainlab.user::lang.user.status_activated
+#        # Filter type
+#        type: switch
+#        # SQL conditions
+#        conditions:
+#            - is_activated = '0'
+#            - is_activated = '1'

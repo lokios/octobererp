@@ -32,6 +32,13 @@ columns:
         label: Contact Phone
         searchable: true
         
+    project_id:
+        label: Project
+        relation: employee_project
+        select: name
+        searchable: true
+        sortable: true
+        
 #    supplier_type:
 #        label: Supplier Type
 ##        type: text

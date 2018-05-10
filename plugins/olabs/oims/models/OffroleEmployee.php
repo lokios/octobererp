@@ -73,7 +73,12 @@ class OffroleEmployee extends BaseModel {
         return $query->whereIn('project_id', $projectId); // ->orderBy('name', 'desc')
     }
     
-    /**
+    public function getOffRoleEmployeeType(){
+        
+        return isset($this->employee_types) ? $this->employee_types->name : $this->employee_types;
+    }
+
+        /**
      * @return string Returns the user's full name.
      */
     public function getFullNameAttribute()

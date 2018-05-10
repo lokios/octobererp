@@ -98,6 +98,8 @@
     .barcodea4 .style12 .barcode_image { width: 49%; height:auto; max-height: 1.5in; display: inline !important; margin-bottom: 0.079in !important; }
     .barcodea4 .style12 .barcode_image img { max-width: 100%; max-height: 100%; }
 
+    .company_logo {margin-right: 5px;}
+    .company_logo img{width: 18px;}
     @media print {
         .barcode, .barcodea4 { margin: 0; }
         .barcode, .barcode .item, .barcodea4, .barcodea4 .item, .style50, .div50 { border: none !important; }
@@ -115,6 +117,8 @@ $cf_height = 100;
 
 $c = 1;
 
+//Logo src
+$logo = \Backend\Models\BrandSetting::getLogo();
 
 if ($style == 12 || $style == 18 || $style == 24 || $style == 40) {
     echo '<div class="barcodea4">';
@@ -126,11 +130,11 @@ if ($style == 12 || $style == 18 || $style == 24 || $style == 40) {
 
 
     <div class="item style<?=$style?>" <?= ($style == 50 && $cf_width && $cf_height ?'style="width:'.$cf_width.'in;height:'.$cf_height.'in;border:0;"' : '')?>>
-        <span class="barcode_site"><?=$record->getCompanyNameAttribute()?></span>
+        <span class="barcode_site"><span class="company_logo"><img src="<?=$logo?>" width="15px;"></span><?=$record->getCompanyNameAttribute()?></span>
         <span class="barcode_name"><?=$record->getFullNameAttribute()?></span>
         <span class="barcode_emp_code">ID : <?=$record->getEmployeeCodeAttribute()?>, DOB : <?=$record->getDOBAttribute()?> </span>
         <span class="barcode_address">Add. : <?=$record->getFullAddressAttribute()?>, PH : <?=$record->getContactNumberAttribute()?></span>
-        <span class="barcode_address">PC : <?=$record->getSupplierNameAttribute()?></span>
+        <span class="barcode_address">PC : <?=$record->getSupplierNameAttribute()?>, <?=$record->getOffRoleEmployeeType()?></span>
         <span class="barcode_contact">Site : <?=$record->getProjectNameAttribute()?></span>
         <span class="product_image"><?=$record->getProfileImageAttribute()?></span>
         <span class="barcode_image"><?=$record->getBarCodeImageAttribute()?></span>

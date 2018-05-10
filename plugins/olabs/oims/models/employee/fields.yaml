@@ -60,7 +60,15 @@ tabs:
             context: [preview, update]
             path: ~/plugins/olabs/oims/models/employee/_idcard_print_link.htm  
             span: auto
-
+        employee_project:
+#            tab: olabs.oims::lang.quotes.detail
+            label: Project
+            oc.commentPosition: ''
+            nameFrom: name
+            descriptionFrom: description
+            span: auto
+            required: 1
+            type: dropdown
         contact_email:
             label: Contact Email
             tab: Details
@@ -95,7 +103,7 @@ tabs:
 #            span: auto 
         pan:
             label: PAN Number
-#            tab: Details
+            tab: Details
             span: auto
 secondaryTabs:
     fields:
