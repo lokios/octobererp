@@ -1,0 +1,4 @@
+title: ProjectBooks
+modelClass: Olabs\Oims\Models\ProjectBook
+toolbar:
+    buttons: reorder_toolbar
