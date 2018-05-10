@@ -568,3 +568,6 @@
 1.11.10:
     - 'Updated table olabs_oims_offrole_employees'
     - builder_table_update_olabs_oims_offrole_employees_7.php
+1.11.11:
+    - 'Updated table backend_users'
+    - builder_table_update_backend_users_5.php
