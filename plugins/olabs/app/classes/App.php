@@ -196,6 +196,7 @@ function get_class_name($classname)
                }
                $images[] = ['uri'=>$image,'id'=>$fi->id];
                $this->val['has_images'] = true;
+               $this->val['images'] = $images;
             }
         }
 

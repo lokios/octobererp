@@ -3,6 +3,7 @@
 namespace Olabs\Oimsapi\Http\Controllers;
 
 use Olabs\Oims\Models\ProjectAssetPurchase  ;
+use Olabs\Oims\Models\ProjectAssetMonitor  ;
 use Olabs\Oimsapi\Http\Transformers\ProjectAssetTransformer;
 use Autumn\Api\Classes\ApiController;
 use Illuminate\Http\Request;
@@ -47,7 +48,7 @@ class ProjectAssets extends ApiController
     public function report(Request $request ){
 
         BaseModel::$feature_enabled = false;
-$app = App::getInstance();
+        $app = App::getInstance();
         $base = $app->getBaseEndpoint();
         $with = $this->getEagerLoad();
         $skip = (int) $this->request->input('skip', 0);
@@ -82,7 +83,39 @@ $app = App::getInstance();
 
 
            $data = ['name'=>$product->title, 'content_type'=>'projectasset','uiview_detail'=>'group'];
-           $data['subtitle'] = 'Current Quantity '.$quantity;
+
+           $subtitle = [];
+           $subtitle[] =  'Quantity '.$quantity;
+           
+           if($project && $product){
+
+               $pm = ProjectAssetMonitor::where(['project_id'=>$project->id,'product_id'=>$product->id])->orderBy('id', 'desc')->first();
+
+               if($pm && $pm->context_date){
+                 $subtitle[] =  'Dated '.date('Y-m-d H:i', strtotime($pm->context_date));
+               }elseif ($pm && $pm->created_at){
+                   $subtitle[] =  'Dated '.date('Y-m-d H:i', strtotime($pm->created_at));
+               }
+
+               if($pm->images){
+
+                  $app = new App();
+                  $app->item = $pm;
+                  $app->val = $data;
+                  $app->images_field = 'images';
+                  $images = $app->getImagesApi();
+
+                  $data = $app->val;
+                  if($images && count($images)>0){
+                    $data['images'] = $images;
+                  }
+
+
+               }
+           }
+
+
+           $data['subtitle'] = implode(" | ", $subtitle);
 
            $attributes  = [];
            if($project){
