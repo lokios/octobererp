@@ -255,15 +255,15 @@ $modules[] = $module;
 
          
 
-        $module =[  'item_type'=>'list','name'=>'Monitor Entries','list'=>$base.'/api/v1/projectassetmonitors?project_id=:project_id','module'=>'user','edit_url2'=>$base.'/api/v1/attendances','barcode_enabled'=>false
+        $module =[  'item_type'=>'list','name'=>'View Entries','list'=>$base.'/api/v1/projectassetmonitors?project_id=:project_id','module'=>'user','edit_url2'=>$base.'/api/v1/attendances','barcode_enabled'=>false
              ];
              $modules[] = $module;
 
-        $module =[  'item_type'=>'list','name'=>'Transfer Entries','list'=>$base.'/api/v1/projectassettransfers?project_id=:project_id','module'=>'user','edit_url2'=>$base.'/api/v1/attendances','barcode_enabled'=>false
+        $module =[  'item_type'=>'list','name'=>'View Transfers','list'=>$base.'/api/v1/projectassettransfers?project_id=:project_id','module'=>'user','edit_url2'=>$base.'/api/v1/attendances','barcode_enabled'=>false
              ];
              $modules[] = $module;
     
-        $module =[  'item_type'=>'list','name'=>'Damages Entries','list'=>$base.'/api/v1/projectassetdamages?project_id=:project_id','module'=>'user','edit_url2'=>$base.'/api/v1/attendances','barcode_enabled'=>false
+        $module =[  'item_type'=>'list','name'=>'View Damages','list'=>$base.'/api/v1/projectassetdamages?project_id=:project_id','module'=>'user','edit_url2'=>$base.'/api/v1/attendances','barcode_enabled'=>false
              ];
              $modules[] = $module;
         
@@ -284,7 +284,7 @@ $modules[] = $module;
 
 
              $modules = [];
-             $module =[  'tenant_id'=>$item->id,'name'=>'Assets Monitor','list'=>$base.'/api/v1/products','module'=>'product','edit_url2'=>$base.'/api/v1/employees',
+             $module =[  'tenant_id'=>$item->id,'name'=>'Monitor','list'=>$base.'/api/v1/products','module'=>'product','edit_url2'=>$base.'/api/v1/employees',
 
               'create2'=>[
                   ['tenant_id'=>$item->id,'module'=>'product','url'=>$base.'/api/v1/employees','title'=>'Add Employee','format'=>'json','method'=>'post'],
@@ -296,7 +296,7 @@ $modules[] = $module;
 
              
 
-             $module =[  'tenant_id'=>$item->id,'name'=>'Assets Transfers','list'=>$base.'/api/v1/products?project_id='.$item->id,'module'=>'product','edit_url2'=>$base.'/api/v1/employees',
+             $module =[  'tenant_id'=>$item->id,'name'=>'Transfer','list'=>$base.'/api/v1/products?project_id='.$item->id,'module'=>'product','edit_url2'=>$base.'/api/v1/employees',
 
               'create2'=>[
                   ['tenant_id'=>$item->id,'module'=>'product','url'=>$base.'/api/v1/employees','title'=>'Add Employee','format'=>'json','method'=>'post'],
@@ -306,7 +306,7 @@ $modules[] = $module;
              ];
              $modules[] = $module;
 
-              $module =[  'tenant_id'=>$item->id,'name'=>'Assets Damages','list'=>$base.'/api/v1/products?project_id='.$item->id,'module'=>'product','edit_url2'=>$base.'/api/v1/employees',
+              $module =[  'tenant_id'=>$item->id,'name'=>'Damage','list'=>$base.'/api/v1/products?project_id='.$item->id,'module'=>'product','edit_url2'=>$base.'/api/v1/employees',
 
               'create2'=>[
                   ['tenant_id'=>$item->id,'module'=>'product','url'=>$base.'/api/v1/employees','title'=>'Add Employee','format'=>'json','method'=>'post'],

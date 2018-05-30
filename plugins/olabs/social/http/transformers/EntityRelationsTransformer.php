@@ -33,22 +33,24 @@ class EntityRelationsTransformer extends App
         
 
         $name = [];
+        $dated = "";
+        $stat = "";
+        $subtitle = [];
+        $subtitle2 = [];
+
         if($item->target_type == 'mr_entry'){
-            $name[] = 'MR Entry';
-            $name[] = $item->target_id;
-        
-
-
+           
        
-        $this->val['name'] = implode(" | ", $name);
-        $subtitle[] = ' dated: '.date('Y-m-d H:i', strtotime($item->created_at));
+        
+        
+        $dated = date('Y-m-d H:i', strtotime($item->created_at));
 
         $this->val['data'] = $item->data;
         
 
          $attributes  = [];
          
-         $attributes[] =['name'=>'Dated','value'=>date('Y-m-d H:i', strtotime($item->created_at))];
+         $attributes[] =['name'=>'Dated','value'=>$dated];
 
 
          $data = $item->data;
@@ -68,14 +70,19 @@ class EntityRelationsTransformer extends App
 
          if(isset($data['mr_id'])){
             $name = [];
-            $name[] = 'MR Entry';
-            $name[] = $data['mr_id'];
             
-           $this->val['name'] = implode(" | ", $name);
-           $attributes[] =['name'=>'MR No.','value'=>$data['mr_id']];
+            $name[] = 'MR no: '.$data['mr_id'];
+            
+          
+           $attributes[] =['name'=>'MR no.','value'=>$data['mr_id']];
         }
 
+         $this->val['name'] = implode(" | ", $name);
+
+         $this->val['dated'] = $dated;
          $this->val['subtitle'] = implode(" | ", $subtitle);
+         $this->val['subtitle2'] = implode(" | ", $subtitle2);
+         $this->val['stat'] = $stat;
 
      }
 
@@ -88,8 +95,7 @@ class EntityRelationsTransformer extends App
      }
 
      if($item->target_type == 'attendance'){
-            $name[] = 'Attendance Entry, Emp ID: ';
-            $name[] = $item->target_id;
+           
         
 
 
@@ -99,7 +105,7 @@ class EntityRelationsTransformer extends App
         
 
          $attributes  = [];
-         $attributes[] =['name'=>'Employee ID.','value'=>$item->target_id];
+         $attributes[] =['name'=>'Emp ID.','value'=>$item->target_id];
          
          $data = $item->data;
          if($data && is_array($data)){
@@ -109,19 +115,31 @@ class EntityRelationsTransformer extends App
             
 
          if(isset($data['check_in'])){
-              $attributes[] =['name'=>'Dated','value'=>date('Y-m-d H:i', strtotime($data['check_in']))];
+              $dated = date('Y-m-d H:i', strtotime($data['check_in']));
+              $attributes[] =['name'=>'Dated','value'=>$dated];
          }
           if(isset($data['employee_name'])){
+              $name[] = $data['employee_name'];
               $attributes[] =['name'=>'Emp Name.','value'=>$data['employee_name']];
          }
           if(isset($data['employee_type'])){
               $attributes[] =['name'=>'Emp Type.','value'=>$data['employee_type']];
+              $subtitle[] = $data['employee_type'];
          }
           if(isset($data['project_name'])){
               $attributes[] =['name'=>'Project.','value'=>$data['project_name']];
+               $subtitle[] = $data['project_name'];
          }
 
           }
+
+          $name[] = 'Emp ID: '.$item->target_id;
+          $this->val['name'] = implode(" | ", $name);
+
+         $this->val['dated'] = $dated;
+         $this->val['subtitle'] = implode(" | ", $subtitle);
+         $this->val['subtitle2'] = implode(" | ", $subtitle2);
+         $this->val['stat'] = $stat;
          $this->val['attributes'] = $attributes;
 
      }
