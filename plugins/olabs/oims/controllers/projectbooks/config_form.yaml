@@ -1,0 +1,10 @@
+name: ProjectBooks
+form: $/olabs/oims/models/projectbook/fields.yaml
+modelClass: Olabs\Oims\Models\ProjectBook
+defaultRedirect: olabs/oims/projectbooks
+create:
+    redirect: 'olabs/oims/projectbooks/update/:id'
+    redirectClose: olabs/oims/projectbooks
+update:
+    redirect: olabs/oims/projectbooks
+    redirectClose: olabs/oims/projectbooks

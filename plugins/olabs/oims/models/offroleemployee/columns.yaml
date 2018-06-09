@@ -46,6 +46,9 @@ columns:
         type: text
         sortable: true    
         invisible: true
+    contact_phone:
+        label: Contact Phone
+        searchable: true
     aadhaar_number:
         label: aadhaar_number
         type: text

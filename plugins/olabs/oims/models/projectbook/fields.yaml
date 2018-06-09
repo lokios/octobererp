@@ -1,0 +1,61 @@
+fields:
+    series_from:
+        label: 'Series From'
+        span: auto
+        type: number
+    series_to:
+        label: 'Series To'
+        span: auto
+        type: number
+    book_type:
+        label: 'Book Type'
+        span: auto
+        required: 1
+        type: dropdown
+    project:
+#            tab: olabs.oims::lang.quotes.detail
+        label: Project
+        oc.commentPosition: ''
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        required: 1
+        type: dropdown
+    context_date:
+        label: Date
+        oc.commentPosition: ''
+        mode: date
+        span: auto
+        default: 'today'
+        required: 1
+        type: datepicker
+        format: 'd/m/Y'
+#            minDate: "today -1 days"
+    status:
+        label: Status
+        span: auto
+        type: switch
+        default: true
+#    note:
+#        label: olabs.oims::lang.products.description
+#        span: auto                  
+#        type: richeditor
+        
+tabs:
+    fields:         
+    
+        note:
+            tab: olabs.oims::lang.products.detail
+            label: olabs.oims::lang.products.description
+            span: auto                  
+            type: richeditor
+
+
+    # Images
+        attachments:
+            label: Attachments
+            tab: olabs.oims::lang.products.detail
+            type: fileupload
+            mode: image
+            span: auto                  
+

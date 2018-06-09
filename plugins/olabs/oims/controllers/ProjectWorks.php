@@ -37,6 +37,16 @@ class ProjectWorks extends Controller
         return $this->makePartial('product_create_form');
     }
 
+    public function onLoadUpdateProductForm() {
+        $recordId = post('record_id');
+        $this->vars['productFormWidget'] = $this->createProjectWorkProductFormWidget($recordId);
+
+        $this->vars['project_work_id'] = post('project_work_id');
+        $this->vars['recordId'] = $recordId;
+
+        return $this->makePartial('product_update_form');
+    }
+
     
     public function onCreateProduct()
     {
@@ -52,6 +62,22 @@ class ProjectWorks extends Controller
 
 //        $order->products()->add($model, $this->itemFormWidget->getSessionKey());
         $order->products()->add($model, $this->productFormWidget->getSessionKey());
+
+        return $this->refreshProjectWorkProductList();
+    }
+    
+    public function onUpdateProduct() {
+        $recordId = post('record_id');
+        $data = $this->productFormWidget->getSaveData();
+
+        $model = \Olabs\Oims\Models\ProjectWorkProduct::find($recordId);
+
+        $model->fill($data);
+
+        $model->save();
+
+//
+//        $order->products()->add($model, $this->productFormWidget->getSessionKey());
 
         return $this->refreshProjectWorkProductList();
     }
@@ -78,6 +104,7 @@ class ProjectWorks extends Controller
         ;
 
         $this->vars['items'] = $products;
+        $this->vars['formContext'] = 'update';
 
         return ['#productList' => $this->makePartial('product_list')];
     }
@@ -93,7 +120,7 @@ class ProjectWorks extends Controller
     
 
     
-    protected function createProjectWorkProductFormWidget()
+    protected function createProjectWorkProductFormWidget($recordId = 0)
     {
         $config = $this->makeConfig('$/olabs/oims/models/projectworkproduct/fields.yaml');
 
@@ -101,7 +128,12 @@ class ProjectWorks extends Controller
 
         $config->arrayName = 'projectWorkProduct';
 
-        $config->model = new \Olabs\Oims\Models\ProjectWorkProduct;
+//        $config->model = new \Olabs\Oims\Models\ProjectWorkProduct;
+        if ($recordId) {
+            $config->model = \Olabs\Oims\Models\ProjectWorkProduct::find($recordId);
+        } else {
+            $config->model = new \Olabs\Oims\Models\ProjectWorkProduct;
+        }
 
         $postParams = post();
         $project_work_quantity = 0;
