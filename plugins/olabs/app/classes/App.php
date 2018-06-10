@@ -393,7 +393,7 @@ public function addMainModules_OIMS(&$fmodules){
             $userModel['nav_title'] = 'My Profile';
           $module = ['item_type'=>'group'
           ,'data'=>[]
-          ,'module'=>'user','name'=>'Welcome '.$app->user->first_name.' '.$app->user->last_name
+          ,'module'=>'user','name'=>$app->user->first_name.' '.$app->user->last_name
           ,'title'=>'My Profile','content'=>$userModel
           ,'subtitle'=>$app->user->first_name.' '.$app->user->last_name
           ,'format'=>'json','method'=>'post'];
