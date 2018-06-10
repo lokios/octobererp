@@ -565,3 +565,15 @@
 1.11.9:
     - 'Updated table olabs_oims_project_progress'
     - builder_table_update_olabs_oims_project_progress_2.php
+1.11.10:
+    - 'Updated table olabs_oims_offrole_employees'
+    - builder_table_update_olabs_oims_offrole_employees_7.php
+1.11.11:
+    - 'Updated table backend_users'
+    - builder_table_update_backend_users_5.php
+1.11.12:
+    - 'Created table olabs_oims_project_books'
+    - builder_table_create_olabs_oims_project_books.php
+1.11.13:
+    - 'Updated table olabs_oims_project_books'
+    - builder_table_update_olabs_oims_project_books.php

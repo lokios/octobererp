@@ -38,7 +38,14 @@
                         <?= e($item->total_price) ?>
                     </td>
                     <td class="nolink text-right">
-                        <? // if(isset($this->vars['formContext']) && $this->vars['formContext'] != 'preview'): ?>
+                        <? if(isset($this->vars['formContext']) && $this->vars['formContext'] != 'preview'): ?>
+                        <a
+                            href="javascript:;"
+                            class="oc-icon-edit"
+                            data-control="popup"
+                            data-handler="onLoadUpdateProductForm"
+                            data-request-data="record_id: '<?= $item->id ?>',project_work_id: '<?=$item->project_work_id?>'"
+                            data-size="large"></a>
                         <a
                             href="javascript:;"
                             data-request="onDeleteProduct"
@@ -47,7 +54,7 @@
                             class="oc-icon-remove"
                             data-toggle="tooltip"
                             title="Remove"></a>
-                        <?php // endif ?>
+                        <?php  endif ?>
                     </td>
                 </tr>
                 <?php endforeach ?>

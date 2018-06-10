@@ -73,7 +73,12 @@ class OffroleEmployee extends BaseModel {
         return $query->whereIn('project_id', $projectId); // ->orderBy('name', 'desc')
     }
     
-    /**
+    public function getOffRoleEmployeeType(){
+        
+        return isset($this->employee_types) ? $this->employee_types->name : $this->employee_types;
+    }
+
+        /**
      * @return string Returns the user's full name.
      */
     public function getFullNameAttribute()
@@ -108,6 +113,41 @@ class OffroleEmployee extends BaseModel {
             $name = $this->project->name ;
         }
         return $name;
+    }
+    
+    public function getDOBAttribute(){
+        return $this->date_of_birth != '' ? date('d/m/Y', strtotime($this->date_of_birth)) : '';
+    }
+
+        public function getFullAddressAttribute() {
+
+        $temp = array();
+        if (!empty($this->address)) {
+            $temp[] = $this->address;
+        }
+        if (!empty($this->address_2)) {
+            $temp[] = $this->address_2;
+        }
+
+        if (!empty($this->city)) {
+            $temp[] = $this->city;
+        }
+
+        if (!empty($this->country)) {
+            $temp[] = $this->country;
+        }
+
+        $add = implode(', ', $temp);
+
+        if (!empty($this->postcode)) {
+            $add = ( trim($add) == "" ) ? $this->postcode : $add . ' - ' . $this->postcode;
+        }
+
+        return $add;
+    }
+
+    public function getContactNumberAttribute() {
+        return $this->contact_phone;
     }
     
     /**

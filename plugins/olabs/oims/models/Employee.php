@@ -45,6 +45,13 @@ class Employee extends User {
             'otherKey' => 'user_group_id',
         ]
     ];
+    
+    public $belongsTo = [
+        'employee_project' => [
+            'Olabs\Oims\Models\Project', 
+            'key' => 'employee_project_id'
+        ], 
+    ];
 
     public function beforeCreate() {
         $this->role_id = $this->getEmployeeRole()->id;
@@ -133,9 +140,11 @@ class Employee extends User {
 
     public function getCompanyNameAttribute() {
         $name = '';
-        $user_project = UserProject::where('user_id', $this->id)->first();
-        if ($user_project) {
-            $name = isset($user_project->project->company) ? $user_project->project->company->name : '';
+//        $user_project = UserProject::where('user_id', $this->id)->first();
+//        $user_project = $this->employee_project;
+//        dd($this->employee_project);
+        if ($this->employee_project) {
+            $name = isset($this->employee_project->company) ? $this->employee_project->company->name : '';
         }
         return $name;
     }
@@ -152,6 +161,11 @@ class Employee extends User {
         } else {
             return "";
         }
+    }
+    
+    public function getEmployeeProjectOptions() {
+        $base_model = new BaseModel();
+        return $base_model->getProjectOptions();
     }
 
 }

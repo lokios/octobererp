@@ -49,6 +49,7 @@ return [
         'access_record_submit_for_approval' => 'Access into Record Submit for Approval',
         'access_employee_types' => 'Access into Employee Types',
         'access_bank_accounts' => 'Access into Bank Accounts',
+        'access_project_books' => 'Access into Project Books',
         'access_payment_receivables' => 'Access into Payment Receivables',
         'access_offrole_employees' => 'Access into OffRole Employees',
 //        'access_settings' => 'Access into Settings',

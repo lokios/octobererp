@@ -1,104 +1,139 @@
-fields:
-    name:
-        label: Name
-        span: auto
-        type: text
-        required: 1
-    status:
-        label: Status
-        span: auto
-        type: switch
-        default: 1
-    father_name:
-        label: 'Father''s Name'
-        span: auto
-        type: text
-    daily_wages:
-        label: 'Daily Wages'
-        span: auto
-        type: number
-        required: 1
-        default: 0
-    aadhaar_number:
-        label: 'Aadhaar Number'
-        span: auto
-        type: text
-    monthly_wages:
-        label: 'Monthly Wages'
-        span: auto
-        type: number
-        required: 1
-        default: 0
-    pan_number:
-        label: 'Pan Card Number'
-        span: auto
-        type: text
-    working_hour:
-        label: 'Working Hour'
-        oc.commentPosition: ''
-        span: auto
-        required: 1
-        type: number
-        default: 8
-    date_of_birth:
-        label: 'Date Of Birth'
-        mode: date
-        span: auto
-        yearRange: '[1950,2015]'
-        type: datepicker
-    lunch_hour:
-        label: 'Lunch Hour'
-        oc.commentPosition: ''
-        span: auto
-        required: 1
-        type: number
-        default: 1
-    
-    joining_date:
-        label: 'Joining Date'
-        mode: date
-        span: auto
-        default: today
-        type: datepicker
-        required: 1
-    employee_types:
-        label: 'Employment Type'
-        nameFrom: name
-        descriptionFrom: description
-        span: auto
-        type: relation
-        required: 1
-    
-    last_working_date:
-        label: 'Last Working Date'
-        mode: date
-        span: auto
-        type: datepicker
-    supplier_id:
-        label: Supplier
-        span: auto
-        type: dropdown
-        options: getSupplierPettyContractorOptions
-        required: 1
-    
-    employee_code:
-        label: 'Employee Code'
-        span: auto
-        type: text
-    project:
-        label: Project
-        oc.commentPosition: ''
-        nameFrom: name
-        descriptionFrom: description
-        span: auto
-        required: 1
-        type: dropdown
-    idcard_print:
-            label: 
-            type: partial
-            context: [preview, update]
-            path: ~/plugins/olabs/oims/models/offroleemployee/_idcard_print_link.htm  
+tabs:
+    defaultTab: backend::lang.user.account
+    fields:
+        name:
+            label: Name
             span: auto
+            type: text
+            required: 1
+        status:
+            label: Status
+            span: auto
+            type: switch
+            default: 1
+        father_name:
+            label: 'Father''s Name'
+            span: auto
+            type: text
+        daily_wages:
+            label: 'Daily Wages'
+            span: auto
+            type: number
+            required: 1
+            default: 0
+        aadhaar_number:
+            label: 'Aadhaar Number'
+            span: auto
+            type: text
+            tab: Details
+        monthly_wages:
+            label: 'Monthly Wages'
+            span: auto
+            type: number
+            required: 1
+            default: 0
+        pan_number:
+            label: 'Pan Card Number'
+            span: auto
+            type: text
+            tab: Details
+        working_hour:
+            label: 'Working Hour'
+            oc.commentPosition: ''
+            span: auto
+            required: 1
+            type: number
+            default: 8
+        date_of_birth:
+            label: 'Date Of Birth'
+            mode: date
+            span: auto
+            yearRange: '[1950,2015]'
+            type: datepicker
+            tab: Details
+        lunch_hour:
+            label: 'Lunch Hour'
+            oc.commentPosition: ''
+            span: auto
+            required: 1
+            type: number
+            default: 1
+
+        joining_date:
+            label: 'Joining Date'
+            mode: date
+            span: auto
+            default: today
+            type: datepicker
+            required: 1
+#            tab: Details
+        employee_types:
+            label: 'Employment Type'
+            nameFrom: name
+            descriptionFrom: description
+            span: auto
+            type: relation
+            required: 1
+
+        last_working_date:
+            label: 'Last Working Date'
+            mode: date
+            span: auto
+            type: datepicker
+            tab: Details
+        supplier_id:
+            label: Supplier
+            span: auto
+            type: dropdown
+            options: getSupplierPettyContractorOptions
+            required: 1
+
+        employee_code:
+            label: 'Employee Code'
+            span: auto
+            type: text
+        project:
+            label: Project
+            oc.commentPosition: ''
+            nameFrom: name
+            descriptionFrom: description
+            span: auto
+            required: 1
+            type: dropdown
+        idcard_print:
+                label: 
+                type: partial
+                context: [preview, update]
+                path: ~/plugins/olabs/oims/models/offroleemployee/_idcard_print_link.htm  
+                span: auto
+        contact_email:
+            label: Contact Email
+            tab: Details
+            span: auto
+        contact_phone:
+            label: Contact Phone
+            tab: Details
+            span: auto   
+        address:
+            label: Address
+            tab: Details
+            span: auto 
+        address_2:
+            label: Address 2
+            tab: Details
+            span: auto
+        city:
+            label: City
+            tab: Details
+            span: auto 
+        postcode:
+            label: Postcode
+            tab: Details
+            span: auto 
+        country:
+            label: Country
+            tab: Details
+            span: auto 
 secondaryTabs:
     fields:
         avatar:
