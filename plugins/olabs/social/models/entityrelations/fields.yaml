@@ -4,6 +4,17 @@ fields:
         oc.commentPosition: ''
         span: auto
         type: text
+    target_type:
+        label: Target Type
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    target_id:
+        label: Target ID
+        oc.commentPosition: ''
+        span: auto
+        type: text
+        
     data:
         label: Data
         oc.commentPosition: ''
@@ -17,3 +28,33 @@ fields:
                     oc.commentPosition: ''
                     span: auto
                     type: text
+                employee_name:
+                    label: 'employee_name'
+                    oc.commentPosition: ''
+                    span: auto
+                    type: text    
+                employee_id:
+                    label: 'employee_id'
+                    oc.commentPosition: ''
+                    span: auto
+                    type: text
+                employee_type:
+                    label: 'employee_type'
+                    oc.commentPosition: ''
+                    span: auto
+                    type: text
+                check_in:
+                    label: 'checkin'
+                    oc.commentPosition: ''
+                    span: auto
+                    type: text            
+                project_id:
+                    label: 'project_id'
+                    oc.commentPosition: ''
+                    span: auto
+                    type: text            
+                project_name:
+                    label: 'project_name'
+                    oc.commentPosition: ''
+                    span: auto
+                    type: text            

@@ -202,7 +202,7 @@ class EntityRelations extends Model {
     }
 
 
-public function SyncDataAttendance() {
+public function SyncDataAttendance($record) {
 
         
             try {
@@ -227,7 +227,7 @@ public function SyncDataAttendance() {
 
                             if (!$attendace) {
                                 $attendace = new \Olabs\Oims\Models\Attendance();
-                                if ($employee_type == Attendance::EMPLOYEE_TYPE_OFFROLE) {
+                                if ($employee_type == \Olabs\Oims\Models\Attendance::EMPLOYEE_TYPE_OFFROLE) {
                                     $attendace->employee_offrole = \Olabs\Oims\Models\OffroleEmployee::find($employee_id);
 //                                $attendace->employee_id = $employee_id;
                                 }

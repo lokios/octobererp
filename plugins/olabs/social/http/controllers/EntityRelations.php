@@ -101,6 +101,8 @@ class EntityRelations extends ApiController {
 
         $count = 0;
 
+        $existing_files =  $item->{$this->images_field};
+
         if (!empty($files)) {
 
             //return $this->respond(['s'=>'echo', 'files'=>count($files)]);
@@ -110,10 +112,26 @@ class EntityRelations extends ApiController {
                 $file = new \System\Models\File();
                 $file->data = $file1;
                 $file->is_public = true;
-                $file->save();
+                $alreadyExists = false;
 
-                $item->{$this->images_field}()->add($file);
-                $count++;
+                $name = $file->getFilename();
+
+                if( $name && $existing_files ){
+                    foreach ($existing_files as $ekey => $efile) {
+                        # code...
+                        if($efile->name ==  $file->getFilename()){
+                            $alreadyExists = true;
+
+                        }
+                    }
+                }
+
+                if(!$alreadyExists){
+                    $file->save();
+
+                    $item->{$this->images_field}()->add($file);
+                    $count++;
+                }
             }
         }
         
