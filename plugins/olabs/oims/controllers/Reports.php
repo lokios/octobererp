@@ -56,7 +56,7 @@ class Reports extends Controller {
 
         return $widget;
     }
-    
+
     protected function createAssetsSearchFormWidget() {
         $config = $this->makeConfig('$/olabs/oims/models/report/assets_search_fields.yaml');
 
@@ -236,14 +236,14 @@ td, th { border: 1px solid #ccc; }";
 
         return \Redirect::to('/backend/olabs/oims/reports/downloadPdf?name=' . $fileName);
     }
-    
+
     public function onDprExportExcel() {
 
         $file_type = '.' . post('type');
 //        dd($file_type);
         $fileName = 'invoices_' . time() . $file_type;
-        
-        Excel::excel()->store(new \Olabs\Oims\Exports\DprExport,  $fileName, 'local');
+
+        Excel::excel()->store(new \Olabs\Oims\Exports\DprExport, $fileName, 'local');
         return \Redirect::to('/backend/olabs/oims/reports/download?name=' . $fileName);
     }
 
@@ -252,7 +252,7 @@ td, th { border: 1px solid #ccc; }";
         $file_name = get('name');
         return \Response::download(temp_path($file_name . '.pdf'));
     }
-    
+
     public function download() {
         // Here we can make use of the download response
         $file_name = get('name');
@@ -608,6 +608,205 @@ td, th { border: 1px solid #ccc; }";
         return \Redirect::to('/backend/olabs/oims/reports/downloadPdf?name=' . $fileName);
     }
 
+    public function onProgressExportExcel() {
+
+        $file_type = '.' . post('type');
+
+        ////////Generate Excel Data
+        //generate PDF html
+        $projectprogress = array();
+        $manpowers = array();
+        $machineries = array();
+        $expenseOnMaterials = array();
+        $expenseOnPcs = array();
+        $total_days = 0;
+
+        $this->vars['grand_total'] = 0;
+        $this->vars['progress_total'] = 0;
+        $this->vars['fix_expense'] = 0;
+
+        if (post('DprSearch')) {
+
+            $searchParams = post('DprSearch');
+
+            // get dpr components
+            $this->searchDPR($searchParams);
+
+            $search_from_date = isset($searchParams['from_date']) ? $searchParams['from_date'] : '';
+            $search_to_date = isset($searchParams['to_date']) ? $searchParams['to_date'] : '';
+//
+            $from_date = false;
+            if ($search_from_date != '') {
+                $from_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_from_date); //date('Y-m-d 00:00:00', strtotime($from_date));
+            }
+
+            $to_date = false;
+            if ($search_to_date != '') {
+                $timeFormat = '23:59:59';
+                $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
+            }
+
+            $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
+
+            $projectModal = \Olabs\Oims\Models\Project::find($project);
+        }
+
+        $oimsSetting = \Olabs\Oims\Models\Settings::instance();
+
+        $this->vars['search'] = true;
+        $this->vars['from_date'] = $from_date;
+        $this->vars['to_date'] = $to_date;
+
+        $projectprogress = $this->vars['projectprogress'];
+        $manpowers = $this->vars['manpowers'];
+        $machineries = $this->vars['machineries'];
+        $expenseOnMaterials = $this->vars['expenseOnMaterials'];
+        $expenseOnPcs = $this->vars['expenseOnPcs'];
+        $fix_expense = $this->vars['fix_expense'];
+
+        $total_days = $this->vars['total_days'];
+        /////////////////////////////////////////////////////////////
+        //Generate Rows
+        $progress_items = [];
+        $progress_rows = [];
+
+        foreach ($projectprogress as $progress) {
+            $products = $progress->products ? $progress->products : array();
+            foreach ($products as $product) {
+                $work_name = '';
+                if ($product->work) {
+                    $work_name = $product->work->name . " ({$product->work->unit})";
+                }
+                $progress_items[$product->work_id] = $work_name;
+            }
+        }
+
+        //make date rows
+
+        $from_date = strtotime($from_date);
+
+        $summary_row = array();
+        $summary_row['date'] = 'Total';
+        $summary_row['total_spent'] = 0;
+        $summary_row['total_billing'] = 0;
+
+        foreach ($progress_items as $key => $progress_item) {
+            $summary_row[$key] = 0;
+        }
+
+        for ($i = 0; $i < $total_days; $i++) {
+            $today_date = date('Y-m-d', strtotime("+{$i} day", $from_date));
+
+            //clone items;
+            $items = $progress_items;
+
+            $total_billing = 0;
+            $total_spent = 0;
+            $temp_row = [];
+            $temp_row['date'] = date("d-m-Y", strtotime($today_date));
+            $temp_row['total_spent'] = 0;
+            $temp_row['total_billing'] = 0;
+
+            foreach ($progress_items as $key => $progress_item) {
+                $temp_row[$key] = 0;
+            }
+
+
+
+            //Total Billing   
+            foreach ($projectprogress as $progress) {
+                $entry_date = date('Y-m-d', strtotime($progress->start_date));
+                if ($entry_date == $today_date) {
+                    $products = $progress->products ? $progress->products : array();
+                    foreach ($products as $product) {
+                        $temp_row[$product->work_id] += $product->quantity;
+                        $total_billing += $product->total_price;
+
+                        //Summary Total
+                        $summary_row[$product->work_id] += $product->quantity;
+                    }
+                }
+            }
+
+            //Total Spent
+            foreach ($manpowers as $data) {
+                $products = $data->products ? $data->products : array();
+                $entry_date = date('Y-m-d', strtotime($data->context_date));
+                if ($entry_date == $today_date) {
+                    $total_spent += $data->total_price;
+                }
+            }
+            foreach ($machineries as $data) {
+                $products = $data->products ? $data->products : array();
+                $entry_date = date('Y-m-d', strtotime($data->context_date));
+                if ($entry_date == $today_date) {
+                    $total_spent += $data->total_price;
+                }
+            }
+            foreach ($expenseOnPcs as $data) {
+                $products = $data->products ? $data->products : array();
+                $entry_date = date('Y-m-d', strtotime($data->context_date));
+                if ($entry_date == $today_date) {
+                    $total_spent += $data->total_price;
+                }
+            }
+            foreach ($expenseOnMaterials as $data) {
+                $products = $data->products ? $data->products : array();
+                $entry_date = date('Y-m-d', strtotime($data->context_date));
+                if ($entry_date == $today_date) {
+                    $total_spent += $data->total_price;
+                }
+            }
+
+            //Fix Expense
+            $total_spent += $fix_expense;
+
+            $temp_row['total_spent'] = $total_spent;
+            $temp_row['total_billing'] = $total_billing;
+
+            //Grand Total
+            $summary_row['total_spent'] += $total_spent;
+            $summary_row['total_billing'] += $total_billing;
+
+            $progress_rows[$today_date] = $temp_row;
+        }
+
+
+        $net_profit = $summary_row['total_billing'] - $summary_row['total_spent'];
+        $profit_percentage = 0;
+        $row_class = '';
+        if ($summary_row['total_spent'] > 0) {
+            // $profit_percentage = $net_profit / $summary_row['total_spent'] * 100;
+            $profit_percentage = $net_profit / $summary_row['total_billing'] * 100;
+        }
+        
+        
+        $header_columns = ['Date','Total Amount Spent', 'Billing Amount'];
+        
+        
+        $header_columns =  array_merge($header_columns, $progress_items);
+        
+        $export_data = [];
+        $temp = [];
+        $temp['title'] = 'Project Progress';
+        $temp['header'] = $header_columns;
+        $temp['rows'] = $progress_rows;
+        $export_data[] = $temp;
+        
+        $temp = [];
+        $temp['title'] = 'Net Profile & Loss';
+        $temp['header'] = ['DESCRIPTION', 'AMOUNT'];
+        $temp['rows'] = [['NET PROFIT & LOSS', $net_profit], ['NET PROFIT & LOSS IN %AGE', $profit_percentage]];
+        $export_data[] = $temp;
+
+        ////////////////////////////////////////////////////////////
+        $fileName = 'progress_report_' . time() . $file_type;
+        
+        Excel::excel()->store(new \Olabs\Oims\Exports\ReportsExport($export_data), $fileName, 'local');
+
+        return \Redirect::to('/backend/olabs/oims/reports/download?name=' . $fileName);
+    }
+
     //MR Report
     public function mr_report() {
         BackendMenu::setContext('Olabs.Oims', 'reports', 'mr_report');
@@ -949,14 +1148,14 @@ td, th { border: 1px solid #ccc; }";
 
         $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
         $supplier = ( trim($searchParams['supplier']) != "" ) ? $searchParams['supplier'] : false;
-        $attendance_type = ( isset($searchParams['attendance_type'])  ) ? $searchParams['attendance_type'] : 'offrole';
+        $attendance_type = ( isset($searchParams['attendance_type']) ) ? $searchParams['attendance_type'] : 'offrole';
 
         $baseModel = new \Olabs\Oims\Models\BaseModel();
         $assigned_projects = [];
 //        $user = BackendAuth::getUser();
 
         $params = array();
-        $params['employee_type'] = $attendance_type;//'offrole';
+        $params['employee_type'] = $attendance_type; //'offrole';
 
         if ($project) {
             $assigned_projects = [$project];
@@ -1005,8 +1204,7 @@ td, th { border: 1px solid #ccc; }";
 //        $this->vars['report_type'] = $report_type;
         $this->vars['msg'] = $msg;
     }
-    
-    
+
     //Attendance Summary Report
     public function attendanceSummary_report() {
         BackendMenu::setContext('Olabs.Oims', 'reports', 'attendance_summary_report');
@@ -1133,7 +1331,6 @@ td, th { border: 1px solid #ccc; }";
         return \Redirect::to('/backend/olabs/oims/reports/downloadPdf?name=' . $fileName);
     }
 
-    
     //Petty Contractor Attendance Report
     public function pcAttendance_report() {
         BackendMenu::setContext('Olabs.Oims', 'reports', 'pcattendance_report');
@@ -1253,7 +1450,7 @@ td, th { border: 1px solid #ccc; }";
 
         return \Redirect::to('/backend/olabs/oims/reports/downloadPdf?name=' . $fileName);
     }
-    
+
     protected function searchPcAttendanceReport($searchParams) {
         $reports = array();
         $msg = false;
@@ -1329,8 +1526,7 @@ td, th { border: 1px solid #ccc; }";
 //        $this->vars['report_type'] = $report_type;
         $this->vars['msg'] = $msg;
     }
-    
-    
+
     //Project Assets Report
     public function assets_report() {
         BackendMenu::setContext('Olabs.Oims', 'reports', 'assets_report');
@@ -1456,7 +1652,7 @@ td, th { border: 1px solid #ccc; }";
 
         return \Redirect::to('/backend/olabs/oims/reports/downloadPdf?name=' . $fileName);
     }
-    
+
     public function onAssetsLabelExport() {
 
 
@@ -1464,8 +1660,8 @@ td, th { border: 1px solid #ccc; }";
         $report = array();
         $from_date = false;
         $to_date = false;
-        $label_type = get('type',false);
-        
+        $label_type = get('type', false);
+
         if (post('reportSearch')) {
 
             $searchParams = post('reportSearch');
@@ -1476,31 +1672,31 @@ td, th { border: 1px solid #ccc; }";
             $search_from_date = isset($searchParams['from_date']) ? $searchParams['from_date'] : '';
             $search_to_date = isset($searchParams['to_date']) ? $searchParams['to_date'] : '';
 //
-            
+
             if ($search_from_date != '') {
                 $from_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_from_date); //date('Y-m-d 00:00:00', strtotime($from_date));
             }
 
-            
+
             if ($search_to_date != '') {
                 $timeFormat = '23:59:59';
                 $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
             }
 
             $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
-            
+
             $projectModal = \Olabs\Oims\Models\Project::find($project);
         }
 
         $oimsSetting = \Olabs\Oims\Models\Settings::instance();
-        
+
 //        $this->vars['print_style'] = get('style',40);
         $this->vars['search'] = true;
         $this->vars['from_date'] = $from_date;
         $this->vars['to_date'] = $to_date;
 //        $this->vars['label_type'] = $label_type;
-        
-        $searchParams = ['project'=> get('project',false)];
+
+        $searchParams = ['project' => get('project', false)];
         $reports = $this->searchAssetsReport($searchParams);
 //        $manpowers = $this->vars['manpowers'];
 //        $machineries = $this->vars['machineries'];
@@ -1509,7 +1705,6 @@ td, th { border: 1px solid #ccc; }";
 //        $fix_expense = $this->vars['fix_expense'];
 //
 //        $total_days = $this->vars['total_days'];
-
 //        $style = ".product-title { width: 315px; display: inline-block; }
 //.product-quantity { width: 50px; display: inline-block; }
 //.product-price-without-tax { width: 100px; display: inline-block; text-align: right; }
@@ -1522,29 +1717,28 @@ td, th { border: 1px solid #ccc; }";
 
 //        $html .= "<h3>Assets Report</h3>";
 
-        if($label_type == 'all'){
+        if ($label_type == 'all') {
             $html .= $this->makePartial('assets_labels_list_all', [
-            'reports' => $reports,
-            'print_style' => get('style',40),
-            'from_date' => $from_date,
-            'to_date' => $to_date,
-            'oimsSetting' => $oimsSetting]);
-        }else {
+                'reports' => $reports,
+                'print_style' => get('style', 40),
+                'from_date' => $from_date,
+                'to_date' => $to_date,
+                'oimsSetting' => $oimsSetting]);
+        } else {
             $html .= $this->makePartial('assets_labels_list', [
-            'reports' => $reports,
-            'print_style' => get('style',40),
-            'from_date' => $from_date,
-            'to_date' => $to_date,
-            'oimsSetting' => $oimsSetting]);
+                'reports' => $reports,
+                'print_style' => get('style', 40),
+                'from_date' => $from_date,
+                'to_date' => $to_date,
+                'oimsSetting' => $oimsSetting]);
         }
-        
+
 
         $html .= "</body></html>";
 
         echo $html;
         exit();
 //        dd($html);
-
         // Generate invoice
         $fileName = 'assets_labels_' . time();
         $invoiceTempFile = temp_path() . "/" . $fileName . ".pdf";
@@ -1579,7 +1773,7 @@ td, th { border: 1px solid #ccc; }";
         }
 
         $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
-        $supplier = false;// ( trim($searchParams['supplier']) != "" ) ? $searchParams['supplier'] : false;
+        $supplier = false; // ( trim($searchParams['supplier']) != "" ) ? $searchParams['supplier'] : false;
 
         $baseModel = new \Olabs\Oims\Models\BaseModel();
         $assigned_projects = [];
@@ -1616,11 +1810,10 @@ td, th { border: 1px solid #ccc; }";
 //                    ->whereIn('project_id', $assigned_projects)
 //                    ->get();
 //        } else
-            
 //        if (count($params)) {
-            $reports = \Olabs\Oims\Models\ProjectAsset::where($params)
-                    ->whereIn('project_id', $assigned_projects)
-                    ->get();
+        $reports = \Olabs\Oims\Models\ProjectAsset::where($params)
+                ->whereIn('project_id', $assigned_projects)
+                ->get();
 //        }
 
 
@@ -1631,9 +1824,9 @@ td, th { border: 1px solid #ccc; }";
         if (!count($params)) {
             $msg = 'Please select atleast one filter';
         }
-        
+
 //        dd($params);
-        
+
 
         $this->vars['from_date'] = $from_date;
         $this->vars['to_date'] = $to_date;
@@ -1641,6 +1834,5 @@ td, th { border: 1px solid #ccc; }";
         $this->vars['msg'] = $msg;
         return $reports;
     }
-    
-    
+
 }
