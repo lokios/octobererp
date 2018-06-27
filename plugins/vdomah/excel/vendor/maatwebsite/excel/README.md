@@ -1,94 +1,70 @@
-## Laravel Excel v2.1.* for Laravel 5
+![Laravel-Excel 3.0](https://user-images.githubusercontent.com/7728097/37357058-b96e8d98-26e7-11e8-94a7-68f1f6fab99a.jpg)
 
-Looking for Laravel Excel for Laravel 4? Visit the [`1.3` branch](https://github.com/Maatwebsite/Laravel-Excel/tree/1.3)
+# Laravel Excel 3.0
 
-[<img src="http://www.maatwebsite.nl/img/excel_banner.jpg"/>](http://www.maatwebsite.nl/laravel-excel/docs)
-[<img src="https://cloud.githubusercontent.com/assets/7728097/6332170/1b495af2-bb84-11e4-9a93-34a9abc01840.jpg"/>](http://www.maatwebsite.nl/vacature-php-programmeur-maastricht)
+[![Build Status](https://travis-ci.org/Maatwebsite/Laravel-Excel.svg?branch=3.0)](https://travis-ci.org/Maatwebsite/Laravel-Excel)
+[![codecov](https://codecov.io/gh/Maatwebsite/Laravel-Excel/branch/3.0/graph/badge.svg)](https://codecov.io/gh/Maatwebsite/Laravel-Excel)
+[![StyleCI](https://styleci.io/repos/14259390/shield?branch=3.0)](https://styleci.io/repos/14259390)
+[![Latest Stable Version](https://poser.pugx.org/maatwebsite/excel/v/stable.png)](https://packagist.org/packages/maatwebsite/excel)
+[![Total Downloads](https://poser.pugx.org/maatwebsite/excel/downloads.png)](https://packagist.org/packages/maatwebsite/excel)
+[![License](https://poser.pugx.org/maatwebsite/excel/license.png)](https://packagist.org/packages/maatwebsite/excel)
 
-Laravel Excel brings the power of PHPOffice's PHPExcel to Laravel 5 with a touch of the Laravel Magic. It includes features like: importing Excel and CSV to collections, exporting models, array's and views to Excel, importing batches of files and importing a file by a config file.
+## Introduction
 
-- Import into Laravel **Collections**
-- Export **Blade views** to Excel and CSV with optional CSS styling
-- **Batch** imports
-- A lot of optional **config settings**
-- Easy **cell caching**
-- Chunked and queued importer
-- ExcelFile method injections
-- Editing existing Excel files
-- **Advanced import** by config files
-- and many more...
+💎 Laravel Excel is intended at being Laravel-flavoured PhpSpreadsheet: a simple, but elegant wrapper around PhpSpreadsheet with the goal of simplifying
+exports. 
 
----
+🔥 [PhpSpreadsheet](https://phpspreadsheet.readthedocs.io/) is a library written in pure PHP and providing a set of classes that allow you to read from and to write to different spreadsheet file formats, like Excel and LibreOffice Calc.
 
-```php
-Excel::create('Laravel Excel', function($excel) {
+Laravel Excel features:
 
-    $excel->sheet('Excel sheet', function($sheet) {
+* Easily export collections to Excel
+* Export queries with automatic chunking for better performance
+* Queue exports for better performance
+* Easily export Blade views to Excel
 
-        $sheet->setOrientation('landscape');
+Read more about Laravel Excel 3.0 on our blog: https://medium.com/@maatwebsite/laravel-excel-lessons-learned-7fee2812551
 
-    });
+## Supported Versions
 
-})->export('xls');
+Versions will be supported for a limited amount of time.
+
+| Version | Laravel Version | Php Version | Support |
+|---- |----|----|----|
+| 2.1 | <=5.6 | <=7.0 | EOL on 15-5-2018 |
+| 3.0 | ^5.5 |  ^7.0 | New features |
+
+## Roadmap
+
+Imports are currently not supported by 3.0. This functionality will be re-added in 3.1.
+
+## Installation
+
+Require this package in the `composer.json` of your Laravel project. This will download the package and PhpSpreadsheet.
+
+```
+composer require maatwebsite/excel
 ```
 
----
+More installation instructions can be found at: [https://laravel-excel.maatwebsite.nl/docs/3.0/getting-started/installation](https://laravel-excel.maatwebsite.nl/docs/3.0/getting-started/installation)
 
-[![Build Status](https://travis-ci.org/Maatwebsite/Laravel-Excel.svg?branch=master)](https://travis-ci.org/Maatwebsite/Laravel-Excel)
-[![Latest Stable Version](https://poser.pugx.org/maatwebsite/excel/v/stable.png)](https://packagist.org/packages/maatwebsite/excel) [![Total Downloads](https://poser.pugx.org/maatwebsite/excel/downloads.png)](https://packagist.org/packages/maatwebsite/excel)  [![License](https://poser.pugx.org/maatwebsite/excel/license.png)](https://packagist.org/packages/maatwebsite/excel)
-[![Monthly Downloads](https://poser.pugx.org/maatwebsite/excel/d/monthly.png)](https://packagist.org/packages/maatwebsite/excel)
-[![Daily Downloads](https://poser.pugx.org/maatwebsite/excel/d/daily.png)](https://packagist.org/packages/maatwebsite/excel)
+## Support
 
-[![Help the project](http://www.pledgie.com/campaigns/30385.png?skin_name=chrome)](http://pledgie.com/campaigns/30385)
+More about support can be found at: [https://laravel-excel.maatwebsite.nl/docs/3.0/getting-started/support](https://laravel-excel.maatwebsite.nl/docs/3.0/getting-started/support)
 
-# Installation
+## Contributing
 
-Require this package in your `composer.json` and update composer. This will download the package and PHPExcel of PHPOffice.
+More about contributing can be found at: [https://laravel-excel.maatwebsite.nl/docs/3.0/getting-started/contributing](https://laravel-excel.maatwebsite.nl/docs/3.0/getting-started/contributing)
 
-```php
-"maatwebsite/excel": "~2.1.0"
-```
+## License & Postcardware
 
-After updating composer, add the ServiceProvider to the providers array in `config/app.php`
+Our software is open source and licensed under the MIT license.
 
-```php
-Maatwebsite\Excel\ExcelServiceProvider::class,
-```
+If you use the software in your production environment we would appreciate to receive a postcard of your hometown. Please send it to:
 
-You can use the facade for shorter code. Add this to your aliases:
+**Maatwebsite**  
+Florijnruwe 111-2  
+6218 CA Maastricht  
+The Netherlands  
 
-```php
-'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-```
-
-The class is bound to the ioC as `excel`
-
-```php
-$excel = App::make('excel');
-```
-
-To publish the config settings in Laravel 5 use:
-
-```php
-php artisan vendor:publish --provider="Maatwebsite\Excel\ExcelServiceProvider"
-```
-
-This will add an `excel.php` config file to your config folder.
-
-# Documentation
-
-The complete documentation can be found at: [http://www.maatwebsite.nl/laravel-excel/docs](http://www.maatwebsite.nl/laravel-excel/docs)
-
-# Support
-
-Support only through Github. Please don't mail us about issues, make a Github issue instead.
-
-# Contributing
-
-**ALL** bug fixes should be made to appropriate branch (e.g. `2.0` for 2.0.* bug fixes). Bug fixes should never be sent to the `master` branch.
-
-More about contributing can be found at: [http://www.maatwebsite.nl/laravel-excel/docs/getting-started#contributing](http://www.maatwebsite.nl/laravel-excel/docs/getting-started#contributing)
-
-# License
-
-This package is licensed under LGPL. You are free to use it in personal and commercial projects. The code can be forked and modified, but the original copyright author should always be included!
+More about the license can be found at: [https://laravel-excel.maatwebsite.nl/docs/3.0/getting-started/license](https://laravel-excel.maatwebsite.nl/docs/3.0/getting-started/license)

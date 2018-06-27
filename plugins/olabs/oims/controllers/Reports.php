@@ -10,6 +10,7 @@ use Flash;
 use Log;
 use App;
 use Db;
+use Vdomah\Excel\Classes\Excel;
 
 class Reports extends Controller {
 
@@ -235,11 +236,27 @@ td, th { border: 1px solid #ccc; }";
 
         return \Redirect::to('/backend/olabs/oims/reports/downloadPdf?name=' . $fileName);
     }
+    
+    public function onDprExportExcel() {
+
+        $file_type = '.' . post('type');
+//        dd($file_type);
+        $fileName = 'invoices_' . time() . $file_type;
+        
+        Excel::excel()->store(new \Olabs\Oims\Exports\DprExport,  $fileName, 'local');
+        return \Redirect::to('/backend/olabs/oims/reports/download?name=' . $fileName);
+    }
 
     public function downloadPdf() {
         // Here we can make use of the download response
         $file_name = get('name');
         return \Response::download(temp_path($file_name . '.pdf'));
+    }
+    
+    public function download() {
+        // Here we can make use of the download response
+        $file_name = get('name');
+        return \Response::download(temp_path($file_name));
     }
 
     protected function searchDPR($searchParams) {
