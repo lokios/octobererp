@@ -256,7 +256,8 @@ td, th { border: 1px solid #ccc; }";
     public function download() {
         // Here we can make use of the download response
         $file_name = get('name');
-        return \Response::download(temp_path($file_name));
+//        return \Response::download(temp_path($file_name));
+        return \Response::download(storage_path('app'). '/' . $file_name);
     }
 
     protected function searchDPR($searchParams) {
