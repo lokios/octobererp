@@ -1853,7 +1853,7 @@ td, th { border: 1px solid #ccc; }";
         $this->vars['oimsSetting'] = $oimsSetting;
     }
 
-    public function onPcAttendanceReportExport() {
+    public function onPcAttendanceReportExport_BIN() {
 
 
         //generate PDF html
@@ -1892,13 +1892,6 @@ td, th { border: 1px solid #ccc; }";
         $this->vars['to_date'] = $to_date;
 
         $reports = $this->vars['reports'];
-//        $manpowers = $this->vars['manpowers'];
-//        $machineries = $this->vars['machineries'];
-//        $expenseOnMaterials = $this->vars['expenseOnMaterials'];
-//        $expenseOnPcs = $this->vars['expenseOnPcs'];
-//        $fix_expense = $this->vars['fix_expense'];
-//
-//        $total_days = $this->vars['total_days'];
 
         $style = ".product-title { width: 315px; display: inline-block; }
 .product-quantity { width: 50px; display: inline-block; }
@@ -1994,7 +1987,7 @@ td, th { border: 1px solid #ccc; }";
                 $productArray[] = $product_title;
                 $summary_count += $product->quantity; //Grand Total
                 $summary_total += $product->total_price;
-                
+
                 $temp = [];
                 $temp[] = $report->project->name;
                 $temp[] = $report->supplier->fullname;
@@ -2007,34 +2000,6 @@ td, th { border: 1px solid #ccc; }";
             }
         }
 
-
-
-
-//        foreach ($rows as $project_id => $project_row) {
-//            foreach ($project_row as $attendance_date => $attendance_row) {
-//                $attendance_count = 0;
-//                $attendance_total = 0;
-//                $temp = [];
-//                $temp[] = $attendance_row['project_name'];
-//                $temp[] = $attendance_row['attendance_date'];
-//
-//                foreach ($employee_types as $key => $employee_type) {
-//                    $data_key = $project_id . '_' . $attendance_date . '_' . $key;
-//                    $data_count = isset($wages[$data_key]['count']) ? $wages[$data_key]['count'] : 0;
-//                    $data_total = isset($wages[$data_key]['total']) ? $wages[$data_key]['total'] : 0;
-//                    $temp[] = $data_count;
-//                    $temp[] = $oimsSetting->getPriceFormattedWithoutCurrency($data_total);
-//                    $attendance_count += $data_count; //Attendance Total
-//                    $attendance_total += $data_total;
-//                    $summary_count += $data_count; //Grand Total
-//                    $summary_total += $data_total;
-//                }
-//                $temp[] = $attendance_count;
-//                $temp[] = $oimsSetting->getPriceFormattedWithoutCurrency($attendance_total);
-//
-//                $excel_rows[] = $temp;
-//            }
-//        }
 
         $export_data[] = ['title' => 'Attendance Summary Report', 'header' => $header_columns, 'rows' => $excel_rows];
 
@@ -2257,6 +2222,76 @@ td, th { border: 1px solid #ccc; }";
         $pdf->save($invoiceTempFile);
 
         return \Redirect::to('/backend/olabs/oims/reports/downloadPdf?name=' . $fileName);
+    }
+
+    public function onAssetExportExcel() {
+        $file_type = '.' . post('type');
+
+        ////////Generate Excel Data
+        $report = array();
+
+        if (post('reportSearch')) {
+
+            $searchParams = post('reportSearch');
+
+            // get dpr components
+            $this->searchAssetsReport($searchParams);
+
+            $search_from_date = isset($searchParams['from_date']) ? $searchParams['from_date'] : '';
+            $search_to_date = isset($searchParams['to_date']) ? $searchParams['to_date'] : '';
+//
+            $from_date = false;
+            if ($search_from_date != '') {
+                $from_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_from_date); //date('Y-m-d 00:00:00', strtotime($from_date));
+            }
+
+            $to_date = false;
+            if ($search_to_date != '') {
+                $timeFormat = '23:59:59';
+                $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
+            }
+
+            $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
+
+            $projectModal = \Olabs\Oims\Models\Project::find($project);
+        }
+
+        $oimsSetting = \Olabs\Oims\Models\Settings::instance();
+
+        $this->vars['search'] = true;
+        $this->vars['from_date'] = $from_date;
+        $this->vars['to_date'] = $to_date;
+
+        $reports = $this->vars['reports'];
+
+        //Generating Excel
+        $header_columns = ['Project', 'Product', 'Category', 'Quantity', 'Unit'];
+
+        //Attendance Summary Report
+        $excel_rows = [];
+
+        $count = 0;
+        foreach ($reports as $report) {
+            $count++;
+            $temp = [];
+            $temp[] = $report->project->name;
+            $temp[] = $report->product->title;
+            $temp[] = isset($report->product->default_category) ? $report->product->default_category->title : '';
+            $temp[] = $report->quantity;
+            $temp[] = isset($report->unit_code) ? $report->unit_code->name : $report->unit;
+            $excel_rows[] = $temp;
+        }
+
+
+
+        $export_data[] = ['title' => 'Assets Report', 'header' => $header_columns, 'rows' => $excel_rows];
+
+        ////////////////////////////////////////////////////////////
+        $fileName = 'assets_report_' . time() . $file_type;
+
+        Excel::excel()->store(new \Olabs\Oims\Exports\ReportsExport($export_data), $fileName, 'local');
+
+        return \Redirect::to('/backend/olabs/oims/reports/download?name=' . $fileName);
     }
 
     public function onAssetsLabelExport() {
