@@ -393,18 +393,15 @@ td, th { border: 1px solid #ccc; }";
         }
         $export_data[] = ['title' => 'Expense Against Material', 'header' => $header_columns, 'rows' => $excel_rows];
 
-        
+
         //Summary
         $fix_expense = $this->vars['fix_expense'] * $total_days;
         $total_expense = $fix_expense + $grand_total;
         $net_profit = $progress_total - $total_expense;
         $profit_percentage = 0;
-        if($progress_total > 0) {
+        if ($progress_total > 0) {
             $profit_percentage = $net_profit / $progress_total * 100;
         }
-//        $html .= $this->makePartial('dpr_summary', ['grand_total' => $this->vars['grand_total'], 'progress_total' => $this->vars['progress_total'], 'fix_expense' => $this->vars['fix_expense'], 'oimsSetting' => $oimsSetting]);
-
-
 
         $temp = [];
         $temp['title'] = 'Summary';
@@ -1023,7 +1020,7 @@ td, th { border: 1px solid #ccc; }";
         $this->vars['oimsSetting'] = $oimsSetting;
     }
 
-    public function onMrReportExport() {
+    public function onMrReportExport_BIN() {
 
 
         //generate PDF html
@@ -1111,6 +1108,95 @@ td, th { border: 1px solid #ccc; }";
         $pdf->save($invoiceTempFile);
 
         return \Redirect::to('/backend/olabs/oims/reports/downloadPdf?name=' . $fileName);
+    }
+
+    public function onMRExportExcel() {
+        $file_type = '.' . post('type');
+
+        ////////Generate Excel Data
+        $report = array();
+
+        if (post('reportSearch')) {
+
+            $searchParams = post('reportSearch');
+
+            $this->searchMRReport($searchParams);
+
+            $search_from_date = isset($searchParams['from_date']) ? $searchParams['from_date'] : '';
+            $search_to_date = isset($searchParams['to_date']) ? $searchParams['to_date'] : '';
+//
+            $from_date = false;
+            if ($search_from_date != '') {
+                $from_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_from_date); //date('Y-m-d 00:00:00', strtotime($from_date));
+            }
+            $to_date = false;
+            if ($search_to_date != '') {
+                $timeFormat = '23:59:59';
+                $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
+            }
+            $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
+
+            $projectModal = \Olabs\Oims\Models\Project::find($project);
+        }
+
+        $oimsSetting = \Olabs\Oims\Models\Settings::instance();
+
+        $this->vars['search'] = true;
+        $this->vars['from_date'] = $from_date;
+        $this->vars['to_date'] = $to_date;
+
+        $reports = $this->vars['reports'];
+
+        //Generating Excel
+        $header_columns = ['MR No.', 'Project', 'Entry Date', 'Status', 'Supplier', 'Product', 'Quantity', 'Unit', 'Unit Price', 'Total Price'];
+
+        //MR Report
+        $excel_rows = [];
+        $status_count = [];
+        $grand_total = 0;
+        $count = 0;
+        foreach ($reports as $report) {
+            $count++;
+            $grand_total += $report->total_price;
+            $products = $report->products ? $report->products : array();
+            $status_count[$report->status_name] = isset($status_count[$report->status_name]) ? $status_count[$report->status_name] + 1 : 1;
+            foreach ($products as $product) {
+                $temp = [];
+                $temp['mr_no'] = $report->reference_number;
+                $temp['project'] = $report->project->name;
+                $temp['entry_date'] = date("d-m-Y", strtotime($report->context_date));
+                $temp['status'] = $report->status_name;
+                $temp['supplier'] = $report->supplier ? $report->supplier->fullname : '--';
+                $temp['product'] = $product->product ? $product->product->title : '';
+                $temp['quantity'] = $product->quantity;
+                $temp['unit'] = $product->unit;
+                $temp['unit_price'] = $oimsSetting->getPriceFormattedWithoutCurrency($product->unit_price);
+                $temp['total_price'] = $oimsSetting->getPriceFormattedWithoutCurrency($product->total_price);
+                $excel_rows[] = $temp;
+            }
+        }
+
+        $export_data[] = ['title' => 'MR Report', 'header' => $header_columns, 'rows' => $excel_rows];
+
+
+        //Summary
+        $temp = [];
+        $temp['title'] = 'Summary';
+        $temp['header'] = ['DESCRIPTION', 'AMOUNT / COUNT'];
+        $temp['rows'] = [
+            ['TOTAL MR ENTRY', $count],
+            ["TOTAL MR AMOUNT", $oimsSetting->getPriceFormattedWithoutCurrency($grand_total)],
+        ];
+        foreach ($status_count as $k => $v) {
+            $temp['rows'][] = [$k . ' MR Count', $v];
+        }
+        $export_data[] = $temp;
+        ////////////////////////////////////////////////////////////
+        $fileName = 'mr_report_' . time() . $file_type;
+
+        Excel::excel()->store(new \Olabs\Oims\Exports\ReportsExport($export_data), $fileName, 'local');
+
+        return \Redirect::to('/backend/olabs/oims/reports/download?name=' . $fileName);
     }
 
     protected function searchMRReport($searchParams) {
@@ -1307,6 +1393,96 @@ td, th { border: 1px solid #ccc; }";
         $pdf->save($invoiceTempFile);
 
         return \Redirect::to('/backend/olabs/oims/reports/downloadPdf?name=' . $fileName);
+    }
+
+    public function onAttendanceExportExcel() {
+        $file_type = '.' . post('type');
+
+        ////////Generate Excel Data
+        $report = array();
+
+        if (post('reportSearch')) {
+
+            $searchParams = post('reportSearch');
+
+            // get dpr components
+            $this->searchAttendanceReport($searchParams);
+
+            $search_from_date = isset($searchParams['from_date']) ? $searchParams['from_date'] : '';
+            $search_to_date = isset($searchParams['to_date']) ? $searchParams['to_date'] : '';
+//
+            $from_date = false;
+            if ($search_from_date != '') {
+                $from_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_from_date); //date('Y-m-d 00:00:00', strtotime($from_date));
+            }
+
+            $to_date = false;
+            if ($search_to_date != '') {
+                $timeFormat = '23:59:59';
+                $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
+            }
+
+            $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
+
+            $projectModal = \Olabs\Oims\Models\Project::find($project);
+        }
+
+        $oimsSetting = \Olabs\Oims\Models\Settings::instance();
+
+        $this->vars['search'] = true;
+        $this->vars['from_date'] = $from_date;
+        $this->vars['to_date'] = $to_date;
+
+        $reports = $this->vars['reports'];
+
+        //Generating Excel
+        $header_columns = ['Project', 'Supplier', 'Employee', 'Employee Type', 'Attendance Date', 'Check-In', 'Check-Out', 'Daily Wages', 'Total Hours', 'Over Time', 'Total Wages'];
+
+        //MR Report
+        $excel_rows = [];
+        $grand_total = 0;
+        $count = 0;
+
+        foreach ($reports as $report) {
+            $count++;
+            $grand_total += $report->total_wages;
+
+            $temp = [];
+            $temp['project'] = $report->project->name;
+            $temp['supplier'] = $report->supplier->fullname;
+            $temp['employee'] = isset($report->employee_offrole->name) ? $report->employee_offrole->name : '';
+            $temp['employee_type'] = isset($report->employee_offrole->employee_type) ? $report->employee_offrole->employee_type : '';
+            $temp['attendance_date'] = $oimsSetting->convertToDisplayDate($report->check_in, 'd/m/Y');
+            $temp['check_in'] = $oimsSetting->convertToDisplayDate($report->check_in, 'd/m/Y H:i');
+            $temp['check_out'] = $oimsSetting->convertToDisplayDate($report->check_out, 'd/m/Y H:i');
+            $temp['wages'] = $report->daily_wages;
+            $temp['total_hours'] = $report->total_working_hour;
+            $temp['over_time'] = $report->overtime;
+            $temp['total_wages'] = $oimsSetting->getPriceFormattedWithoutCurrency($report->total_wages);
+            
+            $excel_rows[] = $temp;
+        }
+
+        $export_data[] = ['title' => 'Attendance Report', 'header' => $header_columns, 'rows' => $excel_rows];
+
+
+        //Summary
+
+        $temp = [];
+        $temp['title'] = 'Summary';
+        $temp['header'] = ['DESCRIPTION', 'AMOUNT / COUNT'];
+        $temp['rows'] = [
+            ['TOTAL ATTENDANCE', $count],
+            ["TOTAL ATTENDANCE AMOUNT", $oimsSetting->getPriceFormattedWithoutCurrency($grand_total)],
+        ];
+      
+        $export_data[] = $temp;
+        ////////////////////////////////////////////////////////////
+        $fileName = 'attendance_report_' . time() . $file_type;
+
+        Excel::excel()->store(new \Olabs\Oims\Exports\ReportsExport($export_data), $fileName, 'local');
+
+        return \Redirect::to('/backend/olabs/oims/reports/download?name=' . $fileName);
     }
 
     protected function searchAttendanceReport($searchParams) {
