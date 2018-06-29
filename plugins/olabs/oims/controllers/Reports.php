@@ -1305,7 +1305,7 @@ td, th { border: 1px solid #ccc; }";
         $this->vars['oimsSetting'] = $oimsSetting;
     }
 
-    public function onAttendanceReportExport() {
+    public function onAttendanceReportExport_BIN() {
 
 
         //generate PDF html
@@ -1459,7 +1459,7 @@ td, th { border: 1px solid #ccc; }";
             $temp['total_hours'] = $report->total_working_hour;
             $temp['over_time'] = $report->overtime;
             $temp['total_wages'] = $oimsSetting->getPriceFormattedWithoutCurrency($report->total_wages);
-            
+
             $excel_rows[] = $temp;
         }
 
@@ -1475,7 +1475,7 @@ td, th { border: 1px solid #ccc; }";
             ['TOTAL ATTENDANCE', $count],
             ["TOTAL ATTENDANCE AMOUNT", $oimsSetting->getPriceFormattedWithoutCurrency($grand_total)],
         ];
-      
+
         $export_data[] = $temp;
         ////////////////////////////////////////////////////////////
         $fileName = 'attendance_report_' . time() . $file_type;
@@ -1685,6 +1685,137 @@ td, th { border: 1px solid #ccc; }";
         $pdf->save($invoiceTempFile);
 
         return \Redirect::to('/backend/olabs/oims/reports/downloadPdf?name=' . $fileName);
+    }
+
+    public function onAttendanceSummaryExportExcel() {
+
+        $file_type = '.' . post('type');
+
+        ////////Generate Excel Data
+
+        $report = array();
+
+        if (post('reportSearch')) {
+
+            $searchParams = post('reportSearch');
+
+            // get dpr components
+            $this->searchAttendanceReport($searchParams);
+
+            $search_from_date = isset($searchParams['from_date']) ? $searchParams['from_date'] : '';
+            $search_to_date = isset($searchParams['to_date']) ? $searchParams['to_date'] : '';
+//
+            $from_date = false;
+            if ($search_from_date != '') {
+                $from_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_from_date); //date('Y-m-d 00:00:00', strtotime($from_date));
+            }
+
+            $to_date = false;
+            if ($search_to_date != '') {
+                $timeFormat = '23:59:59';
+                $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
+            }
+
+            $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
+
+            $projectModal = \Olabs\Oims\Models\Project::find($project);
+        }
+
+        $oimsSetting = \Olabs\Oims\Models\Settings::instance();
+
+        $this->vars['search'] = true;
+        $this->vars['from_date'] = $from_date;
+        $this->vars['to_date'] = $to_date;
+
+        $reports = $this->vars['reports'];
+
+        //Generating Excel
+        $header_columns = ['Project', 'Attendance Date'];
+
+        $grand_total = 0;
+        $count = 0;
+        $employee_types = [];
+        $rows = [];
+        $wages = [];
+        foreach ($reports as $report) {
+            if (isset($report->employee_offrole)) {
+                $employee_type = $report->employee_offrole->employee_type;
+                $employee_wage = $report->total_wages;
+                $employee_types[$employee_type] = ucfirst($employee_type); //['count'=>0,'total'=>0];
+                $attendance_date = $oimsSetting->convertToDisplayDate($report->check_in, 'd/m/Y');
+                $temp = [];
+                $temp['project_name'] = $report->project->name;
+                $temp['attendance_date'] = $attendance_date;
+
+                $key = $report->project_id . '_' . $attendance_date . '_' . $employee_type;
+                $wages[$key]['count'] = isset($wages[$key]['count']) ? $wages[$key]['count'] + 1 : 1;
+                $wages[$key]['total'] = isset($wages[$key]['total']) ? $wages[$key]['total'] + $employee_wage : $employee_wage;
+
+                $rows[$report->project_id][$attendance_date] = $temp;
+            }
+        }
+
+        foreach ($employee_types as $key => $employee_type) {
+            $header_columns[] = ucfirst($key) . ' Count';
+            $header_columns[] = ucfirst($key) . ' Wages';
+        }
+
+        $header_columns[] = 'Total Count';
+        $header_columns[] = 'Total Wages';
+
+
+
+        //Attendance Summary Report
+        $excel_rows = [];
+
+        $summary_count = 0;
+        $summary_total = 0;
+        foreach ($rows as $project_id => $project_row) {
+            foreach ($project_row as $attendance_date => $attendance_row) {
+                $attendance_count = 0;
+                $attendance_total = 0;
+                $temp = [];
+                $temp[] = $attendance_row['project_name'];
+                $temp[] = $attendance_row['attendance_date'];
+
+                foreach ($employee_types as $key => $employee_type) {
+                    $data_key = $project_id . '_' . $attendance_date . '_' . $key;
+                    $data_count = isset($wages[$data_key]['count']) ? $wages[$data_key]['count'] : 0;
+                    $data_total = isset($wages[$data_key]['total']) ? $wages[$data_key]['total'] : 0;
+                    $temp[] = $data_count;
+                    $temp[] = $oimsSetting->getPriceFormattedWithoutCurrency($data_total);
+                    $attendance_count += $data_count; //Attendance Total
+                    $attendance_total += $data_total;
+                    $summary_count += $data_count; //Grand Total
+                    $summary_total += $data_total;
+                }
+                $temp[] = $attendance_count;
+                $temp[] = $oimsSetting->getPriceFormattedWithoutCurrency($attendance_total);
+                
+                $excel_rows[] = $temp;
+            }
+            
+        }
+
+        $export_data[] = ['title' => 'Attendance Summary Report', 'header' => $header_columns, 'rows' => $excel_rows];
+
+
+        //Summary
+        $temp = [];
+        $temp['title'] = 'Summary';
+        $temp['header'] = ['DESCRIPTION', 'AMOUNT / COUNT'];
+        $temp['rows'] = [
+            ['TOTAL ATTENDANCE', $summary_count],
+            ["TOTAL ATTENDANCE AMOUNT", $oimsSetting->getPriceFormattedWithoutCurrency($summary_total)],
+        ];
+        
+        $export_data[] = $temp;
+        ////////////////////////////////////////////////////////////
+        $fileName = 'attendance_summary_report_' . time() . $file_type;
+
+        Excel::excel()->store(new \Olabs\Oims\Exports\ReportsExport($export_data), $fileName, 'local');
+
+        return \Redirect::to('/backend/olabs/oims/reports/download?name=' . $fileName);
     }
 
     //Petty Contractor Attendance Report
