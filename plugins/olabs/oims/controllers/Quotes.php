@@ -5,6 +5,9 @@ namespace Olabs\Oims\Controllers;
 use BackendMenu;
 use Backend\Classes\Controller;
 use Flash;
+use Log;
+use Backend;
+use Olabs\Oims\Models\Status;
 /**
  * Orders Back-end Controller
  */
@@ -258,6 +261,69 @@ class Quotes extends Controller {
         }
         
         return ["#object-status"=>$model->objectstatus->name];
+    }
+    
+    public function onSubmitForHOApproval() {
+        $id = post('id');
+
+        $model = \Olabs\Oims\Models\Quote::find($id);
+
+        $model->comment = post('comment');
+
+        $msg = $model->onSubmitForHOApproval();
+
+        if ($msg['s']) {
+
+            Flash::success($msg['m']);
+            $redirectUrl = 'olabs/oims/quotes/preview/' . $id;
+            return Backend::redirect($redirectUrl);
+        } else {
+            Flash::warning($msg['m']);
+        }
+
+        return ["#object-status" => $model->objectstatus->name];
+    }
+
+    public function onHOApproved() {
+        $id = post('id');
+
+        $model = \Olabs\Oims\Models\Quote::find($id);
+
+        $model->comment = post('comment');
+
+        $msg = $model->onHOApproved();
+
+        if ($msg['s']) {
+            Flash::success($msg['m']);
+
+            $redirectUrl = 'olabs/oims/quotes/preview/' . $id;
+            return Backend::redirect($redirectUrl);
+        } else {
+            Flash::warning($msg['m']);
+        }
+
+        return ["#object-status" => $model->objectstatus->name];
+    }
+
+    public function onHORejected() {
+        $id = post('id');
+
+        $model = \Olabs\Oims\Models\Quote::find($id);
+
+        $model->comment = post('comment');
+
+        $msg = $model->onHORejected();
+
+        if ($msg['s']) {
+            Flash::success($msg['m']);
+
+            $redirectUrl = 'olabs/oims/quotes/preview/' . $id;
+            return Backend::redirect($redirectUrl);
+        } else {
+            Flash::warning($msg['m']);
+        }
+
+        return ["#object-status" => $model->objectstatus->name];
     }
     
     //Extend user list by associated project list
