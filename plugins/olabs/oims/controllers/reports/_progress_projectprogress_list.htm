@@ -116,7 +116,8 @@ $net_profit = $summary_row['total_billing'] - $summary_row['total_spent'];
 $profit_percentage = 0;
 $row_class = '';
 if($summary_row['total_spent'] > 0) {
-    $profit_percentage = $net_profit / $summary_row['total_spent'] * 100;
+    // $profit_percentage = $net_profit / $summary_row['total_spent'] * 100;
+    $profit_percentage = $net_profit / $summary_row['total_billing'] * 100;
 }
 if($net_profit > 0){
     $row_class = 'profit-positive';

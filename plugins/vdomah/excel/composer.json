@@ -1,0 +1,25 @@
+{
+  "name": "vdomah/excel",
+  "description": "OctoberCMS wrapper for Maatwebsite/Laravel-Excel",
+  "keywords": [
+    "october",
+    "excel",
+    "plugin"
+  ],
+  "authors": [
+    {
+      "name": "Art Gek",
+      "email": "alchemistt@ukr.net"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "maatwebsite/excel": "~3.0",
+    "dompdf/dompdf": "^0.8.2",
+    "jpgraph/jpgraph": "^4.0"
+  },
+  "autoload": {
+    "psr-4": {
+    }
+  }
+}
