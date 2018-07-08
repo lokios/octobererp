@@ -412,7 +412,7 @@ public function addMainModules_OIMS(&$fmodules){
           ,'format'=>'json','method'=>'post'];
             $fmodules[] = $module;
 
-           $module =[  'item_type'=>'list','name'=>'Recent Attendance Entries','list'=>$base.'/social/api/v1/entityrelations?target_type=attendance&actor_id='.$app->user->id,'module'=>'user','edit_url2'=>$base.'/social/api/v1/entityrelations?target_type=attendance&actor_id='.$app->user->id,'barcode_enabled'=>false,
+           $module =[  'item_type'=>'list','name'=>'Recent Attendance Entries','list'=>$base.'/social/api/v1/entityrelations?target_type=attendance&actor_id='.$app->user->id,'module'=>'attendance','edit_url2'=>$base.'/social/api/v1/entityrelations?target_type=attendance&actor_id='.$app->user->id,'barcode_enabled'=>false,
 
              
              ];

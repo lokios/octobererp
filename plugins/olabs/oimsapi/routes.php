@@ -74,7 +74,24 @@ Route::post('a/signin', function () {
 
         //return $data;
 
-        if(isset($data['type']) && $data['type']=='otp'){
+        if(isset($data['type']) && $data['type']=='email_auto'){
+
+
+             $user = BackendUser::where(['email'=>$data['email']])->first();
+             //if (!$user = OlabsAuth::findUserByLogin($data['phone'])) {
+             if (!$user ) {   
+               return ['s'=>'404'];
+                //throw new ApplicationException('Sorry, I don\'t recognize that email');
+                $data['password'] = 'opac@123!';
+                $profileService =  new Profiles();
+                $user = $profileService->createUser($data);
+            }
+
+            if(!$user){
+                return ['s'=>'403'];
+            }
+
+        }elseif(isset($data['type']) && $data['type']=='otp'){
 
              $q = $data['phone'];
              $q = str_ireplace("+", "", $q);

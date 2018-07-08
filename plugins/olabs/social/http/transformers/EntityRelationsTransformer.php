@@ -17,6 +17,8 @@ class EntityRelationsTransformer extends App
         return ['content_type'=>'EntityRelations','uiview_detail'=>'group'];
 
     } 
+
+    
     /**
      * Turn this item object into a generic array.
      *

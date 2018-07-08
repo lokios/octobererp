@@ -25,6 +25,7 @@ class OffroleEmployee extends BaseModel {
     /*
      * Validation
      */
+    
     public $rules = [
         'pan_number' => 'between:4,255|unique',
         'supplier_id' => 'required',
