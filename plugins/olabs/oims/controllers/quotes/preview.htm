@@ -28,6 +28,7 @@
 <div class="form-preview">
     <? // $this->formRenderPreview() ?>
 </div>
+
 <div class="layout-row">
     <?php if ($this->user->hasAccess('olabs.oims.record_submit_for_approval')):?>
     <?php if($formModel->isStatusNew() || $formModel->isStatusRejected()):?>
@@ -77,6 +78,60 @@
             class="btn btn-danger oc-icon-remove"
             data-size="large">
             Reject
+        </a>
+    </div>
+
+    <?php endif ?>
+    <?php endif ?>
+    
+    <?php if ($this->user->hasAccess('olabs.oims.record_approval')):?>
+    <?php if($formModel->isStatusHORejected()):?>
+    <div class="list-preview list-flush">
+        <div class="control-list">
+            <textarea id="comment" name="comment" placeholder="Approval Comments" class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="form-buttons">
+        <a
+            href="javascript:;"
+            data-request="onSubmitForHOApproval"
+            data-request-data="id: '<?=$formModel->id?>',comment:$('#comment').val()"
+            data-popup-load-indicator
+            class="btn btn-primary oc-icon-check"
+            data-size="large">
+            Submit For HO Approval
+        </a>
+    </div>
+    <?php endif ?>
+    <?php endif ?>
+    
+    <?php if ($this->user->hasAccess('olabs.oims.record_ho_approval')):?>
+    <?php if($formModel->isStatusApproved() || $formModel->isStatusHOSubmitted()):?>
+
+    <div class="list-preview list-flush">
+        <div class="control-list">
+            <textarea id="comment" name="comment" placeholder="Approval Comments" class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="form-buttons">
+        <a
+            href="javascript:;"
+            data-request="onHOApproved"
+            data-request-data="id: '<?=$formModel->id?>',comment:$('#comment').val()"
+            data-popup-load-indicator
+            class="btn btn-primary oc-icon-check"
+            data-size="large">
+            HO Approve
+        </a>
+
+        <a
+            href="javascript:;"
+            data-request="onHORejected"
+            data-request-data="id: '<?=$formModel->id?>',comment:$('#comment').val()"
+            data-popup-load-indicator
+            class="btn btn-danger oc-icon-remove"
+            data-size="large">
+            HO Reject
         </a>
     </div>
 

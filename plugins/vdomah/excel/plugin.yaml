@@ -1,0 +1,6 @@
+plugin:
+    name: 'vdomah.excel::lang.plugin.name'
+    description: 'vdomah.excel::lang.plugin.description'
+    author: 'Art Gek'
+    icon: oc-icon-file-excel-o
+    homepage: 'https://github.com/vdomah/octoexcel'

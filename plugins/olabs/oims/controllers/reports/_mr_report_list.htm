@@ -43,7 +43,7 @@
             <td><?=$report->project->name?></td>
             <td><?= $oimsSetting->convertToDisplayDate($report->context_date)?></td>
             <td><?=$report->status_name?></td>
-            <td><?=$report->supplier->fullname?></td>
+            <td><?=$report->supplier ? $report->supplier->fullname : '--' ?></td>
             <td><?php echo implode("</br> ",$productArray); ?></td>
             <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($report->total_price)?></td>
             

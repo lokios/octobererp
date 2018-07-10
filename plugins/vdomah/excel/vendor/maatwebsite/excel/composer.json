@@ -1,0 +1,52 @@
+{
+  "name": "maatwebsite/excel",
+  "description": "An eloquent way of importing and exporting Excel and CSV",
+  "license": "MIT",
+  "keywords": [
+    "laravel",
+    "php",
+    "phpspreadsheet",
+    "phpexcel",
+    "excel",
+    "csv",
+    "export",
+    "import",
+    "batch"
+  ],
+  "authors": [
+    {
+      "name": "Patrick Brouwers",
+      "email": "patrick@maatwebsite.nl"
+    }
+  ],
+  "require": {
+    "php": "^7.0",
+    "phpoffice/phpspreadsheet": "^1.2",
+    "illuminate/support": "^5.5"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~7.0",
+    "orchestra/testbench": "^3.6",
+    "orchestra/database": "^3.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "Maatwebsite\\Excel\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Maatwebsite\\Excel\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Maatwebsite\\Excel\\ExcelServiceProvider"
+      ],
+      "aliases": {
+        "Excel": "Maatwebsite\\Excel\\Facades\\Excel"
+      }
+    }
+  }
+}
