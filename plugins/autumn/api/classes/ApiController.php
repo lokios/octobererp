@@ -76,14 +76,14 @@ abstract class ApiController extends Controller {
      *
      * @var int|bool
      */
-    protected $defaultLimit = 5;
+    protected $defaultLimit = 10;
 
     /**
      * Maximum limit that can be set via $_GET['limit'].
      *
      * @var int|bool
      */
-    protected $maximumLimit = 5;
+    protected $maximumLimit = 10;
 
     /**
      * Resource key for an item.
