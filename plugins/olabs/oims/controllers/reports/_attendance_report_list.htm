@@ -32,7 +32,7 @@
 
         ?>
         <tr>
-            <td><?=isset($report->project->name) ? $report->project->name : '' ?></td>
+            <td><?=$report->getEmployeeProjectName() ?></td>
             <td><?=isset($report->supplier->fullname) ? $report->supplier->fullname : '' ?></td> 
             <td><?=$report->getEmployeeName() ?></td>
             <td><?=$report->getEmployeeType() ?></td>

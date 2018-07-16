@@ -26,10 +26,10 @@ fields:
 #        emptyOption: None
         required: 1
         type: dropdown
-        trigger:
-            action: hide 
-            field: attendance_type
-            condition: 'value[onrole]' 
+#        trigger:
+#            action: hide 
+#            field: attendance_type
+#            condition: 'value[onrole]' 
     supplier:
         label: Supplier
         oc.commentPosition: ''

@@ -1448,7 +1448,7 @@ class Reports extends Controller {
             $grand_total += $report->total_wages;
 
             $temp = [];
-            $temp['project'] = isset($report->project->name) ? $report->project->name : '';
+            $temp['project'] = $report->getEmployeeProjectName();
             $temp['supplier'] = isset($report->supplier->fullname) ? $report->supplier->fullname : '';
             $temp['employee'] = $report->getEmployeeName();
             $temp['employee_type'] = $report->getEmployeeType();
@@ -1530,11 +1530,11 @@ class Reports extends Controller {
                 ->whereIn('project_id', $assigned_projects);
         }else {
             $model = \Olabs\Oims\Models\Attendance::select()
-                    ->where($params);
+                    ->where($params)
 //                    ->with('employee_offrole')
-//                    ->join("backend_users",'backend_users.id','employee_id');
+                    ->join("backend_users",'backend_users.id','employee_id')
                 
-//                ->whereIn('project_id', $assigned_projects);
+                ->whereIn('backend_users.employee_project_id', $assigned_projects);
         }
         
         if ($from_date && $to_date) {
