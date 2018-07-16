@@ -26,6 +26,10 @@ fields:
 #        emptyOption: None
         required: 1
         type: dropdown
+        trigger:
+            action: hide 
+            field: attendance_type
+            condition: 'value[onrole]' 
     supplier:
         label: Supplier
         oc.commentPosition: ''
@@ -35,11 +39,15 @@ fields:
         emptyOption: None
 #        required: 1
         type: dropdown
+        trigger:
+            action: hide 
+            field: attendance_type
+            condition: 'value[onrole]' 
     attendance_type:
-        label: Attendance Type
+        label: Attendance Role (OnRole / OffRole)
         oc.commentPosition: ''
         span: auto
-        hidden: 1
+#        hidden: 1
         type: radio
         default: offrole
         options:

@@ -32,10 +32,10 @@
 
         ?>
         <tr>
-            <td><?=$report->project->name?></td>
-            <td><?=$report->supplier->fullname?></td> 
-            <td><?=isset($report->employee_offrole->name) ? $report->employee_offrole->name : ''?></td>
-            <td><?=isset($report->employee_offrole->employee_type) ? $report->employee_offrole->employee_type : ''?></td>
+            <td><?=isset($report->project->name) ? $report->project->name : '' ?></td>
+            <td><?=isset($report->supplier->fullname) ? $report->supplier->fullname : '' ?></td> 
+            <td><?=$report->getEmployeeName() ?></td>
+            <td><?=$report->getEmployeeType() ?></td>
             <td><?= $oimsSetting->convertToDisplayDate($report->check_in, 'd/m/Y')?></td>
             <td><?= $oimsSetting->convertToDisplayDate($report->check_in, 'd/m/Y H:i')?></td> 
             <td><?= $oimsSetting->convertToDisplayDate($report->check_out, 'd/m/Y H:i')?></td>

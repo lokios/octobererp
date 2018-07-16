@@ -72,8 +72,8 @@ class Employee extends User {
         $model = UserRole::where('code', 'employee')->first();
         return $model;
     }
-
     
+
     public function getBarcode($format, $params = array()) {
         $manager = new BarcodeManager();
 
