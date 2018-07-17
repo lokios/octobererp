@@ -34,20 +34,21 @@ Open Source ERP suite built on Laravel &amp; OctoberCMS!
 - Wages & salary management
 
 ### Android App
-#### Built on react-native
+#### Built on Flutter
 OctoberERP.com mobile app to track and monitor your business anytime / anywhere:
 
 - Certain modules are provided with offline capabilities:
    - Attendance 
    - Material requistions 
 
-Demo link: https://youtu.be/MGb3U6iPD_g
+Demo link: https://youtu.be/Mp5b4ifEUoc
 
  - Projects
- - HRMS / Employee contacts/Offline attendance
+ - HRMS / Employee contacts/Offline attendance / Purchases
  - Asset Management - monitor / transfer/ and report damages
  - Project level Assets live reporting
  - Material requisitions (MR)  and fast approvals
+ - Supports Offline Data entry
 
 More features coming soon..
 
