@@ -36,7 +36,7 @@ showSorting: true
 #     direction: desc
 
 # Display checkboxes next to each record
-# showCheckboxes: true
+showCheckboxes: true
 
 filter: config_filter.yaml
 

@@ -169,6 +169,7 @@ return [
         'extended_inventory_management_comment' => 'In the default is stock decrease after create order. When you enable this extension you have to specify decrease / increase in order statuses',
         'extended_inventory_management' => 'Enable Extended Inventory Management',
         'employee_id_card' => 'Employee ID Card',
+        'employee_card_print' => 'Employee Card Print',
     ],
     'orders' => [
         'menu_label' => 'Orders',

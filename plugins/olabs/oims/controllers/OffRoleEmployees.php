@@ -28,30 +28,37 @@ class OffRoleEmployees extends Controller {
         }
     }
     
-    public function onPrintEmployeeIdCard($id) {
-        $employee_id = get('id',$id);
-        $employee_type = get('type', 'offrole'); //offrole / onrole
+     public function onPrintEmployeeIdCard() {
+        $employee_ids = request('id', '');
+        $employee_type = 'offrole'; //get('type', 'onrole'); //offrole / onrole
+        $assigned_projects = [];
 
-        if($employee_type == 'onrole'){
-            $record = \Olabs\Oims\Models\Employee::find($employee_id);
-        }else{
-            $record = \Olabs\Oims\Models\OffroleEmployee::find($employee_id);
+
+        $baseModel = new \Olabs\Oims\Models\BaseModel();
+        $assigned_projects = $baseModel->getProjectOptions();
+
+        if (!is_array($employee_ids)) {
+            $employee_ids = explode(',', $employee_ids);
         }
-        
+
+
+        $records = \Olabs\Oims\Models\OffroleEmployee::whereIn('id', $employee_ids)
+                ->whereIn('project_id', array_keys($assigned_projects))
+                ->get();
         $style = '';
         $html = "<html><head><style>" . $style . "</style></head><body>";
 
         $html .= $this->makePartial('employee_id_card', [
-            'record' => $record,
-            'print_style' => get('style',12),
-                ]);
+            'records' => $records,
+            'print_style' => get('style', 12),
+        ]);
 
         $html .= "</body></html>";
 
         echo $html;
         exit();
-        
-        
     }
+
+    
 
 }

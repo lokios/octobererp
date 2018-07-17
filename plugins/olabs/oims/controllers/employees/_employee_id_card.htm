@@ -128,7 +128,11 @@ if ($style == 12 || $style == 18 || $style == 24 || $style == 40) {
 }
 ?>
 <!--<div class="barcodea4">-->
-
+    <?
+    
+    foreach($records as $record){ 
+    
+    ?>
 
     <div class="item style<?=$style?>" <?= ($style == 50 && $cf_width && $cf_height ?'style="width:'.$cf_width.'in;height:'.$cf_height.'in;border:0;"' : '')?>>
          <span class="barcode_site"><span class="company_logo"><img src="<?=$logo?>" width="15px;"></span><?=$record->getCompanyNameAttribute()?></span>
@@ -177,7 +181,10 @@ if ($style == 12 || $style == 18 || $style == 24 || $style == 40) {
     }
     ?>
 
-
+<? 
+    $c++;
+    
+    } ?>
    
 </div>
 

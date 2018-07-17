@@ -22,6 +22,12 @@ class Employees extends Controller {
         // Extend the list query to filter by the user id
 //        if ($this->userId)
 //            $query->where('user_id', $this->userId);
+        if (!$this->user->isAdmin()) {
+            $baseModel = new \Olabs\Oims\Models\BaseModel();
+            $assigned_projects = $baseModel->getProjectOptions();
+            $query->whereIn('employee_project_id', array_keys($assigned_projects));
+        }
+        
         $filter = ['employee'];
 //        $query->whereHas('groups', function ($q) {
 //            $q->whereIn('code', 'inventory_supplier');
@@ -31,30 +37,35 @@ class Employees extends Controller {
         });
     }
 
-    public function onPrintEmployeeIdCard($id) {
-        $employee_id = get('id',$id);
-        $employee_type = get('type', 'onrole'); //offrole / onrole
+    public function onPrintEmployeeIdCard() {
+        $employee_ids = request('id', '');
+        $employee_type = 'onrole'; //get('type', 'onrole'); //offrole / onrole
+        $assigned_projects = [];
 
-        if($employee_type == 'onrole'){
-            $record = \Olabs\Oims\Models\Employee::find($employee_id);
-        }else{
-            $record = \Olabs\Oims\Models\OffroleEmployee::find($employee_id);
+
+        $baseModel = new \Olabs\Oims\Models\BaseModel();
+        $assigned_projects = $baseModel->getProjectOptions();
+
+        if (!is_array($employee_ids)) {
+            $employee_ids = explode(',', $employee_ids);
         }
-        
+
+
+        $records = \Olabs\Oims\Models\Employee::whereIn('id', $employee_ids)
+                ->whereIn('employee_project_id', array_keys($assigned_projects))
+                ->get();
         $style = '';
         $html = "<html><head><style>" . $style . "</style></head><body>";
 
         $html .= $this->makePartial('employee_id_card', [
-            'record' => $record,
-            'print_style' => get('style',12),
-                ]);
+            'records' => $records,
+            'print_style' => get('style', 12),
+        ]);
 
         $html .= "</body></html>";
 
         echo $html;
         exit();
-        
-        
     }
 
 }
