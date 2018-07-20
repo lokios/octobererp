@@ -57,6 +57,38 @@ class OffroleEmployees extends ApiController
 
        return $this->index($request);
 
+    } 
+
+    public function getExtraConditions($action, Request $request , &$criteria ){
+           //$this->scopeEquals($criteria,'project_id');
+           //$this->scopeEquals($criteria,'product_id');
+
+           $projects = [];
+
+           $project_id =  $this->request->input('project_id', false);
+           if($project_id){
+            $projects[] = $project_id;
+
+           }else{
+                      
+                       $user1 = $this->app->getAppUser();
+                       
+                      if (!$user1->isAdmin()) {
+                    //            foreach ($user->projects as $project) {
+                   //                $list[$project->id] = $project->name;
+                   //            }
+                        $list = $user1->projects;
+                    } else {
+                        return;
+                    }
+                     foreach ($list as $key => $value) {
+                    # code...
+                    $projects[] = $value->id;
+                  }
+         }
+
+           $criteria->whereIn('project_id', $projects);
+
     }
 
 }
