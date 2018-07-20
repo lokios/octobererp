@@ -92,45 +92,58 @@ class ProductTransformer extends App
 
 
 
-     public function addAssetsModule($item, &$fmodules,$quantity,$subtitle){
+    public function addAssetsModule($item, &$fmodules,$quantity,$subtitle){
 
          $app = App::getInstance();
          $base = $app->getBaseEndpoint();
 
-           $modules = [];
-             $module =[  'tenant_id'=>$item->id,'name'=>'Monitor','subtitle'=>$subtitle,'list'=>$base.'/api/v1/projectassetmonitors?project_id=:project_id&product_id='.$item->id,'module'=>'projectassetmonitor','edit_url2'=>$base.'/api/v1/project_assets_monitor',
 
-              'create'=>[
-                  ['data'=>['product_id'=>$item->id],'module'=>'projectassetmonitor','url'=>$base.'/api/v1/projectassetmonitors','title'=>'Monitor Asset','subtitle'=>$subtitle,'format'=>'json','method'=>'post'],
+           $modules = [];
+             $module =[  'tenant_id'=>$item->id,'name'=>'Monitor','subtitle'=>$subtitle,'list'=>$base.'/api/v1/projectassetmonitors?project_id=:project_id&product_id='.$item->id,'module'=>'projectassetmonitor','edit_url2'=>$base.'/api/v1/project_assets_monitor',];
+
+             if($quantity >0){
+
+              $module ['create']=[
+                  ['validations'=>['quantity'=>['max'=>$quantity]],'data'=>['product_id'=>$item->id],'module'=>'projectassetmonitor','url'=>$base.'/api/v1/projectassetmonitors','title'=>'Monitor Asset','subtitle'=>$subtitle,'format'=>'json','method'=>'post'],
                     
 
-              ]
+              
              ];
+           }
              $modules[] = $module;
 
 
-           if($quantity > 0){
-             $module =[  'tenant_id'=>$item->id,'name'=>'Transfer','subtitle'=>$subtitle,'list'=>$base.'/api/v1/projectassettransfers?project_id=:project_id&product_id='.$item->id,'module'=>'projectassettransfer','edit_url2'=>$base.'/api/v1/projectassettransfers',
+           
+             $module =[  'tenant_id'=>$item->id,'name'=>'Transfer','subtitle'=>$subtitle,'list'=>$base.'/api/v1/projectassettransfers?project_id=:project_id&product_id='.$item->id,'module'=>'projectassettransfer','edit_url2'=>$base.'/api/v1/projectassettransfers',];
 
-              'create'=>[ 
+             if($quantity >0){
+
+
+             $module ['create']=[
                   ['validations'=>['quantity'=>['max'=>$quantity]],'data'=>['product_id'=>$item->id],'module'=>'projectassettransfer','url'=>$base.'/api/v1/projectassettransfers','title'=>'Transfer Asset','subtitle'=>$subtitle,'format'=>'json','method'=>'post'],
                     
 
-              ]
-             ];
+              
+             ];}
+
              $modules[] = $module;
 
-              $module =[  'tenant_id'=>$item->id,'name'=>'Damages','subtitle'=>$subtitle,'list'=>$base.'/api/v1/projectassetdamages?project_id=:project_id&product_id='.$item->id,'module'=>'projectassetdamage','edit_url2'=>$base.'/api/v1/projectassetdamages',
+              $module =[  'tenant_id'=>$item->id,'name'=>'Damages','subtitle'=>$subtitle,'list'=>$base.'/api/v1/projectassetdamages?project_id=:project_id&product_id='.$item->id,'module'=>'projectassetdamage','edit_url2'=>$base.'/api/v1/projectassetdamages',];
 
-              'create'=>[
+             if($quantity >0){
+
+
+              $module ['create']=[
                   ['validations'=>['quantity'=>['max'=>$quantity]],'data'=>['product_id'=>$item->id],'module'=>'projectassetdamage','url'=>$base.'/api/v1/projectassetdamages','title'=>'Report Damage','subtitle'=>$subtitle,'format'=>'json','method'=>'post'],
                     
 
-              ]
-             ];
+              
+             ];}
              $modules[] = $module;
 
-           }
+           
+
+           
 
 
              

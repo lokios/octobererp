@@ -29,6 +29,12 @@ Route::group(['prefix' => 'api/v1'], function () {
  Route::post('projectassettransfer/upload', 'Olabs\Oimsapi\Http\Controllers\ProjectAssetTransfers@upload');
  Route::post('projectassetdamage/upload', 'Olabs\Oimsapi\Http\Controllers\ProjectAssetDamages@upload');
 
+Route::post('products/upload', 'Olabs\Oimsapi\Http\Controllers\Products@upload');
+ Route::post('projectassetmonitors/upload', 'Olabs\Oimsapi\Http\Controllers\ProjectAssetMonitors@upload');
+ Route::post('projectassettransfers/upload', 'Olabs\Oimsapi\Http\Controllers\ProjectAssetTransfers@upload');
+ Route::post('projectassetdamages/upload', 'Olabs\Oimsapi\Http\Controllers\ProjectAssetDamages@upload');
+
+
  Route::get('projectassetmonitors/report', 'Olabs\Oimsapi\Http\Controllers\ProjectAssetMonitors@report');
  Route::get('projectassettransfers/report', 'Olabs\Oimsapi\Http\Controllers\ProjectAssetTransfers@report');
  Route::get('projectassetdamages/report', 'Olabs\Oimsapi\Http\Controllers\ProjectAssetDamages@report');
