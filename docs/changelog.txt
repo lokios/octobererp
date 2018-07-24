@@ -1,0 +1,108 @@
+
+
+
+changlelog july,20/2018
+==========================
+
+affectted: flutter mobile app/ and server - mobileapi branch
+
+1. added asset forms for monitor/transfer/damages
+2. employee and offrole employee list filtered by assigned projects
+
+Reference: octobererp/octobererp/docs/changelog.txt
+
+
+Survey/ Questionnaire apps:
+===========================
+
+https://jsonforms.io/examples/custom-controls
+
+https://github.com/aisensiy/react-survey
+
+https://github.com/surveyjs/surveyjs
+
+
+Teamviewer Access :
+
+ID : 853513099
+Pass : 567wmt
+
+Ezmahesha@7734
+
+1191 750 862 pass 2284
+
+
+/home/ezht/ezhealthtrack/protected/deploy/offlinelabs/utils/bash/bkp_db_mysql.sh
+
+#Mysql backup every day
+00 02 * * * /bin/bash /home/ezht/ezhealthtrack/protected/deploy/offlinelabs/utils/bash/bkp_db_mysql.sh
+
+#MYSQL2
+#00 04 * * * /bin/bash /home/ezht/ezhealthtrack/protected/deploy/offlinelabs/utils/bash/bkp_db_mysql2.sh
+
+#Run data sync every 15 minutes
+*/13 * * * * curl https://nwr.ezhealthtrack.com/businessBranches/syncSend
+
+#(*Note: {base_url} is the root url)
+
+
+oot@ezhealthtrack-ProLiant-DL60-Gen9:/data/db/backup/mysql/ezhealthtrackv2_business3# ls -al /data/db/backup/mysql/ezhealthtrackv2_business3/ezhealthtrackv2_business3-20180721.161050.sql.gz 
+-rw-rw-rw- 1 root root 180755390 Jul 21 16:12 /data/db/backup/mysql/ezhealthtrackv2_business3/ezhealthtrackv2_business3-20180721.161050.sql.gz
+You have new mail in /var/mail/root
+root@ezhealthtrack-ProLiant-DL60-Gen9:/data/db/backup/mysql/ezhealthtrackv2_business3# 
+root@ezhealthtrack-ProLiant-DL60-Gen9:/data/db/backup/mysql/ezhealthtrackv2_business3# 
+root@ezhealt
+
+IncludeOptional /home/ezht/ezhealthtrack/protected/deploy/offlinelabs/ez.conf
+IncludeOptional /home/ezht/ezhealthtrack/protected/deploy/offlinelabs/ez_ssl.conf
+root@ezhealthtrack-ProLiant-DL60-Gen9:/var/lib/mysql# 
+
+'db' => array(
+                'connectionString' => 'mysql:host=localhost;dbname=ezhealthtrackv2_business3',
+                'emulatePrepare' => true,
+                'username' => 'ezpt',
+                'password' => 'ezpt123',
+                'charset' => 'utf8',
+                'tablePrefix' => '',
+            ),
+            // Ap
+
+
+ mysql            
+
+
+ <VirtualHost *:443>
+                ServerAdmin lokendra@lsasoftware.com
+
+
+                    DocumentRoot "/home/ezht/ezhealthtrack/"
+                    ServerName nwr.ezhealthtrack.com
+                    ServerAlias *.nwr.ezhealthtrack.com
+                    RewriteEngine On
+                ErrorLog ${APACHE_LOG_DIR}/error.log
+                CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+                SSLEngine on
+
+                SSLCertificateFile      /etc/ssl/certs/STAR_ezhealthtrack_com.crt
+                SSLCertificateKeyFile /etc/ssl/private/star-ezhealthtrack.key
+               SSLCertificateChainFile /etc/ssl/certs/COMODORSAAddTrustCA.crt
+                <FilesMatch "\.(cgi|shtml|phtml|php)$">
+                                SSLOptions +StdEnvVars
+                </FilesMatch>
+                  <Directory /home/ezht/ezhealthtrack/>
+                        Options Indexes FollowSymLinks MultiViews
+                        AllowOverride All
+                        Order allow,deny
+                        allow from all
+                        Require all granted
+                    </Directory>
+
+                BrowserMatch "MSIE [2-6]" \
+                               nokeepalive ssl-unclean-shutdown \
+                               downgrade-1.0 force-response-1.0
+
+        </VirtualHost>
+</IfModule>
+root@ezhealthtrack-ProLiant-DL60-Gen9:/etc/apache2/mods-available# 
+
