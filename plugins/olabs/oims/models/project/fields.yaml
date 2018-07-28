@@ -89,3 +89,25 @@ tabs:
             label: GST Number
             tab: Details
             span: auto 
+        
+        geo_required:
+            label: GEO Required
+            tab: Geo Reference
+            span: auto 
+            type: dropdown
+            options:
+                Y: 'Yes'
+                N: 'No'
+        geocode_max_distance:
+            label: Maximum Distance (In Meters)
+            tab: Geo Reference
+            span: auto 
+#            comment: In Meters
+        latitude:
+            label: Latitude
+            tab: Geo Reference
+            span: auto 
+        longitude:
+            label: Longitude
+            tab: Geo Reference
+            span: auto 
