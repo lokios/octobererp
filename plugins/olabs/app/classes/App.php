@@ -552,7 +552,7 @@ public function addMainModules_OIMS(&$fmodules){
         # code...
         $model = new \Olabs\Oimsapi\Http\Transformers\ProjectTransformer();
             $project = $model->transform($value);
-            $project['geo_required'] = 'Y';
+            //$project['geo_required'] = 'Y';
             $featured[] = $project;
       }
 
