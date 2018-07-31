@@ -77,8 +77,9 @@ class Employee extends User {
     public function getBarcode($format, $params = array()) {
         $manager = new BarcodeManager();
 
-        $barcode_string = $this->getEntityType() . "|" . $this->getEmployeeCodeAttribute() . "|" . $this->getFullNameAttribute();
-
+//        $barcode_string = $this->getEntityType() . "|" . $this->getEmployeeCodeAttribute() . "|" . $this->getFullNameAttribute();
+        $barcode_string =  $this->getBarcodeString();
+//        dd($barcode_string);
         if (!isset($params['data'])) {
             $params['data'] = $barcode_string;
         }
@@ -105,6 +106,31 @@ class Employee extends User {
         } else {
             return "";
         }
+    }
+    
+    
+    public function getBarcodeString(){
+        $params = [
+            'type' => $this->getEntityType(),
+            'emp_code' => $this->getEmployeeCodeAttribute(),
+            'emp_name' => $this->getFullNameAttribute(),
+            'supplier_id' => 'None',
+            'supplier_name' => 'None',
+            'project_id' => 'None',
+            'project_name' => 'None',
+        ];
+        
+        if($this->employee_project){
+            $params['project_id'] = $this->employee_project->id;
+            $params['project_name'] = $this->employee_project->name;
+        }
+        
+        $barcode_string = implode('|', $params);
+        
+//        $barcode_array = ['data' => $params];
+//        $barcode_string = json_encode($barcode_array)
+                
+        return $barcode_string;
     }
 
     public function getFullAddressAttribute() {
