@@ -1,0 +1,45 @@
+<?php Block::put('breadcrumb') ?>
+<ul>
+    <li>Material Consumption Report</li>
+</ul>
+<?php Block::endPut() ?>
+
+<?= Form::open(['class' => 'layout2']) ?>
+<div class="layout-row2">
+    <?= $searchFormWidget->render() ?>
+</div>
+<div class="form-buttons">
+    <div class="loading-indicator-container">
+        <button
+            type="submit"
+            data-request="onMaterialSearch"
+            data-request-data="refresh:0"
+            data-hotkey="ctrl+s, cmd+s"
+            data-load-indicator="Searching.."
+            data-request-update="material_report_list: '#mrReportDiv', no_result: '#noResultDiv' "
+            class="btn btn-primary">
+            Search
+        </button>
+        
+        <button
+            type="submit"
+            data-request="onMaterialExportExcel"
+            data-request-data="type: 'xlsx'"
+            class="btn btn-primary">
+            Export Excel
+        </button>
+    </div>
+</div>
+<?= Form::close() ?>
+<div id="exportDiv"></div>
+
+<div id="noResultDiv">
+    <?= $this->makePartial('no_result', [ 'search' => $search , 'msg' => $msg]) ?>
+</div>
+
+<div id="mrReportDiv">
+    <?= $this->makePartial('material_report_list', [
+        'reports' => $reports, 
+
+        'oimsSetting' => $oimsSetting]) ?>
+</div>

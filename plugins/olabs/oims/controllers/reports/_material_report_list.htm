@@ -1,0 +1,97 @@
+<div class="page-header">
+
+    <h3><small>MR Report</small></h3>
+</div>
+<table class="table table-bordered">
+    <thead> 
+        <tr> 
+            <!--<th>ID</th>--> 
+            <th>MR No.</th>
+            <th>Project</th> 
+            <th>Entry Date</th>
+            <th>Status</th>
+            <th>Supplier</th> 
+            <th>Products</th>
+            <th>Total Price</th>
+            
+        </tr> 
+    </thead> 
+    <tbody>
+
+        <? 
+        $status_count = [];
+        $grand_total = 0;
+        $count = 0;
+        foreach($reports as $report){ 
+        $count++;
+        $grand_total += $report->total_price;
+        $products = $report->products ? $report->products : array();
+        $productArray = array();
+        $status_count[$report->status_name] = isset($status_count[$report->status_name]) ? $status_count[$report->status_name] + 1 : 1;
+        foreach($products as $product){
+        $product_title = '';
+        if($product->product){
+        $product_title = $product->product->title . ", QTY : " . $product->quantity . " " . $product->unit . ", AMNT :" . $oimsSetting->getPriceFormattedWithoutCurrency($product->total_price);
+        }
+        $productArray[] = $product_title;
+        }
+
+        ?>
+        <tr>
+<!--            <td><?=$report->id?></td>-->
+            <td><?=$report->reference_number?></td>
+            <td><?=$report->project->name?></td>
+            <td><?= $oimsSetting->convertToDisplayDate($report->context_date)?></td>
+            <td><?=$report->status_name?></td>
+            <td><?=$report->supplier ? $report->supplier->fullname : '--' ?></td>
+            <td><?php echo implode("</br> ",$productArray); ?></td>
+            <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($report->total_price)?></td>
+            
+        </tr>
+        <? } ?>
+    </tbody>
+</table>
+
+<div class="page-header">
+    <h3><small>SUMMARY</small></h3>
+</div>
+<table class="table table-bordered">
+    <thead> 
+        <tr> 
+            <th>DESCRIPTION</th> 
+            <th></th> 
+        </tr> 
+    </thead> 
+    <tbody>
+        <tr> 
+            <th scope="row">TOTAL MR ENTRY</th> 
+            <td><?= $count?></td>
+        </tr> 
+        <tr> 
+            <th scope="row">TOTAL MR AMOUNT</th> 
+            <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($grand_total)?></td>
+        </tr> 
+
+        <tr>
+            <th scope="row">MR STATUS COUNT</th> 
+            <td>
+                <?
+                if(count($status_count)) {
+                ?>
+                <table class="table table-bordered">
+                    <? foreach($status_count as $k => $v) { ?>
+                    <tr> 
+                        <th scope="row"><?=$k?></th> 
+                        <td><?=$v?></td>
+                    </tr> 
+                    <? } ?>
+
+                </table>
+                <?
+                }
+                ?>
+
+            </td>
+        </tr>
+    </tbody>
+</table>

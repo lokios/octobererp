@@ -20,7 +20,12 @@ columns:
     title:
         label: olabs.oims::lang.products.title
         searchable: true        
-        
+    
+    default_category:
+        label: olabs.oims::lang.products.default_category
+        relation: default_category
+        select: title
+        searchable: true        
           
     unit:
         label: Unit

@@ -25,9 +25,15 @@ columns:
     quantity:
         label: quantity
         type: text
+    status:
+        label: status
+        type: switch
+        searchable: true
+        display: true
 #    reference_number:
 #        label: reference_number
 #        type: text
     description:
         label: Description
         type: text
+

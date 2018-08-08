@@ -62,12 +62,19 @@ tabs:
     #            - product
                 - quantity
                 - unit_price
+                
+        work_days:
+            label: 'Work Timeline (in Days)'
+            span: auto
+            oc.commentPosition: ''
+            type: number
+            tab: olabs.oims::lang.products.detail
         
         description:
             label: Description
             size: ''
             oc.commentPosition: ''
-            span: full
+            span: auto
             type: textarea
             tab: olabs.oims::lang.products.detail
 

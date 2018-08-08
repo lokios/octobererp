@@ -181,7 +181,14 @@ navigation:
                 url: olabs/oims/reports/assets_report
                 icon: icon-life-ring
                 permissions:
-                    - olabs.oims.reports        
+                    - olabs.oims.reports   
+            
+            material_report:
+                label: 'Material Report'
+                url: olabs/oims/reports/material_report
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.reports   
             
             
     oims_projects:

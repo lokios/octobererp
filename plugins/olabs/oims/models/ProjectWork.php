@@ -62,6 +62,7 @@ class ProjectWork extends BaseModel
             $projectId = array_keys($projects);
         }
 //        dd($projectId); 
+        $query->where('status', BaseModel::STATUS_ACTIVE);
         
         return is_array($projectId) ? $query->whereIn('project_id', $projectId) : $query->where('project_id', $projectId); // ->orderBy('name', 'desc')
     }

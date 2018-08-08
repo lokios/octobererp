@@ -32,6 +32,25 @@ class Project extends Model
         'featured_images' => ['System\Models\File', 'order' => 'sort_order'],
         'content_images' => ['System\Models\File']
     ];
+     
+     public function scopeUserProject($query , $model)
+    {
+
+//        $projectId = (isset($model->project_id)) ? $model->project_id : 0;
+//        if(!$projectId){
+//            //check with session value
+//            $projectId = \Session::get('projectProgress_ProjectId', $projectId);
+//        }
+//        //if still projectId is null then check with assign projects
+//        if(!$projectId){
+//            $projects = $this->getProjectOptions();
+//            $projectId = array_keys($projects);
+//        }
+////        dd($projectId); 
+//        $query->where('status', BaseModel::STATUS_ACTIVE);
+        
+        return $query->where('status', BaseModel::STATUS_ACTIVE); // ->orderBy('name', 'desc')
+    }
 
     public function getFullAddressAttribute()
     {

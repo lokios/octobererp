@@ -441,7 +441,7 @@ class Plugin extends PluginBase {
                     "contact_email",
                 ]);
 
-                $model->belongsToMany['projects'] = ['Olabs\Oims\Models\Project', 'table' => 'olabs_oims_user_projects'];
+                $model->belongsToMany['projects'] = ['Olabs\Oims\Models\Project', 'table' => 'olabs_oims_user_projects', 'conditions'=>'status=1'];
 
 
 

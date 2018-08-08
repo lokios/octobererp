@@ -31,7 +31,12 @@ class BaseModel extends Model {
     const PAYMENT_METHOD_BANK_TRANSFER = 2;
     const PAYMENT_METHOD_CHEQUE = 3;
     const PAYMENT_METHOD_DEMAND_DRAFT = 4;
-   
+    
+    const STATUS_ACTIVE = 1;
+    const STATUS_INACTIVE = 0;
+    
+
+
     public $comment;
     
     public function getUserGroups() {
@@ -85,7 +90,7 @@ class BaseModel extends Model {
 //            }
             $list = $user->projects->lists('name', 'id');
         } else {
-            $list = Project::all()->lists('name', 'id');
+            $list = Project::where('status', self::STATUS_ACTIVE)->get()->lists('name', 'id');
         }
 
         return $list;

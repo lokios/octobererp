@@ -580,3 +580,6 @@
 1.11.14:
     - 'Updated table olabs_oims_projects'
     - builder_table_update_olabs_oims_projects_5.php
+1.11.15:
+    - 'Updated table olabs_oims_project_works'
+    - builder_table_update_olabs_oims_project_works_3.php
