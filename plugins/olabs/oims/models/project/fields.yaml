@@ -111,3 +111,10 @@ tabs:
             label: Longitude
             tab: Geo Reference
             span: auto 
+        map_view:
+            label: 
+            tab: Geo Reference
+            type: partial
+            context: [preview]
+            path: ~/plugins/olabs/oims/models/project/_map_view_link.htm  
+            span: auto

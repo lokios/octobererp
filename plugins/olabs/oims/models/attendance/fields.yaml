@@ -101,3 +101,10 @@ fields:
         dependsOn:
             - employee_offrole
         type: text
+    map_view:
+        label: 
+        tab: Geo Reference
+        type: partial
+        context: [preview]
+        path: ~/plugins/olabs/oims/models/attendance/_map_view_link.htm  
+        span: auto

@@ -1,0 +1,8 @@
+<? if($model->id){ 
+// https://maps.google.com/?q=26.488003,80.248383
+
+//https://www.google.com/maps/dir/26.58800,80.24838/26.488002,80.248382
+
+?>
+<a href="https://maps.google.com/?q=<?=$model->latitude?>,<?=$model->longitude?>" target="_blank"><?= Lang::get("olabs.oims::lang.settings.map_view")?></a>
+<? } ?>

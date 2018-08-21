@@ -1,0 +1,18 @@
+<? if($model->entity_relations){ 
+// https://maps.google.com/?q=26.488003,80.248383
+
+//https://www.google.com/maps/dir/26.58800,80.24838/26.488002,80.248382
+//$attendance_lat = $model->entity_relations;
+foreach($model->entity_relations as $er){
+$entry = isset($er->data) ? $er->data[0] : [];
+
+if($model->project) {
+
+?>
+
+<a href="https://www.google.com/maps/dir/<?=$model->project->latitude?>,<?=$model->project->longitude?>/<?=$entry['geo']['latitude']?>,<?=$entry['geo']['longitude']?>" target="_blank"><?= Lang::get("olabs.oims::lang.settings.map_distance_view")?> <?=date('F j, Y, g:i a',time($entry['geo']['time']))?></a><br>
+<? }else { ?>
+<a href="https://maps.google.com/?q=<?=$entry['geo']['latitude']?>,<?=$entry['geo']['longitude']?>" target="_blank"><?= Lang::get("olabs.oims::lang.settings.map_view")?> attendance at <?=date('F j, Y, g:i a',time($entry['geo']['time']))?></a><br>
+<? } ?>
+<? } ?>
+<? } ?>

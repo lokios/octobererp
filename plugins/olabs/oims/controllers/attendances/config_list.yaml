@@ -16,7 +16,7 @@ modelClass: Olabs\Oims\Models\Attendance
 title: OffRole Employees
 
 # Link URL for each record
-recordUrl: olabs/oims/attendances/update/:id
+recordUrl: olabs/oims/attendances/preview/:id
 
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records

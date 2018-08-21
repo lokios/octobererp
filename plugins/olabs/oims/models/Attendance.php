@@ -90,6 +90,14 @@ class Attendance extends BaseModel {
             'key' => 'status'
         ],
     ];
+    
+    public $hasMany = [
+        'entity_relations' => [
+            '\Olabs\Social\Models\EntityRelations', 
+            'key' => 'target_id',
+            'conditions' => "target_type='".\Olabs\Social\Models\EntityRelations::TARGET_TYPE_ATTENDANCE."'",
+        ],  
+    ];
 
     /**
      * @var string The database table used by the model.
@@ -283,6 +291,12 @@ class Attendance extends BaseModel {
 
             if (!$this->employee_id) {
                 $this->employee_id = $this->employee_onrole;
+            }
+            
+            if (!$this->project_id) {
+                $employee = $this->getOnRoleEmployee();
+                
+                $this->project_id = $employee->employee_project_id;
             }
         }
     }

@@ -170,6 +170,8 @@ return [
         'extended_inventory_management' => 'Enable Extended Inventory Management',
         'employee_id_card' => 'Employee ID Card',
         'employee_card_print' => 'Employee Card Print',
+        'map_view' => 'View Location on Map',
+        'map_distance_view' => 'Distance on Map for attendance added at',
     ],
     'orders' => [
         'menu_label' => 'Orders',
