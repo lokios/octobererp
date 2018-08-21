@@ -296,7 +296,7 @@ class Attendance extends BaseModel {
             if (!$this->project_id) {
                 $employee = $this->getOnRoleEmployee();
                 
-                $this->project_id = $employee->employee_project_id;
+                $this->project_id = $employee ? $employee->employee_project_id : '';
             }
         }
     }
