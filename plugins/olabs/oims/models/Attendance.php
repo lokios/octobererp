@@ -155,7 +155,7 @@ class Attendance extends BaseModel {
     public function getEmployeeProjectName() {
         $name = "";
         if ($this->employee_type == self::EMPLOYEE_TYPE_OFFROLE) {
-            $name = isset($report->project->name) ? $report->project->name : '';
+            $name = isset($this->project->name) ? $this->project->name : '';
         } else if ($this->employee_type == self::EMPLOYEE_TYPE_ONROLE) {
 
             $employee = $this->getOnRoleEmployee();

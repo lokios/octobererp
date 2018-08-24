@@ -56,7 +56,7 @@ class Reports extends Controller {
 
         return $widget;
     }
-    
+
     protected function createAssetsSearchFormWidget() {
         $config = $this->makeConfig('$/olabs/oims/models/report/assets_search_fields.yaml');
 
@@ -88,7 +88,23 @@ class Reports extends Controller {
 
         return $widget;
     }
-    
+
+    protected function createAttendanceSummarySearchFormWidget() {
+        $config = $this->makeConfig('$/olabs/oims/models/report/attendance_summary_search_fields.yaml');
+
+        $config->alias = 'reportSearch';
+
+        $config->arrayName = 'reportSearch';
+
+        $config->model = new \Olabs\Oims\Models\Manpower;
+
+        $widget = $this->makeWidget('Backend\Widgets\Form', $config);
+
+        $widget->bindToController();
+
+        return $widget;
+    }
+
     protected function createMaterialSearchFormWidget() {
         $config = $this->makeConfig('$/olabs/oims/models/report/material_search_fields.yaml');
 
@@ -159,7 +175,6 @@ class Reports extends Controller {
         $this->vars['search'] = true;
         $this->vars['oimsSetting'] = $oimsSetting;
     }
-
 
     public function onDprExportExcel() {
 
@@ -610,7 +625,6 @@ class Reports extends Controller {
         $this->vars['to_date'] = $to_date;
     }
 
-
     public function onProgressExportExcel() {
 
         $file_type = '.' . post('type');
@@ -846,7 +860,6 @@ class Reports extends Controller {
         $this->vars['oimsSetting'] = $oimsSetting;
     }
 
-
     public function onMRExportExcel() {
         $file_type = '.' . post('type');
 
@@ -1042,7 +1055,6 @@ class Reports extends Controller {
         $this->vars['oimsSetting'] = $oimsSetting;
     }
 
-
     public function onAttendanceExportExcel() {
         $file_type = '.' . post('type');
 
@@ -1169,22 +1181,21 @@ class Reports extends Controller {
         if ($supplier) {
             $params['supplier_id'] = $supplier;
         }
-        
-        
-        
-        if($attendance_type == \Olabs\Oims\Models\Attendance::EMPLOYEE_TYPE_OFFROLE){
+
+
+
+        if ($attendance_type == \Olabs\Oims\Models\Attendance::EMPLOYEE_TYPE_OFFROLE) {
             $model = \Olabs\Oims\Models\Attendance::where($params)
-                ->with('employee_offrole')
-                ->whereIn('project_id', $assigned_projects);
-        }else {
+                    ->with('employee_offrole')
+                    ->whereIn('project_id', $assigned_projects);
+        } else {
             $model = \Olabs\Oims\Models\Attendance::select()
                     ->where($params)
 //                    ->with('employee_offrole')
-                    ->join("backend_users",'backend_users.id','employee_id')
-                
-                ->whereIn('backend_users.employee_project_id', $assigned_projects);
+                    ->join("backend_users", 'backend_users.id', 'employee_id')
+                    ->whereIn('backend_users.employee_project_id', $assigned_projects);
         }
-        
+
         if ($from_date && $to_date) {
             $datetime1 = new DateTime($from_date);
             $datetime2 = new DateTime($to_date);
@@ -1205,7 +1216,7 @@ class Reports extends Controller {
 //        }else{
 //            $model->orderBy('project_id', 'check_in', 'supplier_id');
 //        }
-        
+
 
         $reports = $model->get();
         $msg = false;
@@ -1223,7 +1234,7 @@ class Reports extends Controller {
     //Attendance Summary Report
     public function attendanceSummary_report() {
         BackendMenu::setContext('Olabs.Oims', 'reports', 'attendance_summary_report');
-        $this->searchFormWidget = $this->createAttendanceSearchFormWidget();
+        $this->searchFormWidget = $this->createAttendanceSummarySearchFormWidget();
         $this->pageTitle = 'Attendance Summary Report';
         $reports = array();
 //        dd('hi');
@@ -1248,6 +1259,7 @@ class Reports extends Controller {
 
             // get dpr components
             $this->searchAttendanceReport($searchParams);
+            $this->vars['pc_reports'] = $this->searchPcAttendanceReport($searchParams, True);
         }
 
         $oimsSetting = \Olabs\Oims\Models\Settings::instance();
@@ -1256,7 +1268,6 @@ class Reports extends Controller {
         $this->vars['oimsSetting'] = $oimsSetting;
     }
 
-
     public function onAttendanceSummaryExportExcel() {
 
         $file_type = '.' . post('type');
@@ -1264,6 +1275,8 @@ class Reports extends Controller {
         ////////Generate Excel Data
 
         $report = array();
+        $pc_reports = array();
+        
 
         if (post('reportSearch')) {
 
@@ -1271,6 +1284,8 @@ class Reports extends Controller {
 
             // get dpr components
             $this->searchAttendanceReport($searchParams);
+            
+            $pc_reports = $this->searchPcAttendanceReport($searchParams, True);
 
             $search_from_date = isset($searchParams['from_date']) ? $searchParams['from_date'] : '';
             $search_to_date = isset($searchParams['to_date']) ? $searchParams['to_date'] : '';
@@ -1300,7 +1315,7 @@ class Reports extends Controller {
         $reports = $this->vars['reports'];
 
         //Generating Excel
-        $header_columns = ['Project', 'Attendance Date'];
+        $header_columns = ['Project', 'Attendance Date', 'Supplier Name'];
 
         $grand_total = 0;
         $count = 0;
@@ -1315,13 +1330,36 @@ class Reports extends Controller {
                 $attendance_date = $oimsSetting->convertToDisplayDate($report->check_in, 'd/m/Y');
                 $temp = [];
                 $temp['project_name'] = $report->project->name;
+                $temp['supplier_name'] = $report->supplier->fullname;
                 $temp['attendance_date'] = $attendance_date;
 
-                $key = $report->project_id . '_' . $attendance_date . '_' . $employee_type;
+                $key = $report->project_id . '_' . $report->supplier_id . '_' . $attendance_date . '_' . $employee_type;
                 $wages[$key]['count'] = isset($wages[$key]['count']) ? $wages[$key]['count'] + 1 : 1;
                 $wages[$key]['total'] = isset($wages[$key]['total']) ? $wages[$key]['total'] + $employee_wage : $employee_wage;
 
-                $rows[$report->project_id][$attendance_date] = $temp;
+                $rows[$report->project_id][$attendance_date][$report->supplier_id] = $temp;
+            }
+        }
+
+        
+        foreach ($pc_reports as $report) {
+            $products = $report->products ? $report->products : array();
+            foreach ($products as $product) {
+                $employee_type = $product->employee_type;
+                $employee_wage = $product->total_price;
+                $employee_quantity = $product->quantity;
+                $employee_types[$employee_type] = ucfirst($employee_type); //['count'=>0,'total'=>0];
+                $attendance_date = $oimsSetting->convertToDisplayDate($report->context_date, 'd/m/Y');
+                $temp = [];
+                $temp['project_name'] = $report->project->name;
+                $temp['supplier_name'] = $report->supplier->fullname;
+                $temp['attendance_date'] = $attendance_date;
+
+                $key = $report->project_id . '_' . $report->user_id . '_' . $attendance_date . '_' . $employee_type;
+                $wages[$key]['count'] = isset($wages[$key]['count']) ? $wages[$key]['count'] + $employee_quantity : $employee_quantity;
+                $wages[$key]['total'] = isset($wages[$key]['total']) ? $wages[$key]['total'] + $employee_wage : $employee_wage;
+
+                $rows[$report->project_id][$attendance_date][$report->user_id] = $temp;
             }
         }
 
@@ -1342,27 +1380,30 @@ class Reports extends Controller {
         $summary_total = 0;
         foreach ($rows as $project_id => $project_row) {
             foreach ($project_row as $attendance_date => $attendance_row) {
-                $attendance_count = 0;
-                $attendance_total = 0;
-                $temp = [];
-                $temp[] = $attendance_row['project_name'];
-                $temp[] = $attendance_row['attendance_date'];
+                foreach ($attendance_row as $supplier_id => $supplier_row) {
+                    $attendance_count = 0;
+                    $attendance_total = 0;
+                    $temp = [];
+                    $temp[] = $supplier_row['project_name'];
+                    $temp[] = $supplier_row['attendance_date'];
+                    $temp[] = $supplier_row['supplier_name'];
 
-                foreach ($employee_types as $key => $employee_type) {
-                    $data_key = $project_id . '_' . $attendance_date . '_' . $key;
-                    $data_count = isset($wages[$data_key]['count']) ? $wages[$data_key]['count'] : 0;
-                    $data_total = isset($wages[$data_key]['total']) ? $wages[$data_key]['total'] : 0;
-                    $temp[] = $data_count;
-                    $temp[] = $oimsSetting->getPriceFormattedWithoutCurrency($data_total);
-                    $attendance_count += $data_count; //Attendance Total
-                    $attendance_total += $data_total;
-                    $summary_count += $data_count; //Grand Total
-                    $summary_total += $data_total;
+                    foreach ($employee_types as $key => $employee_type) {
+                        $data_key = $project_id . '_' . $supplier_id . '_' . $attendance_date . '_' . $key;
+                        $data_count = isset($wages[$data_key]['count']) ? $wages[$data_key]['count'] : 0;
+                        $data_total = isset($wages[$data_key]['total']) ? $wages[$data_key]['total'] : 0;
+                        $temp[] = $data_count;
+                        $temp[] = $oimsSetting->getPriceFormattedWithoutCurrency($data_total);
+                        $attendance_count += $data_count; //Attendance Total
+                        $attendance_total += $data_total;
+                        $summary_count += $data_count; //Grand Total
+                        $summary_total += $data_total;
+                    }
+                    $temp[] = $attendance_count;
+                    $temp[] = $oimsSetting->getPriceFormattedWithoutCurrency($attendance_total);
+
+                    $excel_rows[] = $temp;
                 }
-                $temp[] = $attendance_count;
-                $temp[] = $oimsSetting->getPriceFormattedWithoutCurrency($attendance_total);
-
-                $excel_rows[] = $temp;
             }
         }
 
@@ -1390,7 +1431,7 @@ class Reports extends Controller {
     //Petty Contractor Attendance Report
     public function pcAttendance_report() {
         BackendMenu::setContext('Olabs.Oims', 'reports', 'pcattendance_report');
-        $this->searchFormWidget = $this->createAttendanceSearchFormWidget();
+        $this->searchFormWidget = $this->createAttendanceSummarySearchFormWidget();
         $this->pageTitle = 'Petty Contractor Attendance Report';
         $reports = array();
 
@@ -1422,7 +1463,6 @@ class Reports extends Controller {
         $this->vars['search'] = true;
         $this->vars['oimsSetting'] = $oimsSetting;
     }
-
 
     public function onPCAttendanceExportExcel() {
         $file_type = '.' . post('type');
@@ -1516,7 +1556,7 @@ class Reports extends Controller {
         return \Redirect::to('/backend/olabs/oims/reports/download?name=' . $fileName);
     }
 
-    protected function searchPcAttendanceReport($searchParams) {
+    protected function searchPcAttendanceReport($searchParams, $returnList = False) {
         $reports = array();
         $msg = false;
         $search_from_date = isset($searchParams['from_date']) ? $searchParams['from_date'] : '';
@@ -1580,6 +1620,10 @@ class Reports extends Controller {
 
 
         $reports = $model->get();
+        if ($returnList) {
+            return $reports;
+        }
+
         $msg = false;
         if (!$from_date && !$to_date && !count($params)) {
             $msg = 'Please select atleast one filter';
@@ -1879,8 +1923,7 @@ class Reports extends Controller {
         $this->vars['msg'] = $msg;
         return $reports;
     }
-    
-    
+
     //MR Report
     public function material_report() {
         BackendMenu::setContext('Olabs.Oims', 'reports', 'material_report');
@@ -1916,7 +1959,6 @@ class Reports extends Controller {
         $this->vars['search'] = true;
         $this->vars['oimsSetting'] = $oimsSetting;
     }
-
 
     public function onMaterialExportExcel() {
         $file_type = '.' . post('type');
