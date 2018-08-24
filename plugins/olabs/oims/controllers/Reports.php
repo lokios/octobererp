@@ -1237,6 +1237,7 @@ class Reports extends Controller {
         $this->searchFormWidget = $this->createAttendanceSummarySearchFormWidget();
         $this->pageTitle = 'Attendance Summary Report';
         $reports = array();
+        $pc_reports = array();
 //        dd('hi');
         $oimsSetting = \Olabs\Oims\Models\Settings::instance();
 
@@ -1246,12 +1247,14 @@ class Reports extends Controller {
         $this->vars['msg'] = false;
         $this->vars['searchFormWidget'] = $searchForm;
         $this->vars['reports'] = $reports;
+        $this->vars['pc_reports'] = $pc_reports;
 
         $this->vars['oimsSetting'] = $oimsSetting;
     }
 
     public function onAttendanceSummarySearch() {
         $reports = array();
+        $pc_reports = array();
 
         if (post('reportSearch')) {
 
