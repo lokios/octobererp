@@ -16,10 +16,8 @@ class Attendance extends BaseModel {
     use \October\Rain\Database\Traits\SoftDelete;
 
     protected $dates = ['deleted_at', 'check_in', 'check_out'];
-    
     public $attendance_date;
     public $onrole_employee_id;
-    
     public $execute_validation = True;
 
     const CNAME = 'attendances';
@@ -90,13 +88,12 @@ class Attendance extends BaseModel {
             'key' => 'status'
         ],
     ];
-    
     public $hasMany = [
         'entity_relations' => [
-            '\Olabs\Social\Models\EntityRelations', 
+            '\Olabs\Social\Models\EntityRelations',
             'key' => 'target_id',
-            'conditions' => "target_type='".\Olabs\Social\Models\EntityRelations::TARGET_TYPE_ATTENDANCE."'",
-        ],  
+            'conditions' => "target_type='" . \Olabs\Social\Models\EntityRelations::TARGET_TYPE_ATTENDANCE . "'",
+        ],
     ];
 
     /**
@@ -123,11 +120,10 @@ class Attendance extends BaseModel {
     public function afterFetch() {
 
         $this->attendance_date = $this->check_in;
-        if($this->employee_type == self::EMPLOYEE_TYPE_ONROLE){
+        if ($this->employee_type == self::EMPLOYEE_TYPE_ONROLE) {
             $this->employee_onrole = $this->employee_id;
             $this->employee_offrole = FALSE;
         }
-        
     }
 
     public function getEmployeeName() {
@@ -135,43 +131,41 @@ class Attendance extends BaseModel {
         if ($this->employee_type == self::EMPLOYEE_TYPE_OFFROLE) {
             $name = isset($this->employee_offrole->name) ? $this->employee_offrole->name : '';
         } else if ($this->employee_type == self::EMPLOYEE_TYPE_ONROLE) {
-            
+
             $employee = $this->getOnRoleEmployee();
-            
+
             $name = isset($employee) ? $employee->getFullNameAttribute() : '';
         }
         return $name;
     }
-    
+
     public function getEmployeeType() {
         $name = "";
         if ($this->employee_type == self::EMPLOYEE_TYPE_OFFROLE) {
             $name = isset($this->employee_offrole->employee_type) ? $this->employee_offrole->employee_type : '';
         } else if ($this->employee_type == self::EMPLOYEE_TYPE_ONROLE) {
-            
+
 //            $employee = $this->getOnRoleEmployee();
-            
+
             $name = 'OnRole';
         }
         return $name;
     }
-    
+
     public function getEmployeeProjectName() {
         $name = "";
         if ($this->employee_type == self::EMPLOYEE_TYPE_OFFROLE) {
             $name = isset($report->project->name) ? $report->project->name : '';
         } else if ($this->employee_type == self::EMPLOYEE_TYPE_ONROLE) {
-            
+
             $employee = $this->getOnRoleEmployee();
-            
+
             $name = isset($employee->employee_project->name) ? $employee->employee_project->name : '';
         }
         return $name;
     }
-    
-    
-    
-    public function getOnRoleEmployee(){
+
+    public function getOnRoleEmployee() {
         $model = Employee::where('id', $this->employee_onrole)->first();
         return $model;
     }
@@ -292,10 +286,10 @@ class Attendance extends BaseModel {
             if (!$this->employee_id) {
                 $this->employee_id = $this->employee_onrole;
             }
-            
+
             if (!$this->project_id) {
                 $employee = $this->getOnRoleEmployee();
-                
+
                 $this->project_id = $employee ? $employee->employee_project_id : '';
             }
         }
