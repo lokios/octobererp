@@ -14,51 +14,51 @@ columns:
         searchable: true
         sortable: true
         
-    is_last_name:
-        label: Supplier
-        type: partial
-        path: ~/plugins/olabs/oims/models/voucher/_supplier_column.htm
-        searchable: true
+#    is_last_name:
+#        label: Supplier
+#        type: partial
+#        path: ~/plugins/olabs/oims/models/voucher/_supplier_column.htm
+#        searchable: true
         
-    contact_email:
-        label: olabs.oims::lang.vouchers.contact_email
-        invisible: true
-        searchable: true
-        
-    contact_phone:
-        label: olabs.oims::lang.vouchers.contact_phone
-        invisible: true
-        searchable: true        
-
-    is_last_name:
-        label: olabs.oims::lang.vouchers.is_last_name
-        invisible: true
-        searchable: true
-        
-    is_first_name:
-        label: olabs.oims::lang.vouchers.is_first_name
-        invisible: true
-        searchable: true
-        
-    is_address:
-        label: olabs.oims::lang.vouchers.is_address
-        invisible: true
-        searchable: true        
-        
-    is_postcode:
-        label: olabs.oims::lang.vouchers.is_postcode
-        invisible: true
-        searchable: true 
-        
-    is_city:
-        label: olabs.oims::lang.vouchers.is_city
-        invisible: true
-        searchable: true 
-        
-    is_country:
-        label: olabs.oims::lang.vouchers.is_country
-        invisible: true
-        searchable: true                 
+#    contact_email:
+#        label: olabs.oims::lang.vouchers.contact_email
+#        invisible: true
+#        searchable: true
+#        
+#    contact_phone:
+#        label: olabs.oims::lang.vouchers.contact_phone
+#        invisible: true
+#        searchable: true        
+#
+#    is_last_name:
+#        label: olabs.oims::lang.vouchers.is_last_name
+#        invisible: true
+#        searchable: true
+#        
+#    is_first_name:
+#        label: olabs.oims::lang.vouchers.is_first_name
+#        invisible: true
+#        searchable: true
+#        
+#    is_address:
+#        label: olabs.oims::lang.vouchers.is_address
+#        invisible: true
+#        searchable: true        
+#        
+#    is_postcode:
+#        label: olabs.oims::lang.vouchers.is_postcode
+#        invisible: true
+#        searchable: true 
+#        
+#    is_city:
+#        label: olabs.oims::lang.vouchers.is_city
+#        invisible: true
+#        searchable: true 
+#        
+#    is_country:
+#        label: olabs.oims::lang.vouchers.is_country
+#        invisible: true
+#        searchable: true                 
         
     context_date:
         label: Voucher date
@@ -78,8 +78,16 @@ columns:
         sortable: false        
         
     reference_number:
-        label: MR Number
+        label: Voucher Number
         type: text
+        searchable: true
+        sortable: true    
+        
+    payment_type:
+        label: Payment Type
+        type: relation
+        select: name
+        relation: ledger_type
         searchable: true
         sortable: true    
         

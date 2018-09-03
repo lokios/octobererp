@@ -1,5 +1,9 @@
 <? foreach($record->products as $product){
 
 ?>
-<?= $product->product != NULL ? $product->product->title :"-";  ?> (&#8377;<?=$product->unit_price?>/<?=$product->unit?>) , QTY : <?=$product->quantity?>, AMNT : &#8377;<?=$product->total_price?><br>
+<?= $product->purchase != NULL ? "MR Number :" . $product->purchase->reference_number : "";  ?>
+<?= $product->supplier != NULL ? "Supplier :" . $product->supplier->full_name : "";  ?>
+<?= $product->emplolyee != NULL ? "Employee :" . $product->emplolyee->full_name : "";  ?>
+
+, AMNT : &#8377;<?=$product->total_price?><br>
 <? } ?>
