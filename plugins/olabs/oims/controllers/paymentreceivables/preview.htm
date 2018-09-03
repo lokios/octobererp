@@ -1,18 +1,32 @@
 <?php Block::put('breadcrumb') ?>
-    <ul>
-        <li><a href="<?= Backend::url('olabs/oims/paymentreceivables') ?>">PaymentReceivables</a></li>
-        <li><?= e($this->pageTitle) ?></li>
-    </ul>
+<ul>
+    <li><a href="<?= Backend::url('olabs/oims/paymentreceivables') ?>">Payment Receivables</a></li>
+    <li><?= e($this->pageTitle) ?></li>
+</ul>
 <?php Block::endPut() ?>
 
 <?php if (!$this->fatalError): ?>
 
-    <div class="form-preview">
-        <?= $this->formRenderPreview() ?>
+<div class="form-buttons">
+    <div class="loading-indicator-container">
+        <?= $this->makePartial('preview_toolbar') ?>
     </div>
+</div>
+
+<div class="layout-row min-size">
+    <?= $this->formRender(['preview' => true, 'section' => 'outside']) ?>
+</div>
+
+<div class="layout-row">
+    <?= $this->formRender(['preview' => true, 'section' => 'primary']) ?>
+</div>
+
+<div class="layout-row">
+    <?= $this->formRender(['preview' => true, 'section' => 'secondary']) ?>
+</div>
 
 <?php else: ?>
-    <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+<p class="flash-message static error"><?= e($this->fatalError) ?></p>
 <?php endif ?>
 
 <p>

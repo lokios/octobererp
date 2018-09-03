@@ -1,0 +1,26 @@
+fields:
+    name:
+        label: Name
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    slug:
+        label: Code
+        oc.commentPosition: ''
+        span: auto
+        type: text
+        preset:
+            field: name
+            type: slug  
+    type:
+        label: Legder Type
+        span: auto
+        type: dropdown
+        options: getLedgerTypesTypeOptions  
+    status:
+        label: Status
+        span: auto
+        default: 1
+        type: switch
+    
+    

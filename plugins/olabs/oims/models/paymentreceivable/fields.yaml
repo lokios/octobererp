@@ -20,30 +20,60 @@ fields:
             required: 1
             type: datepicker
             minDate: "today -1 days"
-        project:
+            
+        ledger_type:
+            label: Payment Type
+            oc.commentPosition: ''
+#            nameFrom: name
+#            descriptionFrom: description
+            span: auto
+#            type: relation
+            type: dropdown
+            options: getLedgerTypeRevenuOptions  
+            
+            
+        reference_number:
+            label: 'Reference Number'
+            oc.commentPosition: ''
+            span: auto
+            type: text
+            
+        to_project:
 #            tab: olabs.oims::lang.quotes.detail
-            label: Project
+            label: To Project
             oc.commentPosition: ''
             nameFrom: name
             descriptionFrom: description
             span: auto
             required: 1
             type: dropdown
-        reference_number:
-            label: 'Reference Number'
+            
+        from_project:
+#            tab: olabs.oims::lang.quotes.detail
+            label: From Project
             oc.commentPosition: ''
+            nameFrom: name
+            descriptionFrom: description
             span: auto
-            type: text
-        user_id:
-            label: Imprest Holder
+            required: 1
+            type: dropdown
+        
+        to_user_id:
+            label: To imprest Holder
             span: auto
             type: dropdown
             options: getEmployeeOptions  
-        received_from:
-            label: Payment Received From
+        
+        from_user_id:
+            label: From imprest Holder
             span: auto
             type: dropdown
-            options: getPaymentReceivedFromOptions  
+            options: getEmployeeOptions  
+#        received_from:
+#            label: Payment Received From
+#            span: auto
+#            type: dropdown
+#            options: getPaymentReceivedFromOptions  
         
         amount:
             label: 'olabs.oims::lang.payment_receivables.amount'
@@ -53,6 +83,7 @@ fields:
         paid_date:
             label: olabs.oims::lang.purchases.paid_date
             type: datepicker
+            mode: date
             span: auto       
 tabs:
     fields:
@@ -231,12 +262,12 @@ tabs:
         
         
 
-        note:
-            label: 'olabs.oims::lang.purchases.note'
+        description:
+            label: olabs.oims::lang.products.description
             size: small
             oc.commentPosition: ''
             span: full
-            type: textarea
+            type: richeditor
             tab: 'olabs.oims::lang.purchases.detail'
 
 

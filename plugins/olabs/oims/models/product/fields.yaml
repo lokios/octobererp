@@ -160,6 +160,10 @@ tabs:
 
 
 # Categories
+        code:
+            tab: olabs.oims::lang.products.categories
+            label: olabs.oims::lang.products.code
+            
         default_category:
             tab: olabs.oims::lang.products.categories
             label: olabs.oims::lang.products.default_category

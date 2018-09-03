@@ -2,12 +2,22 @@ columns:
     id:
         label: id
         type: number
-    project_id:
-        label: project_id
-        type: number
-    user_id:
-        label: user_id
-        type: number
+    to_project:
+        label: To Project
+        relation: to_project
+        select: name
+        searchable: true
+        sortable: false
+        
+    from_project:
+        label: From Project
+        relation: from_project
+        select: name
+        searchable: true
+        sortable: false
+#    to_user_id:
+#        label: user_id
+#        type: number
     amount:
         label: amount
         type: text
@@ -20,15 +30,15 @@ columns:
     context_date:
         label: context_date
         type: text
-    note:
-        label: note
-        type: text
+#    note:
+#        label: note
+#        type: text
     payment_method:
         label: payment_method
         type: text
     paid_date:
         label: paid_date
         type: text
-    paid_detail:
-        label: paid_detail
-        type: text
+#    paid_detail:
+#        label: paid_detail
+#        type: text

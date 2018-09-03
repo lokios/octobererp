@@ -583,3 +583,24 @@
 1.11.15:
     - 'Updated table olabs_oims_project_works'
     - builder_table_update_olabs_oims_project_works_3.php
+1.11.16:
+    - 'Updated table olabs_oims_products'
+    - builder_table_update_olabs_oims_products_3.php
+1.11.17:
+    - 'Updated table olabs_oims_customers'
+    - builder_table_update_olabs_oims_customers_2.php
+1.11.18:
+    - 'Updated table olabs_oims_projects'
+    - builder_table_update_olabs_oims_projects_6.php
+1.11.19:
+    - 'Updated table olabs_oims_payment_receivables'
+    - builder_table_update_olabs_oims_payment_receivables_3.php
+1.11.20:
+    - 'Created table olabs_oims_ledger_types'
+    - builder_table_create_olabs_oims_ledger_types.php
+1.11.21:
+    - 'Updated table olabs_oims_payment_receivables'
+    - builder_table_update_olabs_oims_payment_receivables_4.php
+1.11.22:
+    - 'Updated table olabs_oims_ledger_types'
+    - builder_table_update_olabs_oims_ledger_types.php

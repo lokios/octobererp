@@ -1,0 +1,4 @@
+title: LedgerTypes
+modelClass: Olabs\Oims\Models\LedgerType
+toolbar:
+    buttons: reorder_toolbar

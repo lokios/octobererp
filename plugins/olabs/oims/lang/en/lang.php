@@ -48,6 +48,7 @@ return [
         'access_record_back_date_entry' => 'Access into Back Date Entry',
         'access_record_submit_for_approval' => 'Access into Record Submit for Approval',
         'access_employee_types' => 'Access into Employee Types',
+        'access_ledger_types' => 'Access into Ledger Types',
         'access_bank_accounts' => 'Access into Bank Accounts',
         'access_project_books' => 'Access into Project Books',
         'access_payment_receivables' => 'Access into Payment Receivables',
@@ -172,6 +173,8 @@ return [
         'employee_card_print' => 'Employee Card Print',
         'map_view' => 'View Location on Map',
         'map_distance_view' => 'Distance on Map for attendance added at',
+        'payment' => 'Payments',
+        'revenue' => 'Revenue',
     ],
     'orders' => [
         'menu_label' => 'Orders',
@@ -887,6 +890,7 @@ return [
         'advanced_properties_section_comment' => "You can select property options which you want to have in this product (it can be combined with general properties)",
         'property_option' => "Property Option",
         'image' => "Image",
+        'code' => "Product Code",
         'price_difference_with_tax' => "Price Difference With Tax",
     ],   
     'categories' => [

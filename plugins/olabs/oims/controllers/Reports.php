@@ -120,6 +120,22 @@ class Reports extends Controller {
 
         return $widget;
     }
+    
+    protected function createProjectProgressSearchFormWidget() {
+        $config = $this->makeConfig('$/olabs/oims/models/report/project_progress_search_fields.yaml');
+
+        $config->alias = 'reportSearch';
+
+        $config->arrayName = 'reportSearch';
+
+        $config->model = new \Olabs\Oims\Models\Manpower;
+
+        $widget = $this->makeWidget('Backend\Widgets\Form', $config);
+
+        $widget->bindToController();
+
+        return $widget;
+    }
 
     public function dpr() {
         BackendMenu::setContext('Olabs.Oims', 'reports', 'drp_report');
@@ -2122,4 +2138,23 @@ class Reports extends Controller {
         $this->vars['msg'] = $msg;
     }
 
+    
+    //Project Progress Report
+    public function project_progress() {
+        BackendMenu::setContext('Olabs.Oims', 'reports', 'project_progress');
+        $this->searchFormWidget = $this->createProjectProgressSearchFormWidget();
+        $this->pageTitle = 'Project Progress Report';
+        $reports = array();
+
+        $oimsSetting = \Olabs\Oims\Models\Settings::instance();
+
+        $searchForm = $this->searchFormWidget;
+
+        $this->vars['search'] = false;
+        $this->vars['msg'] = false;
+        $this->vars['searchFormWidget'] = $searchForm;
+        $this->vars['reports'] = $reports;
+
+        $this->vars['oimsSetting'] = $oimsSetting;
+    }
 }

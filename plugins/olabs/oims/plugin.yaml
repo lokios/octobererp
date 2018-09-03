@@ -189,6 +189,13 @@ navigation:
                 icon: icon-life-ring
                 permissions:
                     - olabs.oims.reports   
+                    
+#            project_progress:
+#                label: 'Project Progress'
+#                url: olabs/oims/reports/project_progress
+#                icon: icon-life-ring
+#                permissions:
+#                    - olabs.oims.reports   
             
             
     oims_projects:
@@ -222,6 +229,12 @@ navigation:
                 icon: icon-university
                 permissions:
                     - olabs.oims.companies
+            customers:
+                label: Customers
+                url: olabs/oims/customers
+                icon: icon-university
+                permissions:
+                    - olabs.oims.customers
             bank_accounts:
                 label: Bank Accounts
                 url: olabs/oims/bankAccounts
@@ -289,6 +302,13 @@ navigation:
                 icon: icon-sitemap
                 permissions:
                     - olabs.oims.employee_types
+                    
+            ledger_types:
+                label: Ledger Types
+                url: olabs/oims/ledgerTypes
+                icon: icon-sitemap
+                permissions:
+                    - olabs.oims.ledger_types
             
             oims_status:
                 label: Statuses

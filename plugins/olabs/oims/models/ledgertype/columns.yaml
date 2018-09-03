@@ -1,0 +1,16 @@
+columns:
+    id:
+        label: id
+        type: number
+    name:
+        label: name
+        type: text
+    slug:
+        label: code
+        type: text
+    type:
+        label: type
+        type: text
+    status:
+        label: status
+        type: switch

@@ -11,34 +11,29 @@ use BackendAuth;
  * Model
  */
 class BaseModel extends Model {
-   
+
     const USER_GROUP_EMPLOYEE = 'employee';
     const USER_GROUP_SUPPLIER = 'inventory_supplier';
     const USER_GROUP_CUSTOMER = 'inventory_customer';
     const USER_GROUP_SITE_ENCHARGE = 'inventory_site_encharge';
     const USER_GROUP_PROJECT_ENCHARGE = 'project_encharge';
     const USER_GROUP_ADMIN = 'inventory_administrator';
-    
     const ATTENDANCE_WORKING_HOUR = 8; //default working hours for attendance
     const ATTENDANCE_GRACE_TIME = 1; //default grace time total working hours
-    
     const ATTENDANCE_LUNCH_HOUR = 0; //default lunch time
-    
     const ATTENDANCE_WORKING_HOUR_ONROLE = 9; //default working hours for on role employee
- 
     const PAYMENT_METHOD_NOT_PAID = 0;
     const PAYMENT_METHOD_CASH = 1;
     const PAYMENT_METHOD_BANK_TRANSFER = 2;
     const PAYMENT_METHOD_CHEQUE = 3;
     const PAYMENT_METHOD_DEMAND_DRAFT = 4;
-    
     const STATUS_ACTIVE = 1;
     const STATUS_INACTIVE = 0;
-    
-
+    const LEDGER_TYPE_PAYMENT = 'payment';
+    const LEDGER_TYPE_REVENUE = 'revenue';
 
     public $comment;
-    
+
     public function getUserGroups() {
         $groups = [];
         $user = BackendAuth::getUser();
@@ -66,8 +61,9 @@ class BaseModel extends Model {
     }
 
     public function beforeUpdate() {
+        $user = BackendAuth::getUser();
         if ($this->updated_by == '') {
-            $this->updated_by = Auth::getUser()->id;
+            $this->updated_by = $user->id;
         }
     }
 
@@ -95,7 +91,7 @@ class BaseModel extends Model {
 
         return $list;
     }
-    
+
     public function getProjectToOptions() {
         $list = [];
 
@@ -111,14 +107,13 @@ class BaseModel extends Model {
 
         return $list;
     }
-    
+
     public function getBankAccountOptions() {
 
         $list = BankAccount::select(
                         DB::raw("CONCAT_WS(' ', bank_code, '|', account_number) AS name, id")
-                )->where('status','1')->lists('name', 'id');
+                )->where('status', '1')->lists('name', 'id');
         return [null => Lang::get("olabs.oims::lang.plugin.please_select")] + $list;
-
     }
 
     public function getCustomerOptions() {
@@ -141,7 +136,7 @@ class BaseModel extends Model {
 
         return [null => Lang::get("olabs.oims::lang.plugin.please_select")] + $usersList;
     }
-    
+
     public function getEmployeeOptions() {
         $filter = self::USER_GROUP_EMPLOYEE; //'inventory_supplier';
         $usersList = \Backend\Models\User::select(
@@ -152,27 +147,27 @@ class BaseModel extends Model {
 
         return [null => Lang::get("olabs.oims::lang.plugin.please_select")] + $usersList;
     }
-    
+
     public function getSupplierPettyContractorOptions() {
         $filter = self::USER_GROUP_SUPPLIER; //'inventory_supplier';
         $usersList = \Backend\Models\User::select(
-                        DB::raw("CONCAT_WS(' ', id, '|', first_name, last_name) AS name, id")
-                )->where('supplier_type', Supplier::SUPPLIER_TYPE_PETTY_CONTRACTOR)
-                ->whereHas('groups', function($group) use ($filter) {
-                    $group->where('code', $filter);
-                })->lists('name', 'id');
+                                DB::raw("CONCAT_WS(' ', id, '|', first_name, last_name) AS name, id")
+                        )->where('supplier_type', Supplier::SUPPLIER_TYPE_PETTY_CONTRACTOR)
+                        ->whereHas('groups', function($group) use ($filter) {
+                            $group->where('code', $filter);
+                        })->lists('name', 'id');
 
         return [null => Lang::get("olabs.oims::lang.plugin.please_select")] + $usersList;
     }
-    
+
     public function getSupplierMaterialSupplierOptions() {
         $filter = self::USER_GROUP_SUPPLIER; //'inventory_supplier';
         $usersList = \Backend\Models\User::select(
-                        DB::raw("CONCAT_WS(' ', id, '|', first_name, last_name) AS name, id")
-                )->where('supplier_type', Supplier::SUPPLIER_TYPE_MATERIAL_SUPPLIER)
-                ->whereHas('groups', function($group) use ($filter) {
-                    $group->where('code', $filter);
-                })->lists('name', 'id');
+                                DB::raw("CONCAT_WS(' ', id, '|', first_name, last_name) AS name, id")
+                        )->where('supplier_type', Supplier::SUPPLIER_TYPE_MATERIAL_SUPPLIER)
+                        ->whereHas('groups', function($group) use ($filter) {
+                            $group->where('code', $filter);
+                        })->lists('name', 'id');
 
         return [null => Lang::get("olabs.oims::lang.plugin.please_select")] + $usersList;
     }
@@ -251,7 +246,7 @@ class BaseModel extends Model {
 
         return $msg;
     }
-    
+
     public function onSubmitForHOApproval() {
         $msg = [];
         //check for current status it should be new or rejected for resubmit
@@ -276,8 +271,7 @@ class BaseModel extends Model {
 
         return $msg;
     }
-    
-    
+
     public function onHOApproved() {
         $msg = [];
         //check for current status
@@ -355,14 +349,14 @@ class BaseModel extends Model {
         }
         return FALSE;
     }
-    
+
     public function isStatusHOSubmitted() {
         if ($this->status == Status::STATUS_HO_SUBMITTED) {
             return true;
         }
         return FALSE;
     }
-    
+
     public function isStatusHOApproved() {
         if ($this->status == Status::STATUS_HO_APPROVED) {
             return true;
@@ -384,39 +378,39 @@ class BaseModel extends Model {
     public function isEditable() {
 
         $user = BackendAuth::getUser();
-        
+
         $access_projects = $this->getProjectOptions();
         $access_projects = array_keys($access_projects);
         //project permission check
-        if(!in_array($this->project_id, $access_projects)){
+        if (!in_array($this->project_id, $access_projects)) {
             return FALSE;
         }
-        
+
         //IF Entry is New 
         if ($this->isStatusNew()) {
             return true;
         }
-        
+
         //IF entry is rejected by Project Enchagre and user have permission for Submit for approval
-        if($this->isStatusRejected() && $user->hasAccess('olabs.oims.record_submit_for_approval') && $user->hasAccess('olabs.oims.record_update')){
+        if ($this->isStatusRejected() && $user->hasAccess('olabs.oims.record_submit_for_approval') && $user->hasAccess('olabs.oims.record_update')) {
             return true;
         }
-        
+
         //IF entry is rejected by HO Accountant and user have permission for approval
-        if($this->isStatusHORejected() && $user->hasAccess('olabs.oims.record_approval') && $user->hasAccess('olabs.oims.record_update')){
+        if ($this->isStatusHORejected() && $user->hasAccess('olabs.oims.record_approval') && $user->hasAccess('olabs.oims.record_update')) {
             return true;
         }
-        
+
 
         if ($user->isAdmin() && ($this->isStatusRejected() || $this->isStatusHORejected())) {
             return true;
         }
-        
+
         //In any case Admin should be able to update it
-        if ($user->isAdmin()){
+        if ($user->isAdmin()) {
             return true;
         }
-            
+
         return FALSE;
     }
 
@@ -442,18 +436,41 @@ class BaseModel extends Model {
 
         return $options;
     }
-    
+
     public function getPaymentReceivedFromOptions($activeOnly = false) {
 
         $options = [
             'payment_ho' => Lang::get("olabs.oims::lang.settings.payment_ho"),
             'payment_client' => Lang::get("olabs.oims::lang.settings.payment_client"),
-            
         ];
 
 
 
         return $options;
+    }
+
+    public function getLedgerTypesTypeOptions($activeOnly = false) {
+
+        $options = [
+            self::LEDGER_TYPE_PAYMENT => Lang::get("olabs.oims::lang.settings.payment"),
+            self::LEDGER_TYPE_REVENUE => Lang::get("olabs.oims::lang.settings.revenue"),
+        ];
+
+        return $options;
+    }
+    
+    public function getLedgerTypeRevenuOptions() {
+        $list = [];
+        $list = LedgerType::where('status', self::STATUS_ACTIVE)->where('type', self::LEDGER_TYPE_REVENUE)->get()->lists('name', 'slug');
+
+        return $list;
+    }
+    
+    public function getLedgerTypePaymentOptions() {
+        $list = [];
+        $list = LedgerType::where('status', self::STATUS_ACTIVE)->where('type', self::LEDGER_TYPE_PAYMENT)->get()->lists('name', 'slug');
+
+        return $list;
     }
 
     /**
@@ -470,20 +487,17 @@ class BaseModel extends Model {
 //        dd($list->count());
         return $list;
     }
-    
 
-    
     public function getStatusNameAttribute($value) {
         $name = 'New';
 
         if (isset($this->attributes['status']) && $this->attributes['status']) {
-            $name =  $this->objectstatus->name;
+            $name = $this->objectstatus->name;
         }
         return $name;
     }
 
-    
-    public function getPrintStyleOptions(){
+    public function getPrintStyleOptions() {
         $options = [];
         $options['40'] = '40 per sheet (a4) (1.799" x 1.003")';
         $options['30'] = '30 per sheet (2.625" x 1")';
@@ -493,8 +507,8 @@ class BaseModel extends Model {
         $options['14'] = '14 per sheet (4" x 1.33")';
         $options['12'] = '12 per sheet (a4) (2.5" x 2.834")';
         $options['10'] = '10 per sheet (4" x 2")';
-        
-                
+
+
 //                <select name="style" class="form-control tip" id="style" required="required" tabindex="-1" title="" style="display: none;" data-original-title="Style" data-bv-field="style">
 //<option value="">Select Style</option>
 //<option value="40" selected="selected">40 per sheet (a4) (1.799" x 1.003")</option>
@@ -509,4 +523,5 @@ class BaseModel extends Model {
 //</select>
         return $options;
     }
+
 }

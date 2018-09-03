@@ -116,6 +116,7 @@ class Plugin extends PluginBase {
             'olabs.oims.record_submit_for_approval' => ['tab' => 'olabs.oims::lang.plugin.oims_project', 'label' => 'olabs.oims::lang.plugin.access_record_submit_for_approval'],
             'olabs.oims.access_settings' => ['tab' => 'olabs.oims::lang.plugin.oims_project', 'label' => 'olabs.oims::lang.plugin.access_settings'],
             'olabs.oims.employee_types' => [ 'tab' => 'olabs.oims::lang.plugin.oims_project', 'label' => 'olabs.oims::lang.plugin.access_employee_types' ],
+            'olabs.oims.ledger_types' => [ 'tab' => 'olabs.oims::lang.plugin.oims_project', 'label' => 'olabs.oims::lang.plugin.access_ledger_types' ],
             'olabs.oims.offrole_employees' => [ 'tab' => 'olabs.oims::lang.plugin.oims_project', 'label' => 'olabs.oims::lang.plugin.access_offrole_employees' ],
 //            'olabs.oims.projects' => [ 'tab' => 'olabs.oims::lang.plugin.name', 'label' => 'olabs.oims::lang.plugin.access_projects' ],
 //            'olabs.oims.orders' => [ 'tab' => 'olabs.oims::lang.plugin.name', 'label' => 'olabs.oims::lang.plugin.access_orders' ],

@@ -10,19 +10,29 @@ fields:
 #        oc.commentPosition: ''
 #        span: auto
 #        type: textarea
+
     company:
         label: Company
         oc.commentPosition: ''
         nameFrom: name
         descriptionFrom: description
-#        list: $/olabs/oims/models/company/columns.yaml
         span: auto
         type: relation
+        
+    customer:
+        label: Customer
+        oc.commentPosition: ''
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+        
     status:
         label: Status
         span: auto
         type: switch
         default: true
+        
     fix_expense:
         label: Project Fix Expense
         oc.commentPosition: ''

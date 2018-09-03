@@ -1,0 +1,10 @@
+name: LedgerTypes
+form: $/olabs/oims/models/ledgertype/fields.yaml
+modelClass: Olabs\Oims\Models\LedgerType
+defaultRedirect: olabs/oims/ledgertypes
+create:
+    redirect: 'olabs/oims/ledgertypes/update/:slug'
+    redirectClose: olabs/oims/ledgertypes
+update:
+    redirect: olabs/oims/ledgertypes
+    redirectClose: olabs/oims/ledgertypes

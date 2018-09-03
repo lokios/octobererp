@@ -20,6 +20,12 @@ columns:
         select: name
         searchable: true
         sortable: false
+    customer:
+        label: Customer
+        relation: customer
+        select: name
+        searchable: true
+        sortable: false
     fix_expense:
         label: Fix Expense
         type: number

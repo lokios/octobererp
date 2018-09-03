@@ -24,7 +24,8 @@ class Project extends Model
      * Relations
      */
     public $belongsTo = [
-        'company' => ['Olabs\Oims\Models\Company']
+        'company' => ['Olabs\Oims\Models\Company'],
+        'customer' => ['Olabs\Oims\Models\Customer']
     ];
 
 
