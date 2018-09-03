@@ -25,6 +25,12 @@ navigation:
                 icon: icon-life-ring
                 permissions:
                     - olabs.oims.purchases
+            vouchers:
+                label: 'Vouchers'
+                url: olabs/oims/vouchers
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.vouchers
             purchase_orders:
                 label: 'Purchase Orders'
                 url: olabs/oims/quotes

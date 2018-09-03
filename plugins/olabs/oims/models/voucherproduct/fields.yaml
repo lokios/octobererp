@@ -1,0 +1,67 @@
+fields:
+    purchase:
+        label: Material Receipts
+        oc.commentPosition: ''
+        nameFrom: reference_number
+        descriptionFrom: description
+        list: $/olabs/oims/models/purchase/columns.yaml
+        span: auto
+        type: recordfinder
+        
+    supplier_id:
+        label: Supplier
+#        nameFrom: full_name
+#        descriptionFrom: description
+#        list: $/olabs/oims/models/supplier/columns.yaml
+        span: auto
+#        type: recordfinder
+        type: dropdown
+        options: getSupplierOptions 
+        
+    employee:
+        label: Employee
+#        nameFrom: full_name
+#        descriptionFrom: description
+#        list: $/olabs/oims/models/employee/columns.yaml
+        span: auto
+#        type: recordfinder
+        type: dropdown
+        options: getEmployeeOptions 
+        
+        
+#    unit_code:
+#        label: Unit
+#        oc.commentPosition: ''
+#        nameFrom: name
+#        descriptionFrom: description
+#        span: auto
+#        type: relation
+#    quantity:
+#        label: Quantity
+#        oc.commentPosition: ''
+#        default: 1
+#        span: auto
+#        type: number
+#    unit_price:
+#        label: 'Unit Price'
+#        oc.commentPosition: ''
+#        span: auto
+#        type: number
+#        dependsOn: product
+##        defaultFrom: quantity
+    total_price:
+        label: 'Total Price'
+        span: auto
+        oc.commentPosition: ''
+        type: number
+        dependsOn: 
+          - purchase
+#          - quantity
+#          - unit_price
+    description:
+        label: 'olabs.oims::lang.vouchers.description'
+        size: small
+        oc.commentPosition: ''
+        span: full
+        type: richeditor
+        

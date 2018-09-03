@@ -604,3 +604,18 @@
 1.11.22:
     - 'Updated table olabs_oims_ledger_types'
     - builder_table_update_olabs_oims_ledger_types.php
+1.11.23:
+    - 'Created table olabs_oims_vouchers'
+    - builder_table_create_olabs_oims_vouchers.php
+1.11.24:
+    - 'Created table olabs_oims_voucher_products'
+    - builder_table_create_olabs_oims_voucher_products.php
+1.11.25:
+    - 'Updated table olabs_oims_vouchers'
+    - builder_table_update_olabs_oims_vouchers.php
+1.11.26:
+    - 'Updated table olabs_oims_voucher_products'
+    - builder_table_update_olabs_oims_voucher_products.php
+1.11.27:
+    - 'Updated table olabs_oims_voucher_products'
+    - builder_table_update_olabs_oims_voucher_products_2.php

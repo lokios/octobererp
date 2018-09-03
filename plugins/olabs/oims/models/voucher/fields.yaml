@@ -1,0 +1,258 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+
+fields:
+        
+ #  Detail
+        objectstatus:
+            label: Status
+            type: partial
+            path: ~/plugins/olabs/oims/models/status/_status_field.htm  
+            span: auto
+            
+#        carrier:
+#            tab: olabs.oims::lang.vouchers.detail
+#            label: olabs.oims::lang.vouchers.carrier
+#            type: relation
+#            select: title
+#            span: auto
+        context_date:
+            label: Date
+            oc.commentPosition: ''
+            mode: date
+            span: auto
+            default: 'today'
+            required: 1
+            type: datepicker
+            format: 'd/m/Y'
+#            minDate: "today -1 days"
+        project:
+#            tab: olabs.oims::lang.quotes.detail
+            label: Project
+            oc.commentPosition: ''
+            nameFrom: name
+            descriptionFrom: description
+            span: auto
+            required: 1
+            type: dropdown
+        reference_number:
+            label: 'Voucher Number'
+            oc.commentPosition: ''
+            span: auto
+            type: text
+            required: 1
+            
+        ledger_type:
+            label: Payment Type
+            oc.commentPosition: ''
+#            nameFrom: name
+#            descriptionFrom: description
+            span: auto
+#            type: relation
+            type: dropdown
+            options: getLedgerTypePaymentOptions  
+            
+        narration:
+            label: Narration
+            oc.commentPosition: ''
+            span: auto
+            type: text
+#            tab: 'olabs.oims::lang.vouchers.detail'
+        
+        
+#        quote:
+#            label: Work Order
+#            oc.commentPosition: ''
+#            nameFrom: quote_name
+#            descriptionFrom: description
+#            list: $/olabs/oims/models/quote/columns.yaml
+#            span: auto
+#            type: recordfinder
+            
+#        user_id:
+#            label: Supplier
+#            span: auto
+#            type: dropdown
+#            options: getSupplierOptions 
+#            required: 1
+#            dependsOn: quote
+            
+#        invoice_download:
+#            label: 
+#            type: partial
+#            path: ~/plugins/olabs/oims/models/voucher/_download_invoice_link.htm  
+#            span: auto
+            
+tabs:
+    fields:
+
+# Products
+        products:
+            label: Products
+            tab: olabs.oims::lang.quotes.products_json
+            type: partial
+            path: voucher_products   
+        total_price:
+            label: 'olabs.oims::lang.vouchers.total_price'
+            tab: 'olabs.oims::lang.quotes.products_json'
+            type: number
+            span: auto
+
+ #  Detail
+            
+#        bill_number:
+#            label: 'Bill / Challan No'
+#            oc.commentPosition: ''
+#            span: auto
+#            type: text
+#            tab: 'olabs.oims::lang.vouchers.detail'
+#        bill_date:
+#            label: 'Bill Date'
+#            oc.commentPosition: ''
+#            mode: date
+#            span: auto
+#            type: datepicker
+#            tab: 'olabs.oims::lang.vouchers.detail'
+#        thru_vehicle_number:
+#            label: 'Thru Vehicle No'
+#            oc.commentPosition: ''
+#            span: auto
+#            type: text
+#            tab: 'olabs.oims::lang.vouchers.detail'
+#        arrived_on_date:
+#            label: 'Arrived on Date'
+#            oc.commentPosition: ''
+#            mode: date
+#            span: auto
+#            type: datepicker
+#            tab: 'olabs.oims::lang.vouchers.detail'
+#        driver_name:
+#            label: 'Driver Name'
+#            span: auto
+#            oc.commentPosition: ''
+#            type: text
+#            tab: 'olabs.oims::lang.vouchers.detail'
+##        tracking_number:
+##            tab: 'olabs.oims::lang.vouchers.detail'
+##            label: 'olabs.oims::lang.vouchers.tracking_number'
+##            span: auto
+##            type: text
+#        invoice:
+#            tab: 'olabs.oims::lang.vouchers.detail'
+#            label: 'olabs.oims::lang.vouchers.invoice'
+#            type: fileupload
+#            mode: file
+#            span: auto
+        description:
+            label: 'olabs.oims::lang.vouchers.description'
+            size: small
+            oc.commentPosition: ''
+            span: full
+            type: richeditor
+            tab: 'olabs.oims::lang.vouchers.detail'
+
+           
+        payment_method:
+            label: olabs.oims::lang.vouchers.payment_method_field
+            tab: olabs.oims::lang.vouchers.payment_method
+            type: dropdown
+            span: full
+            
+            
+        paid_date:
+            label: olabs.oims::lang.vouchers.paid_date
+            tab: olabs.oims::lang.vouchers.payment_method
+            type: datepicker
+            span: auto            
+                            
+#        paid_detail:
+#            label: olabs.oims::lang.vouchers.paid_detail
+#            tab: olabs.oims::lang.vouchers.payment_method
+#            type: partial
+#            path: ~/plugins/olabs/oims/models/voucher/_paid_detail_field.htm
+
+        paid_detail[payment_from]:
+            label: Payment From Bank
+            tab: olabs.oims::lang.vouchers.payment_method
+            span: auto
+            type: dropdown
+            options: getBankAccountOptions  
+            hidden: true
+            dependsOn: payment_method
+
+        paid_detail[payment_to]:
+            label: Payment To Bank
+            tab: olabs.oims::lang.vouchers.payment_method
+            span: auto
+            type: dropdown
+            options: getBankAccountOptions  
+            hidden: true
+            dependsOn: payment_method
+
+        paid_detail[transaction_id]:
+            label: Transaction Id
+            tab: olabs.oims::lang.vouchers.payment_method
+            span: auto
+            hidden: true
+            dependsOn: payment_method
+
+       #Payment Method Cheque         
+        paid_detail[cheque_number]:
+            label: Cheque Number
+            tab: olabs.oims::lang.vouchers.payment_method
+            span: auto
+            hidden: true
+            dependsOn: payment_method
+
+        paid_detail[cheque_date]:
+            label: Cheque Date
+            tab: olabs.oims::lang.vouchers.payment_method
+            span: auto
+            hidden: true
+            dependsOn: payment_method
+
+        paid_detail[cheque_account]:
+            label: Cheque Account
+            tab: olabs.oims::lang.vouchers.payment_method
+            span: auto
+            type: dropdown
+            options: getBankAccountOptions  
+            hidden: true
+            dependsOn: payment_method
+
+#        Payment Method Demand Draft
+        paid_detail[dd_number]:
+            label: Demant Draft Number
+            tab: olabs.oims::lang.vouchers.payment_method
+            span: auto
+            hidden: true
+            dependsOn: payment_method
+
+        paid_detail[issuing_bank]:
+            label: Demant Draft Issuing Bank
+            tab: olabs.oims::lang.vouchers.payment_method
+            span: auto
+            hidden: true
+            dependsOn: payment_method
+
+        paid_detail[issue_date]:
+            label: Demant Draft Issue Date
+            tab: olabs.oims::lang.vouchers.payment_method
+            span: auto
+            type: datepicker
+            hidden: true
+            dependsOn: payment_method
+        
+        
+secondaryTabs:
+    stretch: true
+    fields:
+        featured_images:
+            tab: Attachments
+            label: rainlab.blog::lang.post.featured_images
+            type: fileupload
+            mode: image
+            imageWidth: 200
+            imageHeight: 200

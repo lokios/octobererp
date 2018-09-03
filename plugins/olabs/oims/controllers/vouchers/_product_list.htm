@@ -1,0 +1,56 @@
+<?php if (count($items)): ?>
+<input type="hidden" id='temp_total_price' value="<?= $total_price?>">
+<div class="list-preview list-flush">
+    <div class="control-list">
+        <table class="table data" data-control="rowlink">
+            <thead>
+                <tr>
+                    <th><span>Material Receipt</span></th>
+                    <th><span>Supplier</span></th>
+                    <th><span>Employee</span></th>
+                    <!--<th><span>Quantity</span></th>-->
+                    <th><span>Total Price</span></th>
+                    <th style="width: 10%"><span></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($items as $item): ?>
+                <tr>
+                    <td>
+                        <?= e($item->purchase ? $item->purchase->reference_number : '--') ?>
+                    </td>
+                    <td>
+                        <?= e($item->supplier ? $item->supplier->full_name : '--') ?>
+                    </td>
+                    <td>
+                        <?= e($item->employee ? $item->employee->full_name : '--') ?>
+                    </td>
+                    <td>
+                        <?= e($item->total_price) ?>
+                    </td>
+                    <td class="nolink text-right">
+                        <? if(isset($this->vars['formContext']) && $this->vars['formContext'] != 'preview'): ?>
+                        <a
+                            href="javascript:;"
+                            class="oc-icon-edit"
+                            data-control="popup"
+                            data-handler="onLoadUpdateProductForm"
+                            data-request-data="record_id: '<?= $item->id ?>',voucher_id: '<?=$item->voucher_id?>'"
+                            data-size="large"></a>
+                        <a
+                            href="javascript:;"
+                            data-request="onDeleteProduct"
+                            data-request-data="record_id: '<?= $item->id ?>', voucher_id: '<?= $item->voucher_id ?>'"
+                            data-request-confirm="Delete this product?"
+                            class="oc-icon-remove"
+                            data-toggle="tooltip"
+                            title="Remove"></a>
+                        <?php endif ?>
+                    </td>
+                </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<?php endif ?>

@@ -1,0 +1,5 @@
+<? foreach($record->products as $product){
+
+?>
+<?= $product->product != NULL ? $product->product->title :"-";  ?> (&#8377;<?=$product->unit_price?>/<?=$product->unit?>) , QTY : <?=$product->quantity?>, AMNT : &#8377;<?=$product->total_price?><br>
+<? } ?>

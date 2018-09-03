@@ -1,0 +1,141 @@
+<?php 
+
+$assigned_projects = false;
+//if(!$this->user->isAdmin()){
+$baseModel = new \Olabs\Oims\Models\BaseModel();
+$assigned_projects = $baseModel->getProjectOptions();
+//}
+
+$today = Carbon\Carbon::now();
+$monthStartDate = Carbon\Carbon::now()->startOfMonth();  
+
+/*                        
+$monthStartInstance = Carbon\Carbon::now()->startOfMonth(); 
+$monthStartInstanceTwo = Carbon\Carbon::now()->startOfMonth(); 
+$monthStartInstanceThree = Carbon\Carbon::now()->startOfMonth(); 
+
+$previousMonthDay = $monthStartInstance->subDay();
+
+$previousMonthInstanceOne = $monthStartInstanceTwo->subDay();
+$previousMonthInstanceTwo = $monthStartInstanceThree->subDay();
+
+$previousMonthEnd = $previousMonthInstanceOne->endOfMonth();
+
+$previousMonthStart = $previousMonthInstanceTwo->startOfMonth(); 
+
+*/ 
+
+$overallDetail = array();
+$thisMonthDetail = array();
+
+if(count($assigned_projects)){
+
+$overallDetail = Db::table('olabs_oims_vouchers')
+->select(Db::raw('count(*) as total_count, sum(total_price) as price_total, project_id'))
+//->whereBetween("created_at", [$previousMonthStart, $previousMonthEnd])
+->whereIn('project_id', array_keys($assigned_projects))
+->groupBy('project_id')
+->get();
+
+$thisMonthDetail = Db::table('olabs_oims_vouchers')
+->select(Db::raw('count(*) as total_count, sum(total_price) as price_total, project_id'))
+->whereBetween("created_at", [$monthStartDate, $today])
+->whereIn('project_id', array_keys($assigned_projects))
+->groupBy('project_id')
+->get(); 
+
+}
+
+if($assigned_projects){
+
+$vouchersCount = \Olabs\Oims\Models\Voucher::whereIn('project_id', array_keys($assigned_projects))->count();
+$vouchersPending = \Olabs\Oims\Models\Voucher::where("paid_date", null)->whereIn('project_id', array_keys($assigned_projects))->count();
+
+ 
+
+
+
+$approved = \Olabs\Oims\Models\Voucher::where("status",\Olabs\Oims\Models\Status::STATUS_APPROVED)->whereIn('project_id', array_keys($assigned_projects))->count();
+$rejected = \Olabs\Oims\Models\Voucher::where("status",\Olabs\Oims\Models\Status::STATUS_REJECTED)->whereIn('project_id', array_keys($assigned_projects))->count();
+$new = \Olabs\Oims\Models\Voucher::where("status",\Olabs\Oims\Models\Status::STATUS_NEW)->whereIn('project_id', array_keys($assigned_projects))->count();
+$submited = \Olabs\Oims\Models\Voucher::where("status",\Olabs\Oims\Models\Status::STATUS_SUBMITTED)->whereIn('project_id', array_keys($assigned_projects))->count();
+
+
+}else{
+
+$vouchersCount = \Olabs\Oims\Models\Voucher::count();
+$vouchersPending = \Olabs\Oims\Models\Voucher::where("paid_date", null)->count();
+
+
+$approved = \Olabs\Oims\Models\Voucher::where("status",\Olabs\Oims\Models\Status::STATUS_APPROVED)->count();
+$rejected = \Olabs\Oims\Models\Voucher::where("status",\Olabs\Oims\Models\Status::STATUS_REJECTED)->count();
+$new = \Olabs\Oims\Models\Voucher::where("status",\Olabs\Oims\Models\Status::STATUS_NEW)->count();
+$submited = \Olabs\Oims\Models\Voucher::where("status",\Olabs\Oims\Models\Status::STATUS_SUBMITTED)->count();
+
+
+}
+
+ 
+$thisMonthFrom = date('d-m-Y', strtotime($monthStartDate)); 
+$thisMonthTo = date('d-m-Y', strtotime($today)); 
+
+
+
+$oimsSetting = \Olabs\Oims\Models\Settings::instance();
+?>
+
+<div>
+    <div class="scoreboard-item control-chart col-md-3" data-control="chart-pie">
+        <ul>
+            <li data-color="#4caf50">Approved <span><?= $approved  ?></span></li>
+            <li data-color="#3f51b5">New <span><?= $new ?></span></li>
+            <li data-color=" #ff9800">Submitted <span><?= $submited ?></span></li>
+            <li data-color="#f44336">Rejected <span><?= $rejected ?></span></li>
+
+        </ul>
+    </div>
+
+    <div class="scoreboard-item title-value col-md-9">
+        <?php if(count($overallDetail)){ ?>
+        <div class="scoreboard-item title-value col-md-6">
+            <table class="table table-bordered table-condensed" style="font-size: 0.8em;">
+                <tr> <th rowspan="2">Project</th> <th colspan="2" >Overall Report till today</td> </th>
+                <tr> <th>Count</th> <th>Total Price</th> </tr>
+                <?php foreach($overallDetail as $detail){ 
+                $projectName = isset($assigned_projects[$detail->project_id]) ? $assigned_projects[$detail->project_id] : "";
+                ?>
+                <tr> <th><?=$projectName?></th> <td><?=$detail->total_count?></td> <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($detail->price_total)?></td> </tr>
+                <?php } ?>
+
+            </table>
+
+            
+
+        </div>
+        <?php } ?>
+
+
+        <?php if(count($thisMonthDetail)){ ?>   
+        <div class="scoreboard-item title-value col-md-6">
+
+            <table class="table table-bordered table-condensed" style="font-size: 0.8em;">
+                <tr> <th rowspan="2">Project</th> <th colspan="2" ><?php echo "From ".$thisMonthFrom." To ".$thisMonthTo  ?></th>
+                <tr> <th>Count</th> <th>Total Price</th> </tr>
+                <?php foreach($thisMonthDetail as $detail){ 
+                $projectName = isset($assigned_projects[$detail->project_id]) ? $assigned_projects[$detail->project_id] : "";
+                ?>
+                <tr> <th><?=$projectName?></th> <td><?=$detail->total_count?></td> <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($detail->price_total)?></td> </tr>
+                <?php } ?> 
+            </table>
+
+
+            
+        </div>    
+        <?php } ?>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<hr>
+
+<?= $this->listRender() ?>

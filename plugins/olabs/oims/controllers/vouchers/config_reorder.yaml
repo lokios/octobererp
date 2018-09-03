@@ -1,0 +1,4 @@
+title: Vouchers
+modelClass: Olabs\Oims\Models\Voucher
+toolbar:
+    buttons: reorder_toolbar

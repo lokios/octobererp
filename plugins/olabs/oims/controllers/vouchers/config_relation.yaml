@@ -1,0 +1,12 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+voucherProducts:
+    label: Quote Products
+    manage:
+        form: $/olabs/oims/models/voucherproduct/fields.yaml
+        list: $/olabs/oims/models/voucherproduct/columns.yaml
+    view:
+        list: $/olabs/oims/models/voucherproduct/columns.yaml
+        toolbarButtons: create|delete

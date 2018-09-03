@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: olabs.oims::lang.vouchers.menu_label_single
+
+# Model Form Field configuration
+form: $/olabs/oims/models/voucher/fields.yaml
+
+# Model Class name
+modelClass: Olabs\Oims\Models\Voucher
+
+# Default redirect location
+defaultRedirect: olabs/oims/vouchers
+
+# Create page
+create:
+    title: olabs.oims::lang.vouchers.create_voucher
+    redirect: olabs/oims/vouchers/preview/:id
+    redirectClose: olabs/oims/vouchers/preview/:id
+
+# Update page
+update:
+    title: olabs.oims::lang.vouchers.edit_voucher
+    redirect: olabs/oims/vouchers/preview/:id
+    redirectClose: olabs/oims/vouchers/preview/:id
+
+# Preview page
+preview:
+    title: olabs.oims::lang.vouchers.preview_voucher
