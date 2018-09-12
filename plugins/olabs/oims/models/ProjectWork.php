@@ -17,6 +17,8 @@ class ProjectWork extends BaseModel
      * Validation
      */
     public $rules = [
+        'planned_start_date' => 'required',
+        'planned_end_date' => 'required|after_or_equal:planned_start_date',
     ];
 
     public $hasMany = [

@@ -3,6 +3,9 @@
 namespace Olabs\Oims\Models;
 
 use Model;
+use DB;
+use Lang;
+use BackendAuth;
 
 /**
  * Model
@@ -27,7 +30,7 @@ class PaymentReceivable extends BaseModel {
 
     public $rules = [
         'to_project' => 'required',
-        'from_project' => 'required|different:to_project',
+        'from_project' => 'different:to_project',
     ];
 
     /**
@@ -59,6 +62,11 @@ class PaymentReceivable extends BaseModel {
         'featured_images' => ['System\Models\File', 'order' => 'sort_order'],
         'content_images' => ['System\Models\File']
     ];
+    
+    /**
+     * @var array Guarded fields
+     */
+    protected $guarded = [];
 
     public function getToProjectOptions() {
         $list = [];
@@ -66,14 +74,28 @@ class PaymentReceivable extends BaseModel {
         $list = Project::where('status', self::STATUS_ACTIVE)->get()->lists('name', 'id');
 
         return $list;
+//        return [null => Lang::get("olabs.oims::lang.plugin.please_select")] + $list;
     }
-
+    
     public function getFromProjectOptions() {
 
 
-        return $this->getProjectOptions();
+        return [null => Lang::get("olabs.oims::lang.plugin.please_select")] +  $this->getProjectOptions();
     }
 
+    
+    public function getEmployeeOptions() {
+        $filter = self::USER_GROUP_EMPLOYEE; //'inventory_supplier';
+        $usersList = \Backend\Models\User::select(
+                        DB::raw("CONCAT_WS(' ', id, '|', first_name, last_name) AS name, id")
+                )->whereHas('groups', function($group) use ($filter) {
+                    $group->where('code', $filter);
+                })->lists('name', 'id');
+
+        return [0 => Lang::get("olabs.oims::lang.plugin.please_select")] + $usersList;
+    }
+    
+    
     public function filterFields($fields, $context = null) {
         if ($fields->payment_method) {
 //            dd($fields->{'paid_detail[payment_from]'});

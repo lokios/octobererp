@@ -364,20 +364,33 @@ class Purchases extends Controller {
             $assigned_projects = $baseModel->getProjectOptions();
             $query->whereIn('project_id', array_keys($assigned_projects));
             
+            $status = [];
+            
             //Show lists for only actionable items
             if($this->user->hasAccess('olabs.oims.record_submit_for_approval')){
 //                $query->whereIn('status', [Status::STATUS_SUBMITTED, Status::STATUS_APPROVED, Status::STATUS_REJECTED, Status::STATUS_HO_REJECTED]);
-                $query->whereIn('status', [Status::STATUS_NEW,  Status::STATUS_REJECTED]);
+                
+//                $query->whereIn('status', [Status::STATUS_NEW,  Status::STATUS_REJECTED]);
+                $status[] =  Status::STATUS_NEW;
+                $status[] =  Status::STATUS_REJECTED;
             }
             
             if($this->user->hasAccess('olabs.oims.record_approval')){
 //                $query->whereIn('status', [Status::STATUS_SUBMITTED, Status::STATUS_APPROVED, Status::STATUS_REJECTED, Status::STATUS_HO_REJECTED]);
-                $query->whereIn('status', [Status::STATUS_SUBMITTED,  Status::STATUS_HO_REJECTED]);
+                
+//                $query->whereIn('status', [Status::STATUS_SUBMITTED,  Status::STATUS_HO_REJECTED]);
+                $status[] =  Status::STATUS_SUBMITTED;
+                $status[] =  Status::STATUS_HO_REJECTED;
             }
             
             if($this->user->hasAccess('olabs.oims.record_ho_approval')){
-                $query->whereIn('status', [Status::STATUS_APPROVED, Status::STATUS_HO_SUBMITTED, Status::STATUS_HO_APPROVED]);
+//                $query->whereIn('status', [Status::STATUS_APPROVED, Status::STATUS_HO_SUBMITTED, Status::STATUS_HO_APPROVED]);
+                $status[] =  Status::STATUS_APPROVED;
+                $status[] =  Status::STATUS_HO_SUBMITTED;
+                $status[] =  Status::STATUS_HO_APPROVED;
             }
+            
+            $query->whereIn('status', $status);
             
         }
     }

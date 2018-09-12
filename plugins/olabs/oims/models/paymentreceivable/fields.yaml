@@ -55,19 +55,22 @@ fields:
             nameFrom: name
             descriptionFrom: description
             span: auto
-            required: 1
+#            required: 1
+#            empty: Select Project
             type: dropdown
         
         to_user_id:
             label: To imprest Holder
             span: auto
             type: dropdown
+            default: 0
             options: getEmployeeOptions  
-        
+#        
         from_user_id:
             label: From imprest Holder
             span: auto
             type: dropdown
+            default: 0
             options: getEmployeeOptions  
 #        received_from:
 #            label: Payment Received From

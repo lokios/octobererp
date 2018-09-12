@@ -196,12 +196,12 @@ navigation:
                 permissions:
                     - olabs.oims.reports   
                     
-#            project_progress:
-#                label: 'Project Progress'
-#                url: olabs/oims/reports/project_progress
-#                icon: icon-life-ring
-#                permissions:
-#                    - olabs.oims.reports   
+            project_progress:
+                label: 'Project Progress'
+                url: olabs/oims/reports/project_progress
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.reports   
             
             
     oims_projects:

@@ -26,6 +26,25 @@ fields:
         span: auto
         required: 1
         type: dropdown
+    planned_start_date:
+#        tab: olabs.oims::lang.products.detail
+        label: Planned Start Date
+        mode: date
+        span: auto
+        default: "today"
+        required: 1
+        type: datepicker
+#        format: 'd/m/Y'
+#        comment: "Deafult working hour is 09:00 to 18:00"
+
+    planned_end_date:
+#        tab: olabs.oims::lang.products.detail
+        label: Planned End Date
+        mode: date
+        span: auto
+        default: "today"
+        required: 1
+        type: datepicker
     
 tabs:
     fields:
@@ -62,7 +81,7 @@ tabs:
     #            - product
                 - quantity
                 - unit_price
-                
+        
         work_days:
             label: 'Work Timeline (in Days)'
             span: auto
@@ -75,7 +94,7 @@ tabs:
             size: ''
             oc.commentPosition: ''
             span: auto
-            type: textarea
+            type: richeditor
             tab: olabs.oims::lang.products.detail
 
 # Products

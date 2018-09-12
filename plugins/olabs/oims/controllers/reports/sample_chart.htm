@@ -20,12 +20,37 @@
             class="btn btn-primary">
             Search
         </button>
+        
+<!--        <button
+            type="submit"
+            data-request="onMaterialExportExcel"
+            data-request-data="type: 'xlsx'"
+            class="btn btn-primary">
+            Export Excel
+        </button>-->
     </div>
 </div>
 <?= Form::close() ?>
 <div id="exportDiv"></div>
 
 
+
+<!--<script type="text/javascript">
+            FusionCharts.ready(function () {
+                new FusionCharts({"type":"column2d","id":"MySecondChart","width":"600","height":"350","renderAt":"chart-container1","dataFormat":"json","dataSource":{"chart":{"caption":"Countries With Most Oil Reserves [2017-18]","subCaption":"In MMbbl = One Million barrels","xAxisName":"Country","yAxisName":"Reserves (MMbbl)","numberSuffix":"K","theme":"fusion"},"data":[{"label":"Venezuela","value":"290"},{"label":"Saudi","value":"260"},{"label":"Canada","value":"180"},{"label":"Iran","value":"140"},{"label":"Russia","value":"115"},{"label":"UAE","value":"100"},{"label":"US","value":"30"},{"label":"China","value":"30"}]}});
+            });
+        </script>
+        <script type="text/javascript">
+            FusionCharts.ready(function () {
+                FusionCharts("MySecondChart").render();
+            });
+        </script>
+        <div id="chart-container1">Chart will render here!</div>-->
+
+        
+
+
+        
 <!-- Gantt chart plotting tasks required for constructing a new store (Just completed) in Denver. This is a comparison of how planned estimates fared against the actual and which tasks got delayed. -->
 <script type="text/javascript">
     FusionCharts.ready(function() {

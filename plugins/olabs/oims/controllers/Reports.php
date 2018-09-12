@@ -11,6 +11,7 @@ use Log;
 use App;
 use Db;
 use Vdomah\Excel\Classes\Excel;
+use Olabs\Oims\Classes\FusionCharts;
 
 class Reports extends Controller {
 
@@ -1226,8 +1227,9 @@ class Reports extends Controller {
         }
 //        if($report_type == 'supplier_wise'){
         $model->orderBy('project_id');
-        $model->orderBy('supplier_id');
         $model->orderBy('check_in');
+        $model->orderBy('supplier_id');
+        
 //        $model->orderBy('check_in');
 //        }else{
 //            $model->orderBy('project_id', 'check_in', 'supplier_id');
@@ -1630,8 +1632,9 @@ class Reports extends Controller {
         }
 //        if($report_type == 'supplier_wise'){
         $model->orderBy('project_id');
-        $model->orderBy('user_id');
         $model->orderBy('context_date');
+        $model->orderBy('user_id');
+        
 //        $model->orderBy('check_in');
 //        }else{
 //            $model->orderBy('project_id', 'check_in', 'supplier_id');
@@ -2142,19 +2145,227 @@ class Reports extends Controller {
     //Project Progress Report
     public function project_progress() {
         BackendMenu::setContext('Olabs.Oims', 'reports', 'project_progress');
+        
+//        $this->addCss('/plugins/rainlab/blog/assets/css/rainlab.blog-preview.css');
+//        $this->addJs('/plugins/rainlab/blog/assets/js/post-form.js');
+        
+//        $this->addCss('/plugins/olabs/oims/assets/fusioncharts/js/themes/fusioncharts.theme.fusion.css');
+        
+        $this->addJs('/plugins/olabs/oims/assets/fusioncharts/js/fusioncharts.charts.js', 'core');
+        $this->addJs('/plugins/olabs/oims/assets/fusioncharts/js/fusioncharts.js', 'core');
+        $this->addJs('/plugins/olabs/oims/assets/fusioncharts/js/themes/fusioncharts.theme.fusion.js', 'core');
+        
         $this->searchFormWidget = $this->createProjectProgressSearchFormWidget();
         $this->pageTitle = 'Project Progress Report';
         $reports = array();
 
         $oimsSetting = \Olabs\Oims\Models\Settings::instance();
+        
+        // get project progress components
+        $searchParams = [];
+        $searchParams['project'] = 2;
+        $this->searchProjectProgressReport($searchParams);
 
         $searchForm = $this->searchFormWidget;
 
         $this->vars['search'] = false;
         $this->vars['msg'] = false;
         $this->vars['searchFormWidget'] = $searchForm;
+//        $this->vars['Chart'] = $Chart;
         $this->vars['reports'] = $reports;
 
         $this->vars['oimsSetting'] = $oimsSetting;
+    }
+    
+    
+    
+    public function onProjectProgressSearch() {
+        $reports = array();
+
+        if (post('reportSearch')) {
+
+            $searchParams = post('reportSearch');
+
+            // get project progress components
+            $this->searchProjectProgressReport($searchParams);
+        }
+
+        $oimsSetting = \Olabs\Oims\Models\Settings::instance();
+
+        $this->vars['search'] = true;
+        $this->vars['oimsSetting'] = $oimsSetting;
+    }
+    
+    protected function searchProjectProgressReport($searchParams) {
+        $reports = array();
+        $msg = false;
+        
+        $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
+        
+        
+        //Get all project wroks in active status
+        $project_works = \Olabs\Oims\Models\ProjectWork::where('project_id', $project)->where('status', \Olabs\Oims\Models\ProjectWork::STATUS_ACTIVE)->get();
+        
+        $gantt_process = [];
+//        foreach($project_works as $work){
+//            $gantt_process = 
+//        }
+//        dd(count($project_works));
+        
+        $this->vars['reports'] = $reports;
+        $this->vars['msg'] = $msg;
+        
+        return;
+        ////////////////////////////////////
+        $search_from_date = isset($searchParams['from_date']) ? $searchParams['from_date'] : '';
+        $search_to_date = isset($searchParams['to_date']) ? $searchParams['to_date'] : '';
+
+        $from_date = false;
+        if ($search_from_date != '') {
+            $from_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_from_date); //date('Y-m-d 00:00:00', strtotime($from_date));
+        }
+
+        $to_date = false;
+        if ($search_to_date != '') {
+            $timeFormat = '23:59:59';
+            $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
+        }
+
+        $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
+        $supplier = ( trim($searchParams['supplier']) != "" ) ? $searchParams['supplier'] : false;
+
+        $baseModel = new \Olabs\Oims\Models\BaseModel();
+        $assigned_projects = [];
+//        $user = BackendAuth::getUser();
+
+        $params = array();
+        if ($project) {
+            $assigned_projects = [$project];
+        } else {
+            $assigned_projects = array_keys($baseModel->getProjectOptions());
+        }
+        if ($supplier) {
+            $params['user_id'] = $supplier;
+        }
+
+        if ($from_date && $to_date) {
+            $datetime1 = new DateTime($from_date);
+            $datetime2 = new DateTime($to_date);
+            $interval = $datetime1->diff($datetime2);
+            $total_days = $interval->format('%d') + 1; //to add current date 
+
+            $reports = \Olabs\Oims\Models\Purchase::where($params)
+                    ->whereBetween('context_date', [$from_date, $to_date])
+                    ->whereIn('project_id', $assigned_projects)
+                    ->get();
+        } else if ($from_date) {
+            $reports = \Olabs\Oims\Models\Purchase::where($params)
+                    ->whereDate('context_date', '>=', $from_date)
+                    ->whereIn('project_id', $assigned_projects)
+                    ->get();
+        } else if ($to_date) {
+            $reports = \Olabs\Oims\Models\Purchase::where($params)
+                    ->whereDate('context_date', '<=', $to_date)
+                    ->whereIn('project_id', $assigned_projects)
+                    ->get();
+        } elseif (count($params)) {
+            $reports = \Olabs\Oims\Models\Purchase::where($params)->get();
+        }
+
+
+        $msg = false;
+        if (!$from_date && !$to_date && !count($params)) {
+            $msg = 'Please select atleast one filter';
+        }
+
+        $this->vars['from_date'] = $from_date;
+        $this->vars['to_date'] = $to_date;
+        $this->vars['reports'] = $reports;
+        $this->vars['msg'] = $msg;
+    }
+    
+    
+    
+    
+    
+    
+    
+    public function sample_chart() {
+        BackendMenu::setContext('Olabs.Oims', 'reports', 'project_progress');
+        
+//        $this->addCss('/plugins/rainlab/blog/assets/css/rainlab.blog-preview.css');
+//        $this->addJs('/plugins/rainlab/blog/assets/js/post-form.js');
+        
+//        $this->addCss('/plugins/olabs/oims/assets/fusioncharts/js/themes/fusioncharts.theme.fusion.css');
+        
+        $this->addJs('/plugins/olabs/oims/assets/fusioncharts/js/fusioncharts.charts.js', 'core');
+        $this->addJs('/plugins/olabs/oims/assets/fusioncharts/js/fusioncharts.js', 'core');
+        $this->addJs('/plugins/olabs/oims/assets/fusioncharts/js/themes/fusioncharts.theme.fusion.js', 'core');
+        
+        $this->searchFormWidget = $this->createProjectProgressSearchFormWidget();
+        $this->pageTitle = 'Project Progress Report';
+        $reports = array();
+
+        $oimsSetting = \Olabs\Oims\Models\Settings::instance();
+        
+        
+        $arrChartConfig = array(
+                  "chart" => array(
+                    "caption" => "Countries With Most Oil Reserves [2017-18]",
+                    "subCaption" => "In MMbbl = One Million barrels", 
+                    "xAxisName" => "Country",
+                    "yAxisName" => "Reserves (MMbbl)", 
+                    "numberSuffix" => "K", 
+                    "theme" => "fusion"
+                    )
+                );
+
+              // An array of hash objects which stores data
+              $arrChartData = array(
+                ["Venezuela", "290"],
+                ["Saudi", "260"],
+                ["Canada", "180"],
+                ["Iran", "140"],
+                ["Russia", "115"],
+                ["UAE", "100"],
+                ["US", "30"],
+                ["China", "30"]
+              );
+
+              $arrLabelValueData = array();
+
+            // Pushing labels and values
+            for($i = 0; $i < count($arrChartData); $i++) {
+                array_push($arrLabelValueData, array(
+                    "label" => $arrChartData[$i][0], "value" => $arrChartData[$i][1]
+                ));
+            }
+
+      $arrChartConfig["data"] = $arrLabelValueData;
+
+      // JSON Encode the data to retrieve the string containing the JSON representation of the data in the array.
+      $jsonEncodedData = json_encode($arrChartConfig);
+
+      // chart object
+      $Chart = new FusionCharts("column2d", "MyFirstChart" , "600", "350", "chart-container", "json", $jsonEncodedData);
+        
+//        $chartObject = \Olabs\Oims\Classes\FusionCharts::
+
+        $searchForm = $this->searchFormWidget;
+
+        $this->vars['search'] = false;
+        $this->vars['msg'] = false;
+        $this->vars['searchFormWidget'] = $searchForm;
+        $this->vars['Chart'] = $Chart;
+        $this->vars['reports'] = $reports;
+
+        $this->vars['oimsSetting'] = $oimsSetting;
+        
+        //In view file
+        //Render the chart options
+        //      $Chart->renderOptions();
+        // Render the chart
+        //      $Chart->render();
+        // <div id="chart-container">Chart will render here!</div>
     }
 }

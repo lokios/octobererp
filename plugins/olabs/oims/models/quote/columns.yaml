@@ -19,6 +19,7 @@ columns:
         type: text
 #        path: ~/plugins/olabs/oims/models/quote/_supplier_column.htm
         searchable: false
+        sortable: false
         
     contact_email:
         label: olabs.oims::lang.quotes.contact_email
