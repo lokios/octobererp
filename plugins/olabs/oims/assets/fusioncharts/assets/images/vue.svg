@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="75px" height="75px" viewBox="0 0 75 75" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>vue</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="13.0353054%" y1="9.27107892%" x2="93.6130735%" y2="98.5805524%" id="linearGradient-1">
+            <stop stop-color="#8BF1B5" offset="0%"></stop>
+            <stop stop-color="#27C9E5" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-2" x="0.182423817" y="0.219470311" width="74.3855819" height="74.1308368" rx="6"></rect>
+        <linearGradient x1="38.243897%" y1="-20.2163431%" x2="34.3311819%" y2="44.5071358%" id="linearGradient-4">
+            <stop stop-color="#7CFFB7" offset="0%"></stop>
+            <stop stop-color="#3DD2DB" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="For-other-screens" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Framework-Artboard" transform="translate(-173.000000, -289.000000)">
+            <g id="vue" transform="translate(173.000000, 289.000000)">
+                <mask id="mask-3" fill="white">
+                    <use xlink:href="#path-2"></use>
+                </mask>
+                <g id="Mask">
+                    <use fill="#FFFFFF" xlink:href="#path-2"></use>
+                    <use fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+                </g>
+                <path d="M108,68.8124467 C102.316643,50.5813609 96.5738431,41.7363494 90.7715993,42.2774122 C82.0682335,43.0890064 59.9395212,48.5580075 49,44.6824747 C38.0604788,40.8069419 36.3133659,38.3094629 21.6538369,37.4364876 C11.8808175,36.8545041 1.3295385,36.8545041 -10,37.4364876 L-5.9168114,77 L61.5881021,77 L108,74.200341 L108,68.8124467 Z" id="Path-6" fill="url(#linearGradient-4)" opacity="0.600000024" mask="url(#mask-3)"></path>
+                <g id="vue-9" mask="url(#mask-3)" fill-rule="nonzero">
+                    <g transform="translate(23.000000, 25.000000)" id="Shape">
+                        <polygon fill="#FFFFFF" points="0 2.84217094e-14 15 26 30 2.84217094e-14 24 2.84217094e-14 15 15.6 5.925 2.84217094e-14"></polygon>
+                        <polygon fill="#F6F6F6" points="22.8 2.84217094e-14 28 2.84217094e-14 15 22 2 2.84217094e-14 11.945 2.84217094e-14 15 5.10144928 17.99 2.84217094e-14"></polygon>
+                        <polygon fill="#E9E9E9" points="8 2.84217094e-14 15 13.1329758 22 2.84217094e-14 17.3941909 2.84217094e-14 15 4.92086973 12.6058091 2.84217094e-14"></polygon>
+                    </g>
+                </g>
+                <path d="M108,80.8124467 C102.316643,62.5813609 96.5738431,53.7363494 90.7715993,54.2774122 C82.0682335,55.0890064 59.9395212,60.5580075 49,56.6824747 C38.0604788,52.8069419 36.3133659,50.3094629 21.6538369,49.4364876 C11.8808175,48.8545041 1.3295385,48.8545041 -10,49.4364876 L-5.9168114,89 L61.5881021,89 L108,86.200341 L108,80.8124467 Z" id="Path-6" fill="url(#linearGradient-4)" opacity="0.5" mask="url(#mask-3)"></path>
+                <path d="M103,91.0171355 C97.3166434,73.2418269 91.5738431,64.6179407 85.7715993,65.1454769 C77.0682335,65.9367812 54.9395212,71.2690573 44,67.4904128 C33.0604788,63.7117683 31.3133659,61.2767263 16.6538369,60.4255754 C6.88081745,59.8581415 -3.6704615,59.8581415 -15,60.4255754 L-10.9168114,99 L56.5881021,99 L103,96.2703325 L103,91.0171355 Z" id="Path-6" fill="url(#linearGradient-4)" opacity="0.400000006" mask="url(#mask-3)"></path>
+            </g>
+        </g>
+    </g>
+</svg>

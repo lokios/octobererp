@@ -1,0 +1,21 @@
+<%
+    def getChart
+
+        # Chart rendering 
+        chart = Fusioncharts::Chart.new({
+                width: "700",
+                height: "400",
+                type: "column2d", 
+                renderAt: "chartContainer",
+                dataFormat: "jsonurl",
+                dataSource: "/data/drill-down.json" #/data/data.json"
+            })
+    end
+%>
+
+<h3>Chart using data from JSON URL</h3>
+<div id="chartContainer"></div>
+<%= getChart.render() %>
+<br/>
+<br/>
+<a href="index">Go Back</a>

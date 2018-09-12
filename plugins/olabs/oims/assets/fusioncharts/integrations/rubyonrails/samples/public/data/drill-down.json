@@ -1,0 +1,632 @@
+{
+    "chart": {
+        "caption": "Sales by Region",
+        "xaxisname": "Region",
+        "yaxisname": "Total Sales",
+        "numbersuffix": "K",
+        "theme": "fusion"
+    },
+    "data": [{
+        "label": "Europe",
+        "value": "827508",
+        "link": "newchart-json-Europe"
+    }, {
+        "label": "North America",
+        "value": "342947",
+        "link": "newchart-json-NorthAmerica"
+    }, {
+        "label": "South America",
+        "value": "183881",
+        "link": "newchart-json-SouthAmerica"
+    }],
+    "linkeddata": [{
+            "id": "Europe",
+            "linkedchart": {
+                "chart": {
+                    "caption": "Sales by Country",
+                    "xaxisname": "Country",
+                    "yaxisname": "Total Sales",
+                    "numbersuffix": "K",
+                    "theme": "fusion"
+                },
+                "data": [{
+                    "label": "Austria",
+                    "value": "139488",
+                    "link": "newchart-json-Austria"
+                }, {
+                    "label": "Belgium",
+                    "value": "35132",
+                    "link": "newchart-json-Belgium"
+                }, {
+                    "label": "Denmark",
+                    "value": "34779",
+                    "link": "newchart-json-Denmark"
+                }, {
+                    "label": "Finland",
+                    "value": "19776",
+                    "link": "newchart-json-Finland"
+                }, {
+                    "label": "France",
+                    "value": "84628",
+                    "link": "newchart-json-France"
+                }, {
+                    "label": "Germany",
+                    "value": "244619",
+                    "link": "newchart-json-Germany"
+                }, {
+                    "label": "Ireland",
+                    "value": "57311",
+                    "link": "newchart-json-Ireland"
+                }, {
+                    "label": "Italy",
+                    "value": "17562",
+                    "link": "newchart-json-Italy"
+                }, {
+                    "label": "Norway",
+                    "value": "5735",
+                    "link": "newchart-json-Norway"
+                }, {
+                    "label": "Poland",
+                    "value": "3531",
+                    "link": "newchart-json-Poland"
+                }, {
+                    "label": "Portugal",
+                    "value": "12465",
+                    "link": "newchart-json-Portugal"
+                }, {
+                    "label": "Spain",
+                    "value": "19430",
+                    "link": "newchart-json-Spain"
+                }, {
+                    "label": "Sweden",
+                    "value": "59516",
+                    "link": "newchart-json-Sweden"
+                }, {
+                    "label": "Switzerland",
+                    "value": "32916",
+                    "link": "newchart-json-Switzerland"
+                }, {
+                    "label": "UK",
+                    "value": "60613",
+                    "link": "newchart-json-UK"
+                }],
+                "linkeddata": [{
+                        "id": "Austria",
+                        "linkedchart": {
+                            "chart": {
+                                "caption": "Sales by City",
+                                "xaxisname": "City",
+                                "yaxisname": "Total Sales",
+                                "numbersuffix": "K",
+                                "theme": "fusion"
+                            },
+                            "data": [{
+                                "label": "Graz",
+                                "value": "113229"
+                            }, {
+                                "label": "Salzburg",
+                                "value": "26258"
+                            }]
+                        }
+                    },
+                    {
+                        "id": "Belgium",
+                        "linkedchart": {
+
+                            "chart": {
+                                "caption": "Sales by City",
+                                "xaxisname": "City",
+                                "yaxisname": "Total Sales",
+                                "numbersuffix": "K",
+                                "theme": "fusion"
+                            },
+                            "data": [{
+                                "label": "Bruxelles",
+                                "value": "10429"
+                            }, {
+                                "label": "Charleroi",
+                                "value": "24703"
+                            }]
+                        }
+                    },
+                    {
+                        "id": "Denmark",
+                        "linkedchart": {
+
+                            "chart": {
+                                "caption": "Sales by City",
+                                "xaxisname": "City",
+                                "yaxisname": "Total Sales",
+                                "numbersuffix": "K",
+                                "theme": "fusion"
+                            },
+                            "data": [{
+                                "label": "København",
+                                "value": "18136"
+                            }, {
+                                "label": "Århus",
+                                "value": "16642"
+                            }]
+                        }
+                    },
+                    {
+                        "id": "Finland",
+                        "linkedchart": {
+                            "chart": {
+                                "caption": "Sales by City",
+                                "xaxisname": "City",
+                                "yaxisname": "Total Sales",
+                                "numbersuffix": "K",
+                                "theme": "fusion"
+                            },
+                            "data": [{
+                                "label": "Helsinki",
+                                "value": "3161"
+                            }, {
+                                "label": "Oulu",
+                                "value": "16615"
+                            }]
+                        }
+                    },
+                    {
+                        "id": "France",
+                        "linkedchart": {
+                            "chart": {
+                                "caption": "Sales by City",
+                                "xaxisname": "City",
+                                "yaxisname": "Total Sales",
+                                "numbersuffix": "K",
+                                "theme": "fusion"
+                            },
+                            "data": [{
+                                "label": "Lille",
+                                "value": "11666"
+                            }, {
+                                "label": "Lyon",
+                                "value": "9934"
+                            }, {
+                                "label": "Marseille",
+                                "value": "23847"
+                            }, {
+                                "label": "Nantes",
+                                "value": "3927"
+                            }, {
+                                "label": "Paris",
+                                "value": "2423"
+                            }, {
+                                "label": "Reims",
+                                "value": "1480"
+                            }, {
+                                "label": "Strasbourg",
+                                "value": "19087"
+                            }, {
+                                "label": "Toulouse",
+                                "value": "10268"
+                            }, {
+                                "label": "Versailles",
+                                "value": "1992"
+                            }]
+                        }
+                    },
+                    {
+                        "id": "Germany",
+                        "linkedchart": {
+                            "chart": {
+                                "caption": "Sales by City",
+                                "xaxisname": "City",
+                                "yaxisname": "Total Sales",
+                                "numbersuffix": "K",
+                                "theme": "fusion"
+                            },
+                            "data": [{
+                                "label": "Aachen",
+                                "value": "3763"
+                            }, {
+                                "label": "Berlin",
+                                "value": "4595"
+                            }, {
+                                "label": "Brandenburg",
+                                "value": "31744"
+                            }, {
+                                "label": "Cunewalde",
+                                "value": "117477"
+                            }, {
+                                "label": "Frankfurt a.M. ",
+                                "value": "21278"
+                            }, {
+                                "label": "Köln",
+                                "value": "13155"
+                            }, {
+                                "label": "Leipzig",
+                                "value": "5042"
+                            }, {
+                                "label": "Mannheim",
+                                "value": "3239"
+                            }, {
+                                "label": "München",
+                                "value": "28719"
+                            }, {
+                                "label": "Münster",
+                                "value": "4952"
+                            }, {
+                                "label": "Stuttgart",
+                                "value": "10651"
+                            }]
+                        }
+                    },
+                    {
+                        "id": "Ireland",
+                        "linkedchart": {
+                            "chart": {
+                                "caption": "Sales by City",
+                                "xaxisname": "City",
+                                "yaxisname": "Total Sales",
+                                "numbersuffix": "K",
+                                "theme": "fusion"
+                            },
+                            "data": [{
+                                "label": "Cork",
+                                "value": "57311"
+                            }]
+                        }
+                    },
+                    {
+                        "id": "Italy",
+                        "linkedchart": {
+                            "chart": {
+                                "caption": "Sales by City",
+                                "xaxisname": "City",
+                                "yaxisname": "Total Sales",
+                                "numbersuffix": "K",
+                                "theme": "fusion"
+                            },
+                            "data": [{
+                                "label": "Bergamo",
+                                "value": "7602"
+                            }, {
+                                "label": "Reggio Emilia",
+                                "value": "7553"
+                            }, {
+                                "label": "Torino",
+                                "value": "2405"
+                            }]
+                        }
+                    },
+                    {
+                        "id": "Norway",
+                        "linkedchart": {
+                            "chart": {
+                                "caption": "Sales by City",
+                                "xaxisname": "City",
+                                "yaxisname": "Total Sales",
+                                "numbersuffix": "K",
+                                "theme": "fusion"
+                            },
+                            "data": [{
+                                "label": "Stavern",
+                                "value": "5735"
+                            }]
+                        }
+                    },
+                    {
+                        "id": "Poland",
+                        "linkedchart": {
+                            "chart": {
+                                "caption": "Sales by City",
+                                "xaxisname": "City",
+                                "yaxisname": "Total Sales",
+                                "numbersuffix": "K",
+                                "theme": "fusion"
+                            },
+                            "data": [{
+                                "label": "Warszawa",
+                                "value": "3531"
+                            }]
+                        }
+                    },
+                    {
+                        "id": "Portugal",
+                        "linkedchart": {
+                            "chart": {
+                                "caption": "Sales by City",
+                                "xaxisname": "City",
+                                "yaxisname": "Total Sales",
+                                "numbersuffix": "K",
+                                "theme": "fusion"
+                            },
+                            "data": [{
+                                "label": "Lisboa",
+                                "value": "12465"
+                            }]
+                        }
+                    },
+                    {
+                        "id": "Spain",
+                        "linkedchart": {
+                            "chart": {
+                                "caption": "Sales by City",
+                                "xaxisname": "City",
+                                "yaxisname": "Total Sales",
+                                "numbersuffix": "K",
+                                "theme": "fusion"
+                            },
+                            "data": [{
+                                "label": "Barcelona",
+                                "value": "836"
+                            }, {
+                                "label": "Madrid",
+                                "value": "6764"
+                            }, {
+                                "label": "Sevilla",
+                                "value": "11829"
+                            }]
+                        }
+                    },
+                    {
+                        "id": "Sweden",
+                        "linkedchart": {
+                            "chart": {
+                                "caption": "Sales by City",
+                                "xaxisname": "City",
+                                "yaxisname": "Total Sales",
+                                "numbersuffix": "K",
+                                "theme": "fusion"
+                            },
+                            "data": [{
+                                "label": "Bräcke",
+                                "value": "32551"
+                            }, {
+                                "label": "Luleå",
+                                "value": "26965"
+                            }]
+                        }
+                    },
+                    {
+                        "id": "Switzerland",
+                        "linkedchart": {
+                            "chart": {
+                                "caption": "Sales by City",
+                                "xaxisname": "City",
+                                "yaxisname": "Total Sales",
+                                "numbersuffix": "K",
+                                "theme": "fusion"
+                            },
+                            "data": [{
+                                "label": "Bern",
+                                "value": "12884"
+                            }, {
+                                "label": "Genève",
+                                "value": "20031"
+                            }]
+                        }
+                    },
+                    {
+                        "id": "UK",
+                        "linkedchart": {
+                            "chart": {
+                                "caption": "Sales by City",
+                                "xaxisname": "City",
+                                "yaxisname": "Total Sales",
+                                "numbersuffix": "K",
+                                "theme": "fusion"
+                            },
+                            "data": [{
+                                "label": "Cowes",
+                                "value": "6146"
+                            }, {
+                                "label": "London",
+                                "value": "54467"
+                            }]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "id": "NorthAmerica",
+            "linkedchart": {
+                "chart": {
+                    "caption": "Sales by Country",
+                    "xaxisname": "Country",
+                    "yaxisname": "Total Sales",
+                    "numbersuffix": "K",
+                    "theme": "fusion"
+                },
+                "data": [{
+                    "label": "Canada",
+                    "value": "55329",
+                    "link": "newchart-json-Canada"
+                }, {
+                    "label": "Mexico",
+                    "value": "24072",
+                    "link": "newchart-json-Mexico"
+                }, {
+                    "label": "USA",
+                    "value": "263546",
+                    "link": "newchart-json-USA"
+                }],
+                "linkeddata": [{
+                        "id": "Canada",
+                        "linkedchart": {
+                            "chart": {
+                                "caption": "Sales by City",
+                                "xaxisname": "City",
+                                "yaxisname": "Total Sales",
+                                "numbersuffix": "K",
+                                "theme": "fusion"
+                            },
+                            "data": [{
+                                "label": "Montréal",
+                                "value": "32202"
+                            }, {
+                                "label": "Tsawassen",
+                                "value": "22604"
+                            }, {
+                                "label": "Vancouver",
+                                "value": "522"
+                            }]
+                        }
+                    },
+                    {
+                        "id": "Mexico",
+                        "linkedchart": {
+                            "chart": {
+                                "caption": "Sales by City",
+                                "xaxisname": "City",
+                                "yaxisname": "Total Sales",
+                                "numbersuffix": "K",
+                                "theme": "fusion"
+                            },
+                            "data": [{
+                                "label": "México D.F.",
+                                "value": "24072"
+                            }]
+                        }
+                    },
+                    {
+                        "id": "USA",
+                        "linkedchart": {
+                            "chart": {
+                                "caption": "Sales by City",
+                                "xaxisname": "City",
+                                "yaxisname": "Total Sales",
+                                "numbersuffix": "K",
+                                "theme": "fusion"
+                            },
+                            "data": [{
+                                "label": "Albuquerque",
+                                "value": "52243"
+                            }, {
+                                "label": "Anchorage",
+                                "value": "16323"
+                            }, {
+                                "label": "Boise",
+                                "value": "115663"
+                            }, {
+                                "label": "Butte",
+                                "value": "1947"
+                            }, {
+                                "label": "Elgin",
+                                "value": "3063"
+                            }, {
+                                "label": "Eugene",
+                                "value": "19709"
+                            }, {
+                                "label": "Kirkland",
+                                "value": "1571"
+                            }, {
+                                "label": "Lander",
+                                "value": "12487"
+                            }, {
+                                "label": "Portland",
+                                "value": "7619"
+                            }, {
+                                "label": "San Francisco",
+                                "value": "3488"
+                            }, {
+                                "label": "Seattle",
+                                "value": "29070"
+                            }, {
+                                "label": "Walla Walla",
+                                "value": "357"
+                            }]
+                        }
+                    }
+                ]
+            }
+        }, {
+            "id": "SouthAmerica",
+            "linkedchart": {
+                "chart": {
+                    "caption": "Sales by Country",
+                    "xaxisname": "Country",
+                    "yaxisname": "Total Sales",
+                    "numbersuffix": "K",
+                    "theme": "fusion"
+                },
+                "data": [{
+                    "label": "Argentina",
+                    "value": "8119",
+                    "link": "newchart-json-Argentina"
+                }, {
+                    "label": "Brazil",
+                    "value": "114954",
+                    "link": "newchart-json-Brazil"
+                }, {
+                    "label": "Venezuela",
+                    "value": "60806",
+                    "link": "newchart-json-Venezuela"
+                }],
+                "linkeddata": [{
+                        "id": "Argentina",
+                        "linkedchart": {
+                            "chart": {
+                                "caption": "Sales by City",
+                                "xaxisname": "City",
+                                "yaxisname": "Total Sales",
+                                "numbersuffix": "K",
+                                "theme": "fusion"
+                            },
+                            "data": [{
+                                "label": "Buenos Aires",
+                                "value": "8119"
+                            }]
+                        }
+                    },
+                    {
+                        "id": "Brazil",
+                        "linkedchart": {
+                            "chart": {
+                                "caption": "Sales by City",
+                                "xaxisname": "City",
+                                "yaxisname": "Total Sales",
+                                "numbersuffix": "K",
+                                "theme": "fusion"
+                            },
+                            "data": [{
+                                "label": "Campinas",
+                                "value": "8700"
+                            }, {
+                                "label": "Resende",
+                                "value": "6479"
+                            }, {
+                                "label": "Rio de Janeiro",
+                                "value": "53994"
+                            }, {
+                                "label": "São Paulo",
+                                "value": "45780"
+                            }]
+                        }
+                    },
+                    {
+                        "id": "Venezuela",
+                        "linkedchart": {
+                            "chart": {
+                                "caption": "Sales by City",
+                                "xaxisname": "City",
+                                "yaxisname": "Total Sales",
+                                "numbersuffix": "K",
+                                "theme": "fusion"
+                            },
+                            "data": [{
+                                "label": "Barquisimeto",
+                                "value": "17821"
+                            }, {
+                                "label": "Caracas",
+                                "value": "1488"
+                            }, {
+                                "label": "I. de Margarita",
+                                "value": "17886"
+                            }, {
+                                "label": "San Cristóbal",
+                                "value": "23610"
+                            }]
+                        }
+                    }
+
+                ]
+
+            }
+        }
+    ]
+}

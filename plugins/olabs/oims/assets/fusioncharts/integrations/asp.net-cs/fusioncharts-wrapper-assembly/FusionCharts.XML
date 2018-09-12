@@ -1,0 +1,500 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FusionCharts</name>
+    </assembly>
+    <members>
+        <member name="T:FusionCharts.Charts.Chart">
+            <summary>
+            Contains static methods to render FusionCharts in the Page. 
+            </summary>
+        </member>
+        <member name="M:FusionCharts.Charts.Chart.#ctor">
+            <summary>
+            Chart constructor
+            Chart configuration parameters can be supplyed to the constructor also.
+            </summary>
+        </member>
+        <member name="M:FusionCharts.Charts.Chart.#ctor(System.String)">
+            <summary>
+            Chart constructor
+            </summary>
+            <param name="chartType">The type of chart that you intend to plot</param>
+        </member>
+        <member name="M:FusionCharts.Charts.Chart.#ctor(System.String,System.String)">
+            <summary>
+            Chart constructor
+            </summary>
+            <param name="chartType">The type of chart that you intend to plot</param>
+            <param name="chartId">Id for the chart, using which it will be recognized in the HTML page. Each chart on the page needs to have a unique Id.</param>
+        </member>
+        <member name="M:FusionCharts.Charts.Chart.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Chart constructor
+            </summary>
+            <param name="chartType">The type of chart that you intend to plot</param>
+            <param name="chartId">Id for the chart, using which it will be recognized in the HTML page. Each chart on the page needs to have a unique Id.</param>
+            <param name="chartWidth">Intended width for the chart (in pixels)</param>
+        </member>
+        <member name="M:FusionCharts.Charts.Chart.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Chart constructor
+            </summary>
+            <param name="chartType">The type of chart that you intend to plot</param>
+            <param name="chartId">Id for the chart, using which it will be recognized in the HTML page. Each chart on the page needs to have a unique Id.</param>
+            <param name="chartWidth">Intended width for the chart (in pixels)</param>
+            <param name="chartHeight">Intended height for the chart (in pixels)</param>
+        </member>
+        <member name="M:FusionCharts.Charts.Chart.#ctor(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Chart constructor
+            </summary>
+            <param name="chartType">The type of chart that you intend to plot</param>
+            <param name="chartId">Id for the chart, using which it will be recognized in the HTML page. Each chart on the page needs to have a unique Id.</param>
+            <param name="chartWidth">Intended width for the chart (in pixels)</param>
+            <param name="chartHeight">Intended height for the chart (in pixels)</param>
+            <param name="dataFormat">Data format. e.g. json, jsonurl, csv, xml, xmlurl</param>
+        </member>
+        <member name="M:FusionCharts.Charts.Chart.#ctor(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Chart constructor
+            </summary>
+            <param name="chartType">The type of chart that you intend to plot</param>
+            <param name="chartId">Id for the chart, using which it will be recognized in the HTML page. Each chart on the page needs to have a unique Id.</param>
+            <param name="chartWidth">Intended width for the chart (in pixels)</param>
+            <param name="chartHeight">Intended height for the chart (in pixels)</param>
+            <param name="dataFormat">Data format. e.g. json, jsonurl, csv, xml, xmlurl</param>
+            <param name="dataSource">Data for the chart</param>
+        </member>
+        <member name="M:FusionCharts.Charts.Chart.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Chart constructor
+            </summary>
+            <param name="chartType">The type of chart that you intend to plot</param>
+            <param name="chartId">Id for the chart, using which it will be recognized in the HTML page. Each chart on the page needs to have a unique Id.</param>
+            <param name="chartWidth">Intended width for the chart (in pixels)</param>
+            <param name="chartHeight">Intended height for the chart (in pixels)</param>
+            <param name="dataFormat">Data format. e.g. json, jsonurl, csv, xml, xmlurl</param>
+            <param name="dataSource">Data for the chart</param>
+            <param name="bgColor">Background color of the chart container</param>
+        </member>
+        <member name="M:FusionCharts.Charts.Chart.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Chart constructor
+            </summary>
+            <param name="chartType">The type of chart that you intend to plot</param>
+            <param name="chartId">Id for the chart, using which it will be recognized in the HTML page. Each chart on the page needs to have a unique Id.</param>
+            <param name="chartWidth">Intended width for the chart (in pixels)</param>
+            <param name="chartHeight">Intended height for the chart (in pixels)</param>
+            <param name="dataFormat">Data format. e.g. json, jsonurl, csv, xml, xmlurl</param>
+            <param name="dataSource">Data for the chart</param>
+            <param name="bgColor">Back-ground-color of the chart container</param>
+            <param name="bgOpacity">Background opacity of the chart container</param>
+        </member>
+        <member name="M:FusionCharts.Charts.Chart.RenderChartALL">
+            <summary>
+            Generate html code for rendering chart
+            This function assumes that you've already included the FusionCharts JavaScript class in your page
+            </summary>
+            <returns>JavaScript + HTML code required to embed a chart</returns>
+        </member>
+        <member name="M:FusionCharts.Charts.Chart.Clone">
+            <summary>
+            Public method to clone an exiting FusionCharts instance
+            To make the chartId unique, this function will add "_clone" as suffix in the clone chart's Id.
+            </summary>
+        </member>
+        <member name="M:FusionCharts.Charts.Chart.Render">
+            <summary>
+            Public method to generate html code for rendering chart
+            This function assumes that you've already included the FusionCharts JavaScript class in your page
+            </summary>
+            <returns>JavaScript + HTML code required to embed a chart</returns>
+        </member>
+        <member name="M:FusionCharts.Charts.Chart.Render(System.String)">
+            <summary>
+            Public method to generate html code for rendering chart
+            This function assumes that you've already included the FusionCharts JavaScript class in your page
+            </summary>
+            <param name="chartType">The type of chart that you intend to plot</param>
+            <returns>JavaScript + HTML code required to embed a chart</returns>
+        </member>
+        <member name="M:FusionCharts.Charts.Chart.Render(System.String,System.String)">
+            <summary>
+            Public method to generate html code for rendering chart
+            This function assumes that you've already included the FusionCharts JavaScript class in your page
+            </summary>
+            <param name="chartType">The type of chart that you intend to plot</param>
+            <param name="chartId">Id for the chart, using which it will be recognized in the HTML page. Each chart on the page needs to have a unique Id.</param>
+            <returns>JavaScript + HTML code required to embed a chart</returns>
+        </member>
+        <member name="M:FusionCharts.Charts.Chart.Render(System.String,System.String,System.String)">
+            <summary>
+            Public method to generate html code for rendering chart
+            This function assumes that you've already included the FusionCharts JavaScript class in your page
+            </summary>
+            <param name="chartType">The type of chart that you intend to plot</param>
+            <param name="chartId">Id for the chart, using which it will be recognized in the HTML page. Each chart on the page needs to have a unique Id.</param>
+            <param name="chartWidth">Intended width for the chart (in pixels)</param>
+            <returns>JavaScript + HTML code required to embed a chart</returns>
+        </member>
+        <member name="M:FusionCharts.Charts.Chart.Render(System.String,System.String,System.String,System.String)">
+            <summary>
+            Public method to generate html code for rendering chart
+            This function assumes that you've already included the FusionCharts JavaScript class in your page
+            </summary>
+            <param name="chartType">The type of chart that you intend to plot</param>
+            <param name="chartId">Id for the chart, using which it will be recognized in the HTML page. Each chart on the page needs to have a unique Id.</param>
+            <param name="chartWidth">Intended width for the chart (in pixels)</param>
+            <param name="chartHeight">Intended height for the chart (in pixels)</param>
+            <returns>JavaScript + HTML code required to embed a chart</returns>
+        </member>
+        <member name="M:FusionCharts.Charts.Chart.Render(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Public method to generate html code for rendering chart
+            This function assumes that you've already included the FusionCharts JavaScript class in your page
+            </summary>
+            <param name="chartType">The type of chart that you intend to plot</param>
+            <param name="chartId">Id for the chart, using which it will be recognized in the HTML page. Each chart on the page needs to have a unique Id.</param>
+            <param name="chartWidth">Intended width for the chart (in pixels)</param>
+            <param name="chartHeight">Intended height for the chart (in pixels)</param>
+            <param name="dataFormat">Data format. e.g. json, jsonurl, csv, xml, xmlurl</param>
+            <returns>JavaScript + HTML code required to embed a chart</returns>
+        </member>
+        <member name="M:FusionCharts.Charts.Chart.Render(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Public method to generate html code for rendering chart
+            This function assumes that you've already included the FusionCharts JavaScript class in your page
+            </summary>
+            <param name="chartType">The type of chart that you intend to plot</param>
+            <param name="chartId">Id for the chart, using which it will be recognized in the HTML page. Each chart on the page needs to have a unique Id.</param>
+            <param name="chartWidth">Intended width for the chart (in pixels)</param>
+            <param name="chartHeight">Intended height for the chart (in pixels)</param>
+            <param name="dataFormat">Data format. e.g. json, jsonurl, csv, xml, xmlurl</param>
+            <param name="dataSource">Data for the chart</param>
+            <returns>JavaScript + HTML code required to embed a chart</returns>
+        </member>
+        <member name="M:FusionCharts.Charts.Chart.Render(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Public method to generate html code for rendering chart
+            This function assumes that you've already included the FusionCharts JavaScript class in your page
+            </summary>
+            <param name="chartType">The type of chart that you intend to plot</param>
+            <param name="chartId">Id for the chart, using which it will be recognized in the HTML page. Each chart on the page needs to have a unique Id.</param>
+            <param name="chartWidth">Intended width for the chart (in pixels)</param>
+            <param name="chartHeight">Intended height for the chart (in pixels)</param>
+            <param name="dataFormat">Data format. e.g. json, jsonurl, csv, xml, xmlurl</param>
+            <param name="dataSource">Data for the chart</param>
+            <param name="bgColor">Background color of the chart container</param>
+            <returns>JavaScript + HTML code required to embed a chart</returns>
+        </member>
+        <member name="M:FusionCharts.Charts.Chart.Render(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Public method to generate html code for rendering chart
+            This function assumes that you've already included the FusionCharts JavaScript class in your page
+            </summary>
+            <param name="chartType">The type of chart that you intend to plot</param>
+            <param name="chartId">Id for the chart, using which it will be recognized in the HTML page. Each chart on the page needs to have a unique Id.</param>
+            <param name="chartWidth">Intended width for the chart (in pixels)</param>
+            <param name="chartHeight">Intended height for the chart (in pixels)</param>
+            <param name="dataFormat">Data format. e.g. json, jsonurl, csv, xml, xmlurl</param>
+            <param name="dataSource">Data for the chart</param>
+            <param name="bgColor">Background color of the chart container</param>
+            <param name="bgOpacity">Background opacity of the chart container</param>
+            <returns>JavaScript + HTML code required to embed a chart</returns>
+        </member>
+        <member name="M:FusionCharts.Charts.Chart.SetChartParameter(FusionCharts.Charts.Chart.ChartParameter,System.Object)">
+            <summary>
+            SetChartParameter sets various configurations of a FusionCharts instance
+            </summary>
+            <param name="param">Name of chart parameter</param>
+            <param name="value">Value of chart parameter</param>
+        </member>
+        <member name="M:FusionCharts.Charts.Chart.GetChartParameter(FusionCharts.Charts.Chart.ChartParameter)">
+            <summary>
+            GetChartParameter returns the value of a parameter of a FusionCharts instance
+            </summary>
+            <param name="param">Name of chart parameter</param>
+            <returns>String</returns>
+        </member>
+        <member name="M:FusionCharts.Charts.Chart.SetData(System.String)">
+            <summary>
+            This method to set the data for the chart
+            </summary>
+            <param name="dataSource">Data for the chart</param>
+        </member>
+        <member name="M:FusionCharts.Charts.Chart.SetData(System.String,FusionCharts.Charts.Chart.DataFormat)">
+            <summary>
+            This method to set the data for the chart
+            </summary>
+            <param name="dataSource">Data for the chart</param>
+            <param name="dataFormat">Data format. e.g. json, jsonurl, csv, xml, xmlurl</param>
+        </member>
+        <member name="M:FusionCharts.Charts.Chart.SetChartParameter(System.String,System.Object)">
+            <summary>
+            SetConfiguration sets various configurations of FusionCharts
+            It takes configuration names as first parameter and its value a second parameter
+            There are config groups which can contain common configuration names. All config names in all groups gets set with this value
+            unless group is specified explicitly
+            </summary>
+            <param name="setting">Name of configuration</param>
+            <param name="value">Value of configuration</param>
+        </member>
+        <member name="M:FusionCharts.Charts.Chart.boolToNum(System.Boolean)">
+            <summary>
+            Transform the meaning of boolean value in integer value
+            </summary>
+            <param name="value">true/false value to be transformed</param>
+            <returns>1 if the value is true, 0 if the value is false</returns>
+        </member>
+        <member name="T:FusionCharts.Charts.Chart.ChartParameter">
+            <summary>
+            User configurable chart parameter list 
+            </summary>
+        </member>
+        <member name="T:FusionCharts.Charts.Chart.DataFormat">
+            <summary>
+            List of supported data formats
+            </summary>
+        </member>
+        <member name="T:InfoSoftGlobal.FusionCharts">
+            <summary>
+            Contains static methods to render FusionCharts in the Page.
+            
+            @version: v3.2.2.2 
+            @date: 15 August 2012
+            
+            </summary>
+        </member>
+        <member name="M:InfoSoftGlobal.FusionCharts.RenderChartALL(System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.String,System.String,System.String)">
+            <summary>
+            Generate html code for rendering chart
+            This function assumes that you've already included the FusionCharts JavaScript class in your page
+            </summary>
+            <param name="chartSWF">SWF File Name (and Path) of the chart which you intend to plot</param>
+            <param name="dataUrl">If you intend to use dataURL method for this chart, pass the URL as this parameter. Else, set it to "" (in case of dataXML method)</param>
+            <param name="dataStr">If you intend to use dataXML method for this chart, pass the XML data as this parameter. Else, set it to "" (in case of dataURL method)</param>
+            <param name="chartId">Id for the chart, using which it will be recognized in the HTML page. Each chart on the page needs to have a unique Id.</param>
+            <param name="chartWidth">Intended width for the chart (in pixels)</param>
+            <param name="chartHeight">Intended height for the chart (in pixels)</param>
+            <param name="debugMode">Whether to start the chart in debug mode</param>
+            <param name="registerWithJS">Whether to ask chart to register itself with JavaScript</param>
+            <param name="allowTransparent">Whether allowTransparent chart (true / false)</param>
+            <param name="bgColor">Back Ground Color</param>
+            <param name="scaleMode">Set Scale Mode</param>
+            <param name="language">Set SWF file Language</param>
+            <returns>JavaScript + HTML code required to embed a chart</returns>
+        </member>
+        <member name="M:InfoSoftGlobal.FusionCharts.RenderChartHTMLALL(System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.String,System.String,System.String)">
+            <summary>
+            Renders the HTML code for the chart. This
+            method does NOT embed the chart using JavaScript class. Instead, it uses
+            direct HTML embedding. So, if you see the charts on IE 6 (or above), you'll
+            see the "Click to activate..." message on the chart.
+            </summary>
+            <param name="chartSWF">SWF File Name (and Path) of the chart which you intend to plot</param>
+            <param name="dataUrl">If you intend to use dataURL method for this chart, pass the URL as this parameter. Else, set it to "" (in case of dataXML method)</param>
+            <param name="dataStr">If you intend to use dataXML method for this chart, pass the XML data as this parameter. Else, set it to "" (in case of dataURL method)</param>
+            <param name="chartId">Id for the chart, using which it will be recognized in the HTML page. Each chart on the page needs to have a unique Id.</param>
+            <param name="chartWidth">Intended width for the chart (in pixels)</param>
+            <param name="chartHeight">Intended height for the chart (in pixels)</param>
+            <param name="debugMode">Whether to start the chart in debug mode</param>
+            <param name="registerWithJS">Whether to ask chart to register itself with JavaScript</param>
+            <param name="allowTransparent">Whether allowTransparent chart (true / false)</param>
+            <param name="bgColor">Back Ground Color</param>
+            <param name="scaleMode">Set Scale Mode</param>
+            <param name="language">Set SWF file Language</param>
+            <returns></returns>
+        </member>
+        <member name="M:InfoSoftGlobal.FusionCharts.RenderChart(System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Generate html code for rendering chart
+            This function assumes that you've already included the FusionCharts JavaScript class in your page
+            </summary>
+            <param name="chartSWF">SWF File Name (and Path) of the chart which you intend to plot</param>
+            <param name="dataUrl">If you intend to use dataURL method for this chart, pass the URL as this parameter. Else, set it to "" (in case of dataXML method)</param>
+            <param name="dataStr">If you intend to use dataXML method for this chart, pass the XML data as this parameter. Else, set it to "" (in case of dataURL method)</param>
+            <param name="chartId">Id for the chart, using which it will be recognized in the HTML page. Each chart on the page needs to have a unique Id.</param>
+            <param name="chartWidth">Intended width for the chart (in pixels)</param>
+            <param name="chartHeight">Intended height for the chart (in pixels)</param>
+            <param name="debugMode">Whether to start the chart in debug mode</param>
+            <param name="registerWithJS">Whether to ask chart to register itself with JavaScript</param>
+            <returns>JavaScript + HTML code required to embed a chart</returns>
+        </member>
+        <member name="M:InfoSoftGlobal.FusionCharts.RenderChart(System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Generate html code for rendering chart
+            This function assumes that you've already included the FusionCharts JavaScript class in your page
+            </summary>
+            <param name="chartSWF">SWF File Name (and Path) of the chart which you intend to plot</param>
+            <param name="dataUrl">If you intend to use dataURL method for this chart, pass the URL as this parameter. Else, set it to "" (in case of dataXML method)</param>
+            <param name="dataStr">If you intend to use dataXML method for this chart, pass the XML data as this parameter. Else, set it to "" (in case of dataURL method)</param>
+            <param name="chartId">Id for the chart, using which it will be recognized in the HTML page. Each chart on the page needs to have a unique Id.</param>
+            <param name="chartWidth">Intended width for the chart (in pixels)</param>
+            <param name="chartHeight">Intended height for the chart (in pixels)</param>
+            <param name="debugMode">Whether to start the chart in debug mode</param>
+            <param name="registerWithJS">Whether to ask chart to register itself with JavaScript</param>
+            <param name="allowTransparent">Whether allowTransparent chart (true / false)</param>
+            <returns>JavaScript + HTML code required to embed a chart</returns>
+        </member>
+        <member name="M:InfoSoftGlobal.FusionCharts.RenderChart(System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.String,System.String,System.String)">
+            <summary>
+            Generate html code for rendering chart
+            This function assumes that you've already included the FusionCharts JavaScript class in your page
+            </summary>
+            <param name="chartSWF">SWF File Name (and Path) of the chart which you intend to plot</param>
+            <param name="dataUrl">If you intend to use dataURL method for this chart, pass the URL as this parameter. Else, set it to "" (in case of dataXML method)</param>
+            <param name="dataStr">If you intend to use dataXML method for this chart, pass the XML data as this parameter. Else, set it to "" (in case of dataURL method)</param>
+            <param name="chartId">Id for the chart, using which it will be recognized in the HTML page. Each chart on the page needs to have a unique Id.</param>
+            <param name="chartWidth">Intended width for the chart (in pixels)</param>
+            <param name="chartHeight">Intended height for the chart (in pixels)</param>
+            <param name="debugMode">Whether to start the chart in debug mode</param>
+            <param name="registerWithJS">Whether to ask chart to register itself with JavaScript</param>
+            <param name="allowTransparent">Whether allowTransparent chart (true / false)</param>
+            <param name="bgColor">Back Ground Color</param>
+            <param name="scaleMode">Set Scale Mode</param>
+            <param name="language">Set SWF file Language</param>
+            <returns>JavaScript + HTML code required to embed a chart</returns>
+        </member>
+        <member name="M:InfoSoftGlobal.FusionCharts.RenderChartHTML(System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Renders the HTML code for the chart. This
+            method does NOT embed the chart using JavaScript class. Instead, it uses
+            direct HTML embedding. So, if you see the charts on IE 6 (or above), you'll
+            see the "Click to activate..." message on the chart.
+            </summary>
+            <param name="chartSWF">SWF File Name (and Path) of the chart which you intend to plot</param>
+            <param name="dataUrl">If you intend to use dataURL method for this chart, pass the URL as this parameter. Else, set it to "" (in case of dataXML method)</param>
+            <param name="dataStr">If you intend to use dataXML method for this chart, pass the XML data as this parameter. Else, set it to "" (in case of dataURL method)</param>
+            <param name="chartId">Id for the chart, using which it will be recognized in the HTML page. Each chart on the page needs to have a unique Id.</param>
+            <param name="chartWidth">Intended width for the chart (in pixels)</param>
+            <param name="chartHeight">Intended height for the chart (in pixels)</param>
+            <param name="debugMode">Whether to start the chart in debug mode</param>
+            <returns></returns>
+        </member>
+        <member name="M:InfoSoftGlobal.FusionCharts.RenderChartHTML(System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Renders the HTML code for the chart. This
+            method does NOT embed the chart using JavaScript class. Instead, it uses
+            direct HTML embedding. So, if you see the charts on IE 6 (or above), you'll
+            see the "Click to activate..." message on the chart.
+            </summary>
+            <param name="chartSWF">SWF File Name (and Path) of the chart which you intend to plot</param>
+            <param name="dataUrl">If you intend to use dataURL method for this chart, pass the URL as this parameter. Else, set it to "" (in case of dataXML method)</param>
+            <param name="dataStr">If you intend to use dataXML method for this chart, pass the XML data as this parameter. Else, set it to "" (in case of dataURL method)</param>
+            <param name="chartId">Id for the chart, using which it will be recognized in the HTML page. Each chart on the page needs to have a unique Id.</param>
+            <param name="chartWidth">Intended width for the chart (in pixels)</param>
+            <param name="chartHeight">Intended height for the chart (in pixels)</param>
+            <param name="debugMode">Whether to start the chart in debug mode</param>
+            <param name="registerWithJS">Whether to ask chart to register itself with JavaScript</param>
+            <returns></returns>
+        </member>
+        <member name="M:InfoSoftGlobal.FusionCharts.RenderChartHTML(System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Renders the HTML code for the chart. This
+            method does NOT embed the chart using JavaScript class. Instead, it uses
+            direct HTML embedding. So, if you see the charts on IE 6 (or above), you'll
+            see the "Click to activate..." message on the chart.
+            </summary>
+            <param name="chartSWF">SWF File Name (and Path) of the chart which you intend to plot</param>
+            <param name="dataUrl">If you intend to use dataURL method for this chart, pass the URL as this parameter. Else, set it to "" (in case of dataXML method)</param>
+            <param name="dataStr">If you intend to use dataXML method for this chart, pass the XML data as this parameter. Else, set it to "" (in case of dataURL method)</param>
+            <param name="chartId">Id for the chart, using which it will be recognized in the HTML page. Each chart on the page needs to have a unique Id.</param>
+            <param name="chartWidth">Intended width for the chart (in pixels)</param>
+            <param name="chartHeight">Intended height for the chart (in pixels)</param>
+            <param name="debugMode">Whether to start the chart in debug mode</param>
+            <param name="registerWithJS">Whether to ask chart to register itself with JavaScript</param>
+            <param name="allowTransparent">Whether allowTransparent chart (true / false)</param>
+            <returns></returns>
+        </member>
+        <member name="M:InfoSoftGlobal.FusionCharts.RenderChartHTML(System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.String,System.String,System.String)">
+            <summary>
+            Renders the HTML code for the chart. This
+            method does NOT embed the chart using JavaScript class. Instead, it uses
+            direct HTML embedding. So, if you see the charts on IE 6 (or above), you'll
+            see the "Click to activate..." message on the chart.
+            </summary>
+            <param name="chartSWF">SWF File Name (and Path) of the chart which you intend to plot</param>
+            <param name="dataUrl">If you intend to use dataURL method for this chart, pass the URL as this parameter. Else, set it to "" (in case of dataXML method)</param>
+            <param name="dataStr">If you intend to use dataXML method for this chart, pass the XML data as this parameter. Else, set it to "" (in case of dataURL method)</param>
+            <param name="chartId">Id for the chart, using which it will be recognized in the HTML page. Each chart on the page needs to have a unique Id.</param>
+            <param name="chartWidth">Intended width for the chart (in pixels)</param>
+            <param name="chartHeight">Intended height for the chart (in pixels)</param>
+            <param name="debugMode">Whether to start the chart in debug mode</param>
+            <param name="registerWithJS">Whether to ask chart to register itself with JavaScript</param>
+            <param name="allowTransparent">Whether allowTransparent chart (true / false)</param>
+            <param name="bgColor">Back Ground Color</param>
+            <param name="scaleMode">Set Scale Mode</param>
+            <param name="language">Set SWF file Language</param>
+            <returns></returns>
+        </member>
+        <member name="M:InfoSoftGlobal.FusionCharts.EncodeDataURL(System.String,System.Boolean)">
+            <summary>
+            encodes the dataURL before it's served to FusionCharts
+            If you have parameters in your dataURL, you'll necessarily need to encode it
+            </summary>
+            <param name="dataUrl">dataURL to be fed to chart</param>
+            <param name="noCacheStr">Whether to add aditional string to URL to disable caching of data</param>
+            <returns>Encoded dataURL, ready to be consumed by FusionCharts</returns>
+        </member>
+        <member name="M:InfoSoftGlobal.FusionCharts.EnablePrintManager">
+            <summary>
+            Enables Print Manager for Mozilla browsers
+            This function returns a small JavaScript snippet which can be added to ClientScript's RegisterClientScriptBlock method
+            </summary>
+            <example>ClientScript.RegisterClientScriptBlock(Page.GetType(), "", FusionCharts.enableFCPrintManager());</example>
+            <returns>String with the JavaScript code</returns>
+        </member>
+        <member name="M:InfoSoftGlobal.FusionCharts.EnablePrintManager(System.Object)">
+            <summary>
+            Enables Print Manager for Mozilla browsers
+            </summary>
+            <param name="CurrentPage">Current page reference</param>
+        </member>
+        <member name="M:InfoSoftGlobal.FusionCharts.SetDataFormat(System.String)">
+            <summary>
+            Sets the dataformat to be provided to charts (json/xml)
+            </summary>
+            <param name="format">Data format. Default is 'xml'. Other format is 'json'</param>
+        </member>
+        <member name="M:InfoSoftGlobal.FusionCharts.SetRenderer(System.String)">
+            <summary>
+            Sets renderer type (flash/javascript)
+            </summary>
+            <param name="renderer"> Name of the renderer. Default is 'flash'. Other possibility is 'javascript'</param>
+        </member>
+        <member name="M:InfoSoftGlobal.FusionCharts.SetWindowMode(System.String)">
+            <summary>
+            Explicitely sets window mode (window[detault]/transpatent/opaque)
+            </summary>
+            <param name="mode">Name of the mode. Default is 'window'. Other possibilities are 'transparent'/'opaque'</param>
+        </member>
+        <member name="M:InfoSoftGlobal.FusionCharts.SetConfiguration(System.String,System.Object)">
+            <summary>
+            FC_SetConfiguration sets various configurations of FusionCharts
+            It takes configuration names as first parameter and its value a second parameter
+            There are config groups which can contain common configuration names. All config names in all groups gets set with this value
+            unless group is specified explicitly
+            </summary>
+            <param name="setting">Name of configuration</param>
+            <param name="value">Value of configuration</param>
+        </member>
+        <member name="M:InfoSoftGlobal.FusionCharts.SetConfiguration(System.Collections.Hashtable@,System.String,System.Object)">
+            <summary>
+            FC_SetConfiguration sets various configurations of FusionCharts
+            It takes configuration names as first parameter and its value a second parameter
+            There are config groups which can contain common configuration names. All config names in all groups gets set with this value
+            unless group is specified explicitly
+            </summary>
+            <param name="setting">Name of configuration</param>
+            <param name="value">Value of configuration</param>
+        </member>
+        <member name="M:InfoSoftGlobal.FusionCharts.boolToNum(System.Boolean)">
+            <summary>
+            Transform the meaning of boolean value in integer value
+            </summary>
+            <param name="value">true/false value to be transformed</param>
+            <returns>1 if the value is true, 0 if the value is false</returns>
+        </member>
+    </members>
+</doc>

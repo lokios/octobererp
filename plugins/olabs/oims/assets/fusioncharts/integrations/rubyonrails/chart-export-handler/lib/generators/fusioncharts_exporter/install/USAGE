@@ -1,0 +1,8 @@
+Description:
+    Generates config file for the fusioncharts export handler
+
+Example:
+    rails generate fusioncharts_exporter:install
+
+    This will create:
+        config/fusioncharts_exporter.yml

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FC-python wrapper</title>
+    <!-- If you are using downloaded FusionCharts libraries, uncomment the below code   -->
+    <!--
+
+	{% load static %} 
+   <script type="text/javascript" src="{% static "fusioncharts/fusioncharts.js" %}"></script>
+   <script type="text/javascript" src="{% static "fusioncharts/themes/fusioncharts.theme.fusion.js" %}"></script>
+   <script type="text/javascript" src="{% static "fusioncharts/themes/fusioncharts.theme.gammel.js" %}"></script>
+   <script type="text/javascript" src="{% static "fusioncharts/themes/fusioncharts.theme.zune.js" %}"></script>
+   <script type="text/javascript" src="{% static "fusioncharts/themes/fusioncharts.theme.carbon.js" %}"></script>
+   <script type="text/javascript" src="{% static "fusioncharts/themes/fusioncharts.theme.ocean.js" %}"></script>
+    -->
+
+   <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+   <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+   <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.gammel.js"></script>
+   <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.zune.js"></script>
+   <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.carbon.js"></script>
+   <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.ocean.js"></script>
+
+   <script type="text/javascript">
+        FusionCharts && FusionCharts.ready(function () {
+            
+            //FusionCharts.options.defaultTheme = "fusion";
+
+            var trans = document.getElementById("controllers").getElementsByTagName("input");
+            for (var i=0, len=trans.length; i<len; i++) {                
+                if (trans[i].type == "radio"){
+                    trans[i].onchange = function() {
+                        ChangeTheme(this.value);
+                    };
+                }
+            }
+        });
+
+        function ChangeTheme(theme) {
+            for (var k in FusionCharts.items) {
+                if (FusionCharts.items.hasOwnProperty(k)) {
+                    FusionCharts.items[k].setChartAttribute('theme', theme);
+                }
+            }
+        };
+
+   </script>
+</head>
+<body style="font-family:'Helvetica Neue', Arial; font-size: 16px;">
+
+    <div style="width: 100%; display: table;">
+        <div style="display: table-row">
+            <div id="chart-1" style="width: 40%; display: table-cell;">{{ output1|safe }}</div>
+            <div id="chart-2" style="width: 40%; display: table-cell;">{{ output2|safe }}</div>
+        </div>
+    </div>
+    <br/>
+    <br/>
+    
+    <div align="center" style="font-family:'Helvetica Neue', Arial; font-size: 16px;">
+            <label style="padding: 0px 5px !important;">Select a theme for all charts</label>
+    </div>
+    <br/>
+    <div id="controllers" align="center" style="font-family:'Helvetica Neue', Arial; font-size: 14px;">
+        <label style="padding: 0px 5px !important;">
+            <input type="radio" name="theme-options" checked value="fusion"/> Fusion
+        </label>
+        <label style="padding: 0px 5px !important;">
+            <input type="radio" name="theme-options" value="gammel"/> Gammel
+        </label>
+        <label style="padding: 0px 5px !important;">
+                <input type="radio" name="theme-options" value="zune"/> Zune
+        </label>
+        <label style="padding: 0px 5px !important;">
+            <input type="radio" name="theme-options" value="carbon"/> Carbon
+        </label>
+        <label style="padding: 0px 5px !important;">
+            <input type="radio" name="theme-options" value="ocean"/> Ocean
+        </label>        
+    </div>
+	<br/>
+	<a href="/">Back</a>
+</body>
+</html>
+
+

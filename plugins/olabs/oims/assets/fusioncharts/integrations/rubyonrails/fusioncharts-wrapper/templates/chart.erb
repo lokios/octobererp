@@ -1,0 +1,11 @@
+<script type="text/javascript">
+  FusionCharts.ready(function() {
+    var _fc_chart = new FusionCharts(<%= config %>);
+    <% if(dataUrlFormat == 'json') %>
+    _fc_chart.setJSONUrl("<%= @jsonUrl %>")
+    <% elsif(dataUrlFormat == 'xml') %>
+    _fc_chart.setXMLUrl("<%= @xmlUrl %>")
+    <% end %>
+    _fc_chart.render();
+  });
+</script>

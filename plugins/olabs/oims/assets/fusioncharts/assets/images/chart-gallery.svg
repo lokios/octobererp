@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>Icons/Combination Charts</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="20" height="20"></rect>
+        <path d="M2.03033009,7.76291275 L5.03033009,7.76291275 L5.03033009,17 L2.03033009,17 L2.03033009,7.76291275 Z M15.0303301,12.4954954 L18.0303301,12.4954954 L18.0303301,17 L15.0303301,17 L15.0303301,12.4954954 Z M8.53033009,9.7477477 L11.5303301,9.7477477 L11.5303301,17 L8.53033009,17 L8.53033009,9.7477477 Z M7.44414201,8.9975654 L2,3.00900919 L3.10991011,2 L7.6657681,7.01144379 L12.6403483,3.52923766 L18.5852851,9.47417451 L17.524625,10.5348347 L12.4695618,5.47977153 L7.44414201,8.9975654 Z" id="path-3"></path>
+    </defs>
+    <g id="Icons/Combination-Charts" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="PerformanceCharts">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="Mask"></g>
+            <mask id="mask-4" fill="white">
+                <use xlink:href="#path-3"></use>
+            </mask>
+            <use id="Mask" fill="#313131" xlink:href="#path-3"></use>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,22 @@
+<%
+    def getChart
+
+        # Chart rendering 
+        chart = Fusioncharts::Chart.new({
+                width: "700",
+                height: "400",
+                type: "column2d", 
+                renderAt: "chartContainer",
+                dataFormat: "xmlurl",
+                dataSource: "/data/data.xml"
+            })
+    end
+
+%>
+
+<h3>Chart using data from XML URL</h3>
+<div id="chartContainer"></div>
+<%= getChart.render() %>
+<br/>
+<br/>
+<a href="index">Go Back</a>

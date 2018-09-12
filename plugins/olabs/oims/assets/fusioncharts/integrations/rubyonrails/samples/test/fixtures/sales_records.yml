@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  Region: MyString
+  Country: MyString
+  City: MyString
+  TotalSales: 1
+
+two:
+  Region: MyString
+  Country: MyString
+  City: MyString
+  TotalSales: 1

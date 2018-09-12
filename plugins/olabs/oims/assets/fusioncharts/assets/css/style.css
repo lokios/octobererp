@@ -1,0 +1,128 @@
+#navbar {
+    height: 64px;
+}
+
+.header-link {
+    color: #8786A4;
+}
+
+.sub-banner-title {
+    color: #212344 !important;
+    font-family: basefontSemiBold !important;
+}
+
+.tech-stack-title {
+    color: #212344;
+}
+
+.demo {
+    height: 100%;
+    display: flex;
+}
+
+.foot-item {
+    color: #686980;
+    font-weight: 300 !important;
+}
+
+.list-inline-item>a>p {
+    padding-top: 10px;
+    line-height: 130%;
+}
+
+.card-link {
+    text-transform: uppercase;
+}
+
+.strike {
+    display: block;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.strike>span {
+    position: relative;
+    display: inline-block;
+}
+
+.strike>span:before,
+.strike>span:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 9999px;
+    height: 1px;
+    background: #E2E2E2;
+}
+
+.strike>span:before {
+    right: 100%;
+    margin-right: 15px;
+}
+
+.strike>span:after {
+    left: 100%;
+    margin-left: 15px;
+}
+
+.info-p {
+    color: #5648D4 !important;
+    font-family: basefontSemiBold !important;
+}
+
+.techstack-link {
+    text-decoration: none;
+    color: #434456;
+}
+
+.techstack-link:hover {
+    text-decoration: none;
+}
+
+.feature-icon {
+    height: 35px;
+    width: 35px;
+    border: 0.68px solid rgba(104, 105, 128, 0.22);
+    border-radius: 3.7px;
+    box-shadow: 0 9px 20px 0 rgba(62, 57, 107, 0.04);
+}
+.feature-icon > i {
+    width: 100%;
+    font-size: 22px;
+}
+
+.card-title {
+    padding-top: 5px;
+}
+
+.techstack-logo:hover {
+    -webkit-transition: translateY(-4px);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 14px 0 rgba(33, 35, 68, .05) !important;
+}
+
+i {
+    color: #8786A4 !important;
+}
+
+@media (min-width:768px) {
+    .navbar {
+        padding: .5rem
+    }
+}
+
+@media (min-width:992px) {
+    .navbar .navbar-nav .nav-item {
+        margin-right: 1rem
+    }
+}
+
+@media (min-width:1200px) {
+    .navbar {
+        padding: .6rem 4%
+    }
+    .navbar .navbar-nav .nav-item {
+        margin-right: 1.4rem
+    }
+}

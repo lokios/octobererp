@@ -1,0 +1,54 @@
+<%
+    def getChart
+
+        # Chart appearance configuration
+        chartConfigObj = Hash.new
+        chartConfigObj = { 
+                            "caption" => "Sales by Continent",
+                            "xAxisName" => "Continent",
+                            "yAxisName" => "Total Sales", 
+                            "numberSuffix" => "K", 
+                            "theme" => "fusion"
+                        }
+        
+        
+        dataTemplate = "{\"label\": \"%s\",\"value\": \"%s\"},"
+        
+        # Chart data as JSON string
+        labelValueJSONStr = ""
+
+        result = SalesRecord.select("Region, SUM(TotalSales) as TotalSales").group("Region")
+        result.each do |row|
+            labelValuedata = dataTemplate % [row["Region"], row["TotalSales"].to_s, row["Region"]]
+            labelValueJSONStr.concat(labelValuedata)
+        end
+
+        # Removing trailing comma character
+        labelValueJSONStr = labelValueJSONStr.chop
+
+        # Chart JSON data template
+        chartJSONDataTemplate = "{ \"chart\": %s, \"data\": [%s] }"
+
+        # Final Chart JSON data from template
+        chartJSONDataStr = chartJSONDataTemplate % [chartConfigObj.to_json, labelValueJSONStr]
+
+
+
+
+        # Chart rendering 
+        chart = Fusioncharts::Chart.new({
+                width: "700",
+                height: "400",
+                type: "column2d",
+                renderAt: "chartContainer",
+                dataSource: chartJSONDataStr
+        })
+    end
+%>
+
+<h3>Chart Using Database (SQLITE3)</h3>
+<div id="chartContainer"></div>
+<%= getChart.render() %>
+<br/>
+<br/>
+<a href="index">Go Back</a>
