@@ -1,0 +1,66 @@
+<div class="page-header">
+
+    <h3><small>Account Statement Report from <?=$oimsSetting->convertToDisplayDate($from_date)?> to <?=$oimsSetting->convertToDisplayDate($to_date)?></small></h3>
+</div>
+<div class="page-header">
+    <h3><small>SUMMARY</small></h3>
+</div>
+<table class="table table-bordered">
+    <thead> 
+        <tr> 
+            <th>DESCRIPTION</th> 
+            <th></th> 
+        </tr> 
+    </thead> 
+    <tbody>
+        <tr> 
+            <th scope="row">Balance On Date <?=$oimsSetting->convertToDisplayDate($from_date) ?> </th> 
+            <td><?= $oimsSetting->getPriceFormattedWithoutCurrency($balance_amount) ?></td>
+        </tr> 
+
+    </tbody>
+</table>
+
+<table class="table table-bordered">
+    <thead> 
+        <tr> 
+            <!--<th>ID</th>--> 
+            <th>Date</th>
+            <th>Project</th> 
+            <th>Description</th>
+            <th>Reference No.</th>
+            <th>Debit</th> 
+            <th>Credit</th>
+            <th>Balance</th>
+            
+        </tr> 
+    </thead> 
+    <tbody>
+
+        <? 
+        $status_count = [];
+        $grand_total = 0;
+        $count = 0;
+        foreach($reports as $report){ 
+        $count++;
+        $balance_amount = $balance_amount + $report->credit_amount - $report->debit_amount;
+
+        ?>
+        <tr>
+<!--            <td><?=$report->id?></td>-->
+            <td><?= $oimsSetting->convertToDisplayDate($report->context_date)?></td>
+            
+            <td><?=$report->project->name?></td>
+            <td><?=$report->description?></td>
+            <td><?=$report->narration?></td>
+            <td><?=$report->debit_amount != 0 ? $oimsSetting->getPriceFormattedWithoutCurrency($report->debit_amount) : ''?></td>
+            <td><?=$report->credit_amount != 0 ? $oimsSetting->getPriceFormattedWithoutCurrency($report->credit_amount) : ''?></td>
+            <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($balance_amount)?></td>
+            
+            
+            
+        </tr>
+        <? } ?>
+    </tbody>
+</table>
+

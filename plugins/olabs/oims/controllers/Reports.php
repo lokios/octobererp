@@ -12,8 +12,9 @@ use App;
 use Db;
 use Vdomah\Excel\Classes\Excel;
 use Olabs\Oims\Classes\FusionCharts;
+use Olabs\Oims\Classes\ReportHelper;
 
-class Reports extends Controller {
+class Reports extends ReportHelper {
 
     public $implement = [];
     protected $searchFormWidget;
@@ -24,118 +25,6 @@ class Reports extends Controller {
         ini_set('max_execution_time', 600);
         $this->searchFormWidget = $this->createDPRSearchFormWidget();
         BackendMenu::setContext('Olabs.Oims', 'reports', 'drp_report');
-    }
-
-    protected function createDPRSearchFormWidget() {
-        $config = $this->makeConfig('$/olabs/oims/models/report/dpr_search_fields.yaml');
-
-        $config->alias = 'dprSearch';
-
-        $config->arrayName = 'DprSearch';
-
-        $config->model = new \Olabs\Oims\Models\Manpower;
-
-        $widget = $this->makeWidget('Backend\Widgets\Form', $config);
-
-        $widget->bindToController();
-
-        return $widget;
-    }
-
-    protected function createMRSearchFormWidget() {
-        $config = $this->makeConfig('$/olabs/oims/models/report/mr_search_fields.yaml');
-
-        $config->alias = 'reportSearch';
-
-        $config->arrayName = 'reportSearch';
-
-        $config->model = new \Olabs\Oims\Models\Manpower;
-
-        $widget = $this->makeWidget('Backend\Widgets\Form', $config);
-
-        $widget->bindToController();
-
-        return $widget;
-    }
-
-    protected function createAssetsSearchFormWidget() {
-        $config = $this->makeConfig('$/olabs/oims/models/report/assets_search_fields.yaml');
-
-        $config->alias = 'reportSearch';
-
-        $config->arrayName = 'reportSearch';
-
-        $config->model = new \Olabs\Oims\Models\Manpower;
-
-        $widget = $this->makeWidget('Backend\Widgets\Form', $config);
-
-        $widget->bindToController();
-
-        return $widget;
-    }
-
-    protected function createAttendanceSearchFormWidget() {
-        $config = $this->makeConfig('$/olabs/oims/models/report/attendance_search_fields.yaml');
-
-        $config->alias = 'reportSearch';
-
-        $config->arrayName = 'reportSearch';
-
-        $config->model = new \Olabs\Oims\Models\Manpower;
-
-        $widget = $this->makeWidget('Backend\Widgets\Form', $config);
-
-        $widget->bindToController();
-
-        return $widget;
-    }
-
-    protected function createAttendanceSummarySearchFormWidget() {
-        $config = $this->makeConfig('$/olabs/oims/models/report/attendance_summary_search_fields.yaml');
-
-        $config->alias = 'reportSearch';
-
-        $config->arrayName = 'reportSearch';
-
-        $config->model = new \Olabs\Oims\Models\Manpower;
-
-        $widget = $this->makeWidget('Backend\Widgets\Form', $config);
-
-        $widget->bindToController();
-
-        return $widget;
-    }
-
-    protected function createMaterialSearchFormWidget() {
-        $config = $this->makeConfig('$/olabs/oims/models/report/material_search_fields.yaml');
-
-        $config->alias = 'reportSearch';
-
-        $config->arrayName = 'reportSearch';
-
-        $config->model = new \Olabs\Oims\Models\Manpower;
-
-        $widget = $this->makeWidget('Backend\Widgets\Form', $config);
-
-        $widget->bindToController();
-
-        return $widget;
-    }
-    
-    protected function createProjectProgressSearchFormWidget() {
-        $config = $this->makeConfig('$/olabs/oims/models/report/project_progress_search_fields.yaml');
-
-        $config->alias = 'reportSearch';
-
-        $config->arrayName = 'reportSearch';
-
-        $config->model = new \Olabs\Oims\Models\Manpower;
-
-        $widget = $this->makeWidget('Backend\Widgets\Form', $config);
-
-        $widget->bindToController();
-
-        return $widget;
     }
 
     public function dpr() {
@@ -379,192 +268,7 @@ class Reports extends Controller {
         return \Redirect::to('/backend/olabs/oims/reports/download?name=' . $fileName);
     }
 
-    public function downloadPdf() {
-        // Here we can make use of the download response
-        $file_name = get('name');
-        return \Response::download(temp_path($file_name . '.pdf'));
-    }
-
-    public function download() {
-        // Here we can make use of the download response
-        $file_name = get('name');
-//        return \Response::download(temp_path($file_name));
-        return \Response::download(storage_path('app') . '/' . $file_name);
-    }
-
-    protected function searchDPR($searchParams) {
-
-        $projectprogress = array();
-        $manpowers = array();
-        $machineries = array();
-        $expenseOnMaterials = array();
-        $expenseOnPcs = array();
-        $total_days = 0;
-
-
-        $search_from_date = isset($searchParams['from_date']) ? $searchParams['from_date'] : '';
-        $search_to_date = isset($searchParams['to_date']) ? $searchParams['to_date'] : '';
-
-        $from_date = false;
-        if ($search_from_date != '') {
-            $from_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_from_date); //date('Y-m-d 00:00:00', strtotime($from_date));
-        }
-
-        $to_date = false;
-        if ($search_to_date != '') {
-            $timeFormat = '23:59:59';
-            $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
-        }
-
-        $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
-
-        $baseModel = new \Olabs\Oims\Models\BaseModel();
-        $assigned_projects = $baseModel->getProjectOptions();
-
-        $params = array();
-        if ($project) {
-            $params['project_id'] = $project;
-        }
-
-        $projectModal = \Olabs\Oims\Models\Project::find($project);
-        $this->vars['fix_expense'] = $projectModal['fix_expense'];
-
-
-
-        if ($from_date && $to_date) {
-            $datetime1 = new DateTime($from_date);
-            $datetime2 = new DateTime($to_date);
-            $interval = $datetime1->diff($datetime2);
-            $total_days = $interval->format('%d') + 1; //to add current date 
-            //$criteria->addBetweenCondition('date_modified', $params->from_date, $params->to_date);
-            if (count($params)) {
-                $projectprogress = \Olabs\Oims\Models\ProjectProgress::where($params)
-                        ->whereBetween('start_date', [$from_date, $to_date])
-                        ->get();
-                $manpowers = \Olabs\Oims\Models\Manpower::where($params)
-                        ->whereBetween('context_date', [$from_date, $to_date])
-                        ->get();
-                $machineries = \Olabs\Oims\Models\Machinery::where($params)
-                        ->whereBetween('context_date', [$from_date, $to_date])
-                        ->get();
-                $expenseOnMaterials = \Olabs\Oims\Models\ExpenseOnMaterial::where($params)
-                        ->whereBetween('context_date', [$from_date, $to_date])
-                        ->get();
-                $expenseOnPcs = \Olabs\Oims\Models\ExpenseOnPc::where($params)
-                        ->whereBetween('context_date', [$from_date, $to_date])
-                        ->get();
-            } else {
-                $projectprogress = \Olabs\Oims\Models\ProjectProgress::whereBetween('start_date', [$from_date, $to_date])
-                        ->whereIn('project_id', array_keys($assigned_projects))
-                        ->get();
-                $manpowers = \Olabs\Oims\Models\Manpower::whereBetween('context_date', [$from_date, $to_date])
-                        ->whereIn('project_id', array_keys($assigned_projects))
-                        ->get();
-                $machineries = \Olabs\Oims\Models\Machinery::whereBetween('context_date', [$from_date, $to_date])
-                        ->whereIn('project_id', array_keys($assigned_projects))
-                        ->get();
-                $expenseOnMaterials = \Olabs\Oims\Models\ExpenseOnMaterial::whereBetween('context_date', [$from_date, $to_date])
-                        ->whereIn('project_id', array_keys($assigned_projects))
-                        ->get();
-                $expenseOnPcs = \Olabs\Oims\Models\ExpenseOnPc::whereBetween('context_date', [$from_date, $to_date])
-                        ->whereIn('project_id', array_keys($assigned_projects))
-                        ->get();
-            }
-        } else if ($from_date) {
-            if (count($params)) {
-                $projectprogress = \Olabs\Oims\Models\ProjectProgress::where($params)
-                        ->whereDate('start_date', '>=', $from_date)
-                        ->get();
-                $manpowers = \Olabs\Oims\Models\Manpower::where($params)
-                        ->whereDate('context_date', '>=', $from_date)
-                        ->get();
-                $machineries = \Olabs\Oims\Models\Machinery::where($params)
-                        ->whereDate('context_date', '>=', $from_date)
-                        ->get();
-                $expenseOnMaterials = \Olabs\Oims\Models\ExpenseOnMaterial::where($params)
-                        ->whereDate('context_date', '>=', $from_date)
-                        ->get();
-                $expenseOnPcs = \Olabs\Oims\Models\ExpenseOnPc::where($params)
-                        ->whereDate('context_date', '>=', $from_date)
-                        ->get();
-            } else {
-                $projectprogress = \Olabs\Oims\Models\ProjectProgress::whereDate('start_date', '>=', $from_date)
-                        ->whereIn('project_id', array_keys($assigned_projects))
-                        ->get();
-                $manpowers = \Olabs\Oims\Models\Manpower::whereDate('context_date', '>=', $from_date)
-                        ->whereIn('project_id', array_keys($assigned_projects))
-                        ->get();
-                $machineries = \Olabs\Oims\Models\Machinery::whereDate('context_date', '>=', $from_date)
-                        ->whereIn('project_id', array_keys($assigned_projects))
-                        ->get();
-                $expenseOnMaterials = \Olabs\Oims\Models\ExpenseOnMaterial::whereDate('context_date', '>=', $from_date)
-                        ->whereIn('project_id', array_keys($assigned_projects))
-                        ->get();
-                $expenseOnPcs = \Olabs\Oims\Models\ExpenseOnPc::whereDate('context_date', '>=', $from_date)
-                        ->whereIn('project_id', array_keys($assigned_projects))
-                        ->get();
-            }
-        } else if ($to_date) {
-            if (count($params)) {
-                $projectprogress = \Olabs\Oims\Models\ProjectProgress::where($params)
-                        ->whereDate('start_date', '<=', $to_date)
-                        ->get();
-                $manpowers = \Olabs\Oims\Models\Manpower::where($params)
-                        ->whereDate('context_date', '<=', $to_date)
-                        ->get();
-                $machineries = \Olabs\Oims\Models\Machinery::where($params)
-                        ->whereDate('context_date', '<=', $to_date)
-                        ->get();
-                $expenseOnMaterials = \Olabs\Oims\Models\ExpenseOnMaterial::where($params)
-                        ->whereDate('context_date', '<=', $to_date)
-                        ->get();
-                $expenseOnPcs = \Olabs\Oims\Models\ExpenseOnPc::where($params)
-                        ->whereDate('context_date', '<=', $to_date)
-                        ->get();
-            } else {
-                $projectprogress = \Olabs\Oims\Models\ProjectProgress::whereDate('start_date', '<=', $to_date)
-                        ->whereIn('project_id', array_keys($assigned_projects))
-                        ->get();
-                $manpowers = \Olabs\Oims\Models\Manpower::whereDate('context_date', '<=', $to_date)
-                        ->whereIn('project_id', array_keys($assigned_projects))
-                        ->get();
-                $machineries = \Olabs\Oims\Models\Machinery::whereDate('context_date', '<=', $to_date)
-                        ->whereIn('project_id', array_keys($assigned_projects))
-                        ->get();
-                $expenseOnMaterials = \Olabs\Oims\Models\ExpenseOnMaterial::whereDate('context_date', '<=', $to_date)
-                        ->whereIn('project_id', array_keys($assigned_projects))
-                        ->get();
-                $expenseOnPcs = \Olabs\Oims\Models\ExpenseOnPc::whereDate('context_date', '<=', $to_date)
-                        ->whereIn('project_id', array_keys($assigned_projects))
-                        ->get();
-            }
-        } elseif (count($params)) {
-            $projectprogress = \Olabs\Oims\Models\ProjectProgress::where($params)->get();
-            $manpowers = \Olabs\Oims\Models\Manpower::where($params)->get();
-            $machineries = \Olabs\Oims\Models\Machinery::where($params)->get();
-            $expenseOnMaterials = \Olabs\Oims\Models\ExpenseOnMaterial::where($params)->get();
-            $expenseOnPcs = \Olabs\Oims\Models\ExpenseOnPc::where($params)->get();
-        }
-
-
-        $msg = false;
-        if (!$from_date && !$to_date && !count($params)) {
-            $msg = 'Please select atleast one filter';
-        }
-
-
-//        $oimsSetting = \Olabs\Oims\Models\Settings::instance();
-//        $this->vars['search'] = true;
-        $this->vars['msg'] = $msg;
-        $this->vars['projectprogress'] = $projectprogress;
-        $this->vars['manpowers'] = $manpowers;
-        $this->vars['machineries'] = $machineries;
-        $this->vars['expenseOnMaterials'] = $expenseOnMaterials;
-        $this->vars['expenseOnPcs'] = $expenseOnPcs;
-//        $this->vars['oimsSetting'] = $oimsSetting;
-        $this->vars['total_days'] = $total_days;
-    }
-
+    //Project Progress Report
     public function progress_report() {
         BackendMenu::setContext('Olabs.Oims', 'reports', 'progress_report');
         $this->pageTitle = 'Progress Report';
@@ -966,76 +670,6 @@ class Reports extends Controller {
         return \Redirect::to('/backend/olabs/oims/reports/download?name=' . $fileName);
     }
 
-    protected function searchMRReport($searchParams) {
-        $reports = array();
-        $msg = false;
-        $search_from_date = isset($searchParams['from_date']) ? $searchParams['from_date'] : '';
-        $search_to_date = isset($searchParams['to_date']) ? $searchParams['to_date'] : '';
-
-        $from_date = false;
-        if ($search_from_date != '') {
-            $from_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_from_date); //date('Y-m-d 00:00:00', strtotime($from_date));
-        }
-
-        $to_date = false;
-        if ($search_to_date != '') {
-            $timeFormat = '23:59:59';
-            $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
-        }
-
-        $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
-        $supplier = ( trim($searchParams['supplier']) != "" ) ? $searchParams['supplier'] : false;
-
-        $baseModel = new \Olabs\Oims\Models\BaseModel();
-        $assigned_projects = [];
-//        $user = BackendAuth::getUser();
-
-        $params = array();
-        if ($project) {
-            $assigned_projects = [$project];
-        } else {
-            $assigned_projects = array_keys($baseModel->getProjectOptions());
-        }
-        if ($supplier) {
-            $params['user_id'] = $supplier;
-        }
-
-        if ($from_date && $to_date) {
-            $datetime1 = new DateTime($from_date);
-            $datetime2 = new DateTime($to_date);
-            $interval = $datetime1->diff($datetime2);
-            $total_days = $interval->format('%d') + 1; //to add current date 
-
-            $reports = \Olabs\Oims\Models\Purchase::where($params)
-                    ->whereBetween('context_date', [$from_date, $to_date])
-                    ->whereIn('project_id', $assigned_projects)
-                    ->get();
-        } else if ($from_date) {
-            $reports = \Olabs\Oims\Models\Purchase::where($params)
-                    ->whereDate('context_date', '>=', $from_date)
-                    ->whereIn('project_id', $assigned_projects)
-                    ->get();
-        } else if ($to_date) {
-            $reports = \Olabs\Oims\Models\Purchase::where($params)
-                    ->whereDate('context_date', '<=', $to_date)
-                    ->whereIn('project_id', $assigned_projects)
-                    ->get();
-        } elseif (count($params)) {
-            $reports = \Olabs\Oims\Models\Purchase::where($params)->get();
-        }
-
-
-        $msg = false;
-        if (!$from_date && !$to_date && !count($params)) {
-            $msg = 'Please select atleast one filter';
-        }
-
-        $this->vars['from_date'] = $from_date;
-        $this->vars['to_date'] = $to_date;
-        $this->vars['reports'] = $reports;
-        $this->vars['msg'] = $msg;
-    }
-
     //Attendance Report
     public function attendance_report() {
         BackendMenu::setContext('Olabs.Oims', 'reports', 'attendance_report');
@@ -1162,93 +796,6 @@ class Reports extends Controller {
         return \Redirect::to('/backend/olabs/oims/reports/download?name=' . $fileName);
     }
 
-    protected function searchAttendanceReport($searchParams) {
-        $reports = array();
-        $msg = false;
-        $search_from_date = isset($searchParams['from_date']) ? $searchParams['from_date'] : '';
-        $search_to_date = isset($searchParams['to_date']) ? $searchParams['to_date'] : '';
-
-        $from_date = false;
-        if ($search_from_date != '') {
-            $from_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_from_date); //date('Y-m-d 00:00:00', strtotime($from_date));
-        }
-
-        $to_date = false;
-        if ($search_to_date != '') {
-            $timeFormat = '23:59:59';
-            $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
-        }
-
-        $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
-        $supplier = ( trim($searchParams['supplier']) != "" ) ? $searchParams['supplier'] : false;
-        $attendance_type = ( isset($searchParams['attendance_type']) ) ? $searchParams['attendance_type'] : 'offrole';
-
-        $baseModel = new \Olabs\Oims\Models\BaseModel();
-        $assigned_projects = [];
-//        $user = BackendAuth::getUser();
-
-        $params = array();
-        $params['employee_type'] = $attendance_type; //'offrole';
-
-        if ($project) {
-            $assigned_projects = [$project];
-        } else {
-            $assigned_projects = array_keys($baseModel->getProjectOptions());
-        }
-        if ($supplier) {
-            $params['supplier_id'] = $supplier;
-        }
-
-
-
-        if ($attendance_type == \Olabs\Oims\Models\Attendance::EMPLOYEE_TYPE_OFFROLE) {
-            $model = \Olabs\Oims\Models\Attendance::where($params)
-                    ->with('employee_offrole')
-                    ->whereIn('project_id', $assigned_projects);
-        } else {
-            $model = \Olabs\Oims\Models\Attendance::select()
-                    ->where($params)
-//                    ->with('employee_offrole')
-                    ->join("backend_users", 'backend_users.id', 'employee_id')
-                    ->whereIn('backend_users.employee_project_id', $assigned_projects);
-        }
-
-        if ($from_date && $to_date) {
-            $datetime1 = new DateTime($from_date);
-            $datetime2 = new DateTime($to_date);
-            $interval = $datetime1->diff($datetime2);
-            $total_days = $interval->format('%d') + 1; //to add current date 
-
-            $model->whereBetween('check_in', [$from_date, $to_date]);
-        } else if ($from_date) {
-            $model->whereDate('check_in', '>=', $from_date);
-        } else if ($to_date) {
-            $model->whereDate('check_in', '<=', $to_date);
-        }
-//        if($report_type == 'supplier_wise'){
-        $model->orderBy('project_id');
-        $model->orderBy('check_in');
-        $model->orderBy('supplier_id');
-        
-//        $model->orderBy('check_in');
-//        }else{
-//            $model->orderBy('project_id', 'check_in', 'supplier_id');
-//        }
-
-
-        $reports = $model->get();
-        $msg = false;
-        if (!$from_date && !$to_date && !count($params)) {
-            $msg = 'Please select atleast one filter';
-        }
-
-        $this->vars['from_date'] = $from_date;
-        $this->vars['to_date'] = $to_date;
-        $this->vars['reports'] = $reports;
-//        $this->vars['report_type'] = $report_type;
-        $this->vars['msg'] = $msg;
-    }
-
     //Attendance Summary Report
     public function attendanceSummary_report() {
         BackendMenu::setContext('Olabs.Oims', 'reports', 'attendance_summary_report');
@@ -1297,7 +844,7 @@ class Reports extends Controller {
 
         $report = array();
         $pc_reports = array();
-        
+
 
         if (post('reportSearch')) {
 
@@ -1305,7 +852,7 @@ class Reports extends Controller {
 
             // get dpr components
             $this->searchAttendanceReport($searchParams);
-            
+
             $pc_reports = $this->searchPcAttendanceReport($searchParams, True);
 
             $search_from_date = isset($searchParams['from_date']) ? $searchParams['from_date'] : '';
@@ -1362,7 +909,7 @@ class Reports extends Controller {
             }
         }
 
-        
+
         foreach ($pc_reports as $report) {
             $products = $report->products ? $report->products : array();
             foreach ($products as $product) {
@@ -1577,87 +1124,6 @@ class Reports extends Controller {
         return \Redirect::to('/backend/olabs/oims/reports/download?name=' . $fileName);
     }
 
-    protected function searchPcAttendanceReport($searchParams, $returnList = False) {
-        $reports = array();
-        $msg = false;
-        $search_from_date = isset($searchParams['from_date']) ? $searchParams['from_date'] : '';
-        $search_to_date = isset($searchParams['to_date']) ? $searchParams['to_date'] : '';
-
-        $from_date = false;
-        if ($search_from_date != '') {
-            $from_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_from_date); //date('Y-m-d 00:00:00', strtotime($from_date));
-        }
-
-        $to_date = false;
-        if ($search_to_date != '') {
-            $timeFormat = '23:59:59';
-            $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
-        }
-
-        $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
-        $supplier = ( trim($searchParams['supplier']) != "" ) ? $searchParams['supplier'] : false;
-//        $attendance_type = ( isset($searchParams['attendance_type'])  ) ? $searchParams['attendance_type'] : 'offrole';
-
-        $baseModel = new \Olabs\Oims\Models\BaseModel();
-        $assigned_projects = [];
-//        $user = BackendAuth::getUser();
-
-        $params = array();
-//        $params['employee_type'] = $attendance_type;//'offrole';
-
-        if ($project) {
-            $assigned_projects = [$project];
-        } else {
-            $assigned_projects = array_keys($baseModel->getProjectOptions());
-        }
-        if ($supplier) {
-            $params['user_id'] = $supplier;
-        }
-
-        $model = \Olabs\Oims\Models\PCAttendance::where($params)
-//                ->with('employee_offrole')
-                ->whereIn('project_id', $assigned_projects);
-
-        if ($from_date && $to_date) {
-            $datetime1 = new DateTime($from_date);
-            $datetime2 = new DateTime($to_date);
-            $interval = $datetime1->diff($datetime2);
-            $total_days = $interval->format('%d') + 1; //to add current date 
-
-            $model->whereBetween('context_date', [$from_date, $to_date]);
-        } else if ($from_date) {
-            $model->whereDate('context_date', '>=', $from_date);
-        } else if ($to_date) {
-            $model->whereDate('context_date', '<=', $to_date);
-        }
-//        if($report_type == 'supplier_wise'){
-        $model->orderBy('project_id');
-        $model->orderBy('context_date');
-        $model->orderBy('user_id');
-        
-//        $model->orderBy('check_in');
-//        }else{
-//            $model->orderBy('project_id', 'check_in', 'supplier_id');
-//        }
-
-
-        $reports = $model->get();
-        if ($returnList) {
-            return $reports;
-        }
-
-        $msg = false;
-        if (!$from_date && !$to_date && !count($params)) {
-            $msg = 'Please select atleast one filter';
-        }
-
-        $this->vars['from_date'] = $from_date;
-        $this->vars['to_date'] = $to_date;
-        $this->vars['reports'] = $reports;
-//        $this->vars['report_type'] = $report_type;
-        $this->vars['msg'] = $msg;
-    }
-
     //Project Assets Report
     public function assets_report() {
         BackendMenu::setContext('Olabs.Oims', 'reports', 'assets_report');
@@ -1866,86 +1332,6 @@ class Reports extends Controller {
         return \Redirect::to('/backend/olabs/oims/reports/downloadPdf?name=' . $fileName);
     }
 
-    protected function searchAssetsReport($searchParams) {
-        $reports = array();
-        $msg = false;
-        $search_from_date = isset($searchParams['from_date']) ? $searchParams['from_date'] : '';
-        $search_to_date = isset($searchParams['to_date']) ? $searchParams['to_date'] : '';
-
-        $from_date = false;
-        if ($search_from_date != '') {
-            $from_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_from_date); //date('Y-m-d 00:00:00', strtotime($from_date));
-        }
-
-        $to_date = false;
-        if ($search_to_date != '') {
-            $timeFormat = '23:59:59';
-            $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
-        }
-
-        $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
-        $supplier = false; // ( trim($searchParams['supplier']) != "" ) ? $searchParams['supplier'] : false;
-
-        $baseModel = new \Olabs\Oims\Models\BaseModel();
-        $assigned_projects = [];
-//        $user = BackendAuth::getUser();
-
-        $params = array();
-        if ($project) {
-            $assigned_projects = [$project];
-        } else {
-            $assigned_projects = array_keys($baseModel->getProjectOptions());
-        }
-        if ($supplier) {
-            $params['user_id'] = $supplier;
-        }
-
-//        if ($from_date && $to_date) {
-//            $datetime1 = new DateTime($from_date);
-//            $datetime2 = new DateTime($to_date);
-//            $interval = $datetime1->diff($datetime2);
-//            $total_days = $interval->format('%d') + 1; //to add current date 
-//
-//            $reports = \Olabs\Oims\Models\Purchase::where($params)
-//                    ->whereBetween('context_date', [$from_date, $to_date])
-//                    ->whereIn('project_id', $assigned_projects)
-//                    ->get();
-//        } else if ($from_date) {
-//            $reports = \Olabs\Oims\Models\Purchase::where($params)
-//                    ->whereDate('context_date', '>=', $from_date)
-//                    ->whereIn('project_id', $assigned_projects)
-//                    ->get();
-//        } else if ($to_date) {
-//            $reports = \Olabs\Oims\Models\Purchase::where($params)
-//                    ->whereDate('context_date', '<=', $to_date)
-//                    ->whereIn('project_id', $assigned_projects)
-//                    ->get();
-//        } else
-//        if (count($params)) {
-        $reports = \Olabs\Oims\Models\ProjectAsset::where($params)
-                ->whereIn('project_id', $assigned_projects)
-                ->get();
-//        }
-
-
-        $msg = false;
-//        if (!$from_date && !$to_date && !count($params)) {
-//            $msg = 'Please select atleast one filter';
-//        }
-        if (!count($params)) {
-            $msg = 'Please select atleast one filter';
-        }
-
-//        dd($params);
-
-
-        $this->vars['from_date'] = $from_date;
-        $this->vars['to_date'] = $to_date;
-        $this->vars['reports'] = $reports;
-        $this->vars['msg'] = $msg;
-        return $reports;
-    }
-
     //MR Report
     public function material_report() {
         BackendMenu::setContext('Olabs.Oims', 'reports', 'material_report');
@@ -2071,96 +1457,154 @@ class Reports extends Controller {
         return \Redirect::to('/backend/olabs/oims/reports/download?name=' . $fileName);
     }
 
-    protected function searchMaterialReport($searchParams) {
+    //Transaction Report
+    public function transaction_report() {
+        BackendMenu::setContext('Olabs.Oims', 'reports', 'transaction_report');
+        $this->searchFormWidget = $this->createTransactionSearchFormWidget();
+        $this->pageTitle = 'Account Statement Report';
         $reports = array();
-        $msg = false;
-        $search_from_date = isset($searchParams['from_date']) ? $searchParams['from_date'] : '';
-        $search_to_date = isset($searchParams['to_date']) ? $searchParams['to_date'] : '';
+        $balance_amount = 0;
+        $from_date = '';
+        $to_date = '';
+        $oimsSetting = \Olabs\Oims\Models\Settings::instance();
 
-        $from_date = false;
-        if ($search_from_date != '') {
-            $from_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_from_date); //date('Y-m-d 00:00:00', strtotime($from_date));
-        }
+        $searchForm = $this->searchFormWidget;
 
-        $to_date = false;
-        if ($search_to_date != '') {
-            $timeFormat = '23:59:59';
-            $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
-        }
-
-        $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
-        $supplier = ( trim($searchParams['supplier']) != "" ) ? $searchParams['supplier'] : false;
-
-        $baseModel = new \Olabs\Oims\Models\BaseModel();
-        $assigned_projects = [];
-//        $user = BackendAuth::getUser();
-
-        $params = array();
-        if ($project) {
-            $assigned_projects = [$project];
-        } else {
-            $assigned_projects = array_keys($baseModel->getProjectOptions());
-        }
-        if ($supplier) {
-            $params['user_id'] = $supplier;
-        }
-
-        if ($from_date && $to_date) {
-            $datetime1 = new DateTime($from_date);
-            $datetime2 = new DateTime($to_date);
-            $interval = $datetime1->diff($datetime2);
-            $total_days = $interval->format('%d') + 1; //to add current date 
-
-            $reports = \Olabs\Oims\Models\Purchase::where($params)
-                    ->whereBetween('context_date', [$from_date, $to_date])
-                    ->whereIn('project_id', $assigned_projects)
-                    ->get();
-        } else if ($from_date) {
-            $reports = \Olabs\Oims\Models\Purchase::where($params)
-                    ->whereDate('context_date', '>=', $from_date)
-                    ->whereIn('project_id', $assigned_projects)
-                    ->get();
-        } else if ($to_date) {
-            $reports = \Olabs\Oims\Models\Purchase::where($params)
-                    ->whereDate('context_date', '<=', $to_date)
-                    ->whereIn('project_id', $assigned_projects)
-                    ->get();
-        } elseif (count($params)) {
-            $reports = \Olabs\Oims\Models\Purchase::where($params)->get();
-        }
-
-
-        $msg = false;
-        if (!$from_date && !$to_date && !count($params)) {
-            $msg = 'Please select atleast one filter';
-        }
-
+        $this->vars['search'] = false;
+        $this->vars['msg'] = false;
+        $this->vars['searchFormWidget'] = $searchForm;
+        $this->vars['reports'] = $reports;
+        $this->vars['balance_amount'] = $balance_amount;
         $this->vars['from_date'] = $from_date;
         $this->vars['to_date'] = $to_date;
-        $this->vars['reports'] = $reports;
-        $this->vars['msg'] = $msg;
+
+        $this->vars['oimsSetting'] = $oimsSetting;
     }
 
-    
+    public function onTransactionSearch() {
+        $reports = array();
+
+        if (post('reportSearch')) {
+
+            $searchParams = post('reportSearch');
+
+            // get dpr components
+            $this->searchTransactionReport($searchParams);
+        }
+
+        $oimsSetting = \Olabs\Oims\Models\Settings::instance();
+
+        $this->vars['search'] = true;
+        $this->vars['oimsSetting'] = $oimsSetting;
+    }
+
+    public function onTransactionExportExcel() {
+        $file_type = '.' . post('type');
+
+        ////////Generate Excel Data
+        $report = array();
+
+        if (post('reportSearch')) {
+
+            $searchParams = post('reportSearch');
+
+            $this->searchTransactionReport($searchParams);
+
+            $search_from_date = isset($searchParams['from_date']) ? $searchParams['from_date'] : '';
+            $search_to_date = isset($searchParams['to_date']) ? $searchParams['to_date'] : '';
+//
+            $from_date = false;
+            if ($search_from_date != '') {
+                $from_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_from_date); //date('Y-m-d 00:00:00', strtotime($from_date));
+            }
+            $to_date = false;
+            if ($search_to_date != '') {
+                $timeFormat = '23:59:59';
+                $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
+            }
+            $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
+
+            $projectModal = \Olabs\Oims\Models\Project::find($project);
+        }
+
+        $oimsSetting = \Olabs\Oims\Models\Settings::instance();
+
+        $this->vars['search'] = true;
+        $this->vars['from_date'] = $from_date;
+        $this->vars['to_date'] = $to_date;
+
+        $reports = $this->vars['reports'];
+
+        //Generating Excel
+        $header_columns = ['MR No.', 'Project', 'Entry Date', 'Status', 'Supplier', 'Product', 'Quantity', 'Unit', 'Unit Price', 'Total Price'];
+
+        //MR Report
+        $excel_rows = [];
+        $status_count = [];
+        $grand_total = 0;
+        $count = 0;
+        foreach ($reports as $report) {
+            $count++;
+            $grand_total += $report->total_price;
+            $products = $report->products ? $report->products : array();
+            $status_count[$report->status_name] = isset($status_count[$report->status_name]) ? $status_count[$report->status_name] + 1 : 1;
+            foreach ($products as $product) {
+                $temp = [];
+                $temp['mr_no'] = $report->reference_number;
+                $temp['project'] = $report->project->name;
+                $temp['entry_date'] = date("d-m-Y", strtotime($report->context_date));
+                $temp['status'] = $report->status_name;
+                $temp['supplier'] = $report->supplier ? $report->supplier->fullname : '--';
+                $temp['product'] = $product->product ? $product->product->title : '';
+                $temp['quantity'] = $product->quantity;
+                $temp['unit'] = $product->unit;
+                $temp['unit_price'] = $oimsSetting->getPriceFormattedWithoutCurrency($product->unit_price);
+                $temp['total_price'] = $oimsSetting->getPriceFormattedWithoutCurrency($product->total_price);
+                $excel_rows[] = $temp;
+            }
+        }
+
+        $export_data[] = ['title' => 'MR Report', 'header' => $header_columns, 'rows' => $excel_rows];
+
+
+        //Summary
+        $temp = [];
+        $temp['title'] = 'Summary';
+        $temp['header'] = ['DESCRIPTION', 'AMOUNT / COUNT'];
+        $temp['rows'] = [
+            ['TOTAL MR ENTRY', $count],
+            ["TOTAL MR AMOUNT", $oimsSetting->getPriceFormattedWithoutCurrency($grand_total)],
+        ];
+        foreach ($status_count as $k => $v) {
+            $temp['rows'][] = [$k . ' MR Count', $v];
+        }
+        $export_data[] = $temp;
+        ////////////////////////////////////////////////////////////
+        $fileName = 'mr_report_' . time() . $file_type;
+
+        Excel::excel()->store(new \Olabs\Oims\Exports\ReportsExport($export_data), $fileName, 'local');
+
+        return \Redirect::to('/backend/olabs/oims/reports/download?name=' . $fileName);
+    }
+
     //Project Progress Report
     public function project_progress() {
         BackendMenu::setContext('Olabs.Oims', 'reports', 'project_progress');
-        
+
 //        $this->addCss('/plugins/rainlab/blog/assets/css/rainlab.blog-preview.css');
 //        $this->addJs('/plugins/rainlab/blog/assets/js/post-form.js');
-        
 //        $this->addCss('/plugins/olabs/oims/assets/fusioncharts/js/themes/fusioncharts.theme.fusion.css');
-        
+
         $this->addJs('/plugins/olabs/oims/assets/fusioncharts/js/fusioncharts.charts.js', 'core');
         $this->addJs('/plugins/olabs/oims/assets/fusioncharts/js/fusioncharts.js', 'core');
         $this->addJs('/plugins/olabs/oims/assets/fusioncharts/js/themes/fusioncharts.theme.fusion.js', 'core');
-        
+
         $this->searchFormWidget = $this->createProjectProgressSearchFormWidget();
         $this->pageTitle = 'Project Progress Report';
         $reports = array();
 
         $oimsSetting = \Olabs\Oims\Models\Settings::instance();
-        
+
         // get project progress components
         $searchParams = [];
         $searchParams['project'] = 2;
@@ -2176,9 +1620,7 @@ class Reports extends Controller {
 
         $this->vars['oimsSetting'] = $oimsSetting;
     }
-    
-    
-    
+
     public function onProjectProgressSearch() {
         $reports = array();
 
@@ -2195,160 +1637,65 @@ class Reports extends Controller {
         $this->vars['search'] = true;
         $this->vars['oimsSetting'] = $oimsSetting;
     }
-    
-    protected function searchProjectProgressReport($searchParams) {
-        $reports = array();
-        $msg = false;
-        
-        $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
-        
-        
-        //Get all project wroks in active status
-        $project_works = \Olabs\Oims\Models\ProjectWork::where('project_id', $project)->where('status', \Olabs\Oims\Models\ProjectWork::STATUS_ACTIVE)->get();
-        
-        $gantt_process = [];
-//        foreach($project_works as $work){
-//            $gantt_process = 
-//        }
-//        dd(count($project_works));
-        
-        $this->vars['reports'] = $reports;
-        $this->vars['msg'] = $msg;
-        
-        return;
-        ////////////////////////////////////
-        $search_from_date = isset($searchParams['from_date']) ? $searchParams['from_date'] : '';
-        $search_to_date = isset($searchParams['to_date']) ? $searchParams['to_date'] : '';
 
-        $from_date = false;
-        if ($search_from_date != '') {
-            $from_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_from_date); //date('Y-m-d 00:00:00', strtotime($from_date));
-        }
-
-        $to_date = false;
-        if ($search_to_date != '') {
-            $timeFormat = '23:59:59';
-            $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
-        }
-
-        $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
-        $supplier = ( trim($searchParams['supplier']) != "" ) ? $searchParams['supplier'] : false;
-
-        $baseModel = new \Olabs\Oims\Models\BaseModel();
-        $assigned_projects = [];
-//        $user = BackendAuth::getUser();
-
-        $params = array();
-        if ($project) {
-            $assigned_projects = [$project];
-        } else {
-            $assigned_projects = array_keys($baseModel->getProjectOptions());
-        }
-        if ($supplier) {
-            $params['user_id'] = $supplier;
-        }
-
-        if ($from_date && $to_date) {
-            $datetime1 = new DateTime($from_date);
-            $datetime2 = new DateTime($to_date);
-            $interval = $datetime1->diff($datetime2);
-            $total_days = $interval->format('%d') + 1; //to add current date 
-
-            $reports = \Olabs\Oims\Models\Purchase::where($params)
-                    ->whereBetween('context_date', [$from_date, $to_date])
-                    ->whereIn('project_id', $assigned_projects)
-                    ->get();
-        } else if ($from_date) {
-            $reports = \Olabs\Oims\Models\Purchase::where($params)
-                    ->whereDate('context_date', '>=', $from_date)
-                    ->whereIn('project_id', $assigned_projects)
-                    ->get();
-        } else if ($to_date) {
-            $reports = \Olabs\Oims\Models\Purchase::where($params)
-                    ->whereDate('context_date', '<=', $to_date)
-                    ->whereIn('project_id', $assigned_projects)
-                    ->get();
-        } elseif (count($params)) {
-            $reports = \Olabs\Oims\Models\Purchase::where($params)->get();
-        }
-
-
-        $msg = false;
-        if (!$from_date && !$to_date && !count($params)) {
-            $msg = 'Please select atleast one filter';
-        }
-
-        $this->vars['from_date'] = $from_date;
-        $this->vars['to_date'] = $to_date;
-        $this->vars['reports'] = $reports;
-        $this->vars['msg'] = $msg;
-    }
-    
-    
-    
-    
-    
-    
-    
     public function sample_chart() {
         BackendMenu::setContext('Olabs.Oims', 'reports', 'project_progress');
-        
+
 //        $this->addCss('/plugins/rainlab/blog/assets/css/rainlab.blog-preview.css');
 //        $this->addJs('/plugins/rainlab/blog/assets/js/post-form.js');
-        
 //        $this->addCss('/plugins/olabs/oims/assets/fusioncharts/js/themes/fusioncharts.theme.fusion.css');
-        
+
         $this->addJs('/plugins/olabs/oims/assets/fusioncharts/js/fusioncharts.charts.js', 'core');
         $this->addJs('/plugins/olabs/oims/assets/fusioncharts/js/fusioncharts.js', 'core');
         $this->addJs('/plugins/olabs/oims/assets/fusioncharts/js/themes/fusioncharts.theme.fusion.js', 'core');
-        
+
         $this->searchFormWidget = $this->createProjectProgressSearchFormWidget();
         $this->pageTitle = 'Project Progress Report';
         $reports = array();
 
         $oimsSetting = \Olabs\Oims\Models\Settings::instance();
-        
-        
+
+
         $arrChartConfig = array(
-                  "chart" => array(
-                    "caption" => "Countries With Most Oil Reserves [2017-18]",
-                    "subCaption" => "In MMbbl = One Million barrels", 
-                    "xAxisName" => "Country",
-                    "yAxisName" => "Reserves (MMbbl)", 
-                    "numberSuffix" => "K", 
-                    "theme" => "fusion"
-                    )
-                );
+            "chart" => array(
+                "caption" => "Countries With Most Oil Reserves [2017-18]",
+                "subCaption" => "In MMbbl = One Million barrels",
+                "xAxisName" => "Country",
+                "yAxisName" => "Reserves (MMbbl)",
+                "numberSuffix" => "K",
+                "theme" => "fusion"
+            )
+        );
 
-              // An array of hash objects which stores data
-              $arrChartData = array(
-                ["Venezuela", "290"],
-                ["Saudi", "260"],
-                ["Canada", "180"],
-                ["Iran", "140"],
-                ["Russia", "115"],
-                ["UAE", "100"],
-                ["US", "30"],
-                ["China", "30"]
-              );
+        // An array of hash objects which stores data
+        $arrChartData = array(
+            ["Venezuela", "290"],
+            ["Saudi", "260"],
+            ["Canada", "180"],
+            ["Iran", "140"],
+            ["Russia", "115"],
+            ["UAE", "100"],
+            ["US", "30"],
+            ["China", "30"]
+        );
 
-              $arrLabelValueData = array();
+        $arrLabelValueData = array();
 
-            // Pushing labels and values
-            for($i = 0; $i < count($arrChartData); $i++) {
-                array_push($arrLabelValueData, array(
-                    "label" => $arrChartData[$i][0], "value" => $arrChartData[$i][1]
-                ));
-            }
+        // Pushing labels and values
+        for ($i = 0; $i < count($arrChartData); $i++) {
+            array_push($arrLabelValueData, array(
+                "label" => $arrChartData[$i][0], "value" => $arrChartData[$i][1]
+            ));
+        }
 
-      $arrChartConfig["data"] = $arrLabelValueData;
+        $arrChartConfig["data"] = $arrLabelValueData;
 
-      // JSON Encode the data to retrieve the string containing the JSON representation of the data in the array.
-      $jsonEncodedData = json_encode($arrChartConfig);
+        // JSON Encode the data to retrieve the string containing the JSON representation of the data in the array.
+        $jsonEncodedData = json_encode($arrChartConfig);
 
-      // chart object
-      $Chart = new FusionCharts("column2d", "MyFirstChart" , "600", "350", "chart-container", "json", $jsonEncodedData);
-        
+        // chart object
+        $Chart = new FusionCharts("column2d", "MyFirstChart", "600", "350", "chart-container", "json", $jsonEncodedData);
+
 //        $chartObject = \Olabs\Oims\Classes\FusionCharts::
 
         $searchForm = $this->searchFormWidget;
@@ -2360,7 +1707,7 @@ class Reports extends Controller {
         $this->vars['reports'] = $reports;
 
         $this->vars['oimsSetting'] = $oimsSetting;
-        
+
         //In view file
         //Render the chart options
         //      $Chart->renderOptions();
@@ -2368,4 +1715,5 @@ class Reports extends Controller {
         //      $Chart->render();
         // <div id="chart-container">Chart will render here!</div>
     }
+
 }

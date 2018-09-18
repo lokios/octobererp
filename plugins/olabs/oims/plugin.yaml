@@ -164,6 +164,13 @@ navigation:
                 icon: icon-life-ring
                 permissions:
                     - olabs.oims.reports
+            transaction_report:
+                label: 'Account Statement Report'
+                url: olabs/oims/reports/transaction_report
+                icon: icon-dollar
+                permissions:
+                    - olabs.oims.reports           
+            
             attendance_report:
                 label: 'Attendance Report'
                 url: olabs/oims/reports/attendance_report

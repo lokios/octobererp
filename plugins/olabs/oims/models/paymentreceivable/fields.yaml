@@ -88,6 +88,12 @@ fields:
             type: datepicker
             mode: date
             span: auto       
+        
+        narration:
+            label: Narration
+            oc.commentPosition: ''
+            span: auto
+            type: text
 tabs:
     fields:
 

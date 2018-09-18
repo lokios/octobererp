@@ -278,7 +278,8 @@ class Voucher extends BaseModel
      * 
      */
     public function beforeUpdate() {
-
+        
+//        $this->setNarration();
         $this->uniqueReferenceNumberCheck();
 //        $oldModel = self::find($this->id);
 //
@@ -296,6 +297,7 @@ class Voucher extends BaseModel
     }
     
     public function beforeCreate() {
+//        $this->setNarration();
         $this->uniqueReferenceNumberCheck();
         if($this->status == ''){
             $this->status = Status::STATUS_NEW;
@@ -309,9 +311,16 @@ class Voucher extends BaseModel
             $this->updated_by = $user->id;
         }
     }
+    
+    private function setNarration(){
+        
+        
+        
+    }
 
     
-    
+
+
 
     public function uniqueReferenceNumberCheck(){
 //        return true; // Not required to check, running default

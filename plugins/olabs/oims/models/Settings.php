@@ -135,6 +135,9 @@ class Settings extends Model {
 
     public static function convertToDisplayDate($getDate, $date_format = 'd/m/Y') {
 //        $date_format = 'd-m-Y';
+        if($getDate  == ''){
+            return '';
+        }
         $newDate = date($date_format, strtotime($getDate));
         return $newDate;
     }
