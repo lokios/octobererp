@@ -83,6 +83,12 @@ columns:
         searchable: true
         sortable: true    
         
+    narration:
+        label: Narration
+        type: text
+        searchable: false
+        sortable: false 
+        
     payment_type:
         label: Payment Type
         type: relation

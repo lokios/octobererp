@@ -54,11 +54,19 @@ fields:
             type: dropdown
             options: getLedgerTypePaymentOptions  
             
-        narration:
-            label: Narration
+        description:
+            label: 'olabs.oims::lang.vouchers.description'
+            size: small
             oc.commentPosition: ''
             span: auto
             type: text
+#            tab: 'olabs.oims::lang.vouchers.detail'
+            
+#        narration:
+#            label: Narration
+#            oc.commentPosition: ''
+#            span: auto
+#            type: text
 #            tab: 'olabs.oims::lang.vouchers.detail'
         
         
@@ -145,13 +153,13 @@ tabs:
 #            type: fileupload
 #            mode: file
 #            span: auto
-        description:
-            label: 'olabs.oims::lang.vouchers.description'
-            size: small
-            oc.commentPosition: ''
-            span: full
-            type: richeditor
-            tab: 'olabs.oims::lang.vouchers.detail'
+#        description:
+#            label: 'olabs.oims::lang.vouchers.description'
+#            size: small
+#            oc.commentPosition: ''
+#            span: full
+#            type: richeditor
+#            tab: 'olabs.oims::lang.vouchers.detail'
 
            
         payment_method:

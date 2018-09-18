@@ -126,5 +126,50 @@ class PaymentReceivable extends BaseModel {
             }
         }
     }
+    
+    
+    /**
+     * Event: before Update
+     * 
+     */
+    public function beforeUpdate() {
+        
+        $this->setNarration();
+        
+        $user = BackendAuth::getUser();
+        if($this->updated_by == ''){
+            $this->updated_by = $user->id;
+        }
+    }
+    
+    public function beforeCreate() {
+        $this->setNarration();
+        if($this->status == ''){
+            $this->status = Status::STATUS_NEW;
+        }
+        
+        $user = BackendAuth::getUser();
+        if($this->created_by == ''){
+            $this->created_by = $user->id;
+        }
+        if($this->updated_by == ''){
+            $this->updated_by = $user->id;
+        }
+    }
+    
+    private function setNarration(){
+         $narration = $this->ledger_type->name;
+        
+         if($this->from_project_id){
+             $narration .= " From " . $this->from_project->name;
+         }
+         
+         if($this->to_project_id){
+             $narration .= " To " . $this->to_project->name;
+         }
+         
+         $this->narration = $narration;
+        
+    }
 
 }

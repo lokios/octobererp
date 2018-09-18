@@ -42,3 +42,8 @@ columns:
 #    paid_detail:
 #        label: paid_detail
 #        type: text
+    narration:
+        label: Narration
+        type: text
+        searchable: false
+        sortable: false 

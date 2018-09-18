@@ -273,14 +273,20 @@ class Voucher extends BaseModel
     
    
 
-        /**
+    /**
      * Event: before Update
      * 
      */
     public function beforeUpdate() {
         
-//        $this->setNarration();
+        $this->setNarration();
         $this->uniqueReferenceNumberCheck();
+        
+        $user = BackendAuth::getUser();
+        if($this->updated_by == ''){
+            $this->updated_by = $user->id;
+        }
+        
 //        $oldModel = self::find($this->id);
 //
 //        // check voucher status change
@@ -297,7 +303,7 @@ class Voucher extends BaseModel
     }
     
     public function beforeCreate() {
-//        $this->setNarration();
+        $this->setNarration();
         $this->uniqueReferenceNumberCheck();
         if($this->status == ''){
             $this->status = Status::STATUS_NEW;
@@ -314,6 +320,37 @@ class Voucher extends BaseModel
     
     private function setNarration(){
         
+        $narration = $this->ledger_type->name;
+        
+        $suppliers = [];
+        $employees = [];
+        $material_receipts = [];
+        
+        foreach($this->products as $product){
+            if($product->purchase_id){
+                $material_receipts[] = $product->purchase->reference_number;
+            }
+            if($product->supplier_id){
+                $suppliers[] = $product->supplier->full_name;
+            }
+            if($product->employee_id){
+                $employees[] = $product->employee->full_name;
+            }
+        }
+        
+        if(count($material_receipts)){
+            $narration .=  " For " . implode(", ", $material_receipts);
+        }
+        
+        if(count($suppliers)){
+            $narration .=  " To " . implode(", ", $suppliers);
+        }
+        
+        if(count($employees)){
+            $narration .=  " To " . implode(", ", $employees);
+        }
+        
+        $this->narration = $narration;
         
         
     }

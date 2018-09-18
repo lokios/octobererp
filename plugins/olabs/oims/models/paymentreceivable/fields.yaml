@@ -88,12 +88,18 @@ fields:
             type: datepicker
             mode: date
             span: auto       
-        
-        narration:
-            label: Narration
+        description:
+            label: olabs.oims::lang.products.description
+            size: small
             oc.commentPosition: ''
             span: auto
             type: text
+#            tab: 'olabs.oims::lang.purchases.detail'
+#        narration:
+#            label: Narration
+#            oc.commentPosition: ''
+#            span: auto
+#            type: text
 tabs:
     fields:
 
@@ -271,13 +277,13 @@ tabs:
         
         
 
-        description:
-            label: olabs.oims::lang.products.description
-            size: small
-            oc.commentPosition: ''
-            span: full
-            type: richeditor
-            tab: 'olabs.oims::lang.purchases.detail'
+#        description:
+#            label: olabs.oims::lang.products.description
+#            size: small
+#            oc.commentPosition: ''
+#            span: full
+#            type: richeditor
+#            tab: 'olabs.oims::lang.purchases.detail'
 
 
             
