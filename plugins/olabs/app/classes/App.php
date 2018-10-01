@@ -420,6 +420,27 @@ public function addMainModules_OIMS(&$fmodules){
 
            }
 
+           if($this->hasTimesheetManagePermission()){
+
+          $module = ['item_type'=>'post'
+          ,'data'=>[]
+          ,'module'=>'voucher','url'=>$base.'/api/v1/attendances','edit_url'=>$base.'/api/v1/vouchers','name'=>'Add Voucher'
+          ,'title'=>'Add Voucher'
+          ,'subtitle'=>''
+          ,'format'=>'json','method'=>'post'];
+            $fmodules[] = $module;
+
+           $module =[  'item_type'=>'list','name'=>'Recent Vocuhers','list'=>$base.'/social/api/v1/entityrelations?target_type=voucher&actor_id='.$app->user->id,'module'=>'voucher'
+           ,'edit_url2'=>$base.'/social/api/v1/entityrelations?target_type=voucher&actor_id='.$app->user->id
+           ,'barcode_enabled'=>false,
+
+             
+             ];
+             $fmodules[] = $module;
+
+           }
+
+
 
           if($this->hasMREntryCreatePermission()){
 
