@@ -7,7 +7,6 @@ use System\Classes\PluginBase;
  */
 class Plugin extends PluginBase
 {
-
     /**
      * Returns information about this plugin.
      *
@@ -19,8 +18,8 @@ class Plugin extends PluginBase
             'name'        => 'Drivers',
             'description' => 'Provider of third party drivers',
             'author'      => 'October',
-            'icon'        => 'icon-leaf'
+            'icon'        => 'icon-leaf',
+            'homepage'    => 'https://github.com/octoberrain/drivers-plugin'
         ];
     }
-
 }

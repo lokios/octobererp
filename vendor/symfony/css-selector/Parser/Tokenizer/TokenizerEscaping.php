@@ -23,8 +23,14 @@ namespace Symfony\Component\CssSelector\Parser\Tokenizer;
  */
 class TokenizerEscaping
 {
+    /**
+     * @var TokenizerPatterns
+     */
     private $patterns;
 
+    /**
+     * @param TokenizerPatterns $patterns
+     */
     public function __construct(TokenizerPatterns $patterns)
     {
         $this->patterns = $patterns;

@@ -37,7 +37,7 @@ class TranslatorTest extends TestCase
         $translator = new Translator();
         $document = new \SimpleXMLElement(file_get_contents(__DIR__.'/Fixtures/lang.xml'));
         $elements = $document->xpath($translator->cssToXPath($css));
-        $this->assertCount(count($elementsId), $elements);
+        $this->assertEquals(count($elementsId), count($elements));
         foreach ($elements as $element) {
             $this->assertTrue(in_array($element->attributes()->id, $elementsId));
         }

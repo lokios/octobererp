@@ -5,20 +5,25 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\RequestContext;
 
 /**
+ * ProjectUrlMatcher.
+ *
  * This class has been auto-generated
  * by the Symfony Routing Component.
  */
 class ProjectUrlMatcher extends Symfony\Component\Routing\Tests\Fixtures\RedirectableUrlMatcher
 {
+    /**
+     * Constructor.
+     */
     public function __construct(RequestContext $context)
     {
         $this->context = $context;
     }
 
-    public function match($rawPathinfo)
+    public function match($pathinfo)
     {
         $allow = array();
-        $pathinfo = rawurldecode($rawPathinfo);
+        $pathinfo = rawurldecode($pathinfo);
         $trimmedPathinfo = rtrim($pathinfo, '/');
         $context = $this->context;
         $request = $this->request;
@@ -82,24 +87,22 @@ class ProjectUrlMatcher extends Symfony\Component\Routing\Tests\Fixtures\Redirec
 
                 // baz3
                 if ('/test/baz3' === $trimmedPathinfo) {
-                    $ret = array('_route' => 'baz3');
                     if (substr($pathinfo, -1) !== '/') {
-                        return array_replace($ret, $this->redirect($rawPathinfo.'/', 'baz3'));
+                        return $this->redirect($pathinfo.'/', 'baz3');
                     }
 
-                    return $ret;
+                    return array('_route' => 'baz3');
                 }
 
             }
 
             // baz4
             if (preg_match('#^/test/(?P<foo>[^/]++)/?$#s', $pathinfo, $matches)) {
-                $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'baz4')), array ());
                 if (substr($pathinfo, -1) !== '/') {
-                    return array_replace($ret, $this->redirect($rawPathinfo.'/', 'baz4'));
+                    return $this->redirect($pathinfo.'/', 'baz4');
                 }
 
-                return $ret;
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'baz4')), array ());
             }
 
             // baz5
@@ -178,12 +181,11 @@ class ProjectUrlMatcher extends Symfony\Component\Routing\Tests\Fixtures\Redirec
 
             // hey
             if ('/multi/hey' === $trimmedPathinfo) {
-                $ret = array('_route' => 'hey');
                 if (substr($pathinfo, -1) !== '/') {
-                    return array_replace($ret, $this->redirect($rawPathinfo.'/', 'hey'));
+                    return $this->redirect($pathinfo.'/', 'hey');
                 }
 
-                return $ret;
+                return array('_route' => 'hey');
             }
 
             // overridden2
@@ -324,24 +326,22 @@ class ProjectUrlMatcher extends Symfony\Component\Routing\Tests\Fixtures\Redirec
 
         // secure
         if ('/secure' === $pathinfo) {
-            $ret = array('_route' => 'secure');
             $requiredSchemes = array (  'https' => 0,);
             if (!isset($requiredSchemes[$scheme])) {
-                return array_replace($ret, $this->redirect($rawPathinfo, 'secure', key($requiredSchemes)));
+                return $this->redirect($pathinfo, 'secure', key($requiredSchemes));
             }
 
-            return $ret;
+            return array('_route' => 'secure');
         }
 
         // nonsecure
         if ('/nonsecure' === $pathinfo) {
-            $ret = array('_route' => 'nonsecure');
             $requiredSchemes = array (  'http' => 0,);
             if (!isset($requiredSchemes[$scheme])) {
-                return array_replace($ret, $this->redirect($rawPathinfo, 'nonsecure', key($requiredSchemes)));
+                return $this->redirect($pathinfo, 'nonsecure', key($requiredSchemes));
             }
 
-            return $ret;
+            return array('_route' => 'nonsecure');
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

@@ -81,6 +81,7 @@ class Plugin extends PluginBase {
             'olabs.oims.vouchers' => ['tab' => 'olabs.oims::lang.plugin.oims', 'label' => 'olabs.oims::lang.plugin.access_vouchers'],
             'olabs.oims.payment_receivables' => ['tab' => 'olabs.oims::lang.plugin.oims', 'label' => 'olabs.oims::lang.plugin.access_payment_receivables'],
             'olabs.oims.attendances' => ['tab' => 'olabs.oims::lang.plugin.oims', 'label' => 'olabs.oims::lang.plugin.access_attendances'],
+            'olabs.oims.my_attendances' => ['tab' => 'olabs.oims::lang.plugin.oims', 'label' => 'olabs.oims::lang.plugin.access_my_attendances'],
             'olabs.oims.pc_attendances' => ['tab' => 'olabs.oims::lang.plugin.oims', 'label' => 'olabs.oims::lang.plugin.access_pcattendances'],
             'olabs.oims.machineries' => ['tab' => 'olabs.oims::lang.plugin.oims', 'label' => 'olabs.oims::lang.plugin.access_machineries'],
             'olabs.oims.manpowers' => ['tab' => 'olabs.oims::lang.plugin.oims', 'label' => 'olabs.oims::lang.plugin.access_manpowers'],

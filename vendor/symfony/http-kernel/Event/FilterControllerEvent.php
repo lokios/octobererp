@@ -27,6 +27,9 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class FilterControllerEvent extends KernelEvent
 {
+    /**
+     * The current controller.
+     */
     private $controller;
 
     public function __construct(HttpKernelInterface $kernel, callable $controller, Request $request, $requestType)
@@ -46,6 +49,11 @@ class FilterControllerEvent extends KernelEvent
         return $this->controller;
     }
 
+    /**
+     * Sets a new controller.
+     *
+     * @param callable $controller
+     */
     public function setController(callable $controller)
     {
         $this->controller = $controller;

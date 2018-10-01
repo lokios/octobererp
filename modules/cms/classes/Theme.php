@@ -34,7 +34,7 @@ class Theme
     /**
      * @var mixed Keeps the cached configuration file values.
      */
-    protected $configCache = null;
+    protected $configCache;
 
     /**
      * @var mixed Active theme cache in memory
@@ -312,7 +312,61 @@ class Theme
             return $this->configCache = [];
         }
 
-        return $this->configCache = Yaml::parseFile($path);
+        $config = Yaml::parseFile($path);
+
+        /**
+         * @event cms.theme.extendConfig
+         * Extend basic theme configuration supplied by the theme by returning an array.
+         *
+         * Note if planning on extending form fields, use the `cms.theme.extendFormConfig`
+         * event instead.
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.theme.extendConfig', function ($themeCode, &$config) {
+         *          $config['name'] = 'October Theme';
+         *          $config['description'] = 'Another great theme from October CMS';
+         *     });
+         *
+         */
+        Event::fire('cms.theme.extendConfig', [$this->getDirName(), &$config]);
+
+        return $this->configCache = $config;
+    }
+
+    /**
+     * Themes have a dedicated `form` option that provide form fields
+     * for customization, this is an immutable accessor for that and
+     * also an solid anchor point for extension.
+     * @return array
+     */
+    public function getFormConfig()
+    {
+        $config = $this->getConfigArray('form');
+
+        /**
+         * @event cms.theme.extendFormConfig
+         * Extend form field configuration supplied by the theme by returning an array.
+         *
+         * Note if you are planning on using `assetVar` to inject CSS variables from a
+         * plugin registration file, make sure the plugin has elevated permissions.
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.theme.extendFormConfig', function ($themeCode, &$config) {
+         *          array_set($config, 'tabs.fields.header_color', [
+         *              'label'           => 'Header Colour',
+         *              'type'            => 'colorpicker',
+         *              'availableColors' => [#34495e, #708598, #3498db],
+         *              'assetVar'        => 'header-bg',
+         *              'tab'             => 'Global'
+         *          ]);
+         *     });
+         *
+         */
+        Event::fire('cms.theme.extendFormConfig', [$this->getDirName(), &$config]);
+
+        return $config;
     }
 
     /**
@@ -340,7 +394,7 @@ class Theme
         if (is_string($result)) {
             $fileName = File::symbolizePath($result);
 
-            if (File::isLocalPath($fileName) || realpath($fileName) !== false) {
+            if (File::isLocalPath($fileName)) {
                 $path = $fileName;
             }
             else {
@@ -448,8 +502,7 @@ class Theme
     public function __get($name)
     {
         if ($this->hasCustomData()) {
-            $theme = $this->getCustomData();
-            return $theme->{$name};
+            return $this->getCustomData()->{$name};
         }
 
         return null;

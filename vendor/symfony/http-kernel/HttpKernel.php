@@ -89,12 +89,14 @@ class HttpKernel implements HttpKernelInterface, TerminableInterface
     }
 
     /**
+     * @throws \LogicException If the request stack is empty
+     *
      * @internal
      */
-    public function terminateWithException(\Exception $exception, Request $request = null)
+    public function terminateWithException(\Exception $exception)
     {
-        if (!$request = $request ?: $this->requestStack->getMasterRequest()) {
-            throw $exception;
+        if (!$request = $this->requestStack->getMasterRequest()) {
+            throw new \LogicException('Request stack is empty', 0, $exception);
         }
 
         $response = $this->handleException($exception, $request, self::MASTER_REQUEST);
@@ -148,7 +150,7 @@ class HttpKernel implements HttpKernelInterface, TerminableInterface
         $arguments = $event->getArguments();
 
         // call controller
-        $response = \call_user_func_array($controller, $arguments);
+        $response = call_user_func_array($controller, $arguments);
 
         // view
         if (!$response instanceof Response) {
@@ -240,7 +242,7 @@ class HttpKernel implements HttpKernelInterface, TerminableInterface
 
         // the developer asked for a specific status code
         if ($response->headers->has('X-Status-Code')) {
-            @trigger_error(sprintf('Using the X-Status-Code header is deprecated since Symfony 3.3 and will be removed in 4.0. Use %s::allowCustomResponseCode() instead.', GetResponseForExceptionEvent::class), E_USER_DEPRECATED);
+            @trigger_error(sprintf('Using the X-Status-Code header is deprecated since version 3.3 and will be removed in 4.0. Use %s::allowCustomResponseCode() instead.', GetResponseForExceptionEvent::class), E_USER_DEPRECATED);
 
             $response->setStatusCode($response->headers->get('X-Status-Code'));
 

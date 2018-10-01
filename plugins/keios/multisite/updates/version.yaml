@@ -17,3 +17,5 @@
 1.1.0:
     - Code inspect fixes
     - October Stable event patch
+1.1.1:
+    - Fix for top menu width

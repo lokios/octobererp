@@ -1,6 +1,5 @@
 <?php namespace Backend\Classes;
 
-use App;
 use Lang;
 use View;
 use Flash;
@@ -209,7 +208,7 @@ class Controller extends Extendable
                 return Response::make(View::make('backend::access_denied'), 403);
             }
         }
-        
+
         /*
          * Extensibility
          */
@@ -361,7 +360,7 @@ class Controller extends Extendable
         }
 
         // Load the view
-        if (!$this->suppressView && is_null($result)) {
+        if (!$this->suppressView && $result === null) {
             return $this->makeView($actionName);
         }
 
@@ -391,7 +390,6 @@ class Controller extends Extendable
      */
     protected function execAjaxHandlers()
     {
-
         if ($handler = $this->getAjaxHandler()) {
             try {
                 /*
@@ -406,6 +404,12 @@ class Controller extends Extendable
                  */
                 if ($partialList = trim(Request::header('X_OCTOBER_REQUEST_PARTIALS'))) {
                     $partialList = explode('&', $partialList);
+
+                    foreach ($partialList as $partial) {
+                        if (!preg_match('/^(?!.*\/\/)[a-z0-9\_][a-z0-9\_\-\/]*$/i', $partial)) {
+                            throw new SystemException(Lang::get('cms::lang.partial.invalid_name', ['name'=>$partial]));
+                        }
+                    }
                 }
                 else {
                     $partialList = [];
@@ -515,7 +519,7 @@ class Controller extends Extendable
 
             if (($widget = $this->widget->{$widgetName}) && $widget->methodExists($handlerName)) {
                 $result = $this->runAjaxHandlerForWidget($widget, $handlerName);
-                return ($result) ?: true;
+                return $result ?: true;
             }
         }
         else {
@@ -526,7 +530,7 @@ class Controller extends Extendable
 
             if ($this->methodExists($pageHandler)) {
                 $result = call_user_func_array([$this, $pageHandler], $this->params);
-                return ($result) ?: true;
+                return $result ?: true;
             }
 
             /*
@@ -534,7 +538,7 @@ class Controller extends Extendable
              */
             if ($this->methodExists($handler)) {
                 $result = call_user_func_array([$this, $handler], $this->params);
-                return ($result) ?: true;
+                return $result ?: true;
             }
 
             /*
@@ -546,7 +550,7 @@ class Controller extends Extendable
             foreach ((array) $this->widget as $widget) {
                 if ($widget->methodExists($handler)) {
                     $result = $this->runAjaxHandlerForWidget($widget, $handler);
-                    return ($result) ?: true;
+                    return $result ?: true;
                 }
             }
         }

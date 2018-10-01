@@ -427,15 +427,4 @@ class UrlMatcherTest extends TestCase
         $matcher = new UrlMatcher($coll, new RequestContext('', 'GET', 'en.example.com'));
         $this->assertEquals(array('_route' => 'foo', 'locale' => 'en'), $matcher->match('/'));
     }
-
-    /**
-     * @expectedException \Symfony\Component\Routing\Exception\NoConfigurationException
-     */
-    public function testNoConfiguration()
-    {
-        $coll = new RouteCollection();
-
-        $matcher = new UrlMatcher($coll, new RequestContext());
-        $matcher->match('/');
-    }
 }

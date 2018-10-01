@@ -23,13 +23,6 @@ use Symfony\Component\Translation\Exception\LogicException;
  */
 class YamlFileDumper extends FileDumper
 {
-    private $extension;
-
-    public function __construct(/**string */$extension = 'yml')
-    {
-        $this->extension = $extension;
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -57,6 +50,6 @@ class YamlFileDumper extends FileDumper
      */
     protected function getExtension()
     {
-        return $this->extension;
+        return 'yml';
     }
 }

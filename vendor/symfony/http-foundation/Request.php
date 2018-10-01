@@ -144,7 +144,7 @@ class Request
     public $headers;
 
     /**
-     * @var string|resource
+     * @var string
      */
     protected $content;
 
@@ -221,6 +221,7 @@ class Request
     protected static $requestFactory;
 
     private $isHostValid = true;
+    private $isClientIpsValid = true;
     private $isForwardedValid = true;
 
     private static $trustedHeaderSet = -1;
@@ -242,6 +243,8 @@ class Request
     );
 
     /**
+     * Constructor.
+     *
      * @param array           $query      The GET parameters
      * @param array           $request    The POST parameters
      * @param array           $attributes The request attributes (parameters parsed from the PATH_INFO, ...)
@@ -329,13 +332,13 @@ class Request
      * The information contained in the URI always take precedence
      * over the other information (server and parameters).
      *
-     * @param string          $uri        The URI
-     * @param string          $method     The HTTP method
-     * @param array           $parameters The query (GET) or request (POST) parameters
-     * @param array           $cookies    The request cookies ($_COOKIE)
-     * @param array           $files      The request files ($_FILES)
-     * @param array           $server     The server parameters ($_SERVER)
-     * @param string|resource $content    The raw body data
+     * @param string $uri        The URI
+     * @param string $method     The HTTP method
+     * @param array  $parameters The query (GET) or request (POST) parameters
+     * @param array  $cookies    The request cookies ($_COOKIE)
+     * @param array  $files      The request files ($_FILES)
+     * @param array  $server     The server parameters ($_SERVER)
+     * @param string $content    The raw body data
      *
      * @return static
      */
@@ -460,22 +463,22 @@ class Request
     public function duplicate(array $query = null, array $request = null, array $attributes = null, array $cookies = null, array $files = null, array $server = null)
     {
         $dup = clone $this;
-        if (null !== $query) {
+        if ($query !== null) {
             $dup->query = new ParameterBag($query);
         }
-        if (null !== $request) {
+        if ($request !== null) {
             $dup->request = new ParameterBag($request);
         }
-        if (null !== $attributes) {
+        if ($attributes !== null) {
             $dup->attributes = new ParameterBag($attributes);
         }
-        if (null !== $cookies) {
+        if ($cookies !== null) {
             $dup->cookies = new ParameterBag($cookies);
         }
-        if (null !== $files) {
+        if ($files !== null) {
             $dup->files = new FileBag($files);
         }
-        if (null !== $server) {
+        if ($server !== null) {
             $dup->server = new ServerBag($server);
             $dup->headers = new HeaderBag($dup->server->getHeaders());
         }
@@ -531,21 +534,9 @@ class Request
             return trigger_error($e, E_USER_ERROR);
         }
 
-        $cookieHeader = '';
-        $cookies = array();
-
-        foreach ($this->cookies as $k => $v) {
-            $cookies[] = $k.'='.$v;
-        }
-
-        if (!empty($cookies)) {
-            $cookieHeader = 'Cookie: '.implode('; ', $cookies)."\r\n";
-        }
-
         return
             sprintf('%s %s %s', $this->getMethod(), $this->getRequestUri(), $this->server->get('SERVER_PROTOCOL'))."\r\n".
-            $this->headers.
-            $cookieHeader."\r\n".
+            $this->headers."\r\n".
             $content;
     }
 
@@ -599,7 +590,7 @@ class Request
         self::$trustedProxies = $proxies;
 
         if (2 > func_num_args()) {
-            @trigger_error(sprintf('The %s() method expects a bit field of Request::HEADER_* as second argument since Symfony 3.3. Defining it will be required in 4.0. ', __METHOD__), E_USER_DEPRECATED);
+            @trigger_error(sprintf('The %s() method expects a bit field of Request::HEADER_* as second argument since version 3.3. Defining it will be required in 4.0. ', __METHOD__), E_USER_DEPRECATED);
 
             return;
         }
@@ -679,7 +670,7 @@ class Request
      */
     public static function setTrustedHeaderName($key, $value)
     {
-        @trigger_error(sprintf('The "%s()" method is deprecated since Symfony 3.3 and will be removed in 4.0. Use the $trustedHeaderSet argument of the Request::setTrustedProxies() method instead.', __METHOD__), E_USER_DEPRECATED);
+        @trigger_error(sprintf('The "%s()" method is deprecated since version 3.3 and will be removed in 4.0. Use the $trustedHeaderSet argument of the Request::setTrustedProxies() method instead.', __METHOD__), E_USER_DEPRECATED);
 
         if ('forwarded' === $key) {
             $key = self::HEADER_FORWARDED;
@@ -719,7 +710,7 @@ class Request
     public static function getTrustedHeaderName($key)
     {
         if (2 > func_num_args() || func_get_arg(1)) {
-            @trigger_error(sprintf('The "%s()" method is deprecated since Symfony 3.3 and will be removed in 4.0. Use the Request::getTrustedHeaderSet() method instead.', __METHOD__), E_USER_DEPRECATED);
+            @trigger_error(sprintf('The "%s()" method is deprecated since version 3.3 and will be removed in 4.0. Use the Request::getTrustedHeaderSet() method instead.', __METHOD__), E_USER_DEPRECATED);
         }
 
         if (!array_key_exists($key, self::$trustedHeaders)) {
@@ -807,8 +798,8 @@ class Request
      *
      * Order of precedence: PATH (routing placeholders or custom attributes), GET, BODY
      *
-     * @param string $key     The key
-     * @param mixed  $default The default value if the parameter key does not exist
+     * @param string $key     the key
+     * @param mixed  $default the default value if the parameter key does not exist
      *
      * @return mixed
      */
@@ -1031,7 +1022,7 @@ class Request
             return $this->server->get('SERVER_PORT');
         }
 
-        if ('[' === $host[0]) {
+        if ($host[0] === '[') {
             $pos = strpos($host, ':', strrpos($host, ']'));
         } else {
             $pos = strrpos($host, ':');
@@ -1093,7 +1084,7 @@ class Request
         $scheme = $this->getScheme();
         $port = $this->getPort();
 
-        if (('http' == $scheme && 80 == $port) || ('https' == $scheme && 443 == $port)) {
+        if (('http' == $scheme && $port == 80) || ('https' == $scheme && $port == 443)) {
             return $this->getHost();
         }
 
@@ -1560,7 +1551,7 @@ class Request
         if (!func_num_args() || func_get_arg(0)) {
             // This deprecation should be turned into a BadMethodCallException in 4.0 (without adding the argument in the signature)
             // then setting $andCacheable to false should be deprecated in 4.1
-            @trigger_error('Checking only for cacheable HTTP methods with Symfony\Component\HttpFoundation\Request::isMethodSafe() is deprecated since Symfony 3.2 and will throw an exception in 4.0. Disable checking only for cacheable methods by calling the method with `false` as first argument or use the Request::isMethodCacheable() instead.', E_USER_DEPRECATED);
+            @trigger_error('Checking only for cacheable HTTP methods with Symfony\Component\HttpFoundation\Request::isMethodSafe() is deprecated since version 3.2 and will throw an exception in 4.0. Disable checking only for cacheable methods by calling the method with `false` as first argument or use the Request::isMethodCacheable() instead.', E_USER_DEPRECATED);
 
             return in_array($this->getMethod(), array('GET', 'HEAD'));
         }
@@ -1588,30 +1579,6 @@ class Request
     public function isMethodCacheable()
     {
         return in_array($this->getMethod(), array('GET', 'HEAD'));
-    }
-
-    /**
-     * Returns the protocol version.
-     *
-     * If the application is behind a proxy, the protocol version used in the
-     * requests between the client and the proxy and between the proxy and the
-     * server might be different. This returns the former (from the "Via" header)
-     * if the proxy is trusted (see "setTrustedProxies()"), otherwise it returns
-     * the latter (from the "SERVER_PROTOCOL" server parameter).
-     *
-     * @return string
-     */
-    public function getProtocolVersion()
-    {
-        if ($this->isFromTrustedProxy()) {
-            preg_match('~^(HTTP/)?([1-9]\.[0-9]) ~', $this->headers->get('Via'), $matches);
-
-            if ($matches) {
-                return 'HTTP/'.$matches[2];
-            }
-        }
-
-        return $this->server->get('SERVER_PROTOCOL');
     }
 
     /**
@@ -1742,7 +1709,7 @@ class Request
                     }
                 } else {
                     for ($i = 0, $max = count($codes); $i < $max; ++$i) {
-                        if (0 === $i) {
+                        if ($i === 0) {
                             $lang = strtolower($codes[0]);
                         } else {
                             $lang .= '_'.strtoupper($codes[$i]);
@@ -1837,7 +1804,7 @@ class Request
             // IIS with ISAPI_Rewrite
             $requestUri = $this->headers->get('X_REWRITE_URL');
             $this->headers->remove('X_REWRITE_URL');
-        } elseif ('1' == $this->server->get('IIS_WasUrlRewritten') && '' != $this->server->get('UNENCODED_URL')) {
+        } elseif ($this->server->get('IIS_WasUrlRewritten') == '1' && $this->server->get('UNENCODED_URL') != '') {
             // IIS7 with URL Rewrite: make sure we get the unencoded URL (double slash problem)
             $requestUri = $this->server->get('UNENCODED_URL');
             $this->server->remove('UNENCODED_URL');
@@ -1846,7 +1813,7 @@ class Request
             $requestUri = $this->server->get('REQUEST_URI');
             // HTTP proxy reqs setup request URI with scheme and host [and port] + the URL path, only use URL path
             $schemeAndHttpHost = $this->getSchemeAndHttpHost();
-            if (0 === strpos($requestUri, $schemeAndHttpHost)) {
+            if (strpos($requestUri, $schemeAndHttpHost) === 0) {
                 $requestUri = substr($requestUri, strlen($schemeAndHttpHost));
             }
         } elseif ($this->server->has('ORIG_PATH_INFO')) {
@@ -1898,9 +1865,6 @@ class Request
 
         // Does the baseUrl have anything in common with the request_uri?
         $requestUri = $this->getRequestUri();
-        if ('' !== $requestUri && '/' !== $requestUri[0]) {
-            $requestUri = '/'.$requestUri;
-        }
 
         if ($baseUrl && false !== $prefix = $this->getUrlencodedPrefix($requestUri, $baseUrl)) {
             // full $baseUrl matches
@@ -1926,7 +1890,7 @@ class Request
         // If using mod_rewrite or ISAPI_Rewrite strip the script filename
         // out of baseUrl. $pos !== 0 makes sure it is not matching a value
         // from PATH_INFO or QUERY_STRING
-        if (strlen($requestUri) >= strlen($baseUrl) && (false !== $pos = strpos($requestUri, $baseUrl)) && 0 !== $pos) {
+        if (strlen($requestUri) >= strlen($baseUrl) && (false !== $pos = strpos($requestUri, $baseUrl)) && $pos !== 0) {
             $baseUrl = substr($requestUri, 0, $pos + strlen($baseUrl));
         }
 
@@ -1940,12 +1904,12 @@ class Request
      */
     protected function prepareBasePath()
     {
+        $filename = basename($this->server->get('SCRIPT_FILENAME'));
         $baseUrl = $this->getBaseUrl();
         if (empty($baseUrl)) {
             return '';
         }
 
-        $filename = basename($this->server->get('SCRIPT_FILENAME'));
         if (basename($baseUrl) === $filename) {
             $basePath = dirname($baseUrl);
         } else {
@@ -1966,26 +1930,23 @@ class Request
      */
     protected function preparePathInfo()
     {
+        $baseUrl = $this->getBaseUrl();
+
         if (null === ($requestUri = $this->getRequestUri())) {
             return '/';
         }
 
         // Remove the query string from REQUEST_URI
-        if (false !== $pos = strpos($requestUri, '?')) {
+        if ($pos = strpos($requestUri, '?')) {
             $requestUri = substr($requestUri, 0, $pos);
-        }
-        if ('' !== $requestUri && '/' !== $requestUri[0]) {
-            $requestUri = '/'.$requestUri;
-        }
-
-        if (null === ($baseUrl = $this->getBaseUrl())) {
-            return $requestUri;
         }
 
         $pathInfo = substr($requestUri, strlen($baseUrl));
-        if (false === $pathInfo || '' === $pathInfo) {
+        if (null !== $baseUrl && (false === $pathInfo || '' === $pathInfo)) {
             // If substr() returns false then PATH_INFO is set to an empty string
             return '/';
+        } elseif (null === $baseUrl) {
+            return $requestUri;
         }
 
         return (string) $pathInfo;
@@ -2002,7 +1963,6 @@ class Request
             'js' => array('application/javascript', 'application/x-javascript', 'text/javascript'),
             'css' => array('text/css'),
             'json' => array('application/json', 'application/x-json'),
-            'jsonld' => array('application/ld+json'),
             'xml' => array('text/xml', 'application/xml', 'application/x-xml'),
             'rdf' => array('application/rdf+xml'),
             'atom' => array('application/atom+xml'),

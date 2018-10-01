@@ -85,7 +85,8 @@ class Plugin extends PluginBase
                     'label'      => 'rainlab.forum::lang.settings.forum_username',
                     'relation'   => 'forum_member',
                     'select'     => 'username',
-                    'searchable' => false
+                    'searchable' => false,
+                    'invisible'  => true
                 ]
             ]);
         });
@@ -103,6 +104,16 @@ class Plugin extends PluginBase
            '\RainLab\Forum\Components\EmbedChannel' => 'forumEmbedChannel'
         ];
     }
+    
+    public function registerPermissions() 
+    {
+        return [
+            'rainlab.forum::lang.settings.channels' => [
+                'tab'   => 'rainlab.forum::lang.settings.channels',
+                'label' => 'rainlab.forum::lang.settings.channels_desc'
+            ]
+        ];
+    }
 
     public function registerSettings()
     {
@@ -112,8 +123,9 @@ class Plugin extends PluginBase
                 'description' => 'rainlab.forum::lang.settings.channels_desc',
                 'icon'        => 'icon-comments',
                 'url'         => Backend::url('rainlab/forum/channels'),
-                'category'    => 'Forum',
-                'order'       => 500
+                'category'    => 'rainlab.forum::lang.plugin.name',
+                'order'       => 500,
+                'permissions' => ['rainlab.forum::lang.settings.channels'],
             ]
         ];
     }

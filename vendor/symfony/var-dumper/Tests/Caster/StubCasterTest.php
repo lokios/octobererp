@@ -100,28 +100,7 @@ EODUMP;
 
         $expectedDump = <<<'EODUMP'
 <foo></foo><bar><span class=sf-dump-note>array:1</span> [<samp>
-  <span class=sf-dump-index>0</span> => "<a href="%sStubCasterTest.php:0" rel="noopener noreferrer"><span class=sf-dump-str title="55 characters">Symfony\Component\VarDumper\Tests\Caster\StubCasterTest</span></a>"
-</samp>]
-</bar>
-EODUMP;
-
-        $this->assertStringMatchesFormat($expectedDump, $dump);
-    }
-
-    public function testLinkStubWithNoFileLink()
-    {
-        $var = array(new LinkStub('example.com', 0, 'http://example.com'));
-
-        $cloner = new VarCloner();
-        $dumper = new HtmlDumper();
-        $dumper->setDumpHeader('<foo></foo>');
-        $dumper->setDumpBoundaries('<bar>', '</bar>');
-        $dumper->setDisplayOptions(array('fileLinkFormat' => '%f:%l'));
-        $dump = $dumper->dump($cloner->cloneVar($var), true);
-
-        $expectedDump = <<<'EODUMP'
-<foo></foo><bar><span class=sf-dump-note>array:1</span> [<samp>
-  <span class=sf-dump-index>0</span> => "<a href="http://example.com" target="_blank" rel="noopener noreferrer"><span class=sf-dump-str title="11 characters">example.com</span></a>"
+  <span class=sf-dump-index>0</span> => "<a href="%sStubCasterTest.php:0" target="_blank" rel="noopener noreferrer"><span class=sf-dump-str title="55 characters">Symfony\Component\VarDumper\Tests\Caster\StubCasterTest</span></a>"
 </samp>]
 </bar>
 EODUMP;
@@ -141,7 +120,7 @@ EODUMP;
 
         $expectedDump = <<<'EODUMP'
 <foo></foo><bar><span class=sf-dump-note>array:1</span> [<samp>
-  <span class=sf-dump-index>0</span> => "<a href="%sFooInterface.php:10" rel="noopener noreferrer"><span class=sf-dump-str title="5 characters">hello</span></a>"
+  <span class=sf-dump-index>0</span> => "<a href="%sFooInterface.php:10" target="_blank" rel="noopener noreferrer"><span class=sf-dump-str title="5 characters">hello</span></a>"
 </samp>]
 </bar>
 EODUMP;
@@ -182,7 +161,7 @@ EODUMP;
 
         $expectedDump = <<<'EODUMP'
 <foo></foo><bar><span class=sf-dump-note>array:1</span> [<samp>
-  <span class=sf-dump-index>0</span> => "<a href="%sFooInterface.php:5" rel="noopener noreferrer"><span class=sf-dump-str title="5 characters">hello</span></a>"
+  <span class=sf-dump-index>0</span> => "<a href="%sFooInterface.php:5" target="_blank" rel="noopener noreferrer"><span class=sf-dump-str title="5 characters">hello</span></a>"
 </samp>]
 </bar>
 EODUMP;

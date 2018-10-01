@@ -19,29 +19,17 @@ use Symfony\Component\VarDumper\Dumper\CliDumper;
  */
 trait VarDumperTestTrait
 {
-    public function assertDumpEquals($dump, $data, $filter = 0, $message = '')
+    public function assertDumpEquals($dump, $data, $message = '')
     {
-        if (is_string($filter)) {
-            @trigger_error(sprintf('The $message argument of the "%s()" method at 3rd position is deprecated since Symfony 3.4 and will be moved at 4th position in 4.0.', __METHOD__), E_USER_DEPRECATED);
-            $message = $filter;
-            $filter = 0;
-        }
-
-        $this->assertSame(rtrim($dump), $this->getDump($data, null, $filter), $message);
+        $this->assertSame(rtrim($dump), $this->getDump($data), $message);
     }
 
-    public function assertDumpMatchesFormat($dump, $data, $filter = 0, $message = '')
+    public function assertDumpMatchesFormat($dump, $data, $message = '')
     {
-        if (is_string($filter)) {
-            @trigger_error(sprintf('The $message argument of the "%s()" method at 3rd position is deprecated since Symfony 3.4 and will be moved at 4th position in 4.0.', __METHOD__), E_USER_DEPRECATED);
-            $message = $filter;
-            $filter = 0;
-        }
-
-        $this->assertStringMatchesFormat(rtrim($dump), $this->getDump($data, null, $filter), $message);
+        $this->assertStringMatchesFormat(rtrim($dump), $this->getDump($data), $message);
     }
 
-    protected function getDump($data, $key = null, $filter = 0)
+    protected function getDump($data, $key = null)
     {
         $flags = getenv('DUMP_LIGHT_ARRAY') ? CliDumper::DUMP_LIGHT_ARRAY : 0;
         $flags |= getenv('DUMP_STRING_LENGTH') ? CliDumper::DUMP_STRING_LENGTH : 0;
@@ -50,7 +38,7 @@ trait VarDumperTestTrait
         $cloner->setMaxItems(-1);
         $dumper = new CliDumper(null, null, $flags);
         $dumper->setColors(false);
-        $data = $cloner->cloneVar($data, $filter)->withRefHandles(false);
+        $data = $cloner->cloneVar($data)->withRefHandles(false);
         if (null !== $key && null === $data = $data->seek($key)) {
             return;
         }

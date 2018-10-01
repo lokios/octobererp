@@ -135,10 +135,8 @@
 <FORM class="swMenuForm" name="topmenu" method="POST" action="{$SCRIPT_SELF}">
 <div style="height: 78px" class="swAdminBanner">
 <div style="float: right;">
-{*<img height="78px" src="{$REPORTICO_URL_DIR}/images/reportico100.png"/>*}
-<div class="smallbanner">
-{*    Version <a href="http://www.reportico.org/" target="_blank">{$REPORTICO_VERSION}</a>*}
-</div>
+<img height="78px" src="{$REPORTICO_URL_DIR}/images/reportico100.png"/>
+<div class="smallbanner">Version <a href="http://www.reportico.org/" target="_blank">{$REPORTICO_VERSION}</a></div>
 </div>
 <div style="height: 78px">
 <H1 class="swTitle" style="text-align: center; padding-top: 30px; padding-left: 200px;">{$T_ADMINTITLE}</H1>

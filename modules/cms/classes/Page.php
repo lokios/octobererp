@@ -1,8 +1,6 @@
 <?php namespace Cms\Classes;
 
 use Lang;
-use Cms\Classes\Theme;
-use Cms\Classes\Layout;
 use ApplicationException;
 use October\Rain\Filesystem\Definitions as FileDefinitions;
 
@@ -72,7 +70,7 @@ class Page extends CmsCompoundObject
      */
     public function getCodeClassParent() : string
     {
-        return '\Cms\Classes\PageCode';
+        return PageCode::class;
     }
 
     /**

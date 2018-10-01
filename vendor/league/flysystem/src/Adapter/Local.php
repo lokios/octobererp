@@ -150,23 +150,19 @@ class Local extends AbstractAdapter
         $this->ensureDirectory(dirname($location));
         $stream = fopen($location, 'w+b');
 
-        if ( ! $stream) {
+        if ( ! $stream || stream_copy_to_stream($resource, $stream) === false || ! fclose($stream)) {
             return false;
-        }
-
-        stream_copy_to_stream($resource, $stream);
-
-        if ( ! fclose($stream)) {
-            return false;
-        }
-
-        if ($visibility = $config->get('visibility')) {
-            $this->setVisibility($path, $visibility);
         }
 
         $type = 'file';
+        $result = compact('type', 'path');
 
-        return compact('type', 'path', 'visibility');
+        if ($visibility = $config->get('visibility')) {
+            $this->setVisibility($path, $visibility);
+            $result['visibility'] = $visibility;
+        }
+
+        return $result;
     }
 
     /**
@@ -194,7 +190,6 @@ class Local extends AbstractAdapter
     public function update($path, $contents, Config $config)
     {
         $location = $this->applyPathPrefix($path);
-        $mimetype = Util::guessMimeType($path, $contents);
         $size = file_put_contents($location, $contents, $this->writeFlags);
 
         if ($size === false) {
@@ -203,7 +198,13 @@ class Local extends AbstractAdapter
 
         $type = 'file';
 
-        return compact('type', 'path', 'size', 'contents', 'mimetype');
+        $result = compact('type', 'path', 'size', 'contents');
+
+        if ($mimetype = Util::guessMimeType($path, $contents)) {
+            $result['mimetype'] = $mimetype;
+        }
+
+        return $result;
     }
 
     /**
@@ -253,7 +254,7 @@ class Local extends AbstractAdapter
     {
         $location = $this->applyPathPrefix($path);
 
-        return unlink($location);
+        return @unlink($location);
     }
 
     /**

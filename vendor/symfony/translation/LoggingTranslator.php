@@ -24,6 +24,9 @@ class LoggingTranslator implements TranslatorInterface, TranslatorBagInterface
      */
     private $translator;
 
+    /**
+     * @var LoggerInterface
+     */
     private $logger;
 
     /**

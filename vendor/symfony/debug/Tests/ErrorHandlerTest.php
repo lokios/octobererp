@@ -98,6 +98,8 @@ class ErrorHandlerTest extends TestCase
     // dummy function to test trace in error handler.
     private static function triggerNotice($that)
     {
+        // dummy variable to check for in error handler.
+        $foobar = 123;
         $that->assertSame('', $foo.$foo.$bar);
     }
 
@@ -299,9 +301,6 @@ class ErrorHandlerTest extends TestCase
         @$handler->handleError(E_USER_DEPRECATED, 'Foo deprecation', __FILE__, __LINE__, array());
     }
 
-    /**
-     * @group no-hhvm
-     */
     public function testHandleException()
     {
         try {
@@ -343,9 +342,6 @@ class ErrorHandlerTest extends TestCase
         }
     }
 
-    /**
-     * @group legacy
-     */
     public function testErrorStacking()
     {
         try {
@@ -426,9 +422,6 @@ class ErrorHandlerTest extends TestCase
         $handler->setLoggers(array(E_DEPRECATED => array($mockLogger, LogLevel::WARNING)));
     }
 
-    /**
-     * @group no-hhvm
-     */
     public function testSettingLoggerWhenExceptionIsBuffered()
     {
         $bootLogger = new BufferingLogger();
@@ -448,9 +441,6 @@ class ErrorHandlerTest extends TestCase
         $handler->handleException($exception);
     }
 
-    /**
-     * @group no-hhvm
-     */
     public function testHandleFatalError()
     {
         try {
@@ -509,9 +499,6 @@ class ErrorHandlerTest extends TestCase
         $this->assertStringStartsWith("Attempted to load class \"Foo\" from the global namespace.\nDid you forget a \"use\" statement", $args[0]->getMessage());
     }
 
-    /**
-     * @group no-hhvm
-     */
     public function testHandleFatalErrorOnHHVM()
     {
         try {

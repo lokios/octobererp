@@ -10,8 +10,7 @@
     'path_to_assets' => preg_replace("/\/index.php/", "", \URL::to("/")) ."/".'plugins/reportico/reports/assets',
 
     // Path relative to laravel pase or fully where projects will be created
-//    'path_to_projects' => storage_path()."/reportico/projects",
-    'path_to_projects' => __DIR__ . "/projects",
+    'path_to_projects' => storage_path()."/reportico/projects",
 
     // Path relative to laravel pase or fully where admin project will be stored
     'path_to_admin' => 'projects',

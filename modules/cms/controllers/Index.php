@@ -5,7 +5,6 @@ use Lang;
 use Flash;
 use Config;
 use Request;
-use Response;
 use Exception;
 use BackendMenu;
 use Cms\Widgets\AssetList;
@@ -21,9 +20,9 @@ use Cms\Classes\CmsCompoundObject;
 use Cms\Classes\ComponentManager;
 use Cms\Classes\ComponentPartial;
 use Backend\Classes\Controller;
-use Backend\Classes\WidgetManager;
 use October\Rain\Router\Router as RainRouter;
 use ApplicationException;
+use Cms\Classes\Asset;
 
 /**
  * CMS index
@@ -96,6 +95,10 @@ class Index extends Controller
     // Pages
     //
 
+    /**
+     * Index page action
+     * @return void
+     */
     public function index()
     {
         $this->addJs('/modules/cms/assets/js/october.cmspage.js', 'core');
@@ -116,6 +119,10 @@ class Index extends Controller
         }
     }
 
+    /**
+     * Opens an existing template from the index page
+     * @return array
+     */
     public function index_onOpenTemplate()
     {
         $this->validateRequestTheme();
@@ -126,7 +133,7 @@ class Index extends Controller
 
         $this->vars['templatePath'] = Request::input('path');
 
-        if ($type == 'page') {
+        if ($type === 'page') {
             $router = new RainRouter;
             $this->vars['pageUrl'] = $router->urlFromPattern($template->url);
         }
@@ -142,6 +149,10 @@ class Index extends Controller
         ];
     }
 
+    /**
+     * Saves the template currently open
+     * @return array
+     */
     public function onSave()
     {
         $this->validateRequestTheme();
@@ -180,10 +191,11 @@ class Index extends Controller
             $templateData['code'] = $this->convertLineEndings($templateData['code']);
         }
 
-        if (!Request::input('templateForceSave') && $template->mtime) {
-            if (Request::input('templateMtime') != $template->mtime) {
-                throw new ApplicationException('mtime-mismatch');
-            }
+        if (
+            !Request::input('templateForceSave') && $template->mtime
+            && Request::input('templateMtime') != $template->mtime
+        ) {
+            throw new ApplicationException('mtime-mismatch');
         }
 
         $template->attributes = [];
@@ -203,7 +215,7 @@ class Index extends Controller
             'tabTitle'      => $this->getTabTitle($type, $template)
         ];
 
-        if ($type == 'page') {
+        if ($type === 'page') {
             $result['pageUrl'] = Url::to($template->url);
             $router = new Router($this->theme);
             $router->clearCache();
@@ -213,17 +225,25 @@ class Index extends Controller
         return $result;
     }
 
+    /**
+     * Displays a form that suggests the template has been edited elsewhere
+     * @return string
+     */
     public function onOpenConcurrencyResolveForm()
     {
         return $this->makePartial('concurrency_resolve_form');
     }
 
+    /**
+     * Create a new template
+     * @return array
+     */
     public function onCreateTemplate()
     {
         $type = Request::input('type');
         $template = $this->createTemplate($type);
 
-        if ($type == 'asset') {
+        if ($type === 'asset') {
             $template->fileName = $this->widget->assetList->getCurrentRelativePath();
         }
 
@@ -242,6 +262,10 @@ class Index extends Controller
         ];
     }
 
+    /**
+     * Deletes multiple templates at the same time
+     * @return array
+     */
     public function onDeleteTemplates()
     {
         $this->validateRequestTheme();
@@ -275,6 +299,10 @@ class Index extends Controller
         ];
     }
 
+    /**
+     * Deletes a template
+     * @return void
+     */
     public function onDelete()
     {
         $this->validateRequestTheme();
@@ -289,6 +317,10 @@ class Index extends Controller
         $this->fireSystemEvent('cms.template.delete', [$type]);
     }
 
+    /**
+     * Returns list of available templates
+     * @return array
+     */
     public function onGetTemplateList()
     {
         $this->validateRequestTheme();
@@ -299,6 +331,10 @@ class Index extends Controller
         ];
     }
 
+    /**
+     * Remembers an open or closed state for a supplied token, for example, component folders.
+     * @return array
+     */
     public function onExpandMarkupToken()
     {
         if (!$alias = post('tokenName')) {
@@ -306,7 +342,7 @@ class Index extends Controller
         }
 
         // Can only expand components at this stage
-        if ((!$type = post('tokenType')) && $type != 'component') {
+        if ((!$type = post('tokenType')) && $type !== 'component') {
             return;
         }
 
@@ -335,6 +371,10 @@ class Index extends Controller
     // Methods for the internal use
     //
 
+    /**
+     * Validate that the current request is within the active theme
+     * @return void
+     */
     protected function validateRequestTheme()
     {
         if ($this->theme->getDirName() != Request::input('theme')) {
@@ -342,14 +382,19 @@ class Index extends Controller
         }
     }
 
+    /**
+     * Reolves a template type to its class name
+     * @param string $type
+     * @return string
+     */
     protected function resolveTypeClassName($type)
     {
         $types = [
-            'page'    => '\Cms\Classes\Page',
-            'partial' => '\Cms\Classes\Partial',
-            'layout'  => '\Cms\Classes\Layout',
-            'content' => '\Cms\Classes\Content',
-            'asset'   => '\Cms\Classes\Asset'
+            'page'    => Page::class,
+            'partial' => Partial::class,
+            'layout'  => Layout::class,
+            'content' => Content::class,
+            'asset'   => Asset::class
         ];
 
         if (!array_key_exists($type, $types)) {
@@ -359,6 +404,12 @@ class Index extends Controller
         return $types[$type];
     }
 
+    /**
+     * Returns an existing template of a given type
+     * @param string $type
+     * @param string $path
+     * @return mixed
+     */
     protected function loadTemplate($type, $path)
     {
         $class = $this->resolveTypeClassName($type);
@@ -375,6 +426,11 @@ class Index extends Controller
         return $template;
     }
 
+    /**
+     * Creates a new template of a given type
+     * @param string $type
+     * @return mixed
+     */
     protected function createTemplate($type)
     {
         $class = $this->resolveTypeClassName($type);
@@ -386,9 +442,15 @@ class Index extends Controller
         return $template;
     }
 
+    /**
+     * Returns the text for a template tab
+     * @param string $type
+     * @param string $template
+     * @return string
+     */
     protected function getTabTitle($type, $template)
     {
-        if ($type == 'page') {
+        if ($type === 'page') {
             $result = $template->title ?: $template->getFileName();
             if (!$result) {
                 $result = trans('cms::lang.page.new');
@@ -397,7 +459,7 @@ class Index extends Controller
             return $result;
         }
 
-        if ($type == 'partial' || $type == 'layout' || $type == 'content' || $type == 'asset') {
+        if ($type === 'partial' || $type === 'layout' || $type === 'content' || $type === 'asset') {
             $result = in_array($type, ['asset', 'content']) ? $template->getFileName() : $template->getBaseFileName();
             if (!$result) {
                 $result = trans('cms::lang.'.$type.'.new');
@@ -409,6 +471,13 @@ class Index extends Controller
         return $template->getFileName();
     }
 
+    /**
+     * Returns a form widget for a specified template type.
+     * @param string $type
+     * @param string $template
+     * @param string $alias
+     * @return Backend\Widgets\Form
+     */
     protected function makeTemplateFormWidget($type, $template, $alias = null)
     {
         $formConfigs = [
@@ -427,11 +496,14 @@ class Index extends Controller
         $widgetConfig->model = $template;
         $widgetConfig->alias = $alias ?: 'form'.studly_case($type).md5($template->getFileName()).uniqid();
 
-        $widget = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
-
-        return $widget;
+        return $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
     }
 
+    /**
+     * Processes the component settings so they are ready to be saved
+     * @param array $settings
+     * @return array
+     */
     protected function upgradeSettings($settings)
     {
         /*
@@ -461,9 +533,7 @@ class Index extends Controller
                 }
 
                 $properties = json_decode($componentProperties[$index], true);
-                unset($properties['oc.alias']);
-                unset($properties['inspectorProperty']);
-                unset($properties['inspectorClassName']);
+                unset($properties['oc.alias'], $properties['inspectorProperty'], $properties['inspectorClassName']);
                 $settings[$section] = $properties;
             }
         }
@@ -486,13 +556,17 @@ class Index extends Controller
         return $dataHolder->settings;
     }
 
+    /**
+     * Binds the active form widget to the controller
+     * @return void
+     */
     protected function bindFormWidgetToController()
     {
         $alias = Request::input('formWidgetAlias');
         $type = Request::input('templateType');
         $object = $this->loadTemplate($type, Request::input('templatePath'));
-
         $widget = $this->makeTemplateFormWidget($type, $object, $alias);
+
         $widget->bindToController();
     }
 
@@ -504,8 +578,7 @@ class Index extends Controller
      */
     protected function convertLineEndings($markup)
     {
-        $markup = str_replace("\r\n", "\n", $markup);
-        $markup = str_replace("\r", "\n", $markup);
+        $markup = str_replace(["\r\n", "\r"], "\n", $markup);
 
         return $markup;
     }

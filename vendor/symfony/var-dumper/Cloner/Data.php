@@ -26,7 +26,7 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
     private $useRefHandles = -1;
 
     /**
-     * @param array $data An array as returned by ClonerInterface::cloneVar()
+     * @param array $data A array as returned by ClonerInterface::cloneVar()
      */
     public function __construct(array $data)
     {
@@ -34,7 +34,7 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
     }
 
     /**
-     * @return string The type of the value
+     * @return string The type of the value.
      */
     public function getType()
     {
@@ -61,9 +61,9 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
     }
 
     /**
-     * @param bool $recursive Whether values should be resolved recursively or not
+     * @param bool $recursive Whether values should be resolved recursively or not.
      *
-     * @return string|int|float|bool|array|null|Data[] A native representation of the original value
+     * @return scalar|array|null|Data[] A native representation of the original value.
      */
     public function getValue($recursive = false)
     {
@@ -172,7 +172,7 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
      */
     public function getRawData()
     {
-        @trigger_error(sprintf('The %s() method is deprecated since Symfony 3.3 and will be removed in 4.0. Use the array or object access instead.', __METHOD__));
+        @trigger_error(sprintf('The %s() method is deprecated since version 3.3 and will be removed in 4.0. Use the array or object access instead.', __METHOD__));
 
         return $this->data;
     }
@@ -247,7 +247,6 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
                 $keys[] = Caster::PREFIX_PROTECTED.$key;
                 $keys[] = Caster::PREFIX_VIRTUAL.$key;
                 $keys[] = "\0$item->class\0$key";
-                // no break
             case Stub::TYPE_ARRAY:
             case Stub::TYPE_RESOURCE:
                 break;
@@ -350,22 +349,16 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
                     $item = clone $item;
                     $item->type = $item->class;
                     $item->class = $item->value;
-                    // no break
+                    // No break;
                 case Stub::TYPE_OBJECT:
                 case Stub::TYPE_RESOURCE:
                     $withChildren = $children && $cursor->depth !== $this->maxDepth && $this->maxItemsPerDepth;
                     $dumper->enterHash($cursor, $item->type, $item->class, $withChildren);
                     if ($withChildren) {
-                        if ($cursor->skipChildren) {
-                            $withChildren = false;
-                            $cut = -1;
-                        } else {
-                            $cut = $this->dumpChildren($dumper, $cursor, $refs, $children, $cut, $item->type, null !== $item->class);
-                        }
+                        $cut = $this->dumpChildren($dumper, $cursor, $refs, $children, $cut, $item->type, null !== $item->class);
                     } elseif ($children && 0 <= $cut) {
                         $cut += count($children);
                     }
-                    $cursor->skipChildren = false;
                     $dumper->leaveHash($cursor, $item->type, $item->class, $withChildren, $cut);
                     break;
 

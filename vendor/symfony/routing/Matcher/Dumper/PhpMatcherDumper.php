@@ -63,11 +63,16 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\RequestContext;
 
 /**
+ * {$options['class']}.
+ *
  * This class has been auto-generated
  * by the Symfony Routing Component.
  */
 class {$options['class']} extends {$options['base_class']}
 {
+    /**
+     * Constructor.
+     */
     public function __construct(RequestContext \$context)
     {
         \$this->context = \$context;
@@ -96,10 +101,10 @@ EOF;
         $code = rtrim($this->compileRoutes($this->getRoutes(), $supportsRedirections), "\n");
 
         return <<<EOF
-    public function match(\$rawPathinfo)
+    public function match(\$pathinfo)
     {
         \$allow = array();
-        \$pathinfo = rawurldecode(\$rawPathinfo);
+        \$pathinfo = rawurldecode(\$pathinfo);
         \$trimmedPathinfo = rtrim(\$pathinfo, '/');
         \$context = \$this->context;
         \$request = \$this->request;
@@ -155,12 +160,6 @@ EOF;
             }
         }
 
-        if ('' === $code) {
-            $code .= "        if ('/' === \$pathinfo) {\n";
-            $code .= "            throw new Symfony\Component\Routing\Exception\NoConfigurationException();\n";
-            $code .= "        }\n";
-        }
-
         return $code;
     }
 
@@ -183,7 +182,7 @@ EOF;
      *
      * @param StaticPrefixCollection $collection           A StaticPrefixCollection instance
      * @param bool                   $supportsRedirections Whether redirections are supported by the base class
-     * @param string                 $ifOrElseIf           either "if" or "elseif" to influence chaining
+     * @param string                 $ifOrElseIf           Either "if" or "elseif" to influence chaining.
      *
      * @return string PHP code
      */
@@ -242,8 +241,8 @@ EOF;
         $supportsTrailingSlash = $supportsRedirections && (!$methods || in_array('HEAD', $methods) || in_array('GET', $methods));
         $regex = $compiledRoute->getRegex();
 
-        if (!count($compiledRoute->getPathVariables()) && false !== preg_match('#^(.)\^(?P<url>.*?)\$\1#'.('u' === substr($regex, -1) ? 'u' : ''), $regex, $m)) {
-            if ($supportsTrailingSlash && '/' === substr($m['url'], -1)) {
+        if (!count($compiledRoute->getPathVariables()) && false !== preg_match('#^(.)\^(?P<url>.*?)\$\1#'.(substr($regex, -1) === 'u' ? 'u' : ''), $regex, $m)) {
+            if ($supportsTrailingSlash && substr($m['url'], -1) === '/') {
                 $conditions[] = sprintf('%s === $trimmedPathinfo', var_export(rtrim(str_replace('\\', '', $m['url']), '/'), true));
                 $hasTrailingSlash = true;
             } else {
@@ -283,7 +282,7 @@ EOF;
 
         if ($methods) {
             if (1 === count($methods)) {
-                if ('HEAD' === $methods[0]) {
+                if ($methods[0] === 'HEAD') {
                     $code .= <<<EOF
             if ('HEAD' !== \$requestMethod) {
                 \$allow[] = 'HEAD';
@@ -334,35 +333,10 @@ EOF;
             }
         }
 
-        // the offset where the return value is appended below, with indendation
-        $retOffset = 12 + strlen($code);
-
-        // optimize parameters array
-        if ($matches || $hostMatches) {
-            $vars = array();
-            if ($hostMatches) {
-                $vars[] = '$hostMatches';
-            }
-            if ($matches) {
-                $vars[] = '$matches';
-            }
-            $vars[] = "array('_route' => '$name')";
-
-            $code .= sprintf(
-                "            \$ret = \$this->mergeDefaults(array_replace(%s), %s);\n",
-                implode(', ', $vars),
-                str_replace("\n", '', var_export($route->getDefaults(), true))
-            );
-        } elseif ($route->getDefaults()) {
-            $code .= sprintf("            \$ret = %s;\n", str_replace("\n", '', var_export(array_replace($route->getDefaults(), array('_route' => $name)), true)));
-        } else {
-            $code .= sprintf("            \$ret = array('_route' => '%s');\n", $name);
-        }
-
         if ($hasTrailingSlash) {
             $code .= <<<EOF
             if (substr(\$pathinfo, -1) !== '/') {
-                return array_replace(\$ret, \$this->redirect(\$rawPathinfo.'/', '$name'));
+                return \$this->redirect(\$pathinfo.'/', '$name');
             }
 
 
@@ -377,17 +351,33 @@ EOF;
             $code .= <<<EOF
             \$requiredSchemes = $schemes;
             if (!isset(\$requiredSchemes[\$scheme])) {
-                return array_replace(\$ret, \$this->redirect(\$rawPathinfo, '$name', key(\$requiredSchemes)));
+                return \$this->redirect(\$pathinfo, '$name', key(\$requiredSchemes));
             }
 
 
 EOF;
         }
 
-        if ($hasTrailingSlash || $schemes) {
-            $code .= "            return \$ret;\n";
+        // optimize parameters array
+        if ($matches || $hostMatches) {
+            $vars = array();
+            if ($hostMatches) {
+                $vars[] = '$hostMatches';
+            }
+            if ($matches) {
+                $vars[] = '$matches';
+            }
+            $vars[] = "array('_route' => '$name')";
+
+            $code .= sprintf(
+                "            return \$this->mergeDefaults(array_replace(%s), %s);\n",
+                implode(', ', $vars),
+                str_replace("\n", '', var_export($route->getDefaults(), true))
+            );
+        } elseif ($route->getDefaults()) {
+            $code .= sprintf("            return %s;\n", str_replace("\n", '', var_export(array_replace($route->getDefaults(), array('_route' => $name)), true)));
         } else {
-            $code = substr_replace($code, 'return', $retOffset, 6);
+            $code .= sprintf("            return array('_route' => '%s');\n", $name);
         }
         $code .= "        }\n";
 

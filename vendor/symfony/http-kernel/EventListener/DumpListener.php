@@ -27,6 +27,10 @@ class DumpListener implements EventSubscriberInterface
     private $cloner;
     private $dumper;
 
+    /**
+     * @param ClonerInterface     $cloner Cloner service
+     * @param DataDumperInterface $dumper Dumper service
+     */
     public function __construct(ClonerInterface $cloner, DataDumperInterface $dumper)
     {
         $this->cloner = $cloner;

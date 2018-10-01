@@ -11,6 +11,7 @@ return [
         'access_orders' => 'Access into Orders',
         'access_quotes' => 'Access into Quotes',
         'access_attendances' => 'Access into Attendances',
+        'access_my_attendances' => 'Access into My Attendances Only',
         'access_pcattendances' => 'Access into Petty Contract Attendances',
         'access_companies' => 'Access into Companies',
         'access_projects' => 'Access into Projects',

@@ -13,13 +13,9 @@ namespace Symfony\Component\HttpKernel\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Loader\LoaderInterface;
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Config\EnvParametersResource;
-use Symfony\Component\HttpKernel\DependencyInjection\ResettableServicePass;
-use Symfony\Component\HttpKernel\DependencyInjection\ServicesResetter;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,16 +23,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Tests\Fixtures\KernelForTest;
 use Symfony\Component\HttpKernel\Tests\Fixtures\KernelForOverrideName;
 use Symfony\Component\HttpKernel\Tests\Fixtures\KernelWithoutBundles;
-use Symfony\Component\HttpKernel\Tests\Fixtures\ResettableService;
 
 class KernelTest extends TestCase
 {
-    public static function tearDownAfterClass()
-    {
-        $fs = new Filesystem();
-        $fs->remove(__DIR__.'/Fixtures/cache');
-    }
-
     public function testConstructor()
     {
         $env = 'test_env';
@@ -63,31 +52,6 @@ class KernelTest extends TestCase
         $this->assertFalse($clone->isBooted());
         $this->assertLessThanOrEqual(microtime(true), $clone->getStartTime());
         $this->assertNull($clone->getContainer());
-    }
-
-    public function testInitializeContainerClearsOldContainers()
-    {
-        $fs = new Filesystem();
-        $legacyContainerDir = __DIR__.'/Fixtures/cache/custom/ContainerA123456';
-        $fs->mkdir($legacyContainerDir);
-        touch($legacyContainerDir.'.legacy');
-
-        $kernel = new CustomProjectDirKernel();
-        $kernel->boot();
-
-        $containerDir = __DIR__.'/Fixtures/cache/custom/'.substr(get_class($kernel->getContainer()), 0, 16);
-        $this->assertTrue(unlink(__DIR__.'/Fixtures/cache/custom/FixturesCustomDebugProjectContainer.php.meta'));
-        $this->assertFileExists($containerDir);
-        $this->assertFileNotExists($containerDir.'.legacy');
-
-        $kernel = new CustomProjectDirKernel(function ($container) { $container->register('foo', 'stdClass')->setPublic(true); });
-        $kernel->boot();
-
-        $this->assertFileExists($containerDir);
-        $this->assertFileExists($containerDir.'.legacy');
-
-        $this->assertFileNotExists($legacyContainerDir);
-        $this->assertFileNotExists($legacyContainerDir.'.legacy');
     }
 
     public function testBootInitializesBundlesAndContainer()
@@ -439,9 +403,6 @@ EOF;
         $this->assertEquals(__DIR__.'/Fixtures/Bundle1Bundle/foo.txt', $kernel->locateResource('@Bundle1Bundle/foo.txt'));
     }
 
-    /**
-     * @group legacy
-     */
     public function testLocateResourceReturnsTheFirstThatMatchesWithParent()
     {
         $parent = $this->getBundle(__DIR__.'/Fixtures/Bundle1Bundle');
@@ -458,9 +419,6 @@ EOF;
         $this->assertEquals(__DIR__.'/Fixtures/Bundle1Bundle/bar.txt', $kernel->locateResource('@ParentAABundle/bar.txt'));
     }
 
-    /**
-     * @group legacy
-     */
     public function testLocateResourceReturnsAllMatches()
     {
         $parent = $this->getBundle(__DIR__.'/Fixtures/Bundle1Bundle');
@@ -479,9 +437,6 @@ EOF;
             $kernel->locateResource('@Bundle1Bundle/foo.txt', null, false));
     }
 
-    /**
-     * @group legacy
-     */
     public function testLocateResourceReturnsAllMatchesBis()
     {
         $kernel = $this->getKernel(array('getBundle'));
@@ -530,9 +485,6 @@ EOF;
         );
     }
 
-    /**
-     * @group legacy
-     */
     public function testLocateResourceReturnsTheDirOneForResourcesAndBundleOnes()
     {
         $kernel = $this->getKernel(array('getBundle'));
@@ -549,9 +501,6 @@ EOF;
         );
     }
 
-    /**
-     * @group legacy
-     */
     public function testLocateResourceOverrideBundleAndResourcesFolders()
     {
         $parent = $this->getBundle(__DIR__.'/Fixtures/BaseBundle', null, 'BaseBundle', 'BaseBundle');
@@ -625,9 +574,6 @@ EOF;
         );
     }
 
-    /**
-     * @group legacy
-     */
     public function testInitializeBundles()
     {
         $parent = $this->getBundle(null, null, 'ParentABundle');
@@ -646,9 +592,6 @@ EOF;
         $this->assertEquals(array($child, $parent), $map['ParentABundle']);
     }
 
-    /**
-     * @group legacy
-     */
     public function testInitializeBundlesSupportInheritanceCascade()
     {
         $grandparent = $this->getBundle(null, null, 'GrandParentBBundle');
@@ -671,7 +614,6 @@ EOF;
     }
 
     /**
-     * @group legacy
      * @expectedException \LogicException
      * @expectedExceptionMessage Bundle "ChildCBundle" extends bundle "FooBar", which is not registered.
      */
@@ -682,9 +624,6 @@ EOF;
         $kernel->boot();
     }
 
-    /**
-     * @group legacy
-     */
     public function testInitializeBundlesSupportsArbitraryBundleRegistrationOrder()
     {
         $grandparent = $this->getBundle(null, null, 'GrandParentCBundle');
@@ -707,7 +646,6 @@ EOF;
     }
 
     /**
-     * @group legacy
      * @expectedException \LogicException
      * @expectedExceptionMessage Bundle "ParentCBundle" is directly extended by two bundles "ChildC2Bundle" and "ChildC1Bundle".
      */
@@ -722,7 +660,6 @@ EOF;
     }
 
     /**
-     * @group legacy
      * @expectedException \LogicException
      * @expectedExceptionMessage Trying to register two bundles with the same name "DuplicateName"
      */
@@ -736,7 +673,6 @@ EOF;
     }
 
     /**
-     * @group legacy
      * @expectedException \LogicException
      * @expectedExceptionMessage Bundle "CircularRefBundle" can not extend itself.
      */
@@ -828,77 +764,11 @@ EOF;
 
     public function testProjectDirExtension()
     {
-        $kernel = new CustomProjectDirKernel();
+        $kernel = new CustomProjectDirKernel('test', true);
         $kernel->boot();
 
         $this->assertSame('foo', $kernel->getProjectDir());
         $this->assertSame('foo', $kernel->getContainer()->getParameter('kernel.project_dir'));
-    }
-
-    public function testKernelReset()
-    {
-        (new Filesystem())->remove(__DIR__.'/Fixtures/cache');
-
-        $kernel = new CustomProjectDirKernel();
-        $kernel->boot();
-
-        $containerClass = get_class($kernel->getContainer());
-        $containerFile = (new \ReflectionClass($kernel->getContainer()))->getFileName();
-        unlink(__DIR__.'/Fixtures/cache/custom/FixturesCustomDebugProjectContainer.php.meta');
-
-        $kernel = new CustomProjectDirKernel();
-        $kernel->boot();
-
-        $this->assertSame($containerClass, get_class($kernel->getContainer()));
-        $this->assertFileExists($containerFile);
-        unlink(__DIR__.'/Fixtures/cache/custom/FixturesCustomDebugProjectContainer.php.meta');
-
-        $kernel = new CustomProjectDirKernel(function ($container) { $container->register('foo', 'stdClass')->setPublic(true); });
-        $kernel->boot();
-
-        $this->assertTrue(get_class($kernel->getContainer()) !== $containerClass);
-        $this->assertFileExists($containerFile);
-        $this->assertFileExists(dirname($containerFile).'.legacy');
-    }
-
-    public function testKernelPass()
-    {
-        $kernel = new PassKernel();
-        $kernel->boot();
-
-        $this->assertTrue($kernel->getContainer()->getParameter('test.processed'));
-    }
-
-    public function testServicesResetter()
-    {
-        $httpKernelMock = $this->getMockBuilder(HttpKernelInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $httpKernelMock
-            ->expects($this->exactly(2))
-            ->method('handle');
-
-        $kernel = new CustomProjectDirKernel(function ($container) {
-            $container->addCompilerPass(new ResettableServicePass());
-            $container->register('one', ResettableService::class)
-                ->setPublic(true)
-                ->addTag('kernel.reset', array('method' => 'reset'));
-            $container->register('services_resetter', ServicesResetter::class)->setPublic(true);
-        }, $httpKernelMock, 'resetting');
-
-        ResettableService::$counter = 0;
-
-        $request = new Request();
-
-        $kernel->handle($request);
-        $kernel->getContainer()->get('one');
-
-        $this->assertEquals(0, ResettableService::$counter);
-        $this->assertFalse($kernel->getContainer()->initialized('services_resetter'));
-
-        $kernel->handle($request);
-
-        $this->assertEquals(1, ResettableService::$counter);
     }
 
     /**
@@ -1001,16 +871,12 @@ class TestKernel implements HttpKernelInterface
 class CustomProjectDirKernel extends Kernel
 {
     private $baseDir;
-    private $buildContainer;
-    private $httpKernel;
 
-    public function __construct(\Closure $buildContainer = null, HttpKernelInterface $httpKernel = null, $name = 'custom')
+    public function __construct()
     {
-        parent::__construct($name, true);
+        parent::__construct('test', false);
 
         $this->baseDir = 'foo';
-        $this->buildContainer = $buildContainer;
-        $this->httpKernel = $httpKernel;
     }
 
     public function registerBundles()
@@ -1030,31 +896,5 @@ class CustomProjectDirKernel extends Kernel
     public function getRootDir()
     {
         return __DIR__.'/Fixtures';
-    }
-
-    protected function build(ContainerBuilder $container)
-    {
-        if ($build = $this->buildContainer) {
-            $build($container);
-        }
-    }
-
-    protected function getHttpKernel()
-    {
-        return $this->httpKernel;
-    }
-}
-
-class PassKernel extends CustomProjectDirKernel implements CompilerPassInterface
-{
-    public function __construct()
-    {
-        parent::__construct();
-        Kernel::__construct('pass', true);
-    }
-
-    public function process(ContainerBuilder $container)
-    {
-        $container->setParameter('test.processed', true);
     }
 }

@@ -14,16 +14,14 @@ namespace Symfony\Component\Translation;
 use Symfony\Component\Translation\Loader\LoaderInterface;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
 use Symfony\Component\Translation\Exception\InvalidArgumentException;
-use Symfony\Component\Translation\Exception\LogicException;
 use Symfony\Component\Translation\Exception\RuntimeException;
 use Symfony\Component\Config\ConfigCacheInterface;
 use Symfony\Component\Config\ConfigCacheFactoryInterface;
 use Symfony\Component\Config\ConfigCacheFactory;
-use Symfony\Component\Translation\Formatter\MessageFormatterInterface;
-use Symfony\Component\Translation\Formatter\ChoiceMessageFormatterInterface;
-use Symfony\Component\Translation\Formatter\MessageFormatter;
 
 /**
+ * Translator.
+ *
  * @author Fabien Potencier <fabien@symfony.com>
  */
 class Translator implements TranslatorInterface, TranslatorBagInterface
@@ -54,9 +52,9 @@ class Translator implements TranslatorInterface, TranslatorBagInterface
     private $resources = array();
 
     /**
-     * @var MessageFormatterInterface
+     * @var MessageSelector
      */
-    private $formatter;
+    private $selector;
 
     /**
      * @var string
@@ -74,29 +72,28 @@ class Translator implements TranslatorInterface, TranslatorBagInterface
     private $configCacheFactory;
 
     /**
-     * @param string                         $locale    The locale
-     * @param MessageFormatterInterface|null $formatter The message formatter
-     * @param string|null                    $cacheDir  The directory to use for the cache
-     * @param bool                           $debug     Use cache in debug mode ?
+     * Constructor.
+     *
+     * @param string               $locale   The locale
+     * @param MessageSelector|null $selector The message selector for pluralization
+     * @param string|null          $cacheDir The directory to use for the cache
+     * @param bool                 $debug    Use cache in debug mode ?
      *
      * @throws InvalidArgumentException If a locale contains invalid characters
      */
-    public function __construct($locale, $formatter = null, $cacheDir = null, $debug = false)
+    public function __construct($locale, MessageSelector $selector = null, $cacheDir = null, $debug = false)
     {
         $this->setLocale($locale);
-
-        if ($formatter instanceof MessageSelector) {
-            $formatter = new MessageFormatter($formatter);
-            @trigger_error(sprintf('Passing a "%s" instance into the "%s" as a second argument is deprecated since Symfony 3.4 and will be removed in 4.0. Inject a "%s" implementation instead.', MessageSelector::class, __METHOD__, MessageFormatterInterface::class), E_USER_DEPRECATED);
-        } elseif (null === $formatter) {
-            $formatter = new MessageFormatter();
-        }
-
-        $this->formatter = $formatter;
+        $this->selector = $selector ?: new MessageSelector();
         $this->cacheDir = $cacheDir;
         $this->debug = $debug;
     }
 
+    /**
+     * Sets the ConfigCache factory to use.
+     *
+     * @param ConfigCacheFactoryInterface $configCacheFactory
+     */
     public function setConfigCacheFactory(ConfigCacheFactoryInterface $configCacheFactory)
     {
         $this->configCacheFactory = $configCacheFactory;
@@ -195,7 +192,7 @@ class Translator implements TranslatorInterface, TranslatorBagInterface
             $domain = 'messages';
         }
 
-        return $this->formatter->format($this->getCatalogue($locale)->get((string) $id, $domain), $locale, $parameters);
+        return strtr($this->getCatalogue($locale)->get((string) $id, $domain), $parameters);
     }
 
     /**
@@ -203,9 +200,9 @@ class Translator implements TranslatorInterface, TranslatorBagInterface
      */
     public function transChoice($id, $number, array $parameters = array(), $domain = null, $locale = null)
     {
-        if (!$this->formatter instanceof ChoiceMessageFormatterInterface) {
-            throw new LogicException(sprintf('The formatter "%s" does not support plural translations.', get_class($this->formatter)));
-        }
+        $parameters = array_merge(array(
+            '%count%' => $number,
+        ), $parameters);
 
         if (null === $domain) {
             $domain = 'messages';
@@ -223,7 +220,7 @@ class Translator implements TranslatorInterface, TranslatorBagInterface
             }
         }
 
-        return $this->formatter->choiceFormat($catalogue->get($id, $domain), $number, $locale, $parameters);
+        return strtr($this->selector->choose($catalogue->get($id, $domain), (int) $number, $locale), $parameters);
     }
 
     /**
@@ -366,7 +363,7 @@ EOF
 
     private function getCatalogueCachePath($locale)
     {
-        return $this->cacheDir.'/catalogue.'.$locale.'.'.strtr(substr(base64_encode(hash('sha256', serialize($this->fallbackLocales), true)), 0, 7), '/', '_').'.php';
+        return $this->cacheDir.'/catalogue.'.$locale.'.'.sha1(serialize($this->fallbackLocales)).'.php';
     }
 
     private function doLoadCatalogue($locale)
@@ -412,7 +409,7 @@ EOF
             $locales[] = $fallback;
         }
 
-        if (false !== strrchr($locale, '_')) {
+        if (strrchr($locale, '_') !== false) {
             array_unshift($locales, substr($locale, 0, -strlen(strrchr($locale, '_'))));
         }
 

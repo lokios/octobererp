@@ -65,7 +65,7 @@ class Setting extends Model
      */
     public function beforeSave()
     {
-        if (preg_match('/'.Request::getHost().'/', $this->domain) && $this->is_protected) {
+        if ($this->is_protected && preg_match('/'.Request::getHost().'/', $this->domain)) {
             return false;
         }
     }

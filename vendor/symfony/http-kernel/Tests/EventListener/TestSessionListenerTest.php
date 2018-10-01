@@ -65,25 +65,13 @@ class TestSessionListenerTest extends TestCase
     {
         $this->sessionHasBeenStarted();
 
-        @ini_set('session.cookie_lifetime', 0);
+        $params = session_get_cookie_params();
+        session_set_cookie_params(0, $params['path'], $params['domain'], $params['secure'], $params['httponly']);
 
         $response = $this->filterResponse(new Request(), HttpKernelInterface::MASTER_REQUEST);
         $cookies = $response->headers->getCookies();
 
         $this->assertEquals(0, reset($cookies)->getExpiresTime());
-    }
-
-    /**
-     * @requires function \Symfony\Component\HttpFoundation\Session\Session::isEmpty
-     */
-    public function testEmptySessionDoesNotSendCookie()
-    {
-        $this->sessionHasBeenStarted();
-        $this->sessionIsEmpty();
-
-        $response = $this->filterResponse(new Request(), HttpKernelInterface::MASTER_REQUEST);
-
-        $this->assertSame(array(), $response->headers->getCookies());
     }
 
     public function testUnstartedSessionIsNotSave()
@@ -141,13 +129,6 @@ class TestSessionListenerTest extends TestCase
         $this->session->expects($this->once())
             ->method('isStarted')
             ->will($this->returnValue(false));
-    }
-
-    private function sessionIsEmpty()
-    {
-        $this->session->expects($this->once())
-            ->method('isEmpty')
-            ->will($this->returnValue(true));
     }
 
     private function getSession()

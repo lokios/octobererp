@@ -33,6 +33,9 @@ class Tokenizer
      */
     private $handlers;
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         $patterns = new TokenizerPatterns();
@@ -50,6 +53,8 @@ class Tokenizer
 
     /**
      * Tokenize selector source code.
+     *
+     * @param Reader $reader
      *
      * @return TokenStream
      */

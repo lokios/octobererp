@@ -28,7 +28,16 @@ abstract class Twig_Node_Expression_Call extends Twig_Node_Expression
                     $compiler->raw(sprintf('$this->env->getRuntime(\'%s\')->%s', $callable[0], $callable[1]));
                 }
             } elseif ($r instanceof ReflectionMethod && $callable[0] instanceof Twig_ExtensionInterface) {
-                $compiler->raw(sprintf('$this->env->getExtension(\'%s\')->%s', get_class($callable[0]), $callable[1]));
+                // For BC/FC with namespaced aliases
+                $class = (new ReflectionClass(get_class($callable[0])))->name;
+                if (!$compiler->getEnvironment()->hasExtension($class)) {
+                    // Compile a non-optimized call to trigger a Twig_Error_Runtime, which cannot be a compile-time error
+                    $compiler->raw(sprintf('$this->env->getExtension(\'%s\')', $class));
+                } else {
+                    $compiler->raw(sprintf('$this->extensions[\'%s\']', ltrim($class, '\\')));
+                }
+
+                $compiler->raw(sprintf('->%s', $callable[1]));
             } else {
                 $closingParenthesis = true;
                 $compiler->raw(sprintf('call_user_func_array($this->env->get%s(\'%s\')->getCallable(), array', ucfirst($this->getAttribute('type')), $this->getAttribute('name')));
@@ -106,7 +115,7 @@ abstract class Twig_Node_Expression_Call extends Twig_Node_Expression
                 $named = true;
                 $name = $this->normalizeName($name);
             } elseif ($named) {
-                throw new Twig_Error_Syntax(sprintf('Positional arguments cannot be used after named arguments for %s "%s".', $callType, $callName));
+                throw new Twig_Error_Syntax(sprintf('Positional arguments cannot be used after named arguments for %s "%s".', $callType, $callName), $this->getTemplateLine());
             }
 
             $parameters[$name] = $node;
@@ -138,14 +147,14 @@ abstract class Twig_Node_Expression_Call extends Twig_Node_Expression
 
             if (array_key_exists($name, $parameters)) {
                 if (array_key_exists($pos, $parameters)) {
-                    throw new Twig_Error_Syntax(sprintf('Argument "%s" is defined twice for %s "%s".', $name, $callType, $callName));
+                    throw new Twig_Error_Syntax(sprintf('Argument "%s" is defined twice for %s "%s".', $name, $callType, $callName), $this->getTemplateLine());
                 }
 
                 if (count($missingArguments)) {
                     throw new Twig_Error_Syntax(sprintf(
                         'Argument "%s" could not be assigned for %s "%s(%s)" because it is mapped to an internal PHP function which cannot determine default value for optional argument%s "%s".',
-                        $name, $callType, $callName, implode(', ', $names), count($missingArguments) > 1 ? 's' : '', implode('", "', $missingArguments))
-                    );
+                        $name, $callType, $callName, implode(', ', $names), count($missingArguments) > 1 ? 's' : '', implode('", "', $missingArguments)
+                    ), $this->getTemplateLine());
                 }
 
                 $arguments = array_merge($arguments, $optionalArguments);
@@ -167,7 +176,7 @@ abstract class Twig_Node_Expression_Call extends Twig_Node_Expression
                     $missingArguments[] = $name;
                 }
             } else {
-                throw new Twig_Error_Syntax(sprintf('Value for argument "%s" is required for %s "%s".', $name, $callType, $callName));
+                throw new Twig_Error_Syntax(sprintf('Value for argument "%s" is required for %s "%s".', $name, $callType, $callName), $this->getTemplateLine());
             }
         }
 
@@ -200,7 +209,7 @@ abstract class Twig_Node_Expression_Call extends Twig_Node_Expression
             throw new Twig_Error_Syntax(sprintf(
                 'Unknown argument%s "%s" for %s "%s(%s)".',
                 count($parameters) > 1 ? 's' : '', implode('", "', array_keys($parameters)), $callType, $callName, implode(', ', $names)
-            ), $unknownParameter ? $unknownParameter->getTemplateLine() : -1);
+            ), $unknownParameter ? $unknownParameter->getTemplateLine() : $this->getTemplateLine());
         }
 
         return $arguments;

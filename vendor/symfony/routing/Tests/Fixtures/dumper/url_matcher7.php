@@ -5,20 +5,25 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\RequestContext;
 
 /**
+ * ProjectUrlMatcher.
+ *
  * This class has been auto-generated
  * by the Symfony Routing Component.
  */
 class ProjectUrlMatcher extends Symfony\Component\Routing\Tests\Fixtures\RedirectableUrlMatcher
 {
+    /**
+     * Constructor.
+     */
     public function __construct(RequestContext $context)
     {
         $this->context = $context;
     }
 
-    public function match($rawPathinfo)
+    public function match($pathinfo)
     {
         $allow = array();
-        $pathinfo = rawurldecode($rawPathinfo);
+        $pathinfo = rawurldecode($pathinfo);
         $trimmedPathinfo = rtrim($pathinfo, '/');
         $context = $this->context;
         $request = $this->request;
@@ -33,12 +38,11 @@ class ProjectUrlMatcher extends Symfony\Component\Routing\Tests\Fixtures\Redirec
         if (0 === strpos($pathinfo, '/trailing/simple')) {
             // simple_trailing_slash_no_methods
             if ('/trailing/simple/no-methods' === $trimmedPathinfo) {
-                $ret = array('_route' => 'simple_trailing_slash_no_methods');
                 if (substr($pathinfo, -1) !== '/') {
-                    return array_replace($ret, $this->redirect($rawPathinfo.'/', 'simple_trailing_slash_no_methods'));
+                    return $this->redirect($pathinfo.'/', 'simple_trailing_slash_no_methods');
                 }
 
-                return $ret;
+                return array('_route' => 'simple_trailing_slash_no_methods');
             }
 
             // simple_trailing_slash_GET_method
@@ -48,12 +52,11 @@ class ProjectUrlMatcher extends Symfony\Component\Routing\Tests\Fixtures\Redirec
                     goto not_simple_trailing_slash_GET_method;
                 }
 
-                $ret = array('_route' => 'simple_trailing_slash_GET_method');
                 if (substr($pathinfo, -1) !== '/') {
-                    return array_replace($ret, $this->redirect($rawPathinfo.'/', 'simple_trailing_slash_GET_method'));
+                    return $this->redirect($pathinfo.'/', 'simple_trailing_slash_GET_method');
                 }
 
-                return $ret;
+                return array('_route' => 'simple_trailing_slash_GET_method');
             }
             not_simple_trailing_slash_GET_method:
 
@@ -64,12 +67,11 @@ class ProjectUrlMatcher extends Symfony\Component\Routing\Tests\Fixtures\Redirec
                     goto not_simple_trailing_slash_HEAD_method;
                 }
 
-                $ret = array('_route' => 'simple_trailing_slash_HEAD_method');
                 if (substr($pathinfo, -1) !== '/') {
-                    return array_replace($ret, $this->redirect($rawPathinfo.'/', 'simple_trailing_slash_HEAD_method'));
+                    return $this->redirect($pathinfo.'/', 'simple_trailing_slash_HEAD_method');
                 }
 
-                return $ret;
+                return array('_route' => 'simple_trailing_slash_HEAD_method');
             }
             not_simple_trailing_slash_HEAD_method:
 
@@ -89,12 +91,11 @@ class ProjectUrlMatcher extends Symfony\Component\Routing\Tests\Fixtures\Redirec
         elseif (0 === strpos($pathinfo, '/trailing/regex')) {
             // regex_trailing_slash_no_methods
             if (0 === strpos($pathinfo, '/trailing/regex/no-methods') && preg_match('#^/trailing/regex/no\\-methods/(?P<param>[^/]++)/?$#s', $pathinfo, $matches)) {
-                $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'regex_trailing_slash_no_methods')), array ());
                 if (substr($pathinfo, -1) !== '/') {
-                    return array_replace($ret, $this->redirect($rawPathinfo.'/', 'regex_trailing_slash_no_methods'));
+                    return $this->redirect($pathinfo.'/', 'regex_trailing_slash_no_methods');
                 }
 
-                return $ret;
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'regex_trailing_slash_no_methods')), array ());
             }
 
             // regex_trailing_slash_GET_method
@@ -104,12 +105,11 @@ class ProjectUrlMatcher extends Symfony\Component\Routing\Tests\Fixtures\Redirec
                     goto not_regex_trailing_slash_GET_method;
                 }
 
-                $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'regex_trailing_slash_GET_method')), array ());
                 if (substr($pathinfo, -1) !== '/') {
-                    return array_replace($ret, $this->redirect($rawPathinfo.'/', 'regex_trailing_slash_GET_method'));
+                    return $this->redirect($pathinfo.'/', 'regex_trailing_slash_GET_method');
                 }
 
-                return $ret;
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'regex_trailing_slash_GET_method')), array ());
             }
             not_regex_trailing_slash_GET_method:
 
@@ -120,12 +120,11 @@ class ProjectUrlMatcher extends Symfony\Component\Routing\Tests\Fixtures\Redirec
                     goto not_regex_trailing_slash_HEAD_method;
                 }
 
-                $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'regex_trailing_slash_HEAD_method')), array ());
                 if (substr($pathinfo, -1) !== '/') {
-                    return array_replace($ret, $this->redirect($rawPathinfo.'/', 'regex_trailing_slash_HEAD_method'));
+                    return $this->redirect($pathinfo.'/', 'regex_trailing_slash_HEAD_method');
                 }
 
-                return $ret;
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'regex_trailing_slash_HEAD_method')), array ());
             }
             not_regex_trailing_slash_HEAD_method:
 

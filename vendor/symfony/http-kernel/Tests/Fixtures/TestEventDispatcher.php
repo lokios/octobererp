@@ -25,8 +25,4 @@ class TestEventDispatcher extends EventDispatcher implements TraceableEventDispa
     {
         return array('bar');
     }
-
-    public function reset()
-    {
-    }
 }
