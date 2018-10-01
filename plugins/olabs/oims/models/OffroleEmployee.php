@@ -189,8 +189,9 @@ class OffroleEmployee extends BaseModel {
     public function getBarcode($format, $params = array()) {
         $manager = new BarcodeManager();
 
-        $barcode_string = $this->getEntityType() . "|" . $this->getEmployeeCodeAttribute() . "|" . $this->getFullNameAttribute() . "|" . $this->getSupplierNameAttribute() . "|" . $this->getProjectNameAttribute();
-
+//        $barcode_string = $this->getEntityType() . "|" . $this->getEmployeeCodeAttribute() . "|" . $this->getFullNameAttribute() . "|" . $this->getSupplierNameAttribute() . "|" . $this->getProjectNameAttribute();
+        $barcode_string =  $this->getBarcodeString();
+//        dd($barcode_string);
         if (!isset($params['data'])) {
             $params['data'] = $barcode_string;
         }
@@ -217,6 +218,35 @@ class OffroleEmployee extends BaseModel {
         } else {
             return "";
         }
+    }
+    
+    public function getBarcodeString(){
+        $params = [
+            'type' => $this->getEntityType(),
+            'emp_code' => $this->getEmployeeCodeAttribute(),
+            'emp_name' => $this->getFullNameAttribute(),
+            'supplier_id' => 'None',
+            'supplier_name' => 'None',
+            'project_id' => 'None',
+            'project_name' => 'None',
+        ];
+        
+        if($this->project){
+            $params['supplier_id'] = $this->supplier->id;
+            $params['supplier_name'] = $this->getSupplierNameAttribute();
+        }
+        
+        if($this->project){
+            $params['project_id'] = $this->project->id;
+            $params['project_name'] = $this->getProjectNameAttribute();
+        }
+        
+        $barcode_string = implode('|', $params);
+        
+//        $barcode_array = ['data' => $params];
+//        $barcode_string = json_encode($barcode_array)
+                
+        return $barcode_string;
     }
 
 }
