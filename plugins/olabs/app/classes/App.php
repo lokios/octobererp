@@ -406,7 +406,8 @@ public function addMainModules_OIMS(&$fmodules){
 
           $module = ['item_type'=>'post'
           ,'data'=>[]
-          ,'module'=>'attendance','url'=>$base.'/api/v1/attendances','edit_url'=>$base.'/api/v1/attendances','name'=>'Add Attendance'
+          ,'module'=>'attendance','url'=>$base.'/api/v1/attendances'
+          ,'edit_url'=>$base.'/api/v1/attendances','name'=>'Add Attendance'
           ,'title'=>'Add Attendance'
           ,'subtitle'=>''
           ,'format'=>'json','method'=>'post'];
@@ -424,7 +425,7 @@ public function addMainModules_OIMS(&$fmodules){
 
           $module = ['item_type'=>'post'
           ,'data'=>[]
-          ,'module'=>'voucher','url'=>$base.'/api/v1/attendances','edit_url'=>$base.'/api/v1/vouchers','name'=>'Add Voucher'
+          ,'module'=>'voucher','url'=>$base.'/social/api/v1/entityrelations','edit_url'=>$base.'/social/api/v1/entityrelations','name'=>'Add Voucher'
           ,'title'=>'Add Voucher'
           ,'subtitle'=>''
           ,'format'=>'json','method'=>'post'];
@@ -475,12 +476,41 @@ public function addMainModules_OIMS(&$fmodules){
          
     }
 
+
+ public function hasPermissionV2($permission){
+
+      //olabs.oims.attendances
+
+      if ($this->user->hasPermission([
+        $permission,
+         //'acme.blog.access_categories'
+   ])) 
+
+      return true;
+    }
+
+
     public function hasTimesheetManagePermission(){
 
       //olabs.oims.attendances
 
       if ($this->user->hasPermission([
          'olabs.oims.attendances',
+         //'acme.blog.access_categories'
+   ])) 
+
+      return true;
+    }
+
+
+ public function hasVoucherEntryPermission(){
+
+     return true;
+
+      //olabs.oims.attendances
+
+      if ($this->user->hasPermission([
+         'olabs.oims.vouchers',
          //'acme.blog.access_categories'
    ])) 
 
@@ -514,7 +544,16 @@ public function addMainModules_OIMS(&$fmodules){
      
      BaseModel::$feature_enabled = true; 
 
-     $user = ['id'=>$user->id,'first_name'=>$user->first_name,'last_name'=>$user->last_name,'login'=>$user->login, 'email'=>$user->email,'phone'=>$user->contact_phone,'type'=>'otp'];
+     $userTransformer = new \Olabs\App\Http\Transformers\BackendUserTransformer();
+
+
+     $user = $userTransformer->transform($user);
+     /**$user2 = ['id'=>$user->id,'first_name'=>$user->first_name,'last_name'=>$user->last_name,'login'=>$user->login
+     , 'email'=>$user->email,'phone'=>$user->contact_phone,'type'=>'otp'];
+
+     **/
+
+     
 
      $app = $this;
      

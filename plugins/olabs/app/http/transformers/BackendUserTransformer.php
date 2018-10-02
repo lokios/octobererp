@@ -23,7 +23,11 @@ class BackendUserTransformer extends App
     public function transform( $item)
     {
 
-        parent::transform($item);
+        //parent::transform($item);
+        $this->val = $item->toArray();
+
+        $name =[$item->first_name,$item->last_name];
+        $this->val['name'] = implode(" ", $name);
 
         if($item->avatar){
             $this->val['image_main'] = $item->getAvatarThumb(300);

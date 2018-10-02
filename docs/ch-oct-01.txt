@@ -1,0 +1,77 @@
+
+
+
+OIMS App :
+
+1) App image optimisation should be upload upto 2 mb images only.
+done
+
+2) Show entry pending in outbox on header panel with number of items pending in badges (something like new notification alert). Onclick it starts sending notifications
+pending
+
+3) Voucher entries as like MR entries.
+done
+
+4) Need to implement checks for the below listed permissions on attendance
+- if user have permission for "my_attendances" then he can make attendance of himself only.
+- if user have permission for "attendances" then he can make attendance of all for his access project list
+
+done
+No change mobile side - we will only do server side validations ::
+
+Added in beforeSave of /octobererp/plugins/olabs/social/models/EntityRelations.php
+
+if (!isset($entry['employee_id']))
+                return;
+
+            $self_attendance = false;
+
+            if($app->hasPermisson('olabs.oims.my_attendances')){
+                if($entry['employee_id'] != "".$app->getAppUserId()){
+                    throw new Exception("Error Processing Request", 403);
+                    
+                }else{
+                    $self_attendance  = true;
+                }
+            }
+
+
+            if(!$self_attendance  && !$app->hasPermisson('olabs.oims.attendances')){
+               
+                    throw new Exception("Error Processing Request", 403);
+                    
+               
+            }
+5) If user have permission for "vouchers" then he can make a voucher entry for his projects.
+done :
+   1. we return menu item in mobile only if we have olabs.oims.vouchers permission
+   2. also added permission check server side in beforeSave of /octobererp/plugins/olabs/social/models/EntityRelations.php
+        if ($this->target_type == self::TARGET_TYPE_VOUCHERS && !$this->status) {
+            $this->status = self::STATUS_LIVE;
+
+            $entry = $this->data;
+            if (!$entry)
+                return;
+            $entry = $entry[0];
+
+            
+           
+            
+            if(  !$app->hasPermisson('olabs.oims.vouchers')){
+               
+                    throw new Exception("Error Processing Request", 403);
+                    
+               
+            }
+
+        }
+
+
+Others :
+  - improved drawer
+  - profile edits/ with photos        
+
+
+
+
+
