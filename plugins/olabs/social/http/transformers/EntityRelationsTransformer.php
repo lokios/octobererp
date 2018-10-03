@@ -52,7 +52,7 @@ class EntityRelationsTransformer extends App
 
          $attributes  = [];
          
-         $attributes[] =['name'=>'Dated','value'=>$dated];
+         $attributes[] =['name'=>'Dated','value'=>$dated, 'type'=>'date'];
 
 
          $data = $item->data;
@@ -110,7 +110,7 @@ class EntityRelationsTransformer extends App
 
          $attributes  = [];
          
-         $attributes[] =['name'=>'Dated','value'=>$dated];
+         $attributes[] =['name'=>'Dated','value'=>$dated, 'type'=>'date'];
 
 
          $data = $item->data;
@@ -177,7 +177,7 @@ class EntityRelationsTransformer extends App
 
          if(isset($data['check_in'])){
               $dated = date('Y-m-d H:i', strtotime($data['check_in']));
-              $attributes[] =['name'=>'Dated','value'=>$dated];
+              $attributes[] =['name'=>'Dated','value'=>$dated, 'type'=>'date'];
          }
           if(isset($data['employee_name'])){
               $name[] = $data['employee_name'];

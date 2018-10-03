@@ -69,7 +69,10 @@ done :
 
 Others :
   - improved drawer
-  - profile edits/ with photos        
+  - profile edits/ with photos   
+  -profile photo max width: 1200 px, others max width: 2000px. This shall be somewhat around max 2MB.
+
+  Vocucher Requests saved in EntityRelations with target_type : 'voucher'     
 
 
 
