@@ -19,6 +19,7 @@ class EntityRelations extends Model {
 
     const TARGET_TYPE_MR_ENTRY = 'mr_entry';
     const TARGET_TYPE_ATTENDANCE = 'attendance';
+    const TARGET_TYPE_VOUCHERS ='voucher';
     const STATUS_LIVE = 'L';
     const STATUS_DONE = 'O';
     const STATUS_ERROR = 'E';
@@ -74,6 +75,26 @@ class EntityRelations extends Model {
             $this->status = self::STATUS_LIVE;
         }
 
+        if ($this->target_type == self::TARGET_TYPE_VOUCHERS && !$this->status) {
+            $this->status = self::STATUS_LIVE;
+
+            $entry = $this->data;
+            if (!$entry)
+                return;
+            $entry = $entry[0];
+
+            
+           
+            
+            if(  !$app->hasPermissionV2('olabs.oims.vouchers')){
+               
+                    throw new Exception("Error Processing Request", 403);
+                    
+               
+            }
+
+        }
+
         if ($this->target_type == self::TARGET_TYPE_ATTENDANCE && !$this->status) {
             $this->status = self::STATUS_LIVE;
 
@@ -84,6 +105,25 @@ class EntityRelations extends Model {
 
             if (!isset($entry['employee_id']))
                 return;
+
+            $self_attendance = false;
+
+            if($app->hasPermissionV2('olabs.oims.my_attendances')){
+                if($entry['employee_id'] != "".$app->getAppUserId()){
+                    throw new Exception("Error Processing Request", 403);
+                    
+                }else{
+                    $self_attendance  = true;
+                }
+            }
+
+
+            if(!$self_attendance  && !$app->hasPermissionV2('olabs.oims.attendances')){
+               
+                    throw new Exception("Error Processing Request", 403);
+                    
+               
+            }
 
 
 

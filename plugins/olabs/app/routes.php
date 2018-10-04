@@ -11,15 +11,26 @@ use Olabs\App\Classes\App;
 use Olabs\Oims\Models\Project;
 //use Olabs\App\Classes\App;
 
+
 Route::group(['prefix' => 'app/api/v1'], function () {
 
-       
-    
-
+ Route::get('resource/{content_type}', 'Olabs\App\Http\Controllers\Contents@indexByContentType');
+ Route::post('resource/{content_type}', 'Olabs\App\Http\Controllers\Contents@storeByContentType');
+ Route::put('resource/{content_type}', 'Olabs\App\Http\Controllers\Contents@updateByContentType');
+ Route::post('resource/{content_type}/upload', 'Olabs\App\Http\Controllers\Contents@uploadByContentType');
+ //Route::resource('resource/{content_type}', 'Olabs\App\Http\Controllers\Contents');
     
 });
 
+Route::group(['prefix' => 'api/v1'], function () {
 
+ Route::post('events/upload', 'Olabs\App\Http\Controllers\Events@upload');
+ Route::post('profiles/upload', 'Olabs\App\Http\Controllers\Profiles@upload');
+  Route::post('profiles', 'Olabs\App\Http\Controllers\Profiles@store');  
+   Route::put('profiles/{id}', 'Olabs\App\Http\Controllers\Profiles@update');  
+ Route::resource('events', 'Olabs\App\Http\Controllers\Events');
+ Route::resource('profiles', 'Olabs\App\Http\Controllers\Profiles');       
+});
 
 /**
  * curl --data "param1=value1&param2=value2" https://example.com/resource.cgi

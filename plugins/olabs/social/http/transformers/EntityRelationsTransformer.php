@@ -52,7 +52,7 @@ class EntityRelationsTransformer extends App
 
          $attributes  = [];
          
-         $attributes[] =['name'=>'Dated','value'=>$dated];
+         $attributes[] =['name'=>'Dated','value'=>$dated, 'type'=>'date'];
 
 
          $data = $item->data;
@@ -93,6 +93,65 @@ class EntityRelationsTransformer extends App
 
 
          $this->val['attributes'] = $attributes;
+          $this->val['summary_view'] = 'expandable';
+
+     }
+
+
+       if($item->target_type == 'voucher'){
+           
+       
+        
+        
+        $dated = date('Y-m-d H:i', strtotime($item->created_at));
+
+        $this->val['data'] = $item->data;
+        
+
+         $attributes  = [];
+         
+         $attributes[] =['name'=>'Dated','value'=>$dated, 'type'=>'date'];
+
+
+         $data = $item->data;
+
+         if($data && is_array($data)){
+            $data = $data[0];
+            if(isset($data['to_project_id'])){
+                $project = \Olabs\Oims\Models\Project::where(['id'=>$data['to_project_id']])->first();
+
+
+                if($project){
+                    $attributes[] =['name'=>'Project','value'=> $project->name ];
+                    $subtitle[] = $project->name;
+
+                }
+         }
+
+         if(isset($data['voucher_number'])){
+            $name = [];
+            
+            $name[] = 'voucher no: '.$data['voucher_number'];
+            
+          
+           $attributes[] =['name'=>'voucher no.','value'=>$data['voucher_number']];
+        }
+
+         $this->val['name'] = implode(" | ", $name);
+
+         $this->val['dated'] = $dated;
+         $this->val['subtitle'] = implode(" | ", $subtitle);
+         $this->val['subtitle2'] = implode(" | ", $subtitle2);
+         $this->val['stat'] = $stat;
+
+     }
+
+
+
+
+
+         $this->val['attributes'] = $attributes;
+         $this->val['summary_view'] = 'expandable';
 
      }
 
@@ -118,7 +177,7 @@ class EntityRelationsTransformer extends App
 
          if(isset($data['check_in'])){
               $dated = date('Y-m-d H:i', strtotime($data['check_in']));
-              $attributes[] =['name'=>'Dated','value'=>$dated];
+              $attributes[] =['name'=>'Dated','value'=>$dated, 'type'=>'date'];
          }
           if(isset($data['employee_name'])){
               $name[] = $data['employee_name'];
@@ -143,6 +202,7 @@ class EntityRelationsTransformer extends App
          $this->val['subtitle2'] = implode(" | ", $subtitle2);
          $this->val['stat'] = $stat;
          $this->val['attributes'] = $attributes;
+          $this->val['summary_view'] = 'expandable';
 
      }
 
