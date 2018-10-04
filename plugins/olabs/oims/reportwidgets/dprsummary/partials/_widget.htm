@@ -1,15 +1,20 @@
 <?php 
+$report_months = $this->property('report_months') != "" ? $this->property('report_months') : 'this month';
+
 
 $assigned_projects = false;
 $baseModel = new \Olabs\Oims\Models\BaseModel();
 $assigned_projects = $baseModel->getProjectOptions();
 
 $oimsSetting = \Olabs\Oims\Models\Settings::instance();
-$d = new DateTime('first day of this month');
+$d = new DateTime('first day of ' . $report_months);
 $search_from_date = $d->format('Y-m-d'); //'2017-08-01';
 
-$d = new DateTime();
-$search_to_date = $d->format('Y-m-d');
+$today = new DateTime();
+
+$d = new DateTime('last day of ' . $report_months);
+
+$search_to_date = $today > $d ? $d->format('Y-m-d') : $today->format('Y-m-d');
 
 $from_date = false;
 if ($search_from_date != '') {

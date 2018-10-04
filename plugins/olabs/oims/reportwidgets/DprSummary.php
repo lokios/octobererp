@@ -42,6 +42,14 @@ class DprSummary extends ReportWidgetBase {
                 'type' => 'string',
                 'validationPattern' => '^.+$',
                 'validationMessage' => 'backend::lang.dashboard.widget_title_error',
+            ],
+            'report_months' => [
+                'title' => 'Report for month',
+                'default' => 'this month',
+                'type' => 'dropdown',
+                'options' => ['this month' => 'this month', 'last month' => 'last month'], //, 'this week' => 'this week', 'last week' => 'last week'],
+                'validationPattern' => '^.+$',
+                'validationMessage' => 'backend::lang.dashboard.widget_title_error',
             ]
         ];
     }
