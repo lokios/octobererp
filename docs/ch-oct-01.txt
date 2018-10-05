@@ -75,6 +75,63 @@ Others :
   Vocucher Requests saved in EntityRelations with target_type : 'voucher'     
 
 
+Hi sir, 
+
+Did we get any updates for resure?
+
+Basides we may do followings sometime -
+1. avoid scrolling of - location, activity/event selection and subsequent screens as possible
+2. reduce Next + arrow spaces
+3. "Step N". " title text" on all screen : "Step N " should be non-prominent with greyish font
+4. Make the PDF downloads - per policy basis at server side
+5. profile edits improvements
+6. OTP based account activations
+7. We may try for Flutter upgared to Dart 2 - Earlier tried, We may use geocoder alternative (already found an alternative which we may try). However the carousal plugin might need a alternative to be found.
+8. add flutter "User drawer header": circular avatar + username + email
+9. show profile circular avatar if uploaded in top left profile icon
+
+Thanks
+
+
+Thanks Sir,
+
+Got fair idea . I think its good approach mentioned.
+Though i think, by 1. adding footer navigations & 2. by reduing steps/sreen scrolls the app may look good in next versions, there decision seems good.
+
+I just have following opinion: Please review and suggest for any changes
+
+LL:
+profie completion, 
+OTP authentication, - via Firebase ( may take help from Ajay)
+PDF for policy
+
+LL/Anuj: Receiving Notifications - Backend
+
+LL/Ajay : Receiving Notifications - App : android - LL / ios - Ajay
+
+Anuj: Audit System to track changes being made in the system
+
+Ajay: Google and Facebook login/signup integration on the login screen. ( I already have google auth code, maybe it shall work)
+Ajay: Profile from google and facebook to automatically populate our profile
+
+LL: profile details to be expanded ??
+
+Some of these tasks like OTP may depend on plugins we may use, and may depend on dart versions. It might be better to switch to new flutter ? 
+
+If above seems ok, we shall come with some estimates & start progress
+
+Thanks
+
+
+
+
+
+
+
+
+
+
+
 
 
 
