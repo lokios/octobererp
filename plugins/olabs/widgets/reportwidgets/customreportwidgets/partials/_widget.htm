@@ -1,11 +1,18 @@
 <?
 $custom_widget = $this->property('customWidget') != "" ? $this->property('customWidget') : 0;
 
-$custom_widget_modal = Olabs\Widgets\Models\ReportWidget::where('id', $custom_widget);
+$custom_widget_modal = Olabs\Widgets\Models\ReportWidget::where('id', $custom_widget)->first();
 
 if($custom_widget_modal) {
-    $model = $custom_widget_modal->first();
 
-    eval("?>".$model->content."<?");
+    eval("?>".$custom_widget_modal->content."<?");
+} else {
+?>
+<div class="report-widget widget-welcome">
+    <h3><?= e(trans('olabs.widgets::lang.plugin.name')) ?></h3>
+    <h5><?= e(trans('olabs.widgets::lang.plugin.description')) ?></h5>
+</div>
+<?
+
 }
 ?>
