@@ -1,0 +1,10 @@
+name: ReportWidgets
+form: $/olabs/widgets/models/reportwidget/fields.yaml
+modelClass: Olabs\Widgets\Models\ReportWidget
+defaultRedirect: olabs/widgets/reportwidgets
+create:
+    redirect: 'olabs/widgets/reportwidgets/update/:id'
+    redirectClose: olabs/widgets/reportwidgets
+update:
+    redirect: olabs/widgets/reportwidgets
+    redirectClose: olabs/widgets/reportwidgets

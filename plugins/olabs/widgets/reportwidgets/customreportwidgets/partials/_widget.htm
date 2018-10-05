@@ -1,0 +1,11 @@
+<?
+$custom_widget = $this->property('customWidget') != "" ? $this->property('customWidget') : 0;
+
+$custom_widget_modal = Olabs\Widgets\Models\ReportWidget::where('id', $custom_widget);
+
+if($custom_widget_modal) {
+    $model = $custom_widget_modal->first();
+
+    eval("?>".$model->content."<?");
+}
+?>

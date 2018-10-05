@@ -1,0 +1,21 @@
+fields:
+    title:
+        label: title
+        span: auto
+        type: text
+    status:
+        label: Status
+        span: auto
+        default: 1
+        type: switch
+    description:
+        label: Description
+        size: ''
+        span: full
+        type: textarea
+    content:
+        label: Content
+        size: huge
+        language: php
+        span: full
+        type: codeeditor
