@@ -52,7 +52,7 @@ class EntityRelationsTransformer extends App
 
          $attributes  = [];
          
-         $attributes[] =['name'=>'Dated','value'=>$dated, 'type'=>'date'];
+         //$attributes[] =['name'=>'Dated','value'=>$dated, 'type'=>'date'];
 
 
          $data = $item->data;
@@ -78,6 +78,15 @@ class EntityRelationsTransformer extends App
           
            $attributes[] =['name'=>'MR no.','value'=>$data['mr_id']];
         }
+
+
+        if(isset($data['check_in'])){
+              $dated = date('Y-m-d H:i', strtotime($data['check_in']));
+              //$attributes[] =['name'=>'Dated','value'=>$dated, 'type'=>'date'];
+         }
+
+        $attributes[] =['name'=>'Dated','value'=>$dated, 'type'=>'date'];
+        $subtitle[] = $dated;
 
          $this->val['name'] = implode(" | ", $name);
 
@@ -110,7 +119,7 @@ class EntityRelationsTransformer extends App
 
          $attributes  = [];
          
-         $attributes[] =['name'=>'Dated','value'=>$dated, 'type'=>'date'];
+         
 
 
          $data = $item->data;
@@ -128,6 +137,9 @@ class EntityRelationsTransformer extends App
                 }
          }
 
+
+         
+
          if(isset($data['voucher_number'])){
             $name = [];
             
@@ -136,6 +148,14 @@ class EntityRelationsTransformer extends App
           
            $attributes[] =['name'=>'voucher no.','value'=>$data['voucher_number']];
         }
+
+        if(isset($data['check_in'])){
+              $dated = date('Y-m-d H:i', strtotime($data['check_in']));
+              //$attributes[] =['name'=>'Dated','value'=>$dated, 'type'=>'date'];
+         }
+
+        $attributes[] =['name'=>'Dated','value'=>$dated, 'type'=>'date'];
+         $subtitle[] = $dated;
 
          $this->val['name'] = implode(" | ", $name);
 
@@ -194,6 +214,7 @@ class EntityRelationsTransformer extends App
 
           }
 
+           $subtitle[] = $dated;
           $name[] = 'Emp ID: '.$item->target_id;
           $this->val['name'] = implode(" | ", $name);
 
