@@ -1,0 +1,5 @@
+1.0.0:
+    - 'First version of Widgets'
+1.0.1:
+    - 'Created table olabs_widgets_reportwidgets'
+    - builder_table_create_olabs_widgets_reportwidgets.php

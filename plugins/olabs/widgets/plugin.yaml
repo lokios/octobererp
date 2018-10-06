@@ -1,0 +1,14 @@
+plugin:
+    name: 'olabs.widgets::lang.plugin.name'
+    description: 'olabs.widgets::lang.plugin.description'
+    author: Amit Srivastava
+    icon: oc-icon-adjust
+    homepage: ''
+navigation:
+    widgets:
+        label: 'Widgets'
+        url: olabs/widgets/reportWidgets
+        icon: icon-life-ring
+        permissions:
+            - olabs.widgets.manage_widgets
+        

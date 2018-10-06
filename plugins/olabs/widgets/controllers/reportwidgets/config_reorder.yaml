@@ -1,0 +1,4 @@
+title: ReportWidgets
+modelClass: Olabs\Widgets\Models\ReportWidget
+toolbar:
+    buttons: reorder_toolbar
