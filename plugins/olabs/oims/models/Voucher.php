@@ -320,6 +320,10 @@ class Voucher extends BaseModel
     
     private function setNarration(){
         
+        if(!$this->ledger_type){
+            return FALSE;
+        }
+        
         $narration = $this->ledger_type->name;
         
         $suppliers = [];
