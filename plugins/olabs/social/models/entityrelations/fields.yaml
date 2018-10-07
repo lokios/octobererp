@@ -57,4 +57,26 @@ fields:
                     label: 'project_name'
                     oc.commentPosition: ''
                     span: auto
+                    type: text 
+                
+                content_type:
+                    label: 'content_type'
+                    oc.commentPosition: ''
+                    span: auto
+                    type: text
+                voucher_number:
+                    label: 'voucher_number'
+                    oc.commentPosition: ''
+                    span: auto
+                    type: text
+                    
+                to_project_id:
+                    label: 'to_project_id'
+                    oc.commentPosition: ''
+                    span: auto
                     type: text            
+                to_project_name:
+                    label: 'to_project_name'
+                    oc.commentPosition: ''
+                    span: auto
+                    type: text        
