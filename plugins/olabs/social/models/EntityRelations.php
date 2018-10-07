@@ -237,7 +237,7 @@ class EntityRelations extends Model {
         //$this->SyncData();
     }
 
-    //Sync all entity relation data with respective models : attendance, mr_entry
+    //Sync all entity relation data with respective models : attendance, mr_entry, voucher
     public function SyncData() {
 
         $records = EntityRelations::whereIn('target_type', array(self::TARGET_TYPE_ATTENDANCE, self::TARGET_TYPE_MR_ENTRY, self::TARGET_TYPE_VOUCHERS))

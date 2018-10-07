@@ -79,4 +79,15 @@ fields:
                     label: 'to_project_name'
                     oc.commentPosition: ''
                     span: auto
-                    type: text        
+                    type: text     
+                    
+secondaryTabs:
+    stretch: true
+    fields:
+        images:
+            tab: Attachments
+            label: rainlab.blog::lang.post.featured_images
+            type: fileupload
+            mode: image
+            imageWidth: 200
+            imageHeight: 200
