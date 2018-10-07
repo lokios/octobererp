@@ -349,7 +349,7 @@ class EntityRelations extends Model {
 
 
                         $purchase->created_at = date('Y-m-d H:i:s');
-                        $purchase->created_by = $entry['created_by'];
+                        $purchase->created_by = isset($entry['created_by']) ? $entry['created_by'] : NULL;
                     }
 
                     $purchase->project_id = $entry['to_project_id'];
@@ -380,7 +380,7 @@ class EntityRelations extends Model {
                         }
                     }
                     $purchase->updated_at = date('Y-m-d H:i:s');
-                    $purchase->updated_by = $entry['created_by'];
+                    $purchase->updated_by = isset($entry['created_by']) ? $entry['created_by'] : NULL;
                     $purchase->execute_validation = false;
 //                            dd($purchase->featured_images);
                     $purchase->save();
@@ -415,7 +415,7 @@ class EntityRelations extends Model {
 
 
                         $voucher->created_at = date('Y-m-d H:i:s');
-                        $voucher->created_by = $entry['created_by'];
+                        $voucher->created_by = isset($entry['created_by']) ? $entry['created_by'] : NULL;
                     }
 
                     $voucher->project_id = $entry['to_project_id'];
@@ -442,7 +442,7 @@ class EntityRelations extends Model {
                         }
                     }
                     $voucher->updated_at = date('Y-m-d H:i:s');
-                    $voucher->updated_by = $entry['created_by'];
+                    $voucher->updated_by = isset($entry['created_by']) ? $entry['created_by'] : NULL;
                     $voucher->execute_validation = false;
                     $voucher->save();
 
