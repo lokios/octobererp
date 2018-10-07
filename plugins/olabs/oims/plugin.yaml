@@ -13,7 +13,7 @@ permissions:
         label: 'Manage Organization'
 navigation:
     master_register:
-        label: 'Master Register'
+        label: 'My Projects'
         url: olabs/oims/purchases
         icon: icon-life-ring
         permissions:
@@ -102,7 +102,7 @@ navigation:
                     - olabs.oims.project_assets
 
     dpr_report:
-        label: 'Daily Progress'
+        label: 'Project Progress'
         url: olabs/oims/projectprogress
         icon: icon-life-ring
         permissions:
@@ -140,7 +140,7 @@ navigation:
                     - olabs.oims.expenseonpcs                         
             
     reports:
-        label: 'Reports'
+        label: 'MIS Reports'
         url: olabs/oims/reports/dpr
         icon: icon-life-ring
         permissions:
@@ -212,7 +212,7 @@ navigation:
             
             
     oims_projects:
-        label: 'Inventory Setup'
+        label: 'Project Settings'
         url: olabs/oims/suppliers
         icon: icon-life-ring
         permissions:
@@ -279,7 +279,7 @@ navigation:
                 permissions:
                     - olabs.oims.project_books
     oims_setup:
-        label: Masters
+        label: 'Setups'
         url: olabs/oims/workgroups
         icon: icon-life-ring
         permissions:
