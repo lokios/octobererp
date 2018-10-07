@@ -12,10 +12,10 @@ class ReportWidgets extends Controller {
     public $formConfig = 'config_form.yaml';
     public $reorderConfig = 'config_reorder.yaml';
 
-    public $requiredPermissions = ['olabs.widgets.manage_widgetss'];
+    public $requiredPermissions = ['olabs.widgets.manage_widgets'];
     public function __construct() {
         parent::__construct();
-        BackendMenu::setContext('Olabs.Oims', 'widgets', 'manage_widgets');
+        BackendMenu::setContext('Olabs.Widgets', 'widgets', 'manage_widgets');
     }
 
 }
