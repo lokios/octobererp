@@ -3,18 +3,26 @@
 
 //https://www.google.com/maps/dir/26.58800,80.24838/26.488002,80.248382
 //$attendance_lat = $model->entity_relations;
-foreach($model->entity_relations as $er){
-$entry = isset($er->data) ? $er->data[0] : [];
+    foreach($model->entity_relations as $er){
+        $entry = isset($er->data) ? $er->data[0] : [];
 
-if($model->project) {
+        if($model->project) {
+          //  print_r("Project Lat : " . $model->project->latitude . ", Long : ". $model->project->longitude . "<br>");
+          //  print_r("Attendance Lat : " . $entry['geo']['latitude'] .", Long : ". $entry['geo']['longitude'] . "<br>");
+          //  print_r(time(). "Entry Time : " . $entry['geo']['time'] . "<br>");
+            $distance = Olabs\Oims\Models\Settings::distance($model->project->latitude, $model->project->longitude, $entry['geo']['latitude'],$entry['geo']['longitude'] );
 
-$distance = Olabs\Oims\Models\Settings::distance($model->project->latitude, $model->project->longitude, $entry['geo']['latitude'],$entry['geo']['longitude'] );
+            ?>
 
-?>
-
-<a href="https://www.google.com/maps/dir/<?=$model->project->latitude?>,<?=$model->project->longitude?>/<?=$entry['geo']['latitude']?>,<?=$entry['geo']['longitude']?>" target="_blank">Distance from Project: <?=round($distance,2)?> meters, At : <?=date('F j, Y, g:i a',time($entry['geo']['time']))?></a><br>
-<? }else { ?>
-<a href="https://maps.google.com/?q=<?=$entry['geo']['latitude']?>,<?=$entry['geo']['longitude']?>" target="_blank"><?= Lang::get("olabs.oims::lang.settings.map_view")?>, At <?=date('F j, Y, g:i a',time($entry['geo']['time']))?></a><br>
-<? } ?>
-<? } ?>
+            <a href="https://www.google.com/maps/dir/<?=$model->project->latitude?>,<?=$model->project->longitude?>/<?=$entry['geo']['latitude']?>,<?=$entry['geo']['longitude']?>" target="_blank">
+                Distance from Project: <?=$distance?> meters, At : <?= Olabs\Oims\Models\Settings::geoUTCTimeToDisplayDate($entry['geo']['time'])?>
+            </a>
+            <br>
+        <? }else { ?>
+            <a href="https://maps.google.com/?q=<?=$entry['geo']['latitude']?>,<?=$entry['geo']['longitude']?>" target="_blank">
+                <?= Lang::get("olabs.oims::lang.settings.map_view")?>, At <?=date('F j, Y, g:i a',time($entry['geo']['time']))?>
+            </a>
+            <br>
+        <? } ?>
+    <? } ?>
 <? } ?>
