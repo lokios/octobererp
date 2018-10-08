@@ -13,6 +13,9 @@ use File;
 use Route;
 use Redirect;
 use Yaml;
+use Backend\Controllers\Users;
+use Backend\Models\User;
+//use System\Classes\PluginBase;
 
 /**
  * Oims Plugin Information File
@@ -22,7 +25,7 @@ class Plugin extends PluginBase {
     /**
      * @var array Plugin dependencies
      */
-    public $require = ['RainLab.User'];
+//    public $require = ['RainLab.User'];
 
     /**
      * Returns information about this plugin.
@@ -33,7 +36,7 @@ class Plugin extends PluginBase {
         return [
             'name' => 'olabs.oims::lang.plugin.name',
             'description' => 'olabs.oims::lang.plugin.description',
-            'author' => 'Anuj Sinha',
+            'author' => 'Amit Srivastava',
             'icon' => 'icon-leaf'
         ];
     }
@@ -45,21 +48,21 @@ class Plugin extends PluginBase {
      */
     public function registerComponents() {
         return [
-            'Olabs\Oims\Components\ProductsByCategory' => 'myProducts',
-            'Olabs\Oims\Components\ProductsByBrand' => 'myProductsByBrand',
-            'Olabs\Oims\Components\ProductDetail' => 'myProductDetail',
-            'Olabs\Oims\Components\ProductsList' => 'myProductsList',
-            'Olabs\Oims\Components\MyOrders' => 'myOrders',
-            'Olabs\Oims\Components\MyOrderDetail' => 'myOrderDetail',
-            'Olabs\Oims\Components\Basket' => 'myBasket',
-            'Olabs\Oims\Components\BrandDetails' => 'myBrandDetails',
-            'Olabs\Oims\Components\BrandsList' => 'myBrandsList',
-            'Olabs\Oims\Components\BreadcrumbsCategory' => 'myBreadcrumbsCategory',
-            'Olabs\Oims\Components\BreadcrumbsProduct' => 'myBreadcrumbsProduct',
-            'Olabs\Oims\Components\PaymentGateway' => 'myPaymentGateway',
-            'Olabs\Oims\Components\CustomPaymentPaypalIPN' => 'myCustomPaymentPaypalIPN',
-            'Olabs\Oims\Components\CustomPaymentStripeCheckout' => 'myCustomPaymentStripeCheckout',
-            'Olabs\Oims\Components\CustomPaymentCashOnDelivery' => 'myCustomPaymentCashOnDelivery',
+//            'Olabs\Oims\Components\ProductsByCategory' => 'myProducts',
+//            'Olabs\Oims\Components\ProductsByBrand' => 'myProductsByBrand',
+//            'Olabs\Oims\Components\ProductDetail' => 'myProductDetail',
+//            'Olabs\Oims\Components\ProductsList' => 'myProductsList',
+//            'Olabs\Oims\Components\MyOrders' => 'myOrders',
+//            'Olabs\Oims\Components\MyOrderDetail' => 'myOrderDetail',
+//            'Olabs\Oims\Components\Basket' => 'myBasket',
+//            'Olabs\Oims\Components\BrandDetails' => 'myBrandDetails',
+//            'Olabs\Oims\Components\BrandsList' => 'myBrandsList',
+//            'Olabs\Oims\Components\BreadcrumbsCategory' => 'myBreadcrumbsCategory',
+//            'Olabs\Oims\Components\BreadcrumbsProduct' => 'myBreadcrumbsProduct',
+//            'Olabs\Oims\Components\PaymentGateway' => 'myPaymentGateway',
+//            'Olabs\Oims\Components\CustomPaymentPaypalIPN' => 'myCustomPaymentPaypalIPN',
+//            'Olabs\Oims\Components\CustomPaymentStripeCheckout' => 'myCustomPaymentStripeCheckout',
+//            'Olabs\Oims\Components\CustomPaymentCashOnDelivery' => 'myCustomPaymentCashOnDelivery',
         ];
     }
 
@@ -263,6 +266,53 @@ class Plugin extends PluginBase {
         $factory->register("TwoCheckoutPlus");
         $factory->register("TwoCheckoutPlus_Token");
         // -----------------------------------------------------------
+        
+        //Banned Backend User
+        User::extend(function (User $model) {
+            $model->implement[] = 'Olabs\Oims\UserBehavior';
+        });
+
+        $this->addIsBannedColumn();
+        $this->addIsBannedField();
+        
+    }
+    
+    
+    private function addIsBannedColumn()
+    {
+        Users::extendListColumns(function ($list, $model) {
+
+            if (!$model instanceof User) {
+                return;
+            }
+
+            $list->addColumns([
+                'user_is_banned' => [
+                    'label' => 'Banned',
+                    'type'  => 'switch',
+                    'span' => 'auto',
+                ],
+            ]);
+        });
+    }
+
+    private function addIsBannedField()
+    {
+        Users::extendFormFields(function (\Backend\Widgets\Form $form, \Model $model, $context) {
+
+            if (!$model instanceof User || $form->isNested) {
+                return;
+            }
+
+            $form->addFields([
+                'user_is_banned' => [
+                    'label'   => 'Banned',
+                    'comment' => 'Banned user can\'t login',
+                    'type'    => 'switch',
+                ],
+            ]);
+
+        });
     }
 
     /**
