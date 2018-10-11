@@ -113,12 +113,15 @@ class EntityRelations extends Model {
 
             if (!isset($entry['employee_id']))
                 return;
-
+            
+            $employee_id = $entry['employee_id'];
+            $employee_id = (int) substr($employee_id, 1); //First character is O or E
+            
             $self_attendance = false;
 
             if ($app->hasPermissionV2('olabs.oims.my_attendances')) {
-                if ($entry['employee_id'] != "" . $app->getAppUserId()) {
-                    throw new Exception("Error Processing Request", 403);
+                if ($employee_id != "" . $app->getAppUserId()) {
+                    throw new Exception("Error Processing Request, Employee mismatched.", 403);
                 } else {
                     $self_attendance = true;
                 }
