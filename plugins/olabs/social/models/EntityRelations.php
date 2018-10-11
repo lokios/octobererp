@@ -120,7 +120,7 @@ class EntityRelations extends Model {
             $self_attendance = false;
 
             if ($app->hasPermissionV2('olabs.oims.my_attendances')) {
-                if ($employee_id != "" . $app->getAppUserId()) {
+                if ($employee_id != (int) $app->getAppUserId()) {
                     throw new Exception("Error Processing Request, Employee mismatched.", 403);
                 } else {
                     $self_attendance = true;
