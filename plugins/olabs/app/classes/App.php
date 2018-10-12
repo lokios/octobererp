@@ -375,8 +375,33 @@ public function addMainModules(&$fmodules){
 
 }
 
+public function userHasProjects(){
+
+  $userHasProjects = false;
+  $user1 = $this->getAppUser();
+  if($user1){
+
+       $projects = [];
+      if (!$user1->isAdmin()) {
+
+            $list = $user1->projects;
+        } else {
+            $list = \Olabs\Oims\Models\Project::where([])->get();
+        }
+       $userHasProjects = $list->count()>0?true:false;
+
+    }
+
+    return $userHasProjects;
+}
+
 public $user;
 public function addMainModules_OIMS(&$fmodules){
+
+
+       $userHasProjects = $this->userHasProjects();
+       
+
 
 
         $app =$this;
@@ -402,7 +427,7 @@ public function addMainModules_OIMS(&$fmodules){
 
         }
 
-          if($this->hasTimesheetManagePermission()){
+          if( $userHasProjects && $this->hasTimesheetManagePermission()){
 
           $module = ['item_type'=>'post'
           ,'data'=>[]
@@ -421,7 +446,7 @@ public function addMainModules_OIMS(&$fmodules){
 
            }
 
-           if($this->hasTimesheetManagePermission()){
+           if( $userHasProjects && $this->hasVoucherEntryPermission()){
 
           $module = ['item_type'=>'post'
           ,'data'=>[]
@@ -443,7 +468,7 @@ public function addMainModules_OIMS(&$fmodules){
 
 
 
-          if($this->hasMREntryCreatePermission()){
+          if( $userHasProjects && $this->hasMREntryCreatePermission()){
 
              $module = ['item_type'=>'post'
           ,'data'=>[]
@@ -456,7 +481,7 @@ public function addMainModules_OIMS(&$fmodules){
           ,'format'=>'json','method'=>'post'];
 
 
-          if($this->hasMREntryCreatePermission()){
+          if( $userHasProjects && $this->hasMREntryCreatePermission()){
              $module['form_id'] = 'mr_entry_backdate';
 
           }
