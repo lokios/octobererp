@@ -34,6 +34,8 @@ class EntityRelations extends Model {
 
     public function beforeSave() {
 
+       //  throw new Exception("Error Processing Request", 403);
+
         if ($this->status == self::STATUS_DONE) {
             return;
         }
@@ -74,7 +76,7 @@ class EntityRelations extends Model {
             $this->status = self::STATUS_LIVE;
         }
 
-        if ($this->target_type == self::TARGET_TYPE_VOUCHERS && !$this->status) {
+        if ($this->target_type == self::TARGET_TYPE_VOUCHERS) {
             $this->status = self::STATUS_LIVE;
 
             $entry = $this->data;
@@ -103,7 +105,7 @@ class EntityRelations extends Model {
             
         }
 
-        if ($this->target_type == self::TARGET_TYPE_ATTENDANCE && !$this->status) {
+        if ($this->target_type == self::TARGET_TYPE_ATTENDANCE ) {
             $this->status = self::STATUS_LIVE;
 
             $entry = $this->data;
@@ -119,12 +121,16 @@ class EntityRelations extends Model {
             
             $self_attendance = false;
 
+            // throw new Exception("Error Processing Request", 403);
+
             if ($app->hasPermissionV2('olabs.oims.my_attendances')) {
                 if ($employee_id != (int) $app->getAppUserId()) {
                     throw new Exception("Error Processing Request, Employee mismatched.", 403);
                 } else {
                     $self_attendance = true;
                 }
+            }else{
+                //throw new Exception("Error Processing Request", 403);
             }
 
 

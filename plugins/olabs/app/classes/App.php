@@ -505,6 +505,7 @@ public function addMainModules_OIMS(&$fmodules){
  public function hasPermissionV2($permission){
 
       //olabs.oims.attendances
+      $this->getAppUser();
 
       if ($this->user->hasPermission([
         $permission,
