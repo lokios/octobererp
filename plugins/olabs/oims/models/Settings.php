@@ -135,7 +135,7 @@ class Settings extends Model {
 
     public static function convertToDisplayDate($getDate, $date_format = 'd/m/Y') {
 //        $date_format = 'd-m-Y';
-        if($getDate  == ''){
+        if ($getDate == '') {
             return '';
         }
         $newDate = date($date_format, strtotime($getDate));
@@ -189,7 +189,6 @@ class Settings extends Model {
 //            return $miles;
 //        }
 //    }
-
 //echo distance(32.9697, -96.80322, 29.46786, -98.53506, "M") . " Miles<br>";
 //echo distance(32.9697, -96.80322, 29.46786, -98.53506, "K") . " Kilometers<br>";
 //echo distance(32.9697, -96.80322, 29.46786, -98.53506, "N") . " Nautical Miles<br>";
@@ -204,7 +203,7 @@ class Settings extends Model {
      * @param float $earthRadius Mean earth radius in [m]
      * @return float Distance between points in [m] (same as earthRadius)
      */
-    public static function distance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $unit = 'MT') {
+    public static function distance_BIN($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $unit = 'MT') {
 // convert from degrees to radians
         $latFrom = deg2rad($latitudeFrom);
         $lonFrom = deg2rad($longitudeFrom);
@@ -230,6 +229,63 @@ class Settings extends Model {
         } else {
             return $miles;
         }
+    }
+
+    public static function distance($point1_lat, $point1_long, $point2_lat, $point2_long, $unit = 'mt', $decimals = 2) {
+        $unit = strtolower($unit);
+        $distance = 0;
+
+        $degrees = rad2deg(acos((sin(deg2rad($point1_lat)) * sin(deg2rad($point2_lat))) + (cos(deg2rad($point1_lat)) * cos(deg2rad($point2_lat)) * cos(deg2rad($point1_long - $point2_long)))));
+
+        // Convert the distance in degrees to the chosen unit (kilometres, miles or nautical miles)
+        switch ($unit) {
+            case 'km':
+                $distance = $degrees * 111.13384; // 1 degree = 111.13384 km, based on the average diameter of the Earth (12,735 km)
+                break;
+            case 'mi':
+                $distance = $degrees * 69.05482; // 1 degree = 69.05482 miles, based on the average diameter of the Earth (7,913.1 miles)
+                break;
+            case 'nmi':
+                $distance = $degrees * 59.97662; // 1 degree = 59.97662 nautic miles, based on the average diameter of the Earth (6,876.3 nautical miles)
+            case 'mt':
+                $distance = $degrees * 111.13384 * 1000; // 1 degree = 111.13384 km, 1 KM = 1000 M, based on the average diameter of the Earth (12,735 km)
+        }
+        return round($distance, $decimals);
+    }
+
+    /*
+     * Convert 
+     */
+
+    public static function geoUTCTimeToDisplayDate($getTime, $date_format = 'F j, Y, g:i a', $time_zone = "Asia/Kolkata") {
+//        1538997877
+//        Entry Time : 
+//        1538882106761
+//        $date_format = 'd-m-Y';
+        if ($getTime == '' OR $getTime < 15000000) {
+            return '';
+        }
+//        $local_time = Timezone::convertFromUTC($session->created_at, Session::get('timezone'), 'F j, Y');
+//        $getTime = $getTime / 1000 + 330 * 60 * 60; //Convent in php time & added +5:30 to convert UTC to IST
+//
+//        $newDate = date($date_format, ($getTime));
+
+
+
+        $getTime = $getTime / 1000; //Convent in php time
+        $get_datetime = date('Y-m-d H:i:s', ($getTime));
+        $utc_date = \DateTime::createFromFormat(
+                        'Y-m-d H:i:s', $get_datetime, new \DateTimeZone('UTC')
+        );
+
+        $acst_date = clone $utc_date; // we don't want PHP's default pass object by reference here
+        $acst_date->setTimeZone(new \DateTimeZone($time_zone));
+        $newDate = $acst_date->format($date_format);
+//        echo 'UTC:  ' . $utc_date->format('Y-m-d g:i A');  // UTC:  2011-04-27 2:45 AM
+//        echo 'ACST: ' . $acst_date->format('Y-m-d g:i A'); // ACST: 2011-04-27 12:15 PM
+
+
+        return $newDate;
     }
 
 }
