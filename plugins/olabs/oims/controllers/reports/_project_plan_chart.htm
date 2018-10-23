@@ -1,0 +1,54 @@
+<?
+ //echo json_encode($reports);
+if(count($reports)){
+?>
+<!-- Gantt chart plotting tasks required for constructing a new store (Just completed) in Denver. This is a comparison of how planned estimates fared against the actual and which tasks got delayed. -->
+<script type="text/javascript">
+    FusionCharts.ready(function () {
+//  var projectPlan = new FusionCharts(<?=json_encode($reports)?>);
+        
+        var chartRef = FusionCharts("ProjectPlanChart");
+        // console.log(typeof chartRef);
+        if(typeof chartRef === "object"){
+            FusionCharts("ProjectPlanChart").dispose();
+        }
+        
+        var projectPlan = new FusionCharts(<?=json_encode($reports)?>);
+        FusionCharts("ProjectPlanChart").render("project-plan-chart-container");
+        
+    });
+</script>
+
+<script type="text/javascript">
+/*    FusionCharts.ready(function () {
+        FusionCharts("ProjectPlanChart").render();
+    });
+    
+    
+ 
+    var chartRef = FusionCharts("my_chart_id ");
+
+if(chartRef == "my_chart_id "){
+	FusionCharts("my_chart_id ").dispose();
+}else{				
+	var myChart = new FusionCharts("Column3D.swf","my_chart_id ","500","350","0","1");
+	myChart.setXMLUrl("data.xml");
+	myChart.render("chartContainer");
+	FusionCharts.addEventListener ( "Rendered", function(e,p) { alert(e.sender.id + " chart has rendered!" ); } )
+}
+*/
+</script>
+
+<div id="project-plan-chart-container">Charts will render here</div>
+
+
+<? } ?>
+
+
+<textarea id="temp" rows="5" cols="5" class="input"  style="display: none;">
+<?
+ echo json_encode($reports);
+
+?>
+
+</textarea>

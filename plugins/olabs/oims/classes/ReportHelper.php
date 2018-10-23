@@ -14,6 +14,8 @@ use Flash;
 use Log;
 use App;
 use Db;
+use Olabs\Oims\Classes\FusionCharts;
+use Olabs\Oims\Classes\GanttCharts;
 
 class ReportHelper extends Controller {
     /*     * *****************Download Actions**************************** */
@@ -145,8 +147,8 @@ class ReportHelper extends Controller {
         return $widget;
     }
 
-    protected function createProjectProgressSearchFormWidget() {
-        $config = $this->makeConfig('$/olabs/oims/models/report/project_progress_search_fields.yaml');
+    protected function createProjectPlanSearchFormWidget() {
+        $config = $this->makeConfig('$/olabs/oims/models/report/project_plan_search_fields.yaml');
 
         $config->alias = 'reportSearch';
 
@@ -760,27 +762,27 @@ class ReportHelper extends Controller {
 
         /*
          * 
-SELECT id, entity_type, payment_receivables_id, payment_type, project_id, context_date , debit_amount, credit_amount 
-FROM (
-SELECT id, 'vouchers' as entity_type, total_price as debit_amount, 0 as credit_amount, payment_type, project_id, context_date FROM `olabs_oims_vouchers`
-UNION ALL
-SELECT id, 'payment_receivables' as entity_type, amount as debit_amount, 0 as credit_amount,payment_type,from_project_id as project_id, context_date FROM `olabs_oims_payment_receivables`
-UNION ALL
-SELECT id, 'payment_receivables' as entity_type, 0 as debit_amount, amount as credit_amount, payment_type,to_project_id as project_id, context_date FROM `olabs_oims_payment_receivables`
-)X
-ORDER BY context_date ASC
+          SELECT id, entity_type, payment_receivables_id, payment_type, project_id, context_date , debit_amount, credit_amount
+          FROM (
+          SELECT id, 'vouchers' as entity_type, total_price as debit_amount, 0 as credit_amount, payment_type, project_id, context_date FROM `olabs_oims_vouchers`
+          UNION ALL
+          SELECT id, 'payment_receivables' as entity_type, amount as debit_amount, 0 as credit_amount,payment_type,from_project_id as project_id, context_date FROM `olabs_oims_payment_receivables`
+          UNION ALL
+          SELECT id, 'payment_receivables' as entity_type, 0 as debit_amount, amount as credit_amount, payment_type,to_project_id as project_id, context_date FROM `olabs_oims_payment_receivables`
+          )X
+          ORDER BY context_date ASC
          */
-        
+
         if ($from_date && $to_date) {
             $datetime1 = new DateTime($from_date);
             $datetime2 = new DateTime($to_date);
             $interval = $datetime1->diff($datetime2);
             $total_days = $interval->format('%d') + 1; //to add current date 
-            
+
             $balance_till_date = $datetime1->modify('-1 day');
             $timeFormat = ' 23:59:59';
             $balance_till_date = $balance_till_date->format('Y-m-d') . $timeFormat;
-            
+
             $balance_amount = 0;
             //Get Balance
             //Receiables
@@ -788,46 +790,43 @@ ORDER BY context_date ASC
                     ->whereDate('context_date', '<=', $balance_till_date)
                     ->whereIn('to_project_id', $assigned_projects)
                     ->sum("amount");
-            
+
             //payments
             $balance_amount -= \Olabs\Oims\Models\Voucher::where($params)
-                        ->whereDate('context_date', '<=', $balance_till_date)
-                        ->whereIn('project_id', $assigned_projects)
-                        ->sum("total_price");
-            
+                    ->whereDate('context_date', '<=', $balance_till_date)
+                    ->whereIn('project_id', $assigned_projects)
+                    ->sum("total_price");
+
             //payments
             $balance_amount -= \Olabs\Oims\Models\PaymentReceivable::where($params)
                     ->whereDate('context_date', '<=', $balance_till_date)
                     ->whereIn('from_project_id', $assigned_projects)
                     ->sum("amount");
 //            
-            
-            
             //Reports
 
             $vouchers = \Olabs\Oims\Models\Voucher::where($params)
-                        ->whereBetween('context_date', [$from_date, $to_date])
-                        ->whereIn('project_id', $assigned_projects)
-                        ->select(DB::raw("id, 'vouchers' as entity_type, total_price as debit_amount, 0 as credit_amount, payment_type, project_id, context_date, narration, description"));
-            
+                    ->whereBetween('context_date', [$from_date, $to_date])
+                    ->whereIn('project_id', $assigned_projects)
+                    ->select(DB::raw("id, 'vouchers' as entity_type, total_price as debit_amount, 0 as credit_amount, payment_type, project_id, context_date, narration, description"));
+
             $payment_debit = \Olabs\Oims\Models\PaymentReceivable::where($params)
                     ->whereBetween('context_date', [$from_date, $to_date])
                     ->whereIn('from_project_id', $assigned_projects)
                     ->select(DB::raw("id, 'payment_receivables' as entity_type, amount as debit_amount, 0 as credit_amount,payment_type,from_project_id as project_id, context_date, narration, description"));
-            
+
             $payment_credit = \Olabs\Oims\Models\PaymentReceivable::where($params)
                     ->whereBetween('context_date', [$from_date, $to_date])
                     ->whereIn('to_project_id', $assigned_projects)
                     ->select(DB::raw("id, 'payment_receivables' as entity_type, 0 as debit_amount, amount as credit_amount, payment_type,to_project_id as project_id, context_date, narration, description"));
-                    
-            
-            
-            
+
+
+
+
             $reports = $vouchers->unionAll($payment_debit)->unionAll($payment_credit)->orderBy(DB::raw('context_date'))->get();
 //            $reports = $vouchers->get();
-            
 //            dd(count($reports));
-        } 
+        }
 //        else if ($from_date) {
 //            $reports = \Olabs\Oims\Models\Purchase::where($params)
 //                    ->whereDate('context_date', '>=', $from_date)
@@ -855,92 +854,210 @@ ORDER BY context_date ASC
         $this->vars['msg'] = $msg;
     }
 
-    protected function searchProjectProgressReport($searchParams) {
+    protected function searchProjectPlanReport($searchParams) {
         $reports = array();
         $msg = false;
 
         $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
+        try {
+
+            
+
+            
+            //Set chart headings
+            $project_modal = \Olabs\Oims\Models\Project::where("id", $project)->first();
+            
+            if (!$project_modal) {
+                throw new ApplicationException('Project not found!');
+            }
+            
+            // chart object
+//            $chart = new GanttCharts("gantt", "ProjectPlanChart", "99%", "99%", "project-plan-chart-container", "json");
+            $chart = new GanttCharts("gantt", "ProjectPlanChart", "1800", "2000", "project-plan-chart-container", "json");
+            
+            $chart->set_dataSource_chart("Project Plan - " . $project_modal->name , "Planned vs Actual");
+            
+            
+            
+            //Get project planned start & end date
+            $category_dates = \Olabs\Oims\Models\ProjectWork::where('project_id', $project)
+                    ->where('status', \Olabs\Oims\Models\ProjectWork::STATUS_ACTIVE)
+                    ->select(Db::Raw("min(planned_start_date) as planned_start_date, max(planned_end_date) as planned_end_date"))
+                    ->whereNotNull("planned_start_date")
+                    ->whereNotNull("planned_end_date")
+                    ->first();
+
+            //if no dates found then return false
+            if (!$category_dates) {
+                throw new ApplicationException('Work planned dates are not set!');
+            }
+            $from_date = $category_dates->planned_start_date;
+            $to_date = $category_dates->planned_end_date;
+            
+            
+
+            if ($from_date && $to_date) {
+                $start = new DateTime($from_date);
+                $end = new DateTime($to_date);
+                $interval = $start->diff($end);
+
+                if ($interval) {
+//                    $month_start = $start->modify("first day of this month");
+//                    $month_end = $start->modify("last day of this month");
+                    //generate categories for the month
+                    $current = $start;
+                    while ($current < $end) {
+                        $month_start = $current->modify("first day of this month")->format("j/n/Y");
+                        $month_end = $current->modify("last day of this month")->format("j/n/Y");
+
+                        $month_name = $current->format("M-y"); // F, M
+
+                        $chart->set_dataSource_categories_item($month_start, $month_end, $month_name);
+
+                        $current = $current->modify('+1 day'); //@date('Y-M-01', $current) . "+1 month";
+                    }
+                }
+            }
 
 
-        //Get all project wroks in active status
-        $project_works = \Olabs\Oims\Models\ProjectWork::where('project_id', $project)->where('status', \Olabs\Oims\Models\ProjectWork::STATUS_ACTIVE)->get();
 
-        $gantt_process = [];
+            //Set Categories in month
+//            $chart->set_dataSource_categories_item("1/4/2014", "30/4/2014", "April");
+//            $chart->set_dataSource_categories_item("1/5/2014", "31/5/2014", "May");
+            //Get all project wroks in active status
+            $project_works = \Olabs\Oims\Models\ProjectWork::where('project_id', $project)->where('status', \Olabs\Oims\Models\ProjectWork::STATUS_ACTIVE)->get();
+
+            $gantt_process = [];
 //        foreach($project_works as $work){
 //            $gantt_process = 
 //        }
 //        dd(count($project_works));
+            //Set works
+//        $chart->set_dataSource_processes_item("Test 1", "1");
+//        $chart->set_dataSource_datatable_item("25/4/2014", "28/4/2014");
 
-        $this->vars['reports'] = $reports;
-        $this->vars['msg'] = $msg;
+            foreach ($project_works as $project_work) {
+                $name = $project_work->name;
+                $id = $project_work->id . "";
 
-        return;
+                //Set Work items
+                $chart->set_dataSource_processes_item($id, $name);
+
+                //Set Planned Task items
+                $planned_start_date = \Olabs\Oims\Models\Settings::convertToDisplayDate($project_work->planned_start_date, "j/n/Y");
+                $planned_end_date = \Olabs\Oims\Models\Settings::convertToDisplayDate($project_work->planned_end_date, "j/n/Y");
+                $chart->set_dataSource_tasks_item($planned_start_date, $planned_end_date, $id, "Planned");
+
+                //Actual Start & End Date
+                /*
+                 * SELECT min(start_date), max(start_date) FROM `olabs_oims_project_progress` p
+                  INNER JOIN olabs_oims_project_progress_items i ON p.id = i.project_progress_id AND i.work_id = 7
+                  WHERE p.project_id = 2
+                 */
+
+                $work_actual_dates = \Olabs\Oims\Models\ProjectProgress::with("products")
+                        ->where("project_id", $project)
+                        
+                        ->join('olabs_oims_project_progress_items', 'olabs_oims_project_progress_items.project_progress_id', '=', 'olabs_oims_project_progress.id')
+                        ->where("olabs_oims_project_progress_items.work_id", $id)
+                        ->select(Db::Raw("min(start_date) as start_date, max(start_date) as end_date"))
+                        ->whereNotNull("start_date")
+                        ->first();
+                
+                if($work_actual_dates){
+                    $actual_start_date = \Olabs\Oims\Models\Settings::convertToDisplayDate($work_actual_dates->start_date, "j/n/Y");
+                    $actual_end_date = \Olabs\Oims\Models\Settings::convertToDisplayDate($work_actual_dates->end_date, "j/n/Y");
+                    $chart->set_dataSource_tasks_item($actual_start_date, $actual_end_date, $id, "Actual"); //Task item
+                    
+                    $chart->set_dataSource_datatable_item($actual_start_date, $actual_end_date); //Datacolumn item
+                }
+                
+                
+            }
+
+
+
+
+
+
+
+
+
+            $this->vars['reports'] = $chart->render("array");
+            $this->vars['msg'] = $msg;
+
+            return;
+        } catch (Exception $ex) {
+            $this->vars['reports'] = [];
+            $this->vars['msg'] = $msg;
+            return;
+        }
         ////////////////////////////////////
-        $search_from_date = isset($searchParams['from_date']) ? $searchParams['from_date'] : '';
-        $search_to_date = isset($searchParams['to_date']) ? $searchParams['to_date'] : '';
-
-        $from_date = false;
-        if ($search_from_date != '') {
-            $from_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_from_date); //date('Y-m-d 00:00:00', strtotime($from_date));
-        }
-
-        $to_date = false;
-        if ($search_to_date != '') {
-            $timeFormat = '23:59:59';
-            $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
-        }
-
-        $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
-        $supplier = ( trim($searchParams['supplier']) != "" ) ? $searchParams['supplier'] : false;
-
-        $baseModel = new \Olabs\Oims\Models\BaseModel();
-        $assigned_projects = [];
-//        $user = BackendAuth::getUser();
-
-        $params = array();
-        if ($project) {
-            $assigned_projects = [$project];
-        } else {
-            $assigned_projects = array_keys($baseModel->getProjectOptions());
-        }
-        if ($supplier) {
-            $params['user_id'] = $supplier;
-        }
-
-        if ($from_date && $to_date) {
-            $datetime1 = new DateTime($from_date);
-            $datetime2 = new DateTime($to_date);
-            $interval = $datetime1->diff($datetime2);
-            $total_days = $interval->format('%d') + 1; //to add current date 
-
-            $reports = \Olabs\Oims\Models\Purchase::where($params)
-                    ->whereBetween('context_date', [$from_date, $to_date])
-                    ->whereIn('project_id', $assigned_projects)
-                    ->get();
-        } else if ($from_date) {
-            $reports = \Olabs\Oims\Models\Purchase::where($params)
-                    ->whereDate('context_date', '>=', $from_date)
-                    ->whereIn('project_id', $assigned_projects)
-                    ->get();
-        } else if ($to_date) {
-            $reports = \Olabs\Oims\Models\Purchase::where($params)
-                    ->whereDate('context_date', '<=', $to_date)
-                    ->whereIn('project_id', $assigned_projects)
-                    ->get();
-        } elseif (count($params)) {
-            $reports = \Olabs\Oims\Models\Purchase::where($params)->get();
-        }
-
-
-        $msg = false;
-        if (!$from_date && !$to_date && !count($params)) {
-            $msg = 'Please select atleast one filter';
-        }
-
-        $this->vars['from_date'] = $from_date;
-        $this->vars['to_date'] = $to_date;
-        $this->vars['reports'] = $reports;
-        $this->vars['msg'] = $msg;
+//        $search_from_date = isset($searchParams['from_date']) ? $searchParams['from_date'] : '';
+//        $search_to_date = isset($searchParams['to_date']) ? $searchParams['to_date'] : '';
+//
+//        $from_date = false;
+//        if ($search_from_date != '') {
+//            $from_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_from_date); //date('Y-m-d 00:00:00', strtotime($from_date));
+//        }
+//
+//        $to_date = false;
+//        if ($search_to_date != '') {
+//            $timeFormat = '23:59:59';
+//            $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
+//        }
+//
+//        $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
+//        $supplier = ( trim($searchParams['supplier']) != "" ) ? $searchParams['supplier'] : false;
+//
+//        $baseModel = new \Olabs\Oims\Models\BaseModel();
+//        $assigned_projects = [];
+////        $user = BackendAuth::getUser();
+//
+//        $params = array();
+//        if ($project) {
+//            $assigned_projects = [$project];
+//        } else {
+//            $assigned_projects = array_keys($baseModel->getProjectOptions());
+//        }
+//        if ($supplier) {
+//            $params['user_id'] = $supplier;
+//        }
+//
+//        if ($from_date && $to_date) {
+//            $datetime1 = new DateTime($from_date);
+//            $datetime2 = new DateTime($to_date);
+//            $interval = $datetime1->diff($datetime2);
+//            $total_days = $interval->format('%d') + 1; //to add current date 
+//
+//            $reports = \Olabs\Oims\Models\Purchase::where($params)
+//                    ->whereBetween('context_date', [$from_date, $to_date])
+//                    ->whereIn('project_id', $assigned_projects)
+//                    ->get();
+//        } else if ($from_date) {
+//            $reports = \Olabs\Oims\Models\Purchase::where($params)
+//                    ->whereDate('context_date', '>=', $from_date)
+//                    ->whereIn('project_id', $assigned_projects)
+//                    ->get();
+//        } else if ($to_date) {
+//            $reports = \Olabs\Oims\Models\Purchase::where($params)
+//                    ->whereDate('context_date', '<=', $to_date)
+//                    ->whereIn('project_id', $assigned_projects)
+//                    ->get();
+//        } elseif (count($params)) {
+//            $reports = \Olabs\Oims\Models\Purchase::where($params)->get();
+//        }
+//
+//
+//        $msg = false;
+//        if (!$from_date && !$to_date && !count($params)) {
+//            $msg = 'Please select atleast one filter';
+//        }
+//
+//        $this->vars['from_date'] = $from_date;
+//        $this->vars['to_date'] = $to_date;
+//        $this->vars['reports'] = $reports;
+//        $this->vars['msg'] = $msg;
     }
 
 }

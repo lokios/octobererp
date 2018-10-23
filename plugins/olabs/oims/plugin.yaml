@@ -203,9 +203,9 @@ navigation:
                 permissions:
                     - olabs.oims.reports   
                     
-            project_progress:
-                label: 'Project Progress'
-                url: olabs/oims/reports/project_progress
+            project_plan:
+                label: 'Project Planning'
+                url: olabs/oims/reports/project_plan
                 icon: icon-life-ring
                 permissions:
                     - olabs.oims.reports   

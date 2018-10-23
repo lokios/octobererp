@@ -1588,8 +1588,8 @@ class Reports extends ReportHelper {
     }
 
     //Project Progress Report
-    public function project_progress() {
-        BackendMenu::setContext('Olabs.Oims', 'reports', 'project_progress');
+    public function project_plan() {
+        BackendMenu::setContext('Olabs.Oims', 'reports', 'project_plan');
 
 //        $this->addCss('/plugins/rainlab/blog/assets/css/rainlab.blog-preview.css');
 //        $this->addJs('/plugins/rainlab/blog/assets/js/post-form.js');
@@ -1599,16 +1599,16 @@ class Reports extends ReportHelper {
         $this->addJs('/plugins/olabs/oims/assets/fusioncharts/js/fusioncharts.js', 'core');
         $this->addJs('/plugins/olabs/oims/assets/fusioncharts/js/themes/fusioncharts.theme.fusion.js', 'core');
 
-        $this->searchFormWidget = $this->createProjectProgressSearchFormWidget();
+        $this->searchFormWidget = $this->createProjectPlanSearchFormWidget();
         $this->pageTitle = 'Project Progress Report';
-        $reports = array();
+        $reports = [];
 
         $oimsSetting = \Olabs\Oims\Models\Settings::instance();
 
         // get project progress components
         $searchParams = [];
         $searchParams['project'] = 2;
-        $this->searchProjectProgressReport($searchParams);
+        $this->searchProjectPlanReport($searchParams);
 
         $searchForm = $this->searchFormWidget;
 
@@ -1621,7 +1621,7 @@ class Reports extends ReportHelper {
         $this->vars['oimsSetting'] = $oimsSetting;
     }
 
-    public function onProjectProgressSearch() {
+    public function onProjectPlanSearch() {
         $reports = array();
 
         if (post('reportSearch')) {
@@ -1629,7 +1629,7 @@ class Reports extends ReportHelper {
             $searchParams = post('reportSearch');
 
             // get project progress components
-            $this->searchProjectProgressReport($searchParams);
+            $this->searchProjectPlanReport($searchParams);
         }
 
         $oimsSetting = \Olabs\Oims\Models\Settings::instance();
