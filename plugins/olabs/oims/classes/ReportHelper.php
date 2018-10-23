@@ -874,7 +874,7 @@ class ReportHelper extends Controller {
 
             // chart object
 //            $chart = new GanttCharts("gantt", "ProjectPlanChart", "99%", "99%", "project-plan-chart-container", "json");
-            $chart = new GanttCharts("gantt", "ProjectPlanChart", "1800", "2000", "project-plan-chart-container", "json");
+            $chart = new GanttCharts("gantt", "ProjectPlanChart", "99%", "2000", "project-plan-chart-container", "json");
 
             $chart->set_dataSource_chart("Project Plan - " . $project_modal->name, "Planned vs Actual");
 
@@ -921,19 +921,39 @@ class ReportHelper extends Controller {
                 $start = new DateTime($project_start_date);
                 $end = new DateTime($project_end_date);
                 $interval = $start->diff($end);
-
+                
                 if ($interval) {
-//                    $month_start = $start->modify("first day of this month");
-//                    $month_end = $start->modify("last day of this month");
+                    $start = new DateTime($start->format("Y") ."-01-01" ); //$start->modify("first day of this year");
+                    $end = new DateTime($end->format("Y") ."-12-31" ); //$end->modify("last day of this year");
 
                     $current = $start;
+                    $year = "";
+                    
+                    
+                    
+                    
+                    
                     while ($current < $end) {
                         $month_start = $current->modify("first day of this month")->format("j/n/Y");
                         $month_end = $current->modify("last day of this month")->format("j/n/Y");
 
-                        $month_name = $current->format("M-y"); // F, M
+                        $month_name = $current->format("M"); // F, M
+                        
+                        if($year = ""){
+                            $year = $current->format("Y"); // F, M
+//                            $year_start = "1/" . $current->format("n/Y");
+                            $year_start = "1/1" . $current->format("Y");
+                            $year_end = "31/12/$year";
+                            $chart->set_dataSource_categories_item($year_start, $year_end, $year, 'year');
+                        }else if($year != $current->format("Y")){
+                            $year = $current->format("Y"); // F, M
+                            $year_start = "1/1/$year";
+                            $year_end = "31/12/$year";
+                            $chart->set_dataSource_categories_item($year_start, $year_end, $year, 'year');
+                        }
+                        
 
-                        $chart->set_dataSource_categories_item($month_start, $month_end, $month_name);
+                        $chart->set_dataSource_categories_item($month_start, $month_end, $month_name, 'month');
 
                         $current = $current->modify('+1 day'); //@date('Y-M-01', $current) . "+1 month";
                     }

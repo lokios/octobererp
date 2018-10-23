@@ -168,10 +168,14 @@ class GanttCharts {
         ];
 
 
-        $this->dataSource['categories'][0] = $this->dataSource_categories;
+        $this->dataSource['categories'][0] = $this->dataSource_categories; //Category Year
+        $this->dataSource['categories'][1] = $this->dataSource_categories; //Category Month
     }
 
-    public function set_dataSource_categories_item($start, $end, $label) {
+    /*
+     * type = month, year
+     */
+    public function set_dataSource_categories_item($start, $end, $label, $type = 'month') {
         /*
          * {
           "start": "1/4/2014",
@@ -186,8 +190,12 @@ class GanttCharts {
         $item["start"] = $start;
         $item["end"] = $end;
         $item["label"] = $label;
-
-        $this->dataSource['categories'][0]["category"][] = $item;
+        if($type == 'year'){
+            $this->dataSource['categories'][0]["category"][] = $item;
+        }else{
+            $this->dataSource['categories'][1]["category"][] = $item;
+        }
+        
     }
 
     public function set_dataSource_connectors() {
@@ -466,7 +474,7 @@ class GanttCharts {
         
         $this->dataSource_chart["ganttPaneDurationUnit"] = "m";
         $this->dataSource_chart["ganttwidthpercent"] = "10";
-        $this->dataSource_chart["ganttPaneDuration"] = "20";
+        $this->dataSource_chart["ganttPaneDuration"] = "25";
 //        $this->dataSource_chart["ganttPaneDurationUnit"] = "d";
         
         $this->dataSource_chart["useVerticalScrolling"] = "1";
