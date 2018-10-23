@@ -861,26 +861,27 @@ class ReportHelper extends Controller {
         $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
         try {
 
-            
+            $project_start_date = false;
+            $project_end_date = false;
 
-            
+
             //Set chart headings
             $project_modal = \Olabs\Oims\Models\Project::where("id", $project)->first();
-            
+
             if (!$project_modal) {
                 throw new ApplicationException('Project not found!');
             }
-            
+
             // chart object
 //            $chart = new GanttCharts("gantt", "ProjectPlanChart", "99%", "99%", "project-plan-chart-container", "json");
             $chart = new GanttCharts("gantt", "ProjectPlanChart", "1800", "2000", "project-plan-chart-container", "json");
-            
-            $chart->set_dataSource_chart("Project Plan - " . $project_modal->name , "Planned vs Actual");
-            
-            
-            
+
+            $chart->set_dataSource_chart("Project Plan - " . $project_modal->name, "Planned vs Actual");
+
+
+
             //Get project planned start & end date
-            $category_dates = \Olabs\Oims\Models\ProjectWork::where('project_id', $project)
+            $category_planned_dates = \Olabs\Oims\Models\ProjectWork::where('project_id', $project)
                     ->where('status', \Olabs\Oims\Models\ProjectWork::STATUS_ACTIVE)
                     ->select(Db::Raw("min(planned_start_date) as planned_start_date, max(planned_end_date) as planned_end_date"))
                     ->whereNotNull("planned_start_date")
@@ -888,23 +889,43 @@ class ReportHelper extends Controller {
                     ->first();
 
             //if no dates found then return false
-            if (!$category_dates) {
+            if (!$category_planned_dates) {
                 throw new ApplicationException('Work planned dates are not set!');
             }
-            $from_date = $category_dates->planned_start_date;
-            $to_date = $category_dates->planned_end_date;
-            
-            
+            $project_start_date = $category_planned_dates->planned_start_date;
+            $project_end_date = $category_planned_dates->planned_end_date;
 
-            if ($from_date && $to_date) {
-                $start = new DateTime($from_date);
-                $end = new DateTime($to_date);
+
+            $category_actual_dates = \Olabs\Oims\Models\ProjectProgress::with("products")
+                    ->where("project_id", $project)
+                    ->join('olabs_oims_project_progress_items', 'olabs_oims_project_progress_items.project_progress_id', '=', 'olabs_oims_project_progress.id')
+//                        ->where("olabs_oims_project_progress_items.work_id", $id)
+                    ->select(Db::Raw("min(start_date) as start_date, max(start_date) as end_date"))
+                    ->whereNotNull("start_date")
+                    ->first();
+
+            //adjust start and end dates with actual work progress start and end dates
+            if ($category_actual_dates) {
+                if($category_actual_dates->start_date < $project_start_date){
+                    $project_start_date = $category_actual_dates->start_date;
+                }
+                
+                if($category_actual_dates->end_date > $project_end_date){
+                    $project_end_date = $category_actual_dates->end_date;
+                }
+            }
+
+
+            //generate categories for the month
+            if ($project_start_date && $project_end_date) {
+                $start = new DateTime($project_start_date);
+                $end = new DateTime($project_end_date);
                 $interval = $start->diff($end);
 
                 if ($interval) {
 //                    $month_start = $start->modify("first day of this month");
 //                    $month_end = $start->modify("last day of this month");
-                    //generate categories for the month
+
                     $current = $start;
                     while ($current < $end) {
                         $month_start = $current->modify("first day of this month")->format("j/n/Y");
@@ -918,6 +939,7 @@ class ReportHelper extends Controller {
                     }
                 }
             }
+
 
 
 
@@ -957,23 +979,27 @@ class ReportHelper extends Controller {
 
                 $work_actual_dates = \Olabs\Oims\Models\ProjectProgress::with("products")
                         ->where("project_id", $project)
-                        
                         ->join('olabs_oims_project_progress_items', 'olabs_oims_project_progress_items.project_progress_id', '=', 'olabs_oims_project_progress.id')
                         ->where("olabs_oims_project_progress_items.work_id", $id)
                         ->select(Db::Raw("min(start_date) as start_date, max(start_date) as end_date"))
                         ->whereNotNull("start_date")
                         ->first();
-                
-                if($work_actual_dates){
+
+                if ($work_actual_dates) {
+
+                    //Check task start & end date with actual dates
+
                     $actual_start_date = \Olabs\Oims\Models\Settings::convertToDisplayDate($work_actual_dates->start_date, "j/n/Y");
                     $actual_end_date = \Olabs\Oims\Models\Settings::convertToDisplayDate($work_actual_dates->end_date, "j/n/Y");
                     $chart->set_dataSource_tasks_item($actual_start_date, $actual_end_date, $id, "Actual"); //Task item
-                    
+
                     $chart->set_dataSource_datatable_item($actual_start_date, $actual_end_date); //Datacolumn item
                 }
-                
-                
             }
+
+
+
+
 
 
 
