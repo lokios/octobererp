@@ -34,7 +34,7 @@ class GanttCharts {
         isset($dataSource) ? $this->dataSource = $dataSource : '';
 
         //Set chart default
-        $this->set_dataSource_chart("Project Plan", "Planned vs Actual");
+        $this->set_dataSource_chart("Project Plan", "Planned vs Actual", "Export");
 
         $this->set_dataSource_categories();
 
@@ -427,7 +427,7 @@ class GanttCharts {
         $this->dataSource['processes']["process"][] = $item;
     }
 
-    public function set_dataSource_chart($caption, $subcaption) {
+    public function set_dataSource_chart($caption, $subcaption, $export_file_name) {
         /*
          * 
          * https://www.fusioncharts.com/dev/chart-attributes/?chart=gantt&attribute=chart_showTaskStartDate
@@ -485,8 +485,10 @@ class GanttCharts {
         
         //Export features
         $this->dataSource_chart["exportEnabled"] = "1";
+        $this->dataSource_chart["exportFileName"] = $export_file_name;
 //        $this->dataSource_chart["exportFormats"] = "PNG=Export as High Quality Image|PDF=Export as Printable|XLS=Export Chart Data";
         $this->dataSource_chart["exportFormats"] = "PNG=Export as High Quality Image|PDF=Export as Printable";
+        
 //        $this->dataSource_chart["exportMode"] = "server"; //"exportMode": "client",
 //        $this->dataSource_chart[""] = "";
 

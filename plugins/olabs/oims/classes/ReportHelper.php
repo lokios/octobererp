@@ -876,7 +876,7 @@ class ReportHelper extends Controller {
 //            $chart = new GanttCharts("gantt", "ProjectPlanChart", "99%", "99%", "project-plan-chart-container", "json");
             $chart = new GanttCharts("gantt", "ProjectPlanChart", "99%", "2000", "project-plan-chart-container", "json");
 
-            $chart->set_dataSource_chart("Project Plan - " . $project_modal->name, "Planned vs Actual");
+            $chart->set_dataSource_chart("Project Plan - " . $project_modal->name, "Planned vs Actual", "ProjectProgress_". $project_modal->name);
 
 
 
