@@ -968,7 +968,22 @@ class ReportHelper extends Controller {
 //            $chart->set_dataSource_categories_item("1/5/2014", "31/5/2014", "May");
             //Get all project wroks in active status
             $project_works = \Olabs\Oims\Models\ProjectWork::where('project_id', $project)->where('status', \Olabs\Oims\Models\ProjectWork::STATUS_ACTIVE)->get();
+            
+            $project_progress_actual_date_modal = \Olabs\Oims\Models\ProjectProgress::with("products")
+                        ->where("project_id", $project)
+                        ->join('olabs_oims_project_progress_items', 'olabs_oims_project_progress_items.project_progress_id', '=', 'olabs_oims_project_progress.id')
+//                        ->where("olabs_oims_project_progress_items.work_id", $id)
+                        ->select(Db::Raw("olabs_oims_project_progress_items.work_id, min(start_date) as start_date, max(start_date) as end_date, sum(olabs_oims_project_progress_items.quantity) as work_quantity"))
+                        ->whereNotNull("start_date")
+                        ->groupBy("olabs_oims_project_progress_items.work_id")
+                        ->get();
 
+            $project_progress_actual_dates = [];
+            
+            foreach($project_progress_actual_date_modal as $row){
+                $project_progress_actual_dates[$row->work_id] = $row;
+            }
+            
             $gantt_process = [];
 //        foreach($project_works as $work){
 //            $gantt_process = 
@@ -1002,16 +1017,16 @@ class ReportHelper extends Controller {
                   WHERE p.project_id = 2
                  */
 
-                $work_actual_dates = \Olabs\Oims\Models\ProjectProgress::with("products")
-                        ->where("project_id", $project)
-                        ->join('olabs_oims_project_progress_items', 'olabs_oims_project_progress_items.project_progress_id', '=', 'olabs_oims_project_progress.id')
-                        ->where("olabs_oims_project_progress_items.work_id", $id)
-                        ->select(Db::Raw("min(start_date) as start_date, max(start_date) as end_date, sum(olabs_oims_project_progress_items.quantity) as work_quantity"))
-                        ->whereNotNull("start_date")
-                        ->first();
+//                $work_actual_dates = \Olabs\Oims\Models\ProjectProgress::with("products")
+//                        ->where("project_id", $project)
+//                        ->join('olabs_oims_project_progress_items', 'olabs_oims_project_progress_items.project_progress_id', '=', 'olabs_oims_project_progress.id')
+//                        ->where("olabs_oims_project_progress_items.work_id", $id)
+//                        ->select(Db::Raw("min(start_date) as start_date, max(start_date) as end_date, sum(olabs_oims_project_progress_items.quantity) as work_quantity"))
+//                        ->whereNotNull("start_date")
+//                        ->first();
 
-                if ($work_actual_dates) {
-
+                if (isset($project_progress_actual_dates[$id])) {
+                    $work_actual_dates = $project_progress_actual_dates[$id];
                     //Check task start & end date with actual dates
 
                     $actual_start_date = \Olabs\Oims\Models\Settings::convertToDisplayDate($work_actual_dates->start_date, "j/n/Y");
