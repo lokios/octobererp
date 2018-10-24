@@ -324,22 +324,26 @@ class GanttCharts {
         $this->dataSource_datatable["datacolumn"][0] = [
             "bgcolor" => "#eeeeee",
             "headertext" => "Actual{br}Start{br}Date",
+            "width" => "50",
             "text" => [],
         ];
 
         $this->dataSource_datatable["datacolumn"][1] = [
             "bgcolor" => "#eeeeee",
             "headertext" => "Actual{br}End{br}Date",
+            "width" => "50",
             "text" => [],
         ];
         $this->dataSource_datatable["datacolumn"][2] = [
             "bgcolor" => "#eeeeee",
             "headertext" => "Planned {br}Total",
+            "width" => "50",
             "text" => [],
         ];
         $this->dataSource_datatable["datacolumn"][3] = [
             "bgcolor" => "#eeeeee",
             "headertext" => "Actual {br}Total",
+            "width" => "50",
             "text" => [],
         ];
 
@@ -427,6 +431,7 @@ class GanttCharts {
         $this->dataSource_processes["align"] = "left";
         $this->dataSource_processes["isbold"] = "1";
         $this->dataSource_processes["bgalpha"] = "25";
+        $this->dataSource_processes["width"] = "300";
         $this->dataSource_processes["process"] = [];
 
 
@@ -503,12 +508,16 @@ class GanttCharts {
         $this->dataSource_chart["flatScrollBars"] = "1";
         
         $this->dataSource_chart["ganttPaneDurationUnit"] = "m";
-        $this->dataSource_chart["ganttwidthpercent"] = "10";
+        
+        $this->dataSource_chart["ganttwidthpercent"] = "60";
+        $this->dataSource_chart["forceGanttWidthPercent"] = "1";
         $this->dataSource_chart["ganttPaneDuration"] = "25";
+        $this->dataSource_chart["showFullDataTable"] = "0";
+        
 //        $this->dataSource_chart["ganttPaneDurationUnit"] = "d";
         
         $this->dataSource_chart["useVerticalScrolling"] = "1";
-        $this->dataSource_chart["showFullDataTable"] = "1";
+//        $this->dataSource_chart["showFullDataTable"] = "1";
         $this->dataSource_chart["showTaskStartDate"] = "1";
         $this->dataSource_chart["showTaskEndDate"] = "1";
         $this->dataSource_chart["forceRowHeight"] = "1";
