@@ -1606,9 +1606,9 @@ class Reports extends ReportHelper {
         $oimsSetting = \Olabs\Oims\Models\Settings::instance();
 
         // get project progress components
-        $searchParams = [];
-        $searchParams['project'] = 2;
-        $this->searchProjectPlanReport($searchParams);
+//        $searchParams = [];
+//        $searchParams['project'] = 2;
+//        $this->searchProjectPlanReport($searchParams);
 
         $searchForm = $this->searchFormWidget;
 
