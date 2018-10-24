@@ -1,7 +1,11 @@
 <!-- <div class="text-danger">Sorry, this is as far as behaviors can go...</div> -->
 
+<?
+$products_total_price = isset($this->vars['products_total_price'])? $this->vars['products_total_price']:$model->total_price
+?>
+
 <div id="productList">
-    <?= $this->makePartial('product_list', ['items' => $model->products,'project_work_id' => $model->id]) ?>
+    <?= $this->makePartial('product_list', ['items' => $model->products,'project_work_id' => $model->id,'products_total_price'=>$products_total_price]) ?>
 </div>
 <p>
     <? if($this->vars['formContext'] != 'preview'): ?>
@@ -16,3 +20,16 @@
     </a>
     <?php endif ?>
 </p>
+
+
+
+<script>
+    $(function () {
+        $(document).on('ready ajaxComplete', function () {
+            // ...attach your events/plugins here
+            var total_price = $('#temp_products_total_price').val();
+            $('#Form-field-ProjectWork-products_total_price').val(total_price);
+        });
+
+    });
+</script>

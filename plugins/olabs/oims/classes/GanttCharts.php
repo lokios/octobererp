@@ -332,35 +332,65 @@ class GanttCharts {
             "headertext" => "Actual{br}End{br}Date",
             "text" => [],
         ];
+        $this->dataSource_datatable["datacolumn"][2] = [
+            "bgcolor" => "#eeeeee",
+            "headertext" => "Planned {br}Total",
+            "text" => [],
+        ];
+        $this->dataSource_datatable["datacolumn"][3] = [
+            "bgcolor" => "#eeeeee",
+            "headertext" => "Actual {br}Total",
+            "text" => [],
+        ];
 
         $this->dataSource['datatable'] = $this->dataSource_datatable;
     }
 
-    public function set_dataSource_datatable_item($start_label, $end_label, $start_bgcolor = "", $end_bgcolor = "") {
+    public function set_dataSource_datatable_item($start_label, $end_label,$planned_total, $actual_total, $start_bgcolor = "", $end_bgcolor = "", $planned_bgcolor = "", $actual_bgcolor = "") {
         /*
          * "label": "25/4/2014",
           "bgcolor": "#e44a00",
           "bgAlpha": "40"
          */
-        $item_start = [
+        $item = [
             "label" => $start_label,
         ];
 
         if ($start_bgcolor != "") {
-            $item_start["bgcolor"] = $start_bgcolor;
-            $item_start["bgAlpha"] = "40";
+            $item["bgcolor"] = $start_bgcolor;
+            $item["bgAlpha"] = "40";
         }
-        $this->dataSource['datatable']["datacolumn"][0]["text"][] = $item_start;
+        $this->dataSource['datatable']["datacolumn"][0]["text"][] = $item;
 
-        $item_end = [
+        $item = [
             "label" => $end_label,
         ];
 
         if ($end_bgcolor != "") {
-            $item_end["bgcolor"] = $end_bgcolor;
-            $item_end["bgAlpha"] = "40";
+            $item["bgcolor"] = $end_bgcolor;
+            $item["bgAlpha"] = "40";
         }
-        $this->dataSource['datatable']["datacolumn"][1]["text"][] = $item_end;
+        $this->dataSource['datatable']["datacolumn"][1]["text"][] = $item;
+        
+        $item = [
+            "label" => $planned_total,
+        ];
+
+        if ($end_bgcolor != "") {
+            $item["bgcolor"] = $planned_bgcolor;
+            $item["bgAlpha"] = "40";
+        }
+        $this->dataSource['datatable']["datacolumn"][2]["text"][] = $item;
+        
+        $item = [
+            "label" => $actual_total,
+        ];
+
+        if ($end_bgcolor != "") {
+            $item["bgcolor"] = $actual_bgcolor;
+            $item["bgAlpha"] = "40";
+        }
+        $this->dataSource['datatable']["datacolumn"][3]["text"][] = $item;
     }
 
     public function set_dataSource_processes($headertext) {

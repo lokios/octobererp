@@ -67,7 +67,7 @@ class Settings extends Model {
             return $fPrice . $this->currency_char;
         }
     }
-
+    
     public function getPriceFormattedWithoutCurrency($price) {
         $fPrice = number_format($price, $this->number_format_decimals, $this->number_format_dec_point, $this->number_format_thousands_sep);
         return $fPrice;
@@ -140,6 +140,13 @@ class Settings extends Model {
         }
         $newDate = date($date_format, strtotime($getDate));
         return $newDate;
+    }
+    
+    public static function getQuantityFormatted($quantity) {
+        $fQuantity = number_format($quantity, 2);
+        return $fQuantity;
+        
+        
     }
 
     /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */

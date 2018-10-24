@@ -208,7 +208,7 @@ class ReportHelper extends Controller {
             $datetime1 = new DateTime($from_date);
             $datetime2 = new DateTime($to_date);
             $interval = $datetime1->diff($datetime2);
-            $total_days = $interval->format('%d') + 1; //to add current date 
+            $total_days = $interval->format('%a') + 1; //to add current date 
             //$criteria->addBetweenCondition('date_modified', $params->from_date, $params->to_date);
             if (count($params)) {
                 $projectprogress = \Olabs\Oims\Models\ProjectProgress::where($params)
@@ -376,7 +376,7 @@ class ReportHelper extends Controller {
             $datetime1 = new DateTime($from_date);
             $datetime2 = new DateTime($to_date);
             $interval = $datetime1->diff($datetime2);
-            $total_days = $interval->format('%d') + 1; //to add current date 
+            $total_days = $interval->format('%a') + 1; //to add current date 
 
             $reports = \Olabs\Oims\Models\Purchase::where($params)
                     ->whereBetween('context_date', [$from_date, $to_date])
@@ -463,7 +463,7 @@ class ReportHelper extends Controller {
             $datetime1 = new DateTime($from_date);
             $datetime2 = new DateTime($to_date);
             $interval = $datetime1->diff($datetime2);
-            $total_days = $interval->format('%d') + 1; //to add current date 
+            $total_days = $interval->format('%a') + 1; //to add current date 
 
             $model->whereBetween('check_in', [$from_date, $to_date]);
         } else if ($from_date) {
@@ -540,7 +540,7 @@ class ReportHelper extends Controller {
             $datetime1 = new DateTime($from_date);
             $datetime2 = new DateTime($to_date);
             $interval = $datetime1->diff($datetime2);
-            $total_days = $interval->format('%d') + 1; //to add current date 
+            $total_days = $interval->format('%a') + 1; //to add current date 
 
             $model->whereBetween('context_date', [$from_date, $to_date]);
         } else if ($from_date) {
@@ -694,7 +694,7 @@ class ReportHelper extends Controller {
             $datetime1 = new DateTime($from_date);
             $datetime2 = new DateTime($to_date);
             $interval = $datetime1->diff($datetime2);
-            $total_days = $interval->format('%d') + 1; //to add current date 
+            $total_days = $interval->format('%a') + 1; //to add current date 
 
             $reports = \Olabs\Oims\Models\Purchase::where($params)
                     ->whereBetween('context_date', [$from_date, $to_date])
@@ -777,7 +777,7 @@ class ReportHelper extends Controller {
             $datetime1 = new DateTime($from_date);
             $datetime2 = new DateTime($to_date);
             $interval = $datetime1->diff($datetime2);
-            $total_days = $interval->format('%d') + 1; //to add current date 
+            $total_days = $interval->format('%a') + 1; //to add current date 
 
             $balance_till_date = $datetime1->modify('-1 day');
             $timeFormat = ' 23:59:59';
@@ -981,6 +981,11 @@ class ReportHelper extends Controller {
             foreach ($project_works as $project_work) {
                 $name = $project_work->name;
                 $id = $project_work->id . "";
+                
+                $actual_start_date = "";
+                $actual_end_date = "";
+                $planned_quantity = \Olabs\Oims\Models\Settings::getQuantityFormatted($project_work->quantity);
+                $actual_quantity = "";
 
                 //Set Work items
                 $chart->set_dataSource_processes_item($id, $name);
@@ -1001,7 +1006,7 @@ class ReportHelper extends Controller {
                         ->where("project_id", $project)
                         ->join('olabs_oims_project_progress_items', 'olabs_oims_project_progress_items.project_progress_id', '=', 'olabs_oims_project_progress.id')
                         ->where("olabs_oims_project_progress_items.work_id", $id)
-                        ->select(Db::Raw("min(start_date) as start_date, max(start_date) as end_date"))
+                        ->select(Db::Raw("min(start_date) as start_date, max(start_date) as end_date, sum(olabs_oims_project_progress_items.quantity) as work_quantity"))
                         ->whereNotNull("start_date")
                         ->first();
 
@@ -1011,10 +1016,13 @@ class ReportHelper extends Controller {
 
                     $actual_start_date = \Olabs\Oims\Models\Settings::convertToDisplayDate($work_actual_dates->start_date, "j/n/Y");
                     $actual_end_date = \Olabs\Oims\Models\Settings::convertToDisplayDate($work_actual_dates->end_date, "j/n/Y");
+                    $actual_quantity =  \Olabs\Oims\Models\Settings::getQuantityFormatted($work_actual_dates->work_quantity);
                     $chart->set_dataSource_tasks_item($actual_start_date, $actual_end_date, $id, "Actual"); //Task item
 
-                    $chart->set_dataSource_datatable_item($actual_start_date, $actual_end_date); //Datacolumn item
+                    
                 }
+                
+                $chart->set_dataSource_datatable_item($actual_start_date, $actual_end_date, $planned_quantity, $actual_quantity); //Datacolumn item
             }
 
 
@@ -1073,7 +1081,7 @@ class ReportHelper extends Controller {
 //        if ($from_date && $to_date) {
 //            $datetime1 = new DateTime($from_date);
 //            $datetime2 = new DateTime($to_date);
-//            $interval = $datetime1->diff($datetime2);
+//            $interval = $datetime1->set_dataSource_datatable_item($datetime2);
 //            $total_days = $interval->format('%d') + 1; //to add current date 
 //
 //            $reports = \Olabs\Oims\Models\Purchase::where($params)

@@ -102,6 +102,14 @@ class ProjectWorks extends Controller
             ->withDeferred($this->productFormWidget->getSessionKey())
             ->get()
         ;
+        
+        $total_price = 0;
+        foreach ($products as $product) {
+//            dd($product);
+            $total_price += $product->total_price;
+        }
+//        $this->vars['formContext'] = 'update';
+        $this->vars['products_total_price'] = $total_price;
 
         $this->vars['items'] = $products;
         $this->vars['formContext'] = 'update';

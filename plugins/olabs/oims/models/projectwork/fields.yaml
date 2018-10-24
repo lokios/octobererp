@@ -88,6 +88,9 @@ tabs:
             oc.commentPosition: ''
             type: number
             tab: olabs.oims::lang.products.detail
+            dependsOn:
+                - planned_start_date
+                - planned_end_date
         
         description:
             label: Description
@@ -103,3 +106,9 @@ tabs:
             tab: olabs.oims::lang.quotes.products_json
             type: partial
             path: project_work_products
+            
+        products_total_price:
+            label: Products Total Price
+            tab: olabs.oims::lang.quotes.products_json
+            type: number
+            span: auto
