@@ -34,7 +34,7 @@ showSorting: true
 # Display checkboxes next to each record
 # showCheckboxes: true
 
-#filter: config_filter.yaml
+filter: config_filter.yaml
 
 # Toolbar widget configuration
 toolbar:

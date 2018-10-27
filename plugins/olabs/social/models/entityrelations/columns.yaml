@@ -14,6 +14,8 @@ columns:
     target_type:
         label: 'Target Type'
         type: text
+        searchable: true
+        sortable: true
     target_id:
         label: 'Target ID'
         type: text
@@ -23,6 +25,8 @@ columns:
     actor_id:
         label: 'Actor '
         type: text
+        searchable: true
+        sortable: true
     status:
         label: 'Status '
         type: text

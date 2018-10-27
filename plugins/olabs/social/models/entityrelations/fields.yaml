@@ -14,12 +14,17 @@ fields:
         oc.commentPosition: ''
         span: auto
         type: text
+    descriptions:
+        label: Descriptions
+        oc.commentPosition: ''
+        span: auto
+        type: text
         
     data:
         label: Data
         oc.commentPosition: ''
         prompt: 'Add new item'
-        span: auto
+        span: full
         type: repeater
         form:
             fields:
