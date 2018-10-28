@@ -143,7 +143,7 @@ class Settings extends Model {
     }
     
     public static function getQuantityFormatted($quantity) {
-        $fQuantity = number_format($quantity, 2);
+        $fQuantity = number_format($quantity, 2, ".", "");
         return $fQuantity;
         
         

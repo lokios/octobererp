@@ -163,6 +163,22 @@ class ReportHelper extends Controller {
         return $widget;
     }
 
+    protected function createProjectPlanDetailsSearchFormWidget() {
+        $config = $this->makeConfig('$/olabs/oims/models/report/project_plan_details_search_fields.yaml');
+
+        $config->alias = 'reportSearch';
+
+        $config->arrayName = 'reportSearch';
+
+        $config->model = new \Olabs\Oims\Models\Manpower;
+
+        $widget = $this->makeWidget('Backend\Widgets\Form', $config);
+
+        $widget->bindToController();
+
+        return $widget;
+    }
+
     /*     * *******************Search Filters************************** */
 
     protected function searchDPR($searchParams) {
@@ -876,7 +892,7 @@ class ReportHelper extends Controller {
 //            $chart = new GanttCharts("gantt", "ProjectPlanChart", "99%", "99%", "project-plan-chart-container", "json");
             $chart = new GanttCharts("gantt", "ProjectPlanChart", "99%", "2000", "project-plan-chart-container", "json");
 
-            $chart->set_dataSource_chart("Project Plan - " . $project_modal->name, "Planned vs Actual", "ProjectProgress_". $project_modal->name);
+            $chart->set_dataSource_chart("Project Plan - " . $project_modal->name, "Planned vs Actual", "ProjectProgress_" . $project_modal->name);
 
 
 
@@ -906,11 +922,11 @@ class ReportHelper extends Controller {
 
             //adjust start and end dates with actual work progress start and end dates
             if ($category_actual_dates) {
-                if($category_actual_dates->start_date < $project_start_date){
+                if ($category_actual_dates->start_date < $project_start_date) {
                     $project_start_date = $category_actual_dates->start_date;
                 }
-                
-                if($category_actual_dates->end_date > $project_end_date){
+
+                if ($category_actual_dates->end_date > $project_end_date) {
                     $project_end_date = $category_actual_dates->end_date;
                 }
             }
@@ -921,37 +937,37 @@ class ReportHelper extends Controller {
                 $start = new DateTime($project_start_date);
                 $end = new DateTime($project_end_date);
                 $interval = $start->diff($end);
-                
+
                 if ($interval) {
-                    $start = new DateTime($start->format("Y") ."-01-01" ); //$start->modify("first day of this year");
-                    $end = new DateTime($end->format("Y") ."-12-31" ); //$end->modify("last day of this year");
+                    $start = new DateTime($start->format("Y") . "-01-01"); //$start->modify("first day of this year");
+                    $end = new DateTime($end->format("Y") . "-12-31"); //$end->modify("last day of this year");
 
                     $current = $start;
                     $year = "";
-                    
-                    
-                    
-                    
-                    
+
+
+
+
+
                     while ($current < $end) {
                         $month_start = $current->modify("first day of this month")->format("j/n/Y");
                         $month_end = $current->modify("last day of this month")->format("j/n/Y");
 
                         $month_name = $current->format("M"); // F, M
-                        
-                        if($year = ""){
+
+                        if ($year = "") {
                             $year = $current->format("Y"); // F, M
 //                            $year_start = "1/" . $current->format("n/Y");
                             $year_start = "1/1" . $current->format("Y");
                             $year_end = "31/12/$year";
                             $chart->set_dataSource_categories_item($year_start, $year_end, $year, 'year');
-                        }else if($year != $current->format("Y")){
+                        } else if ($year != $current->format("Y")) {
                             $year = $current->format("Y"); // F, M
                             $year_start = "1/1/$year";
                             $year_end = "31/12/$year";
                             $chart->set_dataSource_categories_item($year_start, $year_end, $year, 'year');
                         }
-                        
+
 
                         $chart->set_dataSource_categories_item($month_start, $month_end, $month_name, 'month');
 
@@ -968,22 +984,22 @@ class ReportHelper extends Controller {
 //            $chart->set_dataSource_categories_item("1/5/2014", "31/5/2014", "May");
             //Get all project wroks in active status
             $project_works = \Olabs\Oims\Models\ProjectWork::where('project_id', $project)->where('status', \Olabs\Oims\Models\ProjectWork::STATUS_ACTIVE)->get();
-            
+
             $project_progress_actual_date_modal = \Olabs\Oims\Models\ProjectProgress::with("products")
-                        ->where("project_id", $project)
-                        ->join('olabs_oims_project_progress_items', 'olabs_oims_project_progress_items.project_progress_id', '=', 'olabs_oims_project_progress.id')
+                    ->where("project_id", $project)
+                    ->join('olabs_oims_project_progress_items', 'olabs_oims_project_progress_items.project_progress_id', '=', 'olabs_oims_project_progress.id')
 //                        ->where("olabs_oims_project_progress_items.work_id", $id)
-                        ->select(Db::Raw("olabs_oims_project_progress_items.work_id, min(start_date) as start_date, max(start_date) as end_date, sum(olabs_oims_project_progress_items.quantity) as work_quantity"))
-                        ->whereNotNull("start_date")
-                        ->groupBy("olabs_oims_project_progress_items.work_id")
-                        ->get();
+                    ->select(Db::Raw("olabs_oims_project_progress_items.work_id, min(start_date) as start_date, max(start_date) as end_date, sum(olabs_oims_project_progress_items.quantity) as work_quantity"))
+                    ->whereNotNull("start_date")
+                    ->groupBy("olabs_oims_project_progress_items.work_id")
+                    ->get();
 
             $project_progress_actual_dates = [];
-            
-            foreach($project_progress_actual_date_modal as $row){
+
+            foreach ($project_progress_actual_date_modal as $row) {
                 $project_progress_actual_dates[$row->work_id] = $row;
             }
-            
+
             $gantt_process = [];
 //        foreach($project_works as $work){
 //            $gantt_process = 
@@ -996,7 +1012,7 @@ class ReportHelper extends Controller {
             foreach ($project_works as $project_work) {
                 $name = $project_work->name;
                 $id = $project_work->id . "";
-                
+
                 $actual_start_date = "";
                 $actual_end_date = "";
                 $planned_quantity = \Olabs\Oims\Models\Settings::getQuantityFormatted($project_work->quantity);
@@ -1031,28 +1047,86 @@ class ReportHelper extends Controller {
 
                     $actual_start_date = \Olabs\Oims\Models\Settings::convertToDisplayDate($work_actual_dates->start_date, "j/n/Y");
                     $actual_end_date = \Olabs\Oims\Models\Settings::convertToDisplayDate($work_actual_dates->end_date, "j/n/Y");
-                    $actual_quantity =  \Olabs\Oims\Models\Settings::getQuantityFormatted($work_actual_dates->work_quantity);
+                    $actual_quantity = \Olabs\Oims\Models\Settings::getQuantityFormatted($work_actual_dates->work_quantity);
                     $chart->set_dataSource_tasks_item($actual_start_date, $actual_end_date, $id, "Actual"); //Task item
-
-                    
                 }
-                
+
                 $chart->set_dataSource_datatable_item($actual_start_date, $actual_end_date, $planned_quantity, $actual_quantity); //Datacolumn item
+            }
+
+
+            $this->vars['reports'] = $chart->render("array");
+            $this->vars['msg'] = $msg;
+
+            return;
+        } catch (Exception $ex) {
+            $this->vars['reports'] = [];
+            $this->vars['msg'] = $msg;
+            return;
+        }
+       
+    }
+
+    protected function searchProjectPlanDetailsReport($searchParams) {
+        $reports = array();
+        $msg = false;
+
+        $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
+        $search_from_date = isset($searchParams['from_date']) ? $searchParams['from_date'] : '';
+        $search_to_date = isset($searchParams['to_date']) ? $searchParams['to_date'] : '';
+
+        $from_date = false;
+        if ($search_from_date != '') {
+            $from_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_from_date); //date('Y-m-d 00:00:00', strtotime($from_date));
+        }
+
+        $to_date = false;
+        if ($search_to_date != '') {
+            $timeFormat = '23:59:59';
+            $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
+        }
+        
+        
+        try {
+
+            $project_modal = \Olabs\Oims\Models\Project::where("id", $project)->first();
+
+            if (!$project_modal) {
+                throw new ApplicationException('Project not found!');
+            }
+
+            //Get all project wroks in active status
+            $project_works = \Olabs\Oims\Models\ProjectWork::where('project_id', $project)->where('status', \Olabs\Oims\Models\ProjectWork::STATUS_ACTIVE)->get();
+
+            $project_progress_actual_date_modal = \Olabs\Oims\Models\ProjectProgress::with("products")
+                    ->where("project_id", $project)
+                    ->join('olabs_oims_project_progress_items', 'olabs_oims_project_progress_items.project_progress_id', '=', 'olabs_oims_project_progress.id')
+//                        ->where("olabs_oims_project_progress_items.work_id", $id)
+                    ->select(Db::Raw("olabs_oims_project_progress_items.work_id, min(start_date) as start_date, max(start_date) as end_date, sum(olabs_oims_project_progress_items.quantity) as work_quantity, sum(olabs_oims_project_progress_items.total_price) as work_total_price"))
+                    ->whereNotNull("start_date")
+                    ->groupBy("olabs_oims_project_progress_items.work_id")
+                    ->get();
+
+            $project_progress_actual_dates = [];
+
+            foreach ($project_progress_actual_date_modal as $row) {
+                $project_progress_actual_dates[$row->work_id] = $row;
             }
 
 
 
 
 
+            
+            //Fill Report Array
+            $reports["project_modal"] = $project_modal;
+            $reports["project_works"] = $project_works;
+            $reports["work_actual_dates"] = $project_progress_actual_dates;
 
 
 
 
-
-
-
-
-            $this->vars['reports'] = $chart->render("array");
+            $this->vars['reports'] = $reports;
             $this->vars['msg'] = $msg;
 
             return;

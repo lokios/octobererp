@@ -1,0 +1,150 @@
+<?
+if(count($reports)) {
+?>
+<div class="page-header">
+
+    <h3><small>Project Plan Details</small></h3>
+</div>
+
+<div class="table-responsive" >
+    <table class="table table-bordered table-hover">
+        <thead> 
+            <tr> 
+                <th rowspan="2" class="">Works</th> 
+                <th colspan="4" class="text-center">Planing</th> 
+                <th colspan="4" class="text-center">Actual</th> 
+                <!--            <th>Actual</th> -->
+            </tr> 
+            <tr>
+                <th class="text-center">Quantity</th>
+                <th class="text-center">Start Date</th>
+                <th class="text-center">End Date</th>
+                <th class="text-center">Total Amount</th>
+                <th class="text-center">Quantity</th>
+                <th class="text-center">Start Date</th>
+                <th class="text-center">End Date</th>
+                <th class="text-center">Total Amount</th>
+            </tr>
+        </thead> 
+        <tbody>
+            <?
+            $count = 0;
+            $project_works = $reports["project_works"];
+            $project_progresses = $reports["work_actual_dates"];
+            foreach($project_works as $project_work){ 
+            $count++;
+            $work_id = $project_work->id;
+
+            $planned_start_date = \Olabs\Oims\Models\Settings::convertToDisplayDate($project_work->planned_start_date, "j/n/Y");
+            $planned_end_date = \Olabs\Oims\Models\Settings::convertToDisplayDate($project_work->planned_end_date, "j/n/Y");
+            $planned_quantity = $project_work->quantity;
+            $planned_total_amount = $project_work->total_price;
+
+
+            //Acutals
+            $actual_quantity = 0;
+
+            $project_progress = isset($project_progresses[$work_id]) ? $project_progresses[$work_id] : false;
+            if($project_progress){
+            $actual_quantity = $project_progress->work_quantity;
+            $actual_start_date = \Olabs\Oims\Models\Settings::convertToDisplayDate($project_progress->start_date, "j/n/Y");
+            $actual_end_date = \Olabs\Oims\Models\Settings::convertToDisplayDate($project_progress->end_date, "j/n/Y");
+            $actual_total_amount = $project_progress->work_total_price;
+            }
+
+            $row_class = "";
+            if($planned_quantity > 0 && $planned_quantity < $actual_quantity){
+            $row_class = "info";
+            }
+
+            ?>
+
+            <!--        tr class="table-active">...</tr>
+            
+            <tr class="table-primary">...</tr>
+            <tr class="table-secondary">...</tr>
+            <tr class="table-success">...</tr>
+            <tr class="table-danger">...</tr>
+            <tr class="table-warning">...</tr>
+            <tr class="table-info">...</tr>
+            <tr class="table-light">...</tr>
+            <tr class="table-dark">...</tr>-->
+            <tr class="<?=$row_class?>">
+                <td class="text-left"><?=$project_work->name?></td>
+                <td class="text-right"><?=$planned_quantity?></td>
+                <td class="text-right"><?=$planned_start_date?></td>
+                <td class="text-right"><?=$planned_end_date?></td>
+                <td class="text-right"><?=$planned_total_amount?></td>
+
+
+                <td class="text-right"><?=$actual_quantity?></td>
+                <td class="text-right"><?=$actual_start_date?></td>
+                <td class="text-right"><?=$actual_end_date?></td>
+                <td class="text-right"><?=$actual_total_amount?></td>
+            </tr>
+            <? 
+            //Work Products
+            $products = $project_work->products ? $project_work->products : [];
+
+            if(count($products)) {
+            ?>
+            <tr>
+                <td colspan="9">
+                    <table class="table table-bordered table-hover">
+                        <thead> 
+                            <tr> 
+                                <th rowspan="2" class="">Products</th> 
+                                <th colspan="2" class="text-center">Planing</th> 
+                                <th colspan="2" class="text-center">Actual</th> 
+                                <!--            <th>Actual</th> -->
+                            </tr> 
+                            <tr>
+                                <th class="text-center">Quantity</th>
+                                <th class="text-center">total Amount</th>
+
+                                <th class="text-center">Quantity</th>
+                                <th class="text-center">Total Amount</th>
+                            </tr>
+                        </thead> 
+                        <tbody>
+                            <?
+                            foreach($products as $product) {
+                            $product_name = $product->product ? $product->product->title : "";
+                            $product_planned_quantity = $product->quantity;
+                            $product_planned_amount = $product->total_price;
+                            
+                            $coefficient = $product->coefficient ? $product->coefficient : 0;
+                            $unit_price = $product->unit_price ? $product->unit_price : 0;
+                            
+                            $product_acutal_quantity = $actual_quantity * $coefficient;
+                            $product_acutal_amount = $product_acutal_quantity * $unit_price;
+                            ?>
+                            <tr>
+                                <td class="text-left"><?=$product_name?></td>
+                                <td class="text-right"><?=$planned_quantity?></td>
+                                <td class="text-right"><?=$product_planned_amount?></td>
+                                <td class="text-right"><?=\Olabs\Oims\Models\Settings::getQuantityFormatted($product_acutal_quantity)?></td>
+                                <td class="text-right"><?=\Olabs\Oims\Models\Settings::getQuantityFormatted($product_acutal_amount)?></td>
+                                
+                            </tr>
+
+
+
+                            <? }  ?>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+
+            <? }  ?>
+            <? }  ?>
+
+
+        </tbody>
+    </table>
+</div>
+<div class="page-header">
+    <h3><small>SUMMARY</small></h3>
+</div>
+
+<? }  ?>

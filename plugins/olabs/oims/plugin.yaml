@@ -141,11 +141,23 @@ navigation:
             
     reports:
         label: 'MIS Reports'
-        url: olabs/oims/reports/dpr
+        url: olabs/oims/reports/project_plan
         icon: icon-life-ring
         permissions:
             - olabs.oims.reports
         sideMenu:
+            project_plan:
+                label: 'Project Planning'
+                url: olabs/oims/reports/project_plan
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.reports   
+            project_plan_details:
+                label: 'Project Plan Details'
+                url: olabs/oims/reports/project_plan_details
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.reports   
             drp_report:
                 label: 'DPR Report'
                 url: olabs/oims/reports/dpr
@@ -203,12 +215,7 @@ navigation:
                 permissions:
                     - olabs.oims.reports   
                     
-            project_plan:
-                label: 'Project Planning'
-                url: olabs/oims/reports/project_plan
-                icon: icon-life-ring
-                permissions:
-                    - olabs.oims.reports   
+            
             
             
     oims_projects:
