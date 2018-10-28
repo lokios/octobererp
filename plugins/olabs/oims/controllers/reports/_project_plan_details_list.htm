@@ -20,6 +20,10 @@ $planned_end_date = \Olabs\Oims\Models\Settings::convertToDisplayDate($project_w
 $planned_quantity = $project_work->quantity;
 $planned_total_amount = $project_work->total_price;
 
+$planned_quantity_unit = $project_work->unit_code? $project_work->unit_code->name : '';
+$planned_unit_price = $project_work->unit_price ? $project_work->unit_price : '0';
+$planned_quantity_unit_rate = "Rs. " . $planned_unit_price . " /" .  $planned_quantity_unit;
+
 
 //Acutals
 $actual_quantity = 0;
@@ -78,12 +82,12 @@ $row_class = "info";
                             <td><?=$actual_end_date?></td>
                         </tr>
                         <tr>
-                            <td>Quantity Date</td>
+                            <td>Quantity (<?=$planned_quantity_unit?>)</td>
                             <td><?=$planned_quantity?></td>
                             <td><?=$actual_quantity?></td>
                         </tr>
                         <tr>
-                            <td>Total Amount</td>
+                            <td>Total Amount (<?=$planned_quantity_unit_rate?>)</td>
                             <td><?=$planned_total_amount?></td>
                             <td><?=$actual_total_amount?></td>
                         </tr>
@@ -101,7 +105,7 @@ $row_class = "info";
                         </tr> 
                         <tr>
                             <th class="text-center">Quantity</th>
-                            <th class="text-center">total Amount</th>
+                            <th class="text-center">Total Amount</th>
 
                             <th class="text-center">Quantity</th>
                             <th class="text-center">Total Amount</th>
@@ -123,9 +127,15 @@ $row_class = "info";
 
                         $product_acutal_quantity = $actual_quantity * $coefficient;
                         $product_acutal_amount = $product_acutal_quantity * $unit_price;
+                        
+                        $product_quantity_unit = $product->unit_code? $product->unit_code->name : '';
+                        $product_unit_price = $product->unit_price ? $product->unit_price : '0';
+                        $product_quantity_unit_rate = "Rs. " . $product_unit_price . " /" .  $product_quantity_unit;
+                        
                         ?>
                         <tr>
-                            <td class="text-left"><?=$product_name?></td>
+                            <td class="text-left"><?=$product_name?> (<?=$product_quantity_unit_rate?>)</td>
+                            
                             <td class="text-right"><?=$planned_quantity?></td>
                             <td class="text-right"><?=$product_planned_amount?></td>
                             <td class="text-right"><?=\Olabs\Oims\Models\Settings::getQuantityFormatted($product_acutal_quantity)?></td>
