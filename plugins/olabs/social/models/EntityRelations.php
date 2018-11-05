@@ -308,6 +308,10 @@ class EntityRelations extends Model {
     }
 
     public function SyncDataRecord($record) {
+        //If record is not in live status 
+        if($record->status != self::STATUS_LIVE){
+            return;
+        }
         if ($record->target_type == self::TARGET_TYPE_ATTENDANCE) {
             return $this->SyncDataAttendance($record);
         }
