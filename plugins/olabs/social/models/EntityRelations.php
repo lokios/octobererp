@@ -134,10 +134,10 @@ class EntityRelations extends Model {
 //            }
 
 
-            if (!$self_attendance && !$app->hasPermissionV2('olabs.oims.attendances')) {
-
-                throw new Exception("Error Processing Request", 403);
-            }
+//            if (!$self_attendance && !$app->hasPermissionV2('olabs.oims.attendances')) {
+//
+//                throw new Exception("Error Processing Request", 403);
+//            }
 
 
 
