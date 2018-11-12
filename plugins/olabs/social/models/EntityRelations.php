@@ -32,7 +32,7 @@ class EntityRelations extends Model {
      */
     public $table = 'olabs_social_entity_relations';
 
-    public function beforeSave1() {
+    public function beforeSave() {
 
        //  throw new Exception("Error Processing Request", 403);
 
