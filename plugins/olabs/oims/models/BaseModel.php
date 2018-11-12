@@ -134,7 +134,7 @@ class BaseModel extends Model {
                     $group->where('code', $filter);
                 })->lists('name', 'id');
 
-        return [null => Lang::get("olabs.oims::lang.plugin.please_select")] + $usersList;
+        return [0 => Lang::get("olabs.oims::lang.plugin.please_select")] + $usersList;
     }
 
     public function getEmployeeOptions() {

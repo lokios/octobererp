@@ -22,7 +22,7 @@ fields:
         default: "today + 9 hours"
         required: 1
         type: datepicker
-        format: 'd/m/Y'
+        format: 'd/m/Y H:i'
         comment: "Deafult working hour is 09:00 to 18:00"
 #        minDate: "today -1 days"
 #        dependsOn: employee
@@ -33,7 +33,7 @@ fields:
         span: auto
         default: "today + 18 hours"
         required: 1
-        format: 'd/m/Y'
+        format: 'd/m/Y H:i'
         type: datepicker
 #        minDate: "today -1 days"
 #        dependsOn: employee
