@@ -27,6 +27,9 @@ $planned_quantity_unit_rate = "Rs. " . $planned_unit_price . " /" .  $planned_qu
 
 //Acutals
 $actual_quantity = 0;
+$actual_start_date = '';
+$actual_end_date = '';
+$actual_total_amount = '';
 
 $project_progress = isset($project_progresses[$work_id]) ? $project_progresses[$work_id] : false;
 if($project_progress){
