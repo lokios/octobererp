@@ -4,6 +4,14 @@ fields:
         oc.commentPosition: ''
         span: auto
         type: text
+    slug:
+        label: Code
+        oc.commentPosition: ''
+        span: auto
+        type: text
+        preset:
+            field: name
+            type: slug     
 #    address:
 #        label: Address
 #        size: ''

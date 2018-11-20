@@ -9,6 +9,9 @@ columns:
         type: text
         searchable: true
         sortable: true
+    slug:
+        label: code
+        type: text
     status:
         label: status
         type: switch

@@ -1491,7 +1491,7 @@ class Reports extends ReportHelper {
             // get dpr components
             $this->searchTransactionReport($searchParams);
         }
-
+        
         $oimsSetting = \Olabs\Oims\Models\Settings::instance();
 
         $this->vars['search'] = true;

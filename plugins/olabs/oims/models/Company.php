@@ -10,14 +10,26 @@ use Model;
 class Company extends Model {
 
     use \October\Rain\Database\Traits\Validation;
-
+    use \October\Rain\Database\Traits\Sluggable;
+    
     /*
      * Validation
      */
 
     public $rules = [
+        'slug' => [
+//            'required',
+            'alpha_dash',
+            'between:1,255',
+            'unique:olabs_oims_companies',
+        ],      
     ];
 
+    /**
+     * @var array Generate slugs for these attributes.
+     */
+    protected $slugs = ['slug' => 'name'];
+    
     /**
      * @var string The database table used by the model.
      */
