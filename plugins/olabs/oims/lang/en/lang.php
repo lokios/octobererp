@@ -311,6 +311,7 @@ return [
         'options_text' => "Options",
         'note' => "Remarks",
         'loading' => "Loading",
+        'tax_method' => "Tax Method",
         'freight' => "Freight",
         'delivery_time' => "Delivery Time",
         'delivery_at' => "Delivery At",

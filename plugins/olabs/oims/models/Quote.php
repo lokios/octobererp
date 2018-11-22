@@ -530,6 +530,9 @@ class Quote extends BaseModel {
         $temp = empty($this->loading) ? "N/A" : $this->loading;
         $html = str_replace("{{loading}}", $temp, $html);
         
+        $temp = empty($this->tax_method) ? "N/A" : $this->tax_method;
+        $html = str_replace("{{tax_method}}", $temp, $html);
+        
         $temp = empty($this->freight) ? "N/A" : $this->freight;
         $html = str_replace("{{freight}}", $temp, $html);
         
