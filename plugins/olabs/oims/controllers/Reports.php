@@ -1587,9 +1587,9 @@ class Reports extends ReportHelper {
         return \Redirect::to('/backend/olabs/oims/reports/download?name=' . $fileName);
     }
 
-    //Project Progress Report
-    public function project_progress() {
-        BackendMenu::setContext('Olabs.Oims', 'reports', 'project_progress');
+    //Project Plan Report
+    public function project_plan() {
+        BackendMenu::setContext('Olabs.Oims', 'reports', 'project_plan');
 
 //        $this->addCss('/plugins/rainlab/blog/assets/css/rainlab.blog-preview.css');
 //        $this->addJs('/plugins/rainlab/blog/assets/js/post-form.js');
@@ -1599,16 +1599,16 @@ class Reports extends ReportHelper {
         $this->addJs('/plugins/olabs/oims/assets/fusioncharts/js/fusioncharts.js', 'core');
         $this->addJs('/plugins/olabs/oims/assets/fusioncharts/js/themes/fusioncharts.theme.fusion.js', 'core');
 
-        $this->searchFormWidget = $this->createProjectProgressSearchFormWidget();
-        $this->pageTitle = 'Project Progress Report';
-        $reports = array();
+        $this->searchFormWidget = $this->createProjectPlanSearchFormWidget();
+        $this->pageTitle = 'Project Planning Report';
+        $reports = [];
 
         $oimsSetting = \Olabs\Oims\Models\Settings::instance();
 
         // get project progress components
-        $searchParams = [];
-        $searchParams['project'] = 2;
-        $this->searchProjectProgressReport($searchParams);
+//        $searchParams = [];
+//        $searchParams['project'] = 2;
+//        $this->searchProjectPlanReport($searchParams);
 
         $searchForm = $this->searchFormWidget;
 
@@ -1621,7 +1621,7 @@ class Reports extends ReportHelper {
         $this->vars['oimsSetting'] = $oimsSetting;
     }
 
-    public function onProjectProgressSearch() {
+    public function onProjectPlanSearch() {
         $reports = array();
 
         if (post('reportSearch')) {
@@ -1629,7 +1629,7 @@ class Reports extends ReportHelper {
             $searchParams = post('reportSearch');
 
             // get project progress components
-            $this->searchProjectProgressReport($searchParams);
+            $this->searchProjectPlanReport($searchParams);
         }
 
         $oimsSetting = \Olabs\Oims\Models\Settings::instance();
@@ -1637,6 +1637,61 @@ class Reports extends ReportHelper {
         $this->vars['search'] = true;
         $this->vars['oimsSetting'] = $oimsSetting;
     }
+    
+    
+    //Project Plan Report
+    public function project_plan_details() {
+        BackendMenu::setContext('Olabs.Oims', 'reports', 'project_plan_details');
+
+//        $this->addCss('/plugins/rainlab/blog/assets/css/rainlab.blog-preview.css');
+//        $this->addJs('/plugins/rainlab/blog/assets/js/post-form.js');
+//        $this->addCss('/plugins/olabs/oims/assets/fusioncharts/js/themes/fusioncharts.theme.fusion.css');
+//        $this->addCss('/plugins/olabs/oims/assets/bootstrap/css/bootstrap.min.css');
+
+//        $this->addJs('/plugins/olabs/oims/assets/fusioncharts/js/fusioncharts.charts.js', 'core');
+//        $this->addJs('/plugins/olabs/oims/assets/fusioncharts/js/fusioncharts.js', 'core');
+//        $this->addJs('/plugins/olabs/oims/assets/fusioncharts/js/themes/fusioncharts.theme.fusion.js', 'core');
+
+        $this->searchFormWidget = $this->createProjectPlanDetailsSearchFormWidget();
+        $this->pageTitle = 'Project Plan Details Report';
+        $reports = [];
+
+        $oimsSetting = \Olabs\Oims\Models\Settings::instance();
+
+        // get project progress components
+//        $searchParams = [];
+//        $searchParams['project'] = 2;
+//        $this->searchProjectPlanDetailsReport($searchParams);
+
+        $searchForm = $this->searchFormWidget;
+
+        $this->vars['search'] = false;
+        $this->vars['msg'] = false;
+        $this->vars['searchFormWidget'] = $searchForm;
+//        $this->vars['Chart'] = $Chart;
+        $this->vars['reports'] = $reports;
+
+        $this->vars['oimsSetting'] = $oimsSetting;
+    }
+    
+    
+    public function onProjectPlanDetailsSearch() {
+        $reports = array();
+
+        if (post('reportSearch')) {
+
+            $searchParams = post('reportSearch');
+
+            // get project progress components
+            $this->searchProjectPlanDetailsReport($searchParams);
+        }
+
+        $oimsSetting = \Olabs\Oims\Models\Settings::instance();
+
+        $this->vars['search'] = true;
+        $this->vars['oimsSetting'] = $oimsSetting;
+    }
+    
 
     public function sample_chart() {
         BackendMenu::setContext('Olabs.Oims', 'reports', 'project_progress');

@@ -123,21 +123,21 @@ class EntityRelations extends Model {
 
             // throw new Exception("Error Processing Request", 403);
 
-            if ($app->hasPermissionV2('olabs.oims.my_attendances')) {
-                if ($employee_id != (int) $app->getAppUserId()) {
-                    throw new Exception("Error Processing Request, Employee mismatched.", 403);
-                } else {
-                    $self_attendance = true;
-                }
-            }else{
-                //throw new Exception("Error Processing Request", 403);
-            }
+//            if ($app->hasPermissionV2('olabs.oims.my_attendances')) {
+//                if ($employee_id != (int) $app->getAppUserId()) {
+//                    throw new Exception("Error Processing Request, Employee mismatched.", 403);
+//                } else {
+//                    $self_attendance = true;
+//                }
+//            }else{
+//                //throw new Exception("Error Processing Request", 403);
+//            }
 
 
-            if (!$self_attendance && !$app->hasPermissionV2('olabs.oims.attendances')) {
-
-                throw new Exception("Error Processing Request", 403);
-            }
+//            if (!$self_attendance && !$app->hasPermissionV2('olabs.oims.attendances')) {
+//
+//                throw new Exception("Error Processing Request", 403);
+//            }
 
 
 
@@ -162,7 +162,56 @@ class EntityRelations extends Model {
     ];
 
     public function afterSave() {
+        
+        //Check if attendance have permission or not.
+        if ($this->target_type == self::TARGET_TYPE_ATTENDANCE && $this->status == self::STATUS_LIVE) {
+            $app = App::getInstance();
+            $user_modal = \Backend\Models\User::where("id", $this->actor_id)->first();
+            
+            if(!$user_modal){
+                return;
+            }
+            $entry = $this->data;
+            if (!$entry)
+                return;
+            $entry = $entry[0];
 
+            if (!isset($entry['employee_id']))
+                return;
+            
+            $employee_id = $entry['employee_id'];
+            $employee_id = (int) substr($employee_id, 1); //First character is O or E
+            
+            $self_attendance = false;
+            
+            //dd($user_modal->hasPermission(['olabs.oims.my_attendances']));
+            
+            // throw new Exception("Error Processing Request", 403);
+
+            if ($user_modal->hasPermission(['olabs.oims.my_attendances'])) {
+//                if ($employee_id != (int) $app->getAppUserId()) {
+                if ($employee_id != $this->actor_id) {
+//                    throw new Exception("Error Processing Request, Employee mismatched.", 403);
+                    $this->descriptions = "Error Processing Request : Employee mismatched.";
+                    $this->status = self::STATUS_ERROR;
+                    $this->save();
+                    return;
+                } else {
+                    $self_attendance = true;
+                }
+            }else{
+                //throw new Exception("Error Processing Request", 403);
+            }
+
+
+//            if (!$self_attendance && !$app->hasPermissionV2('olabs.oims.attendances')) {
+//
+//                throw new Exception("Error Processing Request", 403);
+//            }
+            
+        }
+        
+        
         if ($this->target_type == 'sync' && $this->status == self::STATUS_LIVE) {
 
             if (isset($this->data)) {
@@ -259,6 +308,10 @@ class EntityRelations extends Model {
     }
 
     public function SyncDataRecord($record) {
+        //If record is not in live status 
+        if($record->status != self::STATUS_LIVE){
+            return;
+        }
         if ($record->target_type == self::TARGET_TYPE_ATTENDANCE) {
             return $this->SyncDataAttendance($record);
         }

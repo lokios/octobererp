@@ -625,3 +625,6 @@
 1.11.29:
     - 'Updated table olabs_oims_payment_receivables'
     - builder_table_update_olabs_oims_payment_receivables_5.php
+1.11.30:
+    - 'Updated table olabs_oims_project_works'
+    - builder_table_update_olabs_oims_project_works_5.php

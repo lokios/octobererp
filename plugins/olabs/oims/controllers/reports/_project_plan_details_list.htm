@@ -1,0 +1,158 @@
+<?
+if(count($reports)) {
+$project_modal = $reports['project_modal'];
+?>
+<div class="page-header">
+
+    <h3><small>Project Plan Details : <?=$project_modal->name?></small></h3>
+</div>
+
+<?
+$count = 0;
+$project_works = $reports["project_works"];
+$project_progresses = $reports["work_actual_dates"];
+foreach($project_works as $project_work){ 
+$count++;
+$work_id = $project_work->id;
+
+$planned_start_date = \Olabs\Oims\Models\Settings::convertToDisplayDate($project_work->planned_start_date, "d/m/Y");
+$planned_end_date = \Olabs\Oims\Models\Settings::convertToDisplayDate($project_work->planned_end_date, "d/m/Y");
+$planned_quantity = $project_work->quantity;
+$planned_total_amount = $project_work->total_price;
+
+$planned_quantity_unit = $project_work->unit_code? $project_work->unit_code->name : '';
+$planned_unit_price = $project_work->unit_price ? $project_work->unit_price : '0';
+$planned_quantity_unit_rate = "Rs. " . $planned_unit_price . " /" .  $planned_quantity_unit;
+
+
+//Acutals
+$actual_quantity = 0;
+
+$project_progress = isset($project_progresses[$work_id]) ? $project_progresses[$work_id] : false;
+if($project_progress){
+$actual_quantity = $project_progress->work_quantity;
+$actual_start_date = \Olabs\Oims\Models\Settings::convertToDisplayDate($project_progress->start_date, "d/m/Y");
+$actual_end_date = \Olabs\Oims\Models\Settings::convertToDisplayDate($project_progress->end_date, "d/m/Y");
+$actual_total_amount = $project_progress->work_total_price;
+}
+
+$row_class = "";
+if($planned_quantity > 0 && $planned_quantity < $actual_quantity){
+$row_class = "info";
+}
+
+?>
+<div class="callout fade in callout-info">
+    <!--    <button
+            type="button"
+            class="close"
+            data-dismiss="callout"
+            aria-hidden="true">&times;</button>-->
+    <div class="header">
+        <i class="icon-info"></i>
+        <h3><?=$project_work->name?></h3>
+        <p><?=$project_work->description?></p>
+        
+    </div>
+    <div class="content">
+        <div class="form-elements" >
+
+            <!-- Text Input (Left) -->
+            <div class="form-group span-left">
+                <table class="table table-bordered ">
+                    <thead> 
+                        <tr> 
+                            <th class="">Items</th> 
+                            <th class="text-center">Planned</th> 
+                            <th class="text-center">Actual</th> 
+                            <!--            <th>Actual</th> -->
+                        </tr> 
+
+                    </thead> 
+
+                    <tbody>
+                        <tr>
+                            <td>Start Date</td>
+                            <td><?=$planned_start_date?></td>
+                            <td><?=$actual_start_date?></td>
+                        </tr>
+                        <tr>
+                            <td>End Date</td>
+                            <td><?=$planned_end_date?></td>
+                            <td><?=$actual_end_date?></td>
+                        </tr>
+                        <tr>
+                            <td>Quantity (<?=$planned_quantity_unit?>)</td>
+                            <td><?=$planned_quantity?></td>
+                            <td><?=$actual_quantity?></td>
+                        </tr>
+                        <tr>
+                            <td>Total Amount (<?=$planned_quantity_unit_rate?>)</td>
+                            <td><?=$planned_total_amount?></td>
+                            <td><?=$actual_total_amount?></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-group span-right">
+                <table class="table table-bordered table-hover">
+                    <thead> 
+                        <tr> 
+                            <th rowspan="2" class="">Products</th> 
+                            <th colspan="2" class="text-center">Planing</th> 
+                            <th colspan="2" class="text-center">Actual</th> 
+                            <!--            <th>Actual</th> -->
+                        </tr> 
+                        <tr>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-center">Total Amount</th>
+
+                            <th class="text-center">Quantity</th>
+                            <th class="text-center">Total Amount</th>
+                        </tr>
+                    </thead> 
+                    <tbody>
+                        <?
+                        //Work Products
+                        $products = $project_work->products ? $project_work->products : [];
+
+                        if(count($products)) {
+                        foreach($products as $product) {
+                        $product_name = $product->product ? $product->product->title : "";
+                        $product_planned_quantity = $product->quantity;
+                        $product_planned_amount = $product->total_price;
+
+                        $coefficient = $product->coefficient ? $product->coefficient : 0;
+                        $unit_price = $product->unit_price ? $product->unit_price : 0;
+
+                        $product_acutal_quantity = $actual_quantity * $coefficient;
+                        $product_acutal_amount = $product_acutal_quantity * $unit_price;
+                        
+                        $product_quantity_unit = $product->unit_code? $product->unit_code->name : '';
+                        $product_unit_price = $product->unit_price ? $product->unit_price : '0';
+                        $product_quantity_unit_rate = "Rs. " . $product_unit_price . " /" .  $product_quantity_unit;
+                        
+                        ?>
+                        <tr>
+                            <td class="text-left"><?=$product_name?> (<?=$product_quantity_unit_rate?>)</td>
+                            
+                            <td class="text-right"><?=$product_planned_quantity?></td>
+                            <td class="text-right"><?=$product_planned_amount?></td>
+                            <td class="text-right"><?=\Olabs\Oims\Models\Settings::getQuantityFormatted($product_acutal_quantity)?></td>
+                            <td class="text-right"><?=\Olabs\Oims\Models\Settings::getQuantityFormatted($product_acutal_amount)?></td>
+
+                        </tr>
+
+
+
+                        <? } } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div
+</div>   
+<? }  ?>
+<? }  ?>
+
+

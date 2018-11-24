@@ -1,0 +1,24 @@
+# ===================================
+# Filter Scope Definitions
+# ===================================
+
+scopes:
+    
+#    target_type:
+#        label: Target Type
+#        type: text
+#        conditions: target_type like '%:filtered%'
+        
+
+#    orderstatus:
+#        label: olabs.oims::lang.orders.orderstatus
+#        modelClass: Olabs\Oims\Models\OrderStatus
+#        nameFrom: title
+#        conditions: orderstatus_id in (:filtered)
+#       
+#
+#    carrier:
+#        label: olabs.oims::lang.orders.carrier
+#        modelClass: Olabs\Oims\Models\Carrier
+#        nameFrom: title
+#        conditions: carrier_id in (:filtered)       
