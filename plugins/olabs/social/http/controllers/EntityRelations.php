@@ -26,7 +26,7 @@ use OlabsAuth;
 class EntityRelations extends ApiController {
 
     protected $defaultLimit = 10;
-    protected $fillable = ['data', 'actor_id', "data", "target_type", "target_id", "relation", "request_id"];
+    protected $fillable = ['data', 'actor_id', "data", "target_type", "target_id", "relation", "request_id","context_type","context_id","tenant_id","actor_name","actor_email","relation_status","status"];
     protected $fillable2 = ['actor_id'];
     public $images_field = 'images';
 
