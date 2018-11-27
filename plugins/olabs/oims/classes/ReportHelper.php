@@ -910,7 +910,7 @@ class ReportHelper extends Controller {
             }
             $project_start_date = $category_planned_dates->planned_start_date;
             $project_end_date = $category_planned_dates->planned_end_date;
-
+            
 
             $category_actual_dates = \Olabs\Oims\Models\ProjectProgress::with("products")
                     ->where("project_id", $project)
@@ -922,15 +922,15 @@ class ReportHelper extends Controller {
 
             //adjust start and end dates with actual work progress start and end dates
             if ($category_actual_dates) {
-                if ($category_actual_dates->start_date < $project_start_date) {
+                if ($category_actual_dates->start_date != '' && $category_actual_dates->start_date < $project_start_date) {
                     $project_start_date = $category_actual_dates->start_date;
                 }
 
-                if ($category_actual_dates->end_date > $project_end_date) {
+                if ($category_actual_dates->end_date != '' &&  $category_actual_dates->end_date > $project_end_date) {
                     $project_end_date = $category_actual_dates->end_date;
                 }
             }
-
+            
 
             //generate categories for the month
             if ($project_start_date && $project_end_date) {
