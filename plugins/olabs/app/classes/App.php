@@ -531,7 +531,7 @@ public function addMainModules_OIMS(&$fmodules){
 
  public function hasVoucherEntryPermission(){
 
-     return true;
+     //return true;
 
       //olabs.oims.attendances
 
