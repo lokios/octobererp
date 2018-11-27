@@ -102,13 +102,13 @@ tabs:
 
 # Products
         products:
-            label: Products
-            tab: olabs.oims::lang.quotes.products_json
+#            label: Materials
+            tab: olabs.oims::lang.quotes.materials
             type: partial
             path: project_work_products
             
         products_total_price:
-            label: Products Total Price
-            tab: olabs.oims::lang.quotes.products_json
+            label: Materials Total Price
+            tab: olabs.oims::lang.quotes.materials
             type: number
             span: auto

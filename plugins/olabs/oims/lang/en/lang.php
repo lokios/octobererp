@@ -263,6 +263,7 @@ return [
         'carrier' => "Carrier",
         'invoice' => "Invoice",
         'products_json' => "Products",
+        'materials' => "Materials",
         'product_id' => "Product",
         'quantity' => "Quantity",
         'total_price_without_tax' => "Total price without tax",
