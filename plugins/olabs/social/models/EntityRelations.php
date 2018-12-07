@@ -308,19 +308,22 @@ class EntityRelations extends Model {
     }
 
     public function SyncDataRecord($record) {
-        //If record is not in live status 
-        if($record->status != self::STATUS_LIVE){
-            return;
-        }
-        if ($record->target_type == self::TARGET_TYPE_ATTENDANCE) {
-            return $this->SyncDataAttendance($record);
-        }
+        
         if ($record->target_type == self::TARGET_TYPE_MR_ENTRY) {
             $this->SyncDataMrEntry($record);
         }
         if ($record->target_type == self::TARGET_TYPE_VOUCHERS) {
             $this->SyncDataVoucherEntry($record);
         }
+        
+        //If record is not in live status  for attendance
+        if($record->status != self::STATUS_LIVE){
+            return;
+        }
+        if ($record->target_type == self::TARGET_TYPE_ATTENDANCE) {
+            return $this->SyncDataAttendance($record);
+        }
+        
     }
 
     public function SyncDataAttendance($record) {
