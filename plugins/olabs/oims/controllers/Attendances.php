@@ -40,82 +40,27 @@ class Attendances extends Controller
 
     public function formExtendFields($form) {
         
-        //Get if field have already value (EDIT MODE)
-        $checkOutDate = isset($form->data->attributes['check_out']) ? $form->data->attributes['check_out'] : false;
-        if ($form->removeField('check_out')) {
-            // Handle check in date field        
-            if ($this->user->isAdmin() OR $this->user->hasAccess('olabs.oims.record_back_date_entry')) {
-                //Is Admin OR have back Date date entry permission
+        if ($this->user->isAdmin()){
+//            $form->fields['daily_wages']['disabled'] = "1";
+//            unset($form->fields['daily_wages']['disabled']);
+//            dd($form->fields);
+            if ($form->removeField('daily_wages')) {
                 $form->addFields([
-                    'check_out' => [
-                        'label' => 'Check Out Date',
+                    'daily_wages' => [
+                        'label' => 'Daily Wages',
                         'oc.commentPosition' => '',
-                        'mode' => 'datetime',
-                        'span' => 'auto',
-                        'format' => 'd/m/Y',
+                        'span' => 'right',
                         'required' => 1,
-                        'type' => 'datepicker',
-                        'default' => 'today + 18 hours',
+                        'type' => 'number',
+                        'dependsOn' => 'employee_offrole',
                         'attributes' => [
                         ]
                     ]
                 ]);
-            } else {
-                //Dont have back date entry permission
-                //&& date('Y-m-d',strtotime($checkOutDate)) == date('Y-m-d', strtotime('today'))
-                 if ($checkOutDate && date('Y-m-d H:i:s',strtotime($checkOutDate)) >= date('Y-m-d 00:00:00', strtotime('today'))) {
-                    //Make Readonly
-                    $form->addFields([
-                        'check_out' => [
-                            'label' => 'Check Out Date',
-                            'oc.commentPosition' => '',
-                            'mode' => 'datetime',
-                            'span' => 'auto',
-                            'default' => 'today + 18 hours',
-                            'format' => 'd/m/Y',
-                            'required' => 1,
-                            'type' => 'datepicker',
-                            'minDate' => 'today',
-                            'attributes' => [
-                            ]
-                        ]
-                    ]);
-                }else if(!$checkOutDate){
-                    //Make Readonly
-                    $form->addFields([
-                        'check_out' => [
-                            'label' => 'Check Out Date',
-                            'oc.commentPosition' => '',
-                            'mode' => 'datetime',
-                            'span' => 'auto',
-                            'default' => 'today + 18 hours',
-                            'format' => 'd/m/Y',
-                            'required' => 1,
-                            'type' => 'datepicker',
-                            'minDate' => 'today',
-                            'attributes' => [
-                            ]
-                        ]
-                    ]);
-                } else {
-                    $form->addFields([
-                        'check_out' => [
-                            'label' => 'Check Out Date',
-                            'oc.commentPosition' => '',
-                            'mode' => 'datetime',
-                            'span' => 'auto',
-                            'default' => 'today + 18 hours',
-                            'format' => 'd/m/Y',
-                            'required' => 1,
-                            'type' => 'datepicker',
-                            'attributes' => [
-                                'disabled' => true,
-                            ]
-                        ]
-                    ]);
-                }
             }
         }
+        
+        
         
         //Get if field have already value (EDIT MODE)
         $checkInDate = isset($form->data->attributes['check_in']) ? $form->data->attributes['check_in'] : false;
@@ -129,7 +74,7 @@ class Attendances extends Controller
                         'oc.commentPosition' => '',
                         'mode' => 'datetime',
                         'span' => 'auto',
-                        'format' => 'd/m/Y',
+                        'format' => 'd/m/Y H:i',
                         'required' => 1,
                         'type' => 'datepicker',
                         'default' => 'today + 9 hours',
@@ -153,7 +98,7 @@ class Attendances extends Controller
                             'mode' => 'datetime',
                             'span' => 'auto',
                             'default' => 'today + 9 hours',
-                            'format' => 'd/m/Y',
+                            'format' => 'd/m/Y H:i',
                             'required' => 1,
                             'type' => 'datepicker',
                             'minDate' => 'today',
@@ -171,7 +116,7 @@ class Attendances extends Controller
                             'mode' => 'datetime',
                             'span' => 'auto',
                             'default' => 'today + 9 hours',
-                            'format' => 'd/m/Y',
+                            'format' => 'd/m/Y H:i',
                             'required' => 1,
                             'type' => 'datepicker',
                             'minDate' => 'today',
@@ -188,10 +133,87 @@ class Attendances extends Controller
                             'mode' => 'datetime',
                             'span' => 'auto',
                             'default' => 'today + 9 hours',
-                            'format' => 'd/m/Y',
+                            'format' => 'd/m/Y H:i',
                             'required' => 1,
                             'type' => 'datepicker',
                             'comment' => "Deafult working hour is 09:00 to 18:00",
+                            'attributes' => [
+                                'disabled' => true,
+                            ]
+                        ]
+                    ]);
+                }
+            }
+        }
+        
+        //Get if field have already value (EDIT MODE)
+        $checkOutDate = isset($form->data->attributes['check_out']) ? $form->data->attributes['check_out'] : false;
+        if ($form->removeField('check_out')) {
+            // Handle check in date field        
+            if ($this->user->isAdmin() OR $this->user->hasAccess('olabs.oims.record_back_date_entry')) {
+                //Is Admin OR have back Date date entry permission
+                $form->addFields([
+                    'check_out' => [
+                        'label' => 'Check Out Date',
+                        'oc.commentPosition' => '',
+                        'mode' => 'datetime',
+                        'span' => 'auto',
+                        'format' => 'd/m/Y H:i',
+                        'required' => 1,
+                        'type' => 'datepicker',
+                        'default' => 'today + 18 hours',
+                        'attributes' => [
+                        ]
+                    ]
+                ]);
+            } else {
+                //Dont have back date entry permission
+                //&& date('Y-m-d',strtotime($checkOutDate)) == date('Y-m-d', strtotime('today'))
+                 if ($checkOutDate && date('Y-m-d H:i:s',strtotime($checkOutDate)) >= date('Y-m-d 00:00:00', strtotime('today'))) {
+                    //Make Readonly
+                    $form->addFields([
+                        'check_out' => [
+                            'label' => 'Check Out Date',
+                            'oc.commentPosition' => '',
+                            'mode' => 'datetime',
+                            'span' => 'auto',
+                            'default' => 'today + 18 hours',
+                            'format' => 'd/m/Y H:i',
+                            'required' => 1,
+                            'type' => 'datepicker',
+                            'minDate' => 'today',
+                            'attributes' => [
+                            ]
+                        ]
+                    ]);
+                }else if(!$checkOutDate){
+                    //Make Readonly
+                    $form->addFields([
+                        'check_out' => [
+                            'label' => 'Check Out Date',
+                            'oc.commentPosition' => '',
+                            'mode' => 'datetime',
+                            'span' => 'auto',
+                            'default' => 'today + 18 hours',
+                            'format' => 'd/m/Y H:i',
+                            'required' => 1,
+                            'type' => 'datepicker',
+                            'minDate' => 'today',
+                            'attributes' => [
+                            ]
+                        ]
+                    ]);
+                } else {
+                    $form->addFields([
+                        'check_out' => [
+                            'label' => 'Check Out Date',
+                            'oc.commentPosition' => '',
+                            'mode' => 'datetime',
+                            'span' => 'auto',
+                            'default' => 'today + 18 hours',
+                            'format' => 'd/m/Y H:i',
+                            'required' => 1,
+                            'type' => 'datepicker',
                             'attributes' => [
                                 'disabled' => true,
                             ]

@@ -1,0 +1,57 @@
+<style>
+    .plugin-details-content dl dt,
+    .plugin-details-content dl dd {
+        margin-bottom: 10px;
+    }
+    .plugin-details-content dl dt {
+        width: 150px;
+        float: left;
+        text-align: right;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        text-transform: capitalize;
+    }
+    .plugin-details-content dl dd {
+        margin-left: 125px;
+    }
+    .plugin-details-content dl dd blockquote{
+        font-size: 13px;
+        border: 0;
+        padding: 2px 20px;
+    }
+</style>
+<?php 
+$lists = $formModel->getStatusHistory();
+
+// $list->created_at->format('l jS \of F Y h:i:s A')
+if(count($lists)) :
+?>
+
+<div class="list-preview list-flush">
+    <div class="control-list">
+        <h4>Revisions </h4>
+        <div class="plugin-details-content">
+            <dl>
+                <?php
+                $lists = $formModel->getStatusHistory();
+                foreach($lists as $list):
+                ?>
+                <dt><?= $list->status ?> :</dt>
+                <dd>
+                    <? if($list->comment != ''): ?>
+                    <blockquote>
+                        <?= $list->comment?>
+                        <footer><?=$list->created_at->format('M j, Y ') ?> by <?= $list->createdBy->getFullNameAttribute()?></footer>
+                    </blockquote>
+                    <?php else: ?>
+                    <?=$list->created_at->format('M j, Y ') ?> by <?= $list->createdBy->getFullNameAttribute()?>
+                    <?php endif ?>
+
+                </dd>
+                <?php endforeach ?>
+            </dl>
+        </div>
+    </div>
+</div>
+<?php endif ?>

@@ -27,8 +27,10 @@
             <!--<th>ID</th>--> 
             <th>Date</th>
             <th>Project</th> 
-            <th>Description</th>
             <th>Reference No.</th>
+            <th>Description</th>
+            <th>Narration</th>
+            <th>Payment Type</th>
             <th>Debit</th> 
             <th>Credit</th>
             <th>Balance</th>
@@ -44,15 +46,34 @@
         foreach($reports as $report){ 
         $count++;
         $balance_amount = $balance_amount + $report->credit_amount - $report->debit_amount;
-
+        $narration = [];
+        if($report->entity_type == 'vouchers'){
+            $products = $report->products ? $report->products : array();
+            
+            foreach($products as $product){
+                $product_title = '';
+                $product_title .= $product->purchase != NULL ? "MR Number :" . $product->purchase->reference_number : "";
+                $product_title .= $product->supplier != NULL ? "Supplier :" . $product->supplier->full_name : "";
+                $product_title .= $product->emplolyee != NULL ? "Employee :" . $product->emplolyee->full_name : "";
+                $product_title .= ", AMNT : " . $oimsSetting->getPriceFormattedWithoutCurrency($product->total_price);
+                $product_title .= "</br> " . $product->description ;
+                
+                $narration[] = $product_title;
+            }
+            
+        }else {
+            $narration[] = $report->narration;
+        }
         ?>
         <tr>
 <!--            <td><?=$report->id?></td>-->
             <td><?= $oimsSetting->convertToDisplayDate($report->context_date)?></td>
             
-            <td><?=$report->project->name?></td>
+            <td><?=$report->project->slug?></td>
+            <td><?=$report->reference_number?></td>
             <td><?=$report->description?></td>
-            <td><?=$report->narration?></td>
+            <td><?=implode("</br> ",$narration)?></td>
+            <td><?=isset($report->ledger_type) ? $report->ledger_type->name : $report->payment_type?></td>
             <td><?=$report->debit_amount != 0 ? $oimsSetting->getPriceFormattedWithoutCurrency($report->debit_amount) : ''?></td>
             <td><?=$report->credit_amount != 0 ? $oimsSetting->getPriceFormattedWithoutCurrency($report->credit_amount) : ''?></td>
             <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($balance_amount)?></td>

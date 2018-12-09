@@ -63,5 +63,5 @@ fields:
         size: small
         oc.commentPosition: ''
         span: full
-        type: richeditor
+        type: textarea
         

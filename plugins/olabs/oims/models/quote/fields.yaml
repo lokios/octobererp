@@ -186,6 +186,17 @@ tabs:
             label: olabs.oims::lang.quotes.tax_sgst
             type: number
             span: left
+        
+        tax_method:
+            tab: olabs.oims::lang.quotes.detail
+            label: olabs.oims::lang.quotes.tax_method
+            span: left
+            type: dropdown
+            emptyOption: Select One
+            options:
+                Inclusive : Inclusive
+                Exclusive : Exclusive
+                
             
         terms_condition:
             tab: olabs.oims::lang.quotes.detail

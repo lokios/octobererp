@@ -104,7 +104,10 @@ class Attendance extends BaseModel {
     public function filterFields($fields, $context = null) {
         if ($this->employee_offrole) {
 //            $fields->employee_id->value = $this->employee_offrole->id;
-            $fields->daily_wages->value = $this->employee_offrole->daily_wages;
+            if($fields->daily_wages->value == '') {
+                $fields->daily_wages->value = $this->employee_offrole->daily_wages;
+            }
+            
             $fields->project_id->value = $this->employee_offrole->project_id;
             $fields->supplier_id->value = $this->employee_offrole->supplier_id;
             $fields->working_hour->value = $this->employee_offrole->working_hour > 0 ? $this->employee_offrole->working_hour : 8;

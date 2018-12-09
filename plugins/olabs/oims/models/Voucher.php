@@ -93,7 +93,8 @@ class Voucher extends BaseModel
     public $rules = [
 //        'title' => 'required|between:2,255',
         'user_id' => 'numeric|required',
-        'reference_number' => 'numeric|required|between:1,255|unique:olabs_oims_vouchers',
+//        'reference_number' => 'numeric|required|between:1,255|unique:olabs_oims_vouchers',
+        'reference_number' => 'numeric|required|between:1,255',
 //        'reference_number' => [
 //            'required',
 ////            'alpha_dash',
@@ -364,7 +365,7 @@ class Voucher extends BaseModel
 
 
     public function uniqueReferenceNumberCheck(){
-//        return true; // Not required to check, running default
+        return true; // Not required to check, running default
         
         //If dont want to execute validation : use in Entity Relation data sync from mobile
         if(!$this->execute_validation){

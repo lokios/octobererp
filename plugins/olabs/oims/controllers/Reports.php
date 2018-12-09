@@ -1491,7 +1491,7 @@ class Reports extends ReportHelper {
             // get dpr components
             $this->searchTransactionReport($searchParams);
         }
-
+        
         $oimsSetting = \Olabs\Oims\Models\Settings::instance();
 
         $this->vars['search'] = true;
@@ -1581,6 +1581,174 @@ class Reports extends ReportHelper {
         $export_data[] = $temp;
         ////////////////////////////////////////////////////////////
         $fileName = 'mr_report_' . time() . $file_type;
+
+        Excel::excel()->store(new \Olabs\Oims\Exports\ReportsExport($export_data), $fileName, 'local');
+
+        return \Redirect::to('/backend/olabs/oims/reports/download?name=' . $fileName);
+    }
+    
+    
+    //Transaction Report
+    public function cash_flow_report() {
+        BackendMenu::setContext('Olabs.Oims', 'reports', 'cash_flow_report');
+        $this->searchFormWidget = $this->createTransactionSearchFormWidget();
+        $this->pageTitle = 'Cash FLow Report';
+        $reports = array();
+        $balance_amount = 0;
+        $from_date = '';
+        $to_date = '';
+        $oimsSetting = \Olabs\Oims\Models\Settings::instance();
+
+        $searchForm = $this->searchFormWidget;
+
+        $this->vars['search'] = false;
+        $this->vars['msg'] = false;
+        $this->vars['searchFormWidget'] = $searchForm;
+        $this->vars['reports'] = $reports;
+        $this->vars['balance_amount'] = $balance_amount;
+        $this->vars['from_date'] = $from_date;
+        $this->vars['to_date'] = $to_date;
+
+        $this->vars['oimsSetting'] = $oimsSetting;
+    }
+
+    public function onCashFlowSearch() {
+        $reports = array();
+
+        if (post('reportSearch')) {
+
+            $searchParams = post('reportSearch');
+
+            // get dpr components
+            $this->searchTransactionReport($searchParams);
+        }
+        
+        $oimsSetting = \Olabs\Oims\Models\Settings::instance();
+
+        $this->vars['search'] = true;
+        $this->vars['oimsSetting'] = $oimsSetting;
+    }
+
+    public function onCashFLowExportExcel() {
+        $file_type = '.' . post('type');
+
+        ////////Generate Excel Data
+        $report = array();
+
+        if (post('reportSearch')) {
+
+            $searchParams = post('reportSearch');
+
+            $this->searchTransactionReport($searchParams);
+
+            $search_from_date = isset($searchParams['from_date']) ? $searchParams['from_date'] : '';
+            $search_to_date = isset($searchParams['to_date']) ? $searchParams['to_date'] : '';
+//
+            $from_date = false;
+            if ($search_from_date != '') {
+                $from_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_from_date); //date('Y-m-d 00:00:00', strtotime($from_date));
+            }
+            $to_date = false;
+            if ($search_to_date != '') {
+                $timeFormat = '23:59:59';
+                $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
+            }
+            $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
+
+            $projectModal = \Olabs\Oims\Models\Project::find($project);
+        }
+
+        $oimsSetting = \Olabs\Oims\Models\Settings::instance();
+
+        $this->vars['search'] = true;
+        $this->vars['from_date'] = $from_date;
+        $this->vars['to_date'] = $to_date;
+
+        $reports = $this->vars['reports'];
+        $balance_amount = $this->vars['balance_amount'];
+
+        //Generating Excel
+        $header_columns = ['Date', 'Project', 'Reference No.', 'Description', 'Payment Received'];
+
+        //MR Report
+        $excel_rows = [];
+        $status_count = [];
+        $grand_total = 0;
+        $count = 0;
+        $grand_total = 0;
+        $count = 0;
+
+        $payment_types = ['Payment Received'=>0];
+
+        foreach($reports as $report){ 
+            if($report->payment_type != '' AND !isset($payment_types[$report->payment_type]) AND $report->debit_amount != 0 ){
+                $ledger_name = isset($report->ledger_type) ? $report->ledger_type->name : $report->payment_type;
+                $payment_types[$report->payment_type] = 0;
+                $header_columns[] = $ledger_name;
+            }
+        }
+        
+        $header_columns[] = 'Total';
+        
+        
+        
+        
+        foreach ($reports as $report) {
+            $total = 0;
+            $temp = [];
+             
+            $temp[] = date("d-m-Y", strtotime($report->context_date));
+            $temp[] = $report->project->slug;
+            $temp[] = $report->reference_number;
+            $temp[] = $report->description;
+            foreach($payment_types as $key => $value){
+                $amount = '';
+                if($report->payment_type == $key){
+                    $amount = $report->debit_amount != 0 ? $report->debit_amount : $report->credit_amount;
+                    $payment_types[$key] += is_numeric($amount) ? $amount : 0;
+                    if($report->debit_amount != 0) {
+                        $total +=$amount;    
+                        $grand_total += $amount;
+                    }
+                    
+                }
+                $temp[] = $amount;
+                
+                
+            }
+            $temp[] = $total;
+            
+            $excel_rows[] = $temp;
+        }
+        
+        //Report total
+        $temp = ['Total','','',''];
+        foreach($payment_types as $key => $value){
+            $temp[] = $value;
+        }
+        $temp[] = $grand_total;
+        $excel_rows[] = $temp;
+
+        $export_data[] = ['title' => 'Cash Flow', 'header' => $header_columns, 'rows' => $excel_rows];
+
+
+        //Summary
+        $closing_balance_amount = $balance_amount + $payment_types['Payment Received'] - $grand_total;
+        $temp = [];
+        $temp['title'] = 'Summary';
+        $temp['header'] = ['DESCRIPTION', 'AMOUNT / COUNT'];
+        $temp['rows'] = [
+            ["Opening Balance On Date " . date("d-m-Y", strtotime($from_date)) . "", $balance_amount],
+            ["Total Received", $oimsSetting->getPriceFormattedWithoutCurrency($payment_types['Payment Received'])],
+            ["Total Expenses", $oimsSetting->getPriceFormattedWithoutCurrency($grand_total)],
+            ["Closing Balance On Date ". date("d-m-Y", strtotime($to_date)) . "", $oimsSetting->getPriceFormattedWithoutCurrency($closing_balance_amount)],
+        ];
+//        foreach ($status_count as $k => $v) {
+//            $temp['rows'][] = [$k . ' MR Count', $v];
+//        }
+        $export_data[] = $temp;
+        ////////////////////////////////////////////////////////////
+        $fileName = 'cash_flow_report_' . time() . $file_type;
 
         Excel::excel()->store(new \Olabs\Oims\Exports\ReportsExport($export_data), $fileName, 'local');
 

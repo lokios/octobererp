@@ -1,0 +1,126 @@
+<div class="page-header">
+
+    <h3><small>Cash Flow Report from <?=$oimsSetting->convertToDisplayDate($from_date)?> to <?=$oimsSetting->convertToDisplayDate($to_date)?></small></h3>
+</div>
+
+
+<?
+$grand_total = 0;
+$count = 0;
+
+$payment_types = ['Payment Received'=>'Payment Received'];
+
+foreach($reports as $report){ 
+    if($report->payment_type != '' AND !isset($payment_types[$report->payment_type]) AND $report->debit_amount != 0 ){
+        $ledger_name = isset($report->ledger_type) ? $report->ledger_type->name : $report->payment_type;
+        $payment_types[$report->payment_type] = $ledger_name;
+    }
+}
+
+
+?>
+
+
+<table class="table table-bordered">
+    <thead> 
+        <tr> 
+            <!--<th>ID</th>--> 
+            <th>Date</th>
+            <th>Project</th> 
+            <th>Reference No.</th>
+            <th>Description</th>
+            <?
+            foreach($payment_types as $key => $value){
+            //Reset value with 0
+            $payment_types[$key] = 0;
+            ?>
+            <th><?=$value?></th> 
+            <? } ?>
+            <th>Total</th>
+            
+        </tr> 
+    </thead> 
+    <tbody>
+        <?
+        foreach($reports as $report){ 
+        $total = 0;
+        ?>
+        <tr>
+            <td><?= $oimsSetting->convertToDisplayDate($report->context_date)?></td>
+            <td><?=$report->project->slug?></td>
+            <td><?=$report->reference_number?></td>
+            <td><?=$report->description?></td>
+             <?
+             
+            foreach($payment_types as $key => $value){
+            $amount = false;
+            if($report->payment_type == $key){
+                $amount = $report->debit_amount != 0 ? $report->debit_amount : $report->credit_amount;
+                $payment_types[$key] += $amount;
+                if($report->debit_amount != 0) {
+                    $total +=$amount;    
+                    $grand_total += $amount;
+                }
+                
+            }
+            
+                
+            ?>
+            <td><?=$amount ?></td>
+            <? } ?>
+            <td><?=$total?></td>
+        </tr>
+        <?
+        }
+        ?>
+    </tbody>
+    
+    <tfoot>
+        <tr>
+            <td colspan="4"><b>Total</b></td>
+            
+            <? foreach($payment_types as $key => $value){ ?>
+            <td><?=$value?></td>
+            <? } ?>
+            <td><?=$grand_total?></td>
+        </tr>
+    </tfoot>
+    
+</table>
+
+<?
+$closing_balance_amount = $balance_amount + $payment_types['Payment Received'] - $grand_total;
+
+?>
+
+<div class="page-header">
+    <h3><small>SUMMARY</small></h3>
+</div>
+<table class="table table-bordered">
+    <thead> 
+        <tr> 
+            <th>DESCRIPTION</th> 
+            <th></th> 
+        </tr> 
+    </thead> 
+    <tbody>
+        <tr> 
+            <th scope="row">Opening Balance On Date <?=$oimsSetting->convertToDisplayDate($from_date) ?> </th> 
+            <td><?= $oimsSetting->getPriceFormattedWithoutCurrency($balance_amount) ?></td>
+        </tr> 
+        <tr> 
+            <th scope="row">Total Received</th> 
+            <td><?= $oimsSetting->getPriceFormattedWithoutCurrency($payment_types['Payment Received']) ?></td>
+        </tr> 
+        <tr> 
+            <th scope="row">Total Expenses</th> 
+            <td><?= $oimsSetting->getPriceFormattedWithoutCurrency($grand_total) ?></td>
+        </tr> 
+        <tr> 
+            <th scope="row">Closing Balance On Date <?=$oimsSetting->convertToDisplayDate($to_date) ?></th> 
+            <td><?= $oimsSetting->getPriceFormattedWithoutCurrency($closing_balance_amount) ?></td>
+        </tr> 
+
+        
+    </tbody>
+</table>

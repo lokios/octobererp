@@ -2,15 +2,18 @@ columns:
     id:
         label: id
         type: number
+        searchable: true
     name:
         label: name
         type: text
+        searchable: true
     father_name:
         label: father_name
         type: text
     daily_wages:
         label: daily_wages
         type: text
+        searchable: true
     monthly_wages:
         label: monthly_wages
         type: text
@@ -39,8 +42,8 @@ columns:
         label: employee_type
         relation: employee_types
         select: name
-        searchable: false
-        sortable: false
+        searchable: true
+        sortable: true
     employee_code:
         label: Employee Code
         type: text

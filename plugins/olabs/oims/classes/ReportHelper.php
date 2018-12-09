@@ -824,17 +824,17 @@ class ReportHelper extends Controller {
             $vouchers = \Olabs\Oims\Models\Voucher::where($params)
                     ->whereBetween('context_date', [$from_date, $to_date])
                     ->whereIn('project_id', $assigned_projects)
-                    ->select(DB::raw("id, 'vouchers' as entity_type, total_price as debit_amount, 0 as credit_amount, payment_type, project_id, context_date, narration, description"));
+                    ->select(DB::raw("id, 'vouchers' as entity_type, total_price as debit_amount, 0 as credit_amount, payment_type, project_id, context_date, narration, description, reference_number, payment_type"));
 
             $payment_debit = \Olabs\Oims\Models\PaymentReceivable::where($params)
                     ->whereBetween('context_date', [$from_date, $to_date])
                     ->whereIn('from_project_id', $assigned_projects)
-                    ->select(DB::raw("id, 'payment_receivables' as entity_type, amount as debit_amount, 0 as credit_amount,payment_type,from_project_id as project_id, context_date, narration, description"));
+                    ->select(DB::raw("id, 'payment_receivables' as entity_type, amount as debit_amount, 0 as credit_amount,payment_type,from_project_id as project_id, context_date, narration, description, reference_number, payment_type"));
 
             $payment_credit = \Olabs\Oims\Models\PaymentReceivable::where($params)
                     ->whereBetween('context_date', [$from_date, $to_date])
                     ->whereIn('to_project_id', $assigned_projects)
-                    ->select(DB::raw("id, 'payment_receivables' as entity_type, 0 as debit_amount, amount as credit_amount, payment_type,to_project_id as project_id, context_date, narration, description"));
+                    ->select(DB::raw("id, 'payment_receivables' as entity_type, 0 as debit_amount, amount as credit_amount, payment_type,to_project_id as project_id, context_date, narration, description, reference_number, 'Payment Received' as payment_type"));
 
 
 
@@ -910,7 +910,7 @@ class ReportHelper extends Controller {
             }
             $project_start_date = $category_planned_dates->planned_start_date;
             $project_end_date = $category_planned_dates->planned_end_date;
-
+            
 
             $category_actual_dates = \Olabs\Oims\Models\ProjectProgress::with("products")
                     ->where("project_id", $project)
@@ -922,15 +922,15 @@ class ReportHelper extends Controller {
 
             //adjust start and end dates with actual work progress start and end dates
             if ($category_actual_dates) {
-                if ($category_actual_dates->start_date < $project_start_date) {
+                if ($category_actual_dates->start_date != '' && $category_actual_dates->start_date < $project_start_date) {
                     $project_start_date = $category_actual_dates->start_date;
                 }
 
-                if ($category_actual_dates->end_date > $project_end_date) {
+                if ($category_actual_dates->end_date != '' &&  $category_actual_dates->end_date > $project_end_date) {
                     $project_end_date = $category_actual_dates->end_date;
                 }
             }
-
+            
 
             //generate categories for the month
             if ($project_start_date && $project_end_date) {

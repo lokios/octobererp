@@ -8,7 +8,7 @@
                     <th><span>Material Receipt</span></th>
                     <th><span>Supplier</span></th>
                     <th><span>Employee</span></th>
-                    <!--<th><span>Quantity</span></th>-->
+                    <th><span>Description</span></th>
                     <th><span>Total Price</span></th>
                     <th style="width: 10%"><span></span></th>
                 </tr>
@@ -24,6 +24,9 @@
                     </td>
                     <td>
                         <?= e($item->employee ? $item->employee->full_name : '--') ?>
+                    </td>
+                    <td>
+                        <?= e($item->description) ?>
                     </td>
                     <td>
                         <?= e($item->total_price) ?>

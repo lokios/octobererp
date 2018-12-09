@@ -5,12 +5,12 @@ columns:
         
     first_name:
         label: backend::lang.user.first_name
-        searchable: true
+        searchable: false
         invisible: true
 
     last_name:
         label: backend::lang.user.last_name
-        searchable: true
+        searchable: false
         invisible: true
 
     full_name:
@@ -57,3 +57,10 @@ columns:
         searchable: true
         type: datetime
         invisible: true
+        
+    user_is_banned:
+        label: 'Banned'
+        type: 'switch'
+        span: 'auto'
+        searchable: false
+        sortable: false
