@@ -824,17 +824,17 @@ class ReportHelper extends Controller {
             $vouchers = \Olabs\Oims\Models\Voucher::where($params)
                     ->whereBetween('context_date', [$from_date, $to_date])
                     ->whereIn('project_id', $assigned_projects)
-                    ->select(DB::raw("id, 'vouchers' as entity_type, total_price as debit_amount, 0 as credit_amount, payment_type, project_id, context_date, narration, description, reference_number"));
+                    ->select(DB::raw("id, 'vouchers' as entity_type, total_price as debit_amount, 0 as credit_amount, payment_type, project_id, context_date, narration, description, reference_number, payment_type"));
 
             $payment_debit = \Olabs\Oims\Models\PaymentReceivable::where($params)
                     ->whereBetween('context_date', [$from_date, $to_date])
                     ->whereIn('from_project_id', $assigned_projects)
-                    ->select(DB::raw("id, 'payment_receivables' as entity_type, amount as debit_amount, 0 as credit_amount,payment_type,from_project_id as project_id, context_date, narration, description, reference_number"));
+                    ->select(DB::raw("id, 'payment_receivables' as entity_type, amount as debit_amount, 0 as credit_amount,payment_type,from_project_id as project_id, context_date, narration, description, reference_number, payment_type"));
 
             $payment_credit = \Olabs\Oims\Models\PaymentReceivable::where($params)
                     ->whereBetween('context_date', [$from_date, $to_date])
                     ->whereIn('to_project_id', $assigned_projects)
-                    ->select(DB::raw("id, 'payment_receivables' as entity_type, 0 as debit_amount, amount as credit_amount, payment_type,to_project_id as project_id, context_date, narration, description, reference_number"));
+                    ->select(DB::raw("id, 'payment_receivables' as entity_type, 0 as debit_amount, amount as credit_amount, payment_type,to_project_id as project_id, context_date, narration, description, reference_number, 'Payment Received' as payment_type"));
 
 
 

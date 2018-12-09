@@ -32,13 +32,13 @@ class ControlLibrary
             return $returnGrouped ? $this->groupedControls : $this->controls;
         }
 
-        Event::fire('pages.builder.registerControls', [$this]);
-
         $this->groupedControls = [
             $this->resolveControlGroupName(self::GROUP_STANDARD) => [],
             $this->resolveControlGroupName(self::GROUP_WIDGETS) => []
         ];
 
+        Event::fire('pages.builder.registerControls', [$this]);
+        
         foreach ($this->controls as $controlType=>$controlInfo) {
             $controlGroup = $this->resolveControlGroupName($controlInfo['group']);
 
@@ -299,11 +299,11 @@ class ControlLibrary
 
     protected function resolveControlGroupName($group)
     {
-        if ($group == self::GROUP_STANDARD) {
+        if ($group === self::GROUP_STANDARD) {
             return Lang::get('rainlab.builder::lang.form.control_group_standard');
         }
 
-        if ($group == self::GROUP_WIDGETS) {
+        if ($group === self::GROUP_WIDGETS) {
             return Lang::get('rainlab.builder::lang.form.control_group_widgets');
         }
 

@@ -30,7 +30,7 @@
             <th>Reference No.</th>
             <th>Description</th>
             <th>Narration</th>
-            <!--<th>Items</th>-->
+            <th>Payment Type</th>
             <th>Debit</th> 
             <th>Credit</th>
             <th>Balance</th>
@@ -72,8 +72,8 @@
             <td><?=$report->project->slug?></td>
             <td><?=$report->reference_number?></td>
             <td><?=$report->description?></td>
-            <!--<td><? //$report->narration?></td>-->
             <td><?=implode("</br> ",$narration)?></td>
+            <td><?=isset($report->ledger_type) ? $report->ledger_type->name : $report->payment_type?></td>
             <td><?=$report->debit_amount != 0 ? $oimsSetting->getPriceFormattedWithoutCurrency($report->debit_amount) : ''?></td>
             <td><?=$report->credit_amount != 0 ? $oimsSetting->getPriceFormattedWithoutCurrency($report->credit_amount) : ''?></td>
             <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($balance_amount)?></td>

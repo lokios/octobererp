@@ -182,6 +182,12 @@ navigation:
                 icon: icon-dollar
                 permissions:
                     - olabs.oims.reports           
+            cash_flow_report:
+                label: 'Cash Flow Report'
+                url: olabs/oims/reports/cash_flow_report
+                icon: icon-dollar
+                permissions:
+                    - olabs.oims.reports     
             
             attendance_report:
                 label: 'Attendance Report'
