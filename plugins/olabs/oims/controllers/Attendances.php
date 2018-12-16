@@ -77,8 +77,8 @@ class Attendances extends Controller
                         'format' => 'd/m/Y H:i',
                         'required' => 1,
                         'type' => 'datepicker',
-                        'default' => 'today + 9 hours',
-                        'comment' => "Deafult working hour is 09:00 to 18:00",
+                        'default' => 'today + 8 hours',
+                        'comment' => "Deafult working hour is 08:00 to 17:00",
                         'attributes' => [
                         ]
                     ]
@@ -97,12 +97,12 @@ class Attendances extends Controller
                             'oc.commentPosition' => '',
                             'mode' => 'datetime',
                             'span' => 'auto',
-                            'default' => 'today + 9 hours',
+                            'default' => 'today + 8 hours',
                             'format' => 'd/m/Y H:i',
                             'required' => 1,
                             'type' => 'datepicker',
                             'minDate' => 'today',
-                            'comment' => "Deafult working hour is 09:00 to 18:00",
+                            'comment' => "Deafult working hour is 08:00 to 17:00",
                             'attributes' => [
                             ]
                         ]
@@ -115,12 +115,12 @@ class Attendances extends Controller
                             'oc.commentPosition' => '',
                             'mode' => 'datetime',
                             'span' => 'auto',
-                            'default' => 'today + 9 hours',
+                            'default' => 'today + 8 hours',
                             'format' => 'd/m/Y H:i',
                             'required' => 1,
                             'type' => 'datepicker',
                             'minDate' => 'today',
-                            'comment' => "Deafult working hour is 09:00 to 18:00",
+                            'comment' => "Deafult working hour is 08:00 to 17:00",
                             'attributes' => [
                             ]
                         ]
@@ -132,11 +132,11 @@ class Attendances extends Controller
                             'oc.commentPosition' => '',
                             'mode' => 'datetime',
                             'span' => 'auto',
-                            'default' => 'today + 9 hours',
+                            'default' => 'today + 8 hours',
                             'format' => 'd/m/Y H:i',
                             'required' => 1,
                             'type' => 'datepicker',
-                            'comment' => "Deafult working hour is 09:00 to 18:00",
+                            'comment' => "Deafult working hour is 08:00 to 17:00",
                             'attributes' => [
                                 'disabled' => true,
                             ]
@@ -161,7 +161,7 @@ class Attendances extends Controller
                         'format' => 'd/m/Y H:i',
                         'required' => 1,
                         'type' => 'datepicker',
-                        'default' => 'today + 18 hours',
+                        'default' => 'today + 17 hours',
                         'attributes' => [
                         ]
                     ]
@@ -177,7 +177,7 @@ class Attendances extends Controller
                             'oc.commentPosition' => '',
                             'mode' => 'datetime',
                             'span' => 'auto',
-                            'default' => 'today + 18 hours',
+                            'default' => 'today + 17 hours',
                             'format' => 'd/m/Y H:i',
                             'required' => 1,
                             'type' => 'datepicker',
@@ -194,7 +194,7 @@ class Attendances extends Controller
                             'oc.commentPosition' => '',
                             'mode' => 'datetime',
                             'span' => 'auto',
-                            'default' => 'today + 18 hours',
+                            'default' => 'today + 17 hours',
                             'format' => 'd/m/Y H:i',
                             'required' => 1,
                             'type' => 'datepicker',
@@ -210,7 +210,7 @@ class Attendances extends Controller
                             'oc.commentPosition' => '',
                             'mode' => 'datetime',
                             'span' => 'auto',
-                            'default' => 'today + 18 hours',
+                            'default' => 'today + 17 hours',
                             'format' => 'd/m/Y H:i',
                             'required' => 1,
                             'type' => 'datepicker',

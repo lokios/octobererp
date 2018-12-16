@@ -19,11 +19,11 @@ fields:
         oc.commentPosition: ''
         mode: datetime
         span: auto
-        default: "today + 9 hours"
+        default: "today + 8 hours"
         required: 1
         type: datepicker
         format: 'd/m/Y H:i'
-        comment: "Deafult working hour is 09:00 to 18:00"
+        comment: "Deafult working hour is 08:00 to 17:00"
 #        minDate: "today -1 days"
 #        dependsOn: employee
     check_out:
@@ -31,7 +31,7 @@ fields:
         oc.commentPosition: ''
         mode: datetime
         span: auto
-        default: "today + 18 hours"
+        default: "today + 17 hours"
         required: 1
         format: 'd/m/Y H:i'
         type: datepicker
