@@ -355,6 +355,7 @@ class ReportHelper extends Controller {
     }
 
     protected function searchMRReport($searchParams) {
+        
         $reports = array();
         $msg = false;
         $search_from_date = isset($searchParams['from_date']) ? $searchParams['from_date'] : '';
@@ -370,17 +371,17 @@ class ReportHelper extends Controller {
             $timeFormat = '23:59:59';
             $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
         }
-
-        $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
+//        dd($searchParams);
+        $project = ( isset($searchParams['project']) ) ? $searchParams['project'] : false;
         $supplier = ( trim($searchParams['supplier']) != "" ) ? $searchParams['supplier'] : false;
-
+//        dd($project);
         $baseModel = new \Olabs\Oims\Models\BaseModel();
         $assigned_projects = [];
 //        $user = BackendAuth::getUser();
 
         $params = array();
         if ($project) {
-            $assigned_projects = [$project];
+            $assigned_projects = is_array($project) ? $project : [$project];
         } else {
             $assigned_projects = array_keys($baseModel->getProjectOptions());
         }

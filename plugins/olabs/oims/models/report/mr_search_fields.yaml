@@ -25,7 +25,10 @@ fields:
         span: auto
         emptyOption: None
         required: 1
-        type: dropdown
+        type: checkboxList
+#        attributes:
+#            multiple: true
+            
     supplier:
         label: Supplier
         oc.commentPosition: ''
