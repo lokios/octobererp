@@ -605,9 +605,10 @@ class Reports extends ReportHelper {
                 $timeFormat = '23:59:59';
                 $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
             }
-            $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
+//            $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
+//            $project = ( isset($searchParams['project']) ) ? $searchParams['project'] : false;
 
-            $projectModal = \Olabs\Oims\Models\Project::find($project);
+//            $projectModal = \Olabs\Oims\Models\Project::find($project);
         }
 
         $oimsSetting = \Olabs\Oims\Models\Settings::instance();
