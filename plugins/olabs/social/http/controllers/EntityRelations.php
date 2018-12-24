@@ -105,7 +105,7 @@ class EntityRelations extends ApiController {
 
         $existing_files =  $item->{$this->images_field};
 
-        if($existing_files && $existing_files->count()>=5){
+        if($existing_files && $existing_files->count()>0){
            BaseModel::$feature_enabled = true;
 
            return $this->respondWithItem($item);
