@@ -26,7 +26,7 @@ use OlabsAuth;
 class EntityRelations extends ApiController {
 
     protected $defaultLimit = 10;
-    protected $fillable = ['data', 'actor_id', "data", "target_type", "target_id", "relation", "request_id"];
+    protected $fillable = ['data', 'actor_id', "data", "target_type", "target_id", "relation", "request_id","context_type","context_id","tenant_id","actor_name","actor_email","relation_status","status"];
     protected $fillable2 = ['actor_id'];
     public $images_field = 'images';
 
@@ -88,6 +88,8 @@ class EntityRelations extends ApiController {
 
 
     public function upload(Request $request) {
+        set_time_limit(0);
+
 
         BaseModel::$feature_enabled = false;
         $id = $request->input('id', false);
@@ -102,6 +104,13 @@ class EntityRelations extends ApiController {
         $count = 0;
 
         $existing_files =  $item->{$this->images_field};
+
+        if($existing_files && $existing_files->count()>0){
+           BaseModel::$feature_enabled = true;
+
+           return $this->respondWithItem($item);
+
+        }
 
         if (!empty($files)) {
 
@@ -118,8 +127,9 @@ class EntityRelations extends ApiController {
 
                 if( $name && $existing_files ){
                     foreach ($existing_files as $ekey => $efile) {
-                        # code...
-                        if($efile->name ==  $file->getFilename()){
+                        # code...  getClientOriginalName()
+                        //if($efile->name ==  $file->getFilename()){
+                      if($efile->name ==  $file1->getClientOriginalName()){
                             $alreadyExists = true;
 
                         }

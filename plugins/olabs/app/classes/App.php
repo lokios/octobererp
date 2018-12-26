@@ -531,7 +531,7 @@ public function addMainModules_OIMS(&$fmodules){
 
  public function hasVoucherEntryPermission(){
 
-     return true;
+     //return true;
 
       //olabs.oims.attendances
 
@@ -616,6 +616,17 @@ public function addMainModules_OIMS(&$fmodules){
 
 
      $status = ['version'=>'1.0', 'base'=>Config::get('olabs.tenant::app_url', 'http://opaclabs.com'),'s'=>'200','user'=>$user, 'groups'=>$user1->groups,'app_settings'=>[]];//, 'my_organizations'=>$list];
+
+     $status['app_settings']['permissions'] = [];
+    if ($this->hasPermissionV2('olabs.oims.my_attendances')) {
+        $status['app_settings']['permissions'][] = 'olabs.oims.my_attendances';
+
+    }
+
+     if ($this->hasPermissionV2('olabs.oims.attendances')) {
+        $status['app_settings']['permissions'][] = 'olabs.oims.attendances';
+
+    }
 
       $projects = [];
       if (!$user1->isAdmin()) {
