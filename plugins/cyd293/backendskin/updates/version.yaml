@@ -1,0 +1,8 @@
+1.0.1:
+    - Initial Backend Skin
+1.0.2:
+    - Update Event Dispatcher
+1.0.3:
+    - Update PluginEventSubscriber.php
+1.0.4:
+    - Fix modules theme customization

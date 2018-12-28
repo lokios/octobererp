@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="<?= App::getLocale() ?>" class="no-js <?= $this->makeLayoutPartial('browser_detector') ?>">
+    <head>
+        <?= $this->makeLayoutPartial('head') ?>
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+
+
+        <div class="wrapper">
+            <div id="layout-canvas">
+                <!-- Main Menu -->
+                <?= $this->makeLayoutPartial('mainmenu') ?>
+
+                <?php $flyoutContent = Block::placeholder('sidepanel-flyout') ?>
+                <?php if ($flyoutContent): ?>
+                data-control="flyout"
+                data-flyout-width="400"
+                data-flyout-toggle="#layout-sidenav"
+                <?php endif ?>
+                
+                <?php if ($flyoutContent): ?>
+                <div class="layout-cell flyout"> <?= $flyoutContent ?></div>
+                <?php endif ?>
+
+                <!-- Side Navigation -->
+                <?=  $this->makeLayoutPartial('sidenav') ?>
+
+                <!-- Side panel -->
+                <?php if ($sidePanelContent = Block::placeholder('sidepanel')): ?>
+                <div class="layout-cell w-350 hide-on-small" id="layout-side-panel" data-control="layout-sidepanel">
+                    <?= $sidePanelContent ?>
+                </div>
+                <?php endif ?>
+
+
+                <!-- Content Wrapper. Contains page content -->
+                <div class="content-wrapper" style="background-color: #f9f9f9;">
+                    <!-- Content Header (Page header) -->
+                    <section class="content-header">
+<!--                        <h1> Dashboard
+                            <small>Control panel</small>
+                        </h1>-->
+<!--                                                <ol class="breadcrumb">
+                                                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                                                    <li class="active">Dashboard</li>
+                                                </ol>-->
+                        <?php if ($breadcrumbContent = Block::placeholder('breadcrumb')): ?>
+                        <!-- Breadcrumb -->
+                        <div class="control-breadcrumb">
+                            <?= $breadcrumbContent ?>
+                        </div>
+                        <?php endif ?>
+                    </section>
+
+                    <!-- Main content -->
+                    <section class="content">
+                        <?= Block::placeholder('body') ?>
+                    </section>
+                </div>
+
+                <!-- Content Body -->
+<!--                <div class="layout-cell layout-container" id="layout-body">
+                    <div class="layout-relative">
+
+                        <div class="layout">
+                            <?php if ($breadcrumbContent = Block::placeholder('breadcrumb')): ?>
+                             Breadcrumb 
+                            <div class="control-breadcrumb">
+                                <?= $breadcrumbContent ?>
+                            </div>
+                            <?php endif ?>
+
+                             Content 
+                            <div class="layout-row">
+                                <?= Block::placeholder('body') ?>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>-->
+
+
+
+            </div>
+        </div>
+
+        <!--        <div id="layout-canvas1">
+                    <div class="layout">-->
+
+        <!-- Main Menu -->
+        <!--                <div class="layout-row min-size">
+                            <? // $this->makeLayoutPartial('mainmenu') ?>
+                        </div>-->
+
+        <!--                <?php $flyoutContent = Block::placeholder('sidepanel-flyout') ?>
+        
+                        <div class="layout-row">
+                            <div class="layout flyout-container"
+                                 <?php if ($flyoutContent): ?>
+                                 data-control="flyout"
+                                 data-flyout-width="400"
+                                 data-flyout-toggle="#layout-sidenav"
+                                 <?php endif ?>
+                                 >
+                                 <?php if ($flyoutContent): ?>
+                                 <div class="layout-cell flyout"> <?= $flyoutContent ?></div>
+                                <?php endif ?>
+        
+                                 Side Navigation 
+                                <?// $this->makeLayoutPartial('sidenav') ?>
+        
+                                 Side panel 
+                                <?php if ($sidePanelContent = Block::placeholder('sidepanel')): ?>
+                                <div class="layout-cell w-350 hide-on-small" id="layout-side-panel" data-control="layout-sidepanel">
+                                    <?= $sidePanelContent ?>
+                                </div>
+                                <?php endif ?>
+        
+                                 Content Body 
+                                <div class="layout-cell layout-container" id="layout-body">
+                                    <div class="layout-relative">
+        
+                                        <div class="layout">
+                                            <?php if ($breadcrumbContent = Block::placeholder('breadcrumb')): ?>
+                                             Breadcrumb 
+                                            <div class="control-breadcrumb">
+                                                <? // $breadcrumbContent ?>
+                                            </div>
+                                            <?php endif ?>
+        
+                                             Content 
+                                            <div class="layout-row">
+                                                <? // Block::placeholder('body') ?>
+                                            </div>
+                                        </div>
+        
+                                    </div>
+                                </div>
+        
+                            </div>
+                        </div>-->
+
+        <!--            </div>
+                </div>-->
+
+        <!-- Flash Messages -->
+        <div id="layout-flash-messages"><?= $this->makeLayoutPartial('flash_messages') ?></div>
+
+        
+        
+        
+<!-- jQuery 3 -->
+<!--<script src="<?= Backend::skinAsset('assets/adminlte/bower_components/jquery/dist/jquery.min.js') ?>"></script>-->
+<!-- jQuery UI 1.11.4 -->
+<!--<script src="<?= Backend::skinAsset('assets/adminlte/bower_components/jquery-ui/jquery-ui.min.js') ?>"></script>-->
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+//  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.7 -->
+<!--<script src="<?= Backend::skinAsset('assets/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js') ?>"></script>-->
+<!-- Morris.js charts -->
+<!--<script src="<?= Backend::skinAsset('assets/adminlte/bower_components/raphael/raphael.min.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/adminlte/bower_components/morris.js/morris.min.js') ?>"></script>-->
+<!-- Sparkline -->
+<!--<script src="<?= Backend::skinAsset('assets/adminlte/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js') ?>"></script>-->
+<!-- jvectormap -->
+<!--<script src="<?= Backend::skinAsset('assets/adminlte/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js') ?>"></script>
+<script src="<?= Backend::skinAsset('assets/adminlte/plugins/jvectormap/jquery-jvectormap-world-mill-en.js') ?>"></script>-->
+<!-- jQuery Knob Chart -->
+<!--<script src="<?= Backend::skinAsset('assets/adminlte/bower_components/jquery-knob/dist/jquery.knob.min.js') ?>"></script>-->
+<!-- daterangepicker -->
+<!--<script src="<?= Backend::skinAsset('assets/adminlte/bower_components/moment/min/moment.min.js') ?>"></script>-->
+<!--<script src="<?= Backend::skinAsset('assets/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js') ?>"></script>-->
+<!-- datepicker -->
+<!--<script src="<?= Backend::skinAsset('assets/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') ?>"></script>-->
+<!-- Bootstrap WYSIHTML5 -->
+<!--<script src="<?= Backend::skinAsset('assets/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') ?>"></script>-->
+<!-- Slimscroll -->
+<script src="<?= Backend::skinAsset('assets/adminlte/bower_components/jquery-slimscroll/jquery.slimscroll.min.js') ?>"></script>
+<!-- FastClick -->
+<script src="<?= Backend::skinAsset('assets/adminlte/bower_components/fastclick/lib/fastclick.js') ?>"></script>
+<!-- AdminLTE App -->
+<script src="<?= Backend::skinAsset('assets/adminlte/dist/js/adminlte.min.js') ?>"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<!--<script src="<?= Backend::skinAsset('assets/adminlte/dist/js/pages/dashboard.js') ?>"></script>-->
+<!-- AdminLTE for demo purposes -->
+<!--<script src="<?= Backend::skinAsset('assets/adminlte/dist/js/demo.js') ?>"></script>-->
+        
+    </body>
+</html>
