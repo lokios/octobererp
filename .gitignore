@@ -12,4 +12,5 @@
 /config/dev/
 /nbproject/private/
 /nbproject/*
+.DS_Store
 
