@@ -1,0 +1,24 @@
+
+
+-- major updates in plugin for super admin user
+
+File : plugin/cyd293/backendskin/skin/BackendSkin.php
+
+use BackendAuth; //Added by Amit;
+
+class BackendSkin extends Skin
+{
+    public function __construct()
+    {
+        $this->skinPath = $this->defaultSkinPath = base_path() . '/modules/backend';
+        $this->publicSkinPath = $this->defaultPublicSkinPath = File::localToPublic($this->skinPath);
+
+        $skin = $this->getSkin();
+        
+        $super_admin = isset(BackendAuth::getUser()->is_superuser) ? BackendAuth::getUser()->is_superuser : FALSE;  //Added by Amit
+        
+        if ($skin != 'octobercms' && !$super_admin) { //Updated by Amit
+            $this->skinPath = base_path() . '/themes/' . $skin . '/backend';
+            $this->publicSkinPath = File::localToPublic($this->skinPath);
+        }
+    }
