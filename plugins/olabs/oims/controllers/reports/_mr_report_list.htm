@@ -1,56 +1,64 @@
-<div class="page-header">
 
-    <h3><small>MR Report</small></h3>
+<div class="box">
+
+    <div class="box-header">
+
+        <h3 class="box-title">MR Report</h3>
+    </div>
+
+
+
+
+    <table class="table table-hover">
+        <thead> 
+            <tr> 
+                <!--<th>ID</th>--> 
+                <th>MR No.</th>
+                <th>Project</th> 
+                <th>Entry Date</th>
+                <th>Status</th>
+                <th>Supplier</th> 
+                <th>Products</th>
+                <th>Total Price</th>
+
+            </tr> 
+        </thead> 
+        <tbody>
+
+            <? 
+            $status_count = [];
+            $grand_total = 0;
+            $count = 0;
+            foreach($reports as $report){ 
+            $count++;
+            $grand_total += $report->total_price;
+            $products = $report->products ? $report->products : array();
+            $productArray = array();
+            $status_count[$report->status_name] = isset($status_count[$report->status_name]) ? $status_count[$report->status_name] + 1 : 1;
+            foreach($products as $product){
+            $product_title = '';
+            if($product->product){
+            $product_title = $product->product->title . ", QTY : " . $product->quantity . " " . $product->unit . ", AMNT :" . $oimsSetting->getPriceFormattedWithoutCurrency($product->total_price);
+            }
+            $productArray[] = $product_title;
+            }
+
+            ?>
+            <tr>
+                <!--            <td><?=$report->id?></td>-->
+                <td><?=$report->reference_number?></td>
+                <td><?=$report->project->name?></td>
+                <td><?= $oimsSetting->convertToDisplayDate($report->context_date)?></td>
+                <td><?=$report->status_name?></td>
+                <td><?=$report->supplier ? $report->supplier->fullname : '--' ?></td>
+                <td><?php echo implode("</br> ",$productArray); ?></td>
+                <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($report->total_price)?></td>
+
+            </tr>
+            <? } ?>
+        </tbody>
+    </table>
 </div>
-<table class="table table-bordered">
-    <thead> 
-        <tr> 
-            <!--<th>ID</th>--> 
-            <th>MR No.</th>
-            <th>Project</th> 
-            <th>Entry Date</th>
-            <th>Status</th>
-            <th>Supplier</th> 
-            <th>Products</th>
-            <th>Total Price</th>
-            
-        </tr> 
-    </thead> 
-    <tbody>
-
-        <? 
-        $status_count = [];
-        $grand_total = 0;
-        $count = 0;
-        foreach($reports as $report){ 
-        $count++;
-        $grand_total += $report->total_price;
-        $products = $report->products ? $report->products : array();
-        $productArray = array();
-        $status_count[$report->status_name] = isset($status_count[$report->status_name]) ? $status_count[$report->status_name] + 1 : 1;
-        foreach($products as $product){
-        $product_title = '';
-        if($product->product){
-        $product_title = $product->product->title . ", QTY : " . $product->quantity . " " . $product->unit . ", AMNT :" . $oimsSetting->getPriceFormattedWithoutCurrency($product->total_price);
-        }
-        $productArray[] = $product_title;
-        }
-
-        ?>
-        <tr>
-<!--            <td><?=$report->id?></td>-->
-            <td><?=$report->reference_number?></td>
-            <td><?=$report->project->name?></td>
-            <td><?= $oimsSetting->convertToDisplayDate($report->context_date)?></td>
-            <td><?=$report->status_name?></td>
-            <td><?=$report->supplier ? $report->supplier->fullname : '--' ?></td>
-            <td><?php echo implode("</br> ",$productArray); ?></td>
-            <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($report->total_price)?></td>
-            
-        </tr>
-        <? } ?>
-    </tbody>
-</table>
 
 <div class="page-header">
     <h3><small>SUMMARY</small></h3>
