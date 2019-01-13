@@ -1,0 +1,105 @@
+<?php
+$activeItem = BackendMenu::getActiveMainMenuItem();
+$mySettings = System\Classes\SettingsManager::instance()->listItems('mysettings');
+$navbarMode = Backend\Models\BrandSetting::get('menu_mode', 'inline');
+
+$context = BackendMenu::getContext();
+$contextSidenav = BackendMenu::getContextSidenavPartial($context->owner, $context->mainMenuCode);
+
+?>
+
+
+
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+            <div class="pull-left image">
+
+                <img src="<?= $this->user->getAvatarThumb(40, ['mode' => 'crop', 'extension' => 'png']) ?>" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+                <p><?=$this->user->full_name?></p>
+                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+        </div>
+        <!-- search form -->
+        <!--        <form action="#" method="get" class="sidebar-form">
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" placeholder="Search...">
+                        <span class="input-group-btn">
+                            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </form>-->
+        <!-- /.search form -->
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu" data-widget="tree">
+            <li class="header">MAIN NAVIGATION</li>
+            <?php foreach (BackendMenu::listMainMenuItems() as $item): ?>
+            <?php
+            $sideMenuItems = BackendMenu::listSideMenuItems($item->owner, $item->code);
+            $isActive = BackendMenu::isMainMenuItemActive($item);
+            ?>
+            <li class="<?= $isActive ? 'active' : null ?> <?= $sideMenuItems ? 'treeview' : null ?> svg-icon-container svg-active-effects">
+                <a href="<?= $item->url ?>">
+                    <!--<i class="<?= $item->iconSvg ? 'svg-replace' : null ?> <?= $item->icon != 'icon-dashboard' ? $item->icon : 'icon-tachometer' ?>"></i>-->
+                    <i class="<?= $item->icon != 'icon-dashboard' ? $item->icon : 'icon-tachometer' ?>"></i>
+                    
+                    <span class="nav-icon">
+                        <?php if ($item->iconSvg): ?>
+                        <img class="svg-icon" src="<?= Url::asset($item->iconSvg) ?>">
+                        <?php endif ?>
+                    </span>
+                    <span class="nav-label">
+                        <?= e(trans($item->label)) ?>
+                    </span>
+                </a>
+                <?php
+
+
+                ?>
+                <?php if ($sideMenuItems): ?>
+                <ul class="treeview-menu">
+                    <!--<li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>-->
+                    <?php foreach ($sideMenuItems as $sideItemCode => $item): ?>
+                    <li class="<?= BackendMenu::isSideMenuItemActive($item) ? 'active' : null ?>" >
+                        <a href="<?= $item->url ?>">
+                            <!--<i class="fa fa-circle-o <?= $item->icon ?>"></i>-->
+                            <i class="icon-dot-circle-o"></i>
+                            <span class="nav-icon">
+                                <?php if ($item->iconSvg): ?>
+                                <!--<img class="svg-icon" src="<?= Url::asset($item->iconSvg) ?>">-->
+                                <?php endif ?>
+                            </span>
+                            <span class="nav-label">
+                                <?= e(trans($item->label)) ?>
+                            </span>
+                        </a>
+                        <!--                        <span
+                                                    class="counter <?= $item->counter === null ? 'empty' : null ?>"
+                                                    data-menu-id="<?= e($context->mainMenuCode.'/'.$sideItemCode) ?>"
+                                                    <?php if ($item->counterLabel): ?>title="<?= e(trans($item->counterLabel)) ?>"<?php endif ?>
+                                                    >
+                                                    <?= e($item->counter) ?>
+                                            </span>-->
+                    </li>
+                    <?php endforeach ?>
+
+                    <!--                <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                                    <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
+                </ul>
+                <?php endif ?>
+            </li>
+            <?php endforeach ?>
+
+
+           
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>
+
