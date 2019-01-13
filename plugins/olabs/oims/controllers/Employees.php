@@ -29,12 +29,12 @@ class Employees extends Controller {
             $assigned_projects = $baseModel->getProjectOptions();
             $query->whereIn('employee_project_id', array_keys($assigned_projects));
         }
-        
+
 //        $query->leftJoin('backend_user_throttle', 'backend_users.id', '=', 'backend_user_throttle.user_id');
 //        
 //        $query->whereRaw("backend_user_throttle.is_banned IS NULL OR backend_user_throttle.is_banned = 0");
 //        $query->groupBy("backend_users.id");
-        
+
         $filter = ['employee'];
 //        $query->whereHas('groups', function ($q) {
 //            $q->whereIn('code', 'inventory_supplier');
@@ -43,7 +43,24 @@ class Employees extends Controller {
             $group->whereIn('code', $filter);
         });
     }
-    
+
+    public function formExtendFields($form) {
+//        if (!isset($fields->published, $fields->published_at)) {
+//            return;
+//        }
+//
+//        $user = BackendAuth::getUser();
+        
+        if (!$this->user->isAdmin()) {
+            $form->removeField('role');
+            $form->removeField('groups');
+            $form->removeField('access_projects');
+//            $fields->role->hidden = true;
+//            $fields->groups->hidden = true;
+//            $fields->access_projects->hidden = true;
+        } 
+    }
+
     public function preview($recordId = null, $context = null) {
         parent::preview($recordId, $context);
         //check if user is banned
@@ -54,7 +71,7 @@ class Employees extends Controller {
             return Backend::redirect($redirectUrl);
         }
     }
-    
+
     public function update($recordId = null, $context = null) {
         parent::update($recordId, $context);
         //check if user is banned

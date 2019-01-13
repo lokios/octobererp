@@ -69,6 +69,26 @@ tabs:
             span: auto
             required: 1
             type: dropdown
+        role:
+            context: [create, update, preview]
+            label: backend::lang.user.role_field
+            commentAbove: backend::lang.user.role_comment
+            type: radio
+            tab: Permissions
+        groups:
+            context: [create, update, preview]
+            label: backend::lang.user.groups
+            commentAbove: backend::lang.user.groups_comment
+            type: checkboxlist
+#            tab: backend::lang.user.groups
+            tab: Permissions
+        access_projects:
+            context: [create, update, preview]
+            label: Projects
+            commentAbove: Assign projects for OIMS
+            type: relation
+            tab: Permissions
+        
         contact_email:
             label: Contact Email
             tab: Details

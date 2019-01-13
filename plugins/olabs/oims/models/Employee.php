@@ -34,6 +34,8 @@ class Employee extends User {
         'pan' => 'between:4,255|unique:backend_users',
         'first_name' => 'required',
     ];
+    
+//    protected $primaryKey = 'id';
 
     /**
      * Relations
@@ -43,6 +45,12 @@ class Employee extends User {
             'table' => 'backend_users_groups',
             'key' => 'user_id',
             'otherKey' => 'user_group_id',
+        ],
+        'access_projects' => ['Olabs\Oims\Models\Project',
+            'table' => 'olabs_oims_user_projects',
+            'conditions'=>'status=1',
+            'key' => 'user_id',
+            'otherKey' => 'project_id',
         ]
     ];
     
@@ -51,6 +59,7 @@ class Employee extends User {
             'Olabs\Oims\Models\Project', 
             'key' => 'employee_project_id'
         ], 
+        'role' => UserRole::class
     ];
 
     public function beforeCreate() {
