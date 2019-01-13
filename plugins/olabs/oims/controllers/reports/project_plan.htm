@@ -1,7 +1,11 @@
 <?php Block::put('breadcrumb') ?>
 <ul>
-    <li>Project Planing</li>
+    <li><a href="<?= Backend::url('olabs/oims/reports/project_plan') ?>">Reports</a></li>
+    <li><?= e($this->pageTitle) ?></li>
 </ul>
+<!--<ul>
+    <li>Project Planing</li>
+</ul>-->
 <?php Block::endPut() ?>
 
 <?= Form::open(['class' => 'layout2']) ?>

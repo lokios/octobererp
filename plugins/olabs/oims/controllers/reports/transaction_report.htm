@@ -1,7 +1,11 @@
 <?php Block::put('breadcrumb') ?>
 <ul>
-    <li>Account Statement Report</li>
+    <li><a href="<?= Backend::url('olabs/oims/reports/transaction_report') ?>">Reports</a></li>
+    <li><?= e($this->pageTitle) ?></li>
 </ul>
+<!--<ul>
+    <li>Account Statement Report</li>
+</ul>-->
 <?php Block::endPut() ?>
 
 <?= Form::open(['class' => 'layout2']) ?>
