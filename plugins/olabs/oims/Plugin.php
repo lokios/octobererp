@@ -526,15 +526,19 @@ class Plugin extends PluginBase {
 //                    "oims_contact_phone",
 //                ]);
 
-                $model->addDynamicMethod('hasRole', function($role) use ($model) {
-                    return $model->groups()->whereCode($role)->exists();
-                });
+//                $model->addDynamicMethod('hasRole', function($role) use ($model) {
+//                    return $model->groups()->whereCode($role)->exists();
+//                });
 
                 $model->addDynamicMethod('isAdmin', function() use ($model) {
                     if ($model->is_superuser) {
                         return true;
                     }
-                    return $model->groups()->whereCode(Models\BaseModel::USER_GROUP_ADMIN)->exists();
+                    if($model->groups()->whereCode(Models\BaseModel::USER_GROUP_ADMIN)->exists()){
+                        return true;
+                    }
+//                    return $model->groups()->whereCode(Models\BaseModel::USER_GROUP_ADMIN)->exists();
+                    return $model->role()->whereCode(Models\BaseModel::USER_GROUP_ADMIN)->exists();
                 });
             });
             Backend\Controllers\Users::extendFormFields(function($widget) {
