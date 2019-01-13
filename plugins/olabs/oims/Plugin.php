@@ -15,13 +15,14 @@ use Redirect;
 use Yaml;
 use Backend\Controllers\Users;
 use Backend\Models\User;
+use BackendAuth;
+
 //use System\Classes\PluginBase;
 
 /**
  * Oims Plugin Information File
  */
 class Plugin extends PluginBase {
-
     /**
      * @var array Plugin dependencies
      */
@@ -91,7 +92,6 @@ class Plugin extends PluginBase {
             'olabs.oims.expenseonmaterials' => ['tab' => 'olabs.oims::lang.plugin.oims', 'label' => 'olabs.oims::lang.plugin.access_expenseonmaterials'],
             'olabs.oims.expenseonpcs' => ['tab' => 'olabs.oims::lang.plugin.oims', 'label' => 'olabs.oims::lang.plugin.access_expenseonpcs'],
             'olabs.oims.project_assets' => ['tab' => 'olabs.oims::lang.plugin.oims', 'label' => 'olabs.oims::lang.plugin.access_project_assets'],
-            
             'olabs.oims.reports' => ['tab' => 'olabs.oims::lang.plugin.oims', 'label' => 'olabs.oims::lang.plugin.access_reports'],
             'olabs.oims.workgroups' => ['tab' => 'olabs.oims::lang.plugin.oims_setup', 'label' => 'olabs.oims::lang.plugin.access_workgroups'],
             'olabs.oims.categories' => ['tab' => 'olabs.oims::lang.plugin.oims_setup', 'label' => 'olabs.oims::lang.plugin.access_categories'],
@@ -120,9 +120,9 @@ class Plugin extends PluginBase {
             'olabs.oims.record_ho_approval' => ['tab' => 'olabs.oims::lang.plugin.oims_project', 'label' => 'olabs.oims::lang.plugin.access_record_ho_approval'],
             'olabs.oims.record_submit_for_approval' => ['tab' => 'olabs.oims::lang.plugin.oims_project', 'label' => 'olabs.oims::lang.plugin.access_record_submit_for_approval'],
             'olabs.oims.access_settings' => ['tab' => 'olabs.oims::lang.plugin.oims_project', 'label' => 'olabs.oims::lang.plugin.access_settings'],
-            'olabs.oims.employee_types' => [ 'tab' => 'olabs.oims::lang.plugin.oims_project', 'label' => 'olabs.oims::lang.plugin.access_employee_types' ],
-            'olabs.oims.ledger_types' => [ 'tab' => 'olabs.oims::lang.plugin.oims_project', 'label' => 'olabs.oims::lang.plugin.access_ledger_types' ],
-            'olabs.oims.offrole_employees' => [ 'tab' => 'olabs.oims::lang.plugin.oims_project', 'label' => 'olabs.oims::lang.plugin.access_offrole_employees' ],
+            'olabs.oims.employee_types' => ['tab' => 'olabs.oims::lang.plugin.oims_project', 'label' => 'olabs.oims::lang.plugin.access_employee_types'],
+            'olabs.oims.ledger_types' => ['tab' => 'olabs.oims::lang.plugin.oims_project', 'label' => 'olabs.oims::lang.plugin.access_ledger_types'],
+            'olabs.oims.offrole_employees' => ['tab' => 'olabs.oims::lang.plugin.oims_project', 'label' => 'olabs.oims::lang.plugin.access_offrole_employees'],
 //            'olabs.oims.projects' => [ 'tab' => 'olabs.oims::lang.plugin.name', 'label' => 'olabs.oims::lang.plugin.access_projects' ],
 //            'olabs.oims.orders' => [ 'tab' => 'olabs.oims::lang.plugin.name', 'label' => 'olabs.oims::lang.plugin.access_orders' ],
 //            'olabs.oims.products' => [ 'tab' => 'olabs.oims::lang.plugin.name', 'label' => 'olabs.oims::lang.plugin.access_products' ],
@@ -266,20 +266,19 @@ class Plugin extends PluginBase {
         $factory->register("TwoCheckoutPlus");
         $factory->register("TwoCheckoutPlus_Token");
         // -----------------------------------------------------------
-        
         //Banned Backend User
         User::extend(function (User $model) {
             $model->implement[] = 'Olabs\Oims\UserBehavior';
         });
 
-        $this->addIsBannedColumn();
-        $this->addIsBannedField();
-        
+        $user = BackendAuth::getUser();
+        if ($user AND $user->is_superuser) {
+            $this->addIsBannedColumn();
+            $this->addIsBannedField();
+        }
     }
-    
-    
-    private function addIsBannedColumn()
-    {
+
+    private function addIsBannedColumn() {
         Users::extendListColumns(function ($list, $model) {
 
             if (!$model instanceof User) {
@@ -289,15 +288,14 @@ class Plugin extends PluginBase {
             $list->addColumns([
                 'user_is_banned' => [
                     'label' => 'Banned',
-                    'type'  => 'switch',
+                    'type' => 'switch',
                     'span' => 'auto',
                 ],
             ]);
         });
     }
 
-    private function addIsBannedField()
-    {
+    private function addIsBannedField() {
         Users::extendFormFields(function (\Backend\Widgets\Form $form, \Model $model, $context) {
 
             if (!$model instanceof User || $form->isNested) {
@@ -306,12 +304,11 @@ class Plugin extends PluginBase {
 
             $form->addFields([
                 'user_is_banned' => [
-                    'label'   => 'Banned',
+                    'label' => 'Banned',
                     'comment' => 'Banned user can\'t login',
-                    'type'    => 'switch',
+                    'type' => 'switch',
                 ],
             ]);
-
         });
     }
 
@@ -494,7 +491,7 @@ class Plugin extends PluginBase {
                     "contact_email",
                 ]);
 
-                $model->belongsToMany['projects'] = ['Olabs\Oims\Models\Project', 'table' => 'olabs_oims_user_projects', 'conditions'=>'status=1'];
+                $model->belongsToMany['projects'] = ['Olabs\Oims\Models\Project', 'table' => 'olabs_oims_user_projects', 'conditions' => 'status=1'];
 
 
 
@@ -525,7 +522,6 @@ class Plugin extends PluginBase {
 //                    "oims_contact_email",
 //                    "oims_contact_phone",
 //                ]);
-
 //                $model->addDynamicMethod('hasRole', function($role) use ($model) {
 //                    return $model->groups()->whereCode($role)->exists();
 //                });
@@ -534,7 +530,7 @@ class Plugin extends PluginBase {
                     if ($model->is_superuser) {
                         return true;
                     }
-                    if($model->groups()->whereCode(Models\BaseModel::USER_GROUP_ADMIN)->exists()){
+                    if ($model->groups()->whereCode(Models\BaseModel::USER_GROUP_ADMIN)->exists()) {
                         return true;
                     }
 //                    return $model->groups()->whereCode(Models\BaseModel::USER_GROUP_ADMIN)->exists();
@@ -551,7 +547,7 @@ class Plugin extends PluginBase {
                 $config = Yaml::parse(File::get($configFile));
                 $widget->addTabFields($config);
             });
-            
+
             Backend\Controllers\Users::extendListColumns(function($widget) {
                 // Prevent extending of related form instead of the intended User form
                 if (!$widget->model instanceof Backend\Models\User) {
@@ -575,7 +571,7 @@ class Plugin extends PluginBase {
             'olabs.oims::mail.expedited-order' => 'Expedited Order.',
         ];
     }
-    
+
     public function registerReportWidgets() {
         return [
             'Olabs\Oims\ReportWidgets\ProjectStatus' => [
@@ -586,7 +582,6 @@ class Plugin extends PluginBase {
                 'label' => 'DPR Summary',
                 'context' => 'dashboard'
             ],
-
         ];
     }
 
