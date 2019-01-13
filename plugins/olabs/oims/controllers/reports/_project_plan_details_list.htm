@@ -55,7 +55,7 @@ $row_class = "info";
         <i class="icon-info"></i>
         <h3><?=$project_work->name?></h3>
         <p><?=$project_work->description?></p>
-        
+
     </div>
     <div class="content">
         <div class="form-elements" >
@@ -130,15 +130,15 @@ $row_class = "info";
 
                         $product_acutal_quantity = $actual_quantity * $coefficient;
                         $product_acutal_amount = $product_acutal_quantity * $unit_price;
-                        
+
                         $product_quantity_unit = $product->unit_code? $product->unit_code->name : '';
                         $product_unit_price = $product->unit_price ? $product->unit_price : '0';
                         $product_quantity_unit_rate = "Rs. " . $product_unit_price . " /" .  $product_quantity_unit;
-                        
+
                         ?>
                         <tr>
                             <td class="text-left"><?=$product_name?> (<?=$product_quantity_unit_rate?>)</td>
-                            
+
                             <td class="text-right"><?=$product_planned_quantity?></td>
                             <td class="text-right"><?=$product_planned_amount?></td>
                             <td class="text-right"><?=\Olabs\Oims\Models\Settings::getQuantityFormatted($product_acutal_quantity)?></td>
@@ -154,7 +154,8 @@ $row_class = "info";
             </div>
         </div>
     </div
-</div>   
+</div>  
+</div>
 <? }  ?>
 <? }  ?>
 
