@@ -1,0 +1,65 @@
+##Add Client
+Login to exchange backend and register client in Social plugin
+URL : http://exchange.opaclabs.com/backend/olabs/social/clients/create
+
+Required fields : Client Code, Status => Live, API Settings* 
+
+Client Code Added -> resure
+
+
+
+##Register Messaging Memebers & their devices
+URL : http://exchange.opaclabs.com/messaging/api/v2/member_register/{tenant}/{user_id}/{type}/{token}/{phone_no}/{email}
+
+
+http://exchange.opaclabs.com/messaging/api/v2/member_register/resure/1/android/token_1234/99198989/test@gmail.com
+
+
+
+##Create Circle for the tenant
+
+URL : http://exchange.opaclabs.com/messaging/api/v2/circle_register/{tenant}/{code}/{title}
+
+
+http://exchange.opaclabs.com/messaging/api/v2/circle_register/resure/social_circle/Social Circle Test
+
+
+##Add Members in circle
+
+URL : http://exchange.opaclabs.com/messaging/api/v2/circle_member_add/{tenant}/{code}/{user_id}
+
+
+http://exchange.opaclabs.com/messaging/api/v2/circle_member_add/resure/social_circle/1
+
+
+##Remove Members in circle
+
+URL : http://exchange.opaclabs.com/messaging/api/v2/circle_member_remove/{tenant}/{code}/{user_id}
+
+
+http://exchange.opaclabs.com/messaging/api/v2/circle_member_remove/resure/social_circle/1
+
+
+##Send FCM Message
+
+URL : http://exchange.opaclabs.com/messaging/api/v2/push/{tenant}/{notification_type}/{entity_type}/{entity_id}/{title}/{message}
+
+
+http://exchange.opaclabs.com/messaging/api/v2/push/resure/fcm/user/1/hello/hello+world1
+
+http://exchange.opaclabs.com/messaging/api/v2/push/resure/fcm/circle/social_circle/hello/hello world Circle
+
+
+## Send SMS 
+
+http://exchange.opaclabs.com/messaging/api/v2/push/resure/sms/user/1/hello/hello+world1
+
+
+## Send Email 
+
+http://exchange.opaclabs.com/messaging/api/v2/push/resure/email/user/1/hello/hello+world1
+
+
+## Send Web Message
+
+http://exchange.opaclabs.com/messaging/api/v2/push/resure/web_push/user/1/hello/hello+world1

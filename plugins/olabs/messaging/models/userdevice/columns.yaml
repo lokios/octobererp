@@ -1,0 +1,25 @@
+columns:
+    id:
+        label: id
+        type: number
+    type:
+        label: type
+        type: text
+    user_id:
+        label: user_id
+        type: number
+    username:
+        label: username
+        type: text
+    status:
+        label: status
+        type: text
+    fcm_token:
+        label: fcm_token
+        type: text
+    fcm_token_datetime:
+        label: fcm_token_datetime
+        type: text
+    device_id:
+        label: device_id
+        type: text

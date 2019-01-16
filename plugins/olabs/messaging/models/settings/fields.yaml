@@ -1,0 +1,48 @@
+tabs:
+    fields:
+#        notification_section:
+#            tab: 'olabs.messaging::lang.settings.general'
+#            label: 'olabs.messaging::lang.settings.notification_section'
+##            comment: 'olabs.oims::lang.settings.notification_section_comment'
+#            type: section
+#        fcm_access_key:
+#            tab: 'olabs.messaging::lang.settings.general'
+#            label: 'olabs.messaging::lang.settings.fcm_access_token'
+#            type: text
+#            span: full
+##            default: false
+            
+        tenant_code:
+            tab: 'olabs.messaging::lang.settings.general'
+            label: Tenant Code
+            type: text
+            span: full
+            
+        messaging_api_url:
+            tab: 'olabs.messaging::lang.settings.general'
+            label: Messaging API URL
+            type: text
+            span: auto
+        
+        messaging_api_key:
+            tab: 'olabs.messaging::lang.settings.general'
+            label: Messaging API Token
+            type: text
+            span: auto
+            
+        messaging_fcm:
+            tab: 'olabs.messaging::lang.settings.fcm'
+            prompt: Add FCM Access Key
+            type: repeater
+            form:
+                fields:
+                    tenant_code:
+                        label: Tenant Code
+                        type: text
+                        span: full
+                    api_access_key:
+                        label: API Access Key
+                        type: text
+                        span: full
+                    
+            

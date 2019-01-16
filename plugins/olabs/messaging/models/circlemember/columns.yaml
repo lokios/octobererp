@@ -1,0 +1,28 @@
+columns:
+    id:
+        label: id
+        type: number
+    circle_id:
+        label: circle_id
+        type: number
+    user_id:
+        label: user_id
+        type: number
+    username:
+        label: username
+        type: text
+    first_name:
+        label: first_name
+        type: text
+    last_name:
+        label: last_name
+        type: text
+    phone_no:
+        label: phone_no
+        type: text
+    email:
+        label: email
+        type: text
+    fcm_token:
+        label: fcm_token
+        type: text

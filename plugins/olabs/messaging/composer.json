@@ -1,0 +1,5 @@
+{
+    "require": {
+        //"brozot/laravel-fcm": "^1.2"
+    }
+}

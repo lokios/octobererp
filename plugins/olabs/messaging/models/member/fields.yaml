@@ -1,0 +1,34 @@
+fields:
+    user_id:
+        label: 'User Id'
+        span: auto
+        type: text
+    username:
+        label: Username
+        span: auto
+        type: text
+    fcm_token:
+        label: 'FCM Token'
+        span: auto
+        type: text
+    device_id:
+        label: 'Device Id'
+        span: auto
+        type: text
+    tenant_code:
+        label: Tenant
+        span: auto
+        type: text
+        comment: Default will be messaging settings tenant code
+    status:
+        label: Status
+        span: auto
+        type: text
+    phone_no:
+        label: Phone No.
+        span: auto
+        type: text
+    email:
+        label: Email
+        span: auto
+        type: text

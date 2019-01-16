@@ -1,0 +1,12 @@
+list: $/olabs/messaging/models/circle/columns.yaml
+modelClass: Olabs\Messaging\Models\Circle
+title: Circles
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'olabs/messaging/circles/update/:id'

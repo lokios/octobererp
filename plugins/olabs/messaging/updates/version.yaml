@@ -1,0 +1,59 @@
+1.0.0:
+    - 'First version of Messaging Plugin'
+1.0.1:
+    - 'Created table olabs_messaging_user_devices'
+    - builder_table_create_olabs_messaging_user_devices.php
+1.0.2:
+    - 'Updated table olabs_messaging_user_devices'
+    - builder_table_update_olabs_messaging_user_devices.php
+1.0.3:
+    - 'Created table olabs_messaging_templates'
+    - builder_table_create_olabs_messaging_templates.php
+1.0.4:
+    - 'Updated table olabs_messaging_templates'
+    - builder_table_update_olabs_messaging_templates.php
+1.0.5:
+    - 'Updated table olabs_messaging_templates'
+    - builder_table_update_olabs_messaging_templates_2.php
+1.0.6:
+    - 'Updated table olabs_messaging_user_devices'
+    - builder_table_update_olabs_messaging_user_devices_2.php
+1.0.7:
+    - 'Updated table olabs_messaging_user_devices'
+    - builder_table_update_olabs_messaging_user_devices_3.php
+1.0.8:
+    - 'Updated table olabs_messaging_templates'
+    - builder_table_update_olabs_messaging_templates_3.php
+1.0.9:
+    - 'Created table olabs_messaging_circles'
+    - builder_table_create_olabs_messaging_circles.php
+1.0.10:
+    - 'Created table olabs_messaging_circle_members'
+    - builder_table_create_olabs_messaging_circle_members.php
+1.0.11:
+    - 'Updated table olabs_messaging_circles'
+    - builder_table_update_olabs_messaging_circles.php
+1.0.12:
+    - 'Created table olabs_messaging_notifications'
+    - builder_table_create_olabs_messaging_notifications.php
+1.0.13:
+    - 'Updated table olabs_messaging_notifications'
+    - builder_table_update_olabs_messaging_notifications.php
+1.0.14:
+    - 'Updated table olabs_messaging_circle_members'
+    - builder_table_update_olabs_messaging_circle_members.php
+1.0.15:
+    - 'Updated table olabs_messaging_circle_members'
+    - builder_table_update_olabs_messaging_circle_members_2.php
+1.0.16:
+    - 'Updated table olabs_messaging_notifications'
+    - builder_table_update_olabs_messaging_notifications_2.php
+1.0.17:
+    - 'Updated table olabs_messaging_user_devices'
+    - builder_table_update_olabs_messaging_users.php
+1.0.18:
+    - 'Updated table olabs_messaging_templates'
+    - builder_table_update_olabs_messaging_templates_4.php
+1.0.19:
+    - 'Created table olabs_messaging_user_devices'
+    - builder_table_create_olabs_messaging_user_devices_2.php

@@ -1,6 +1,6 @@
 <?php
 
-namespace Olabs\Social\Classes;
+namespace Olabs\Messaging\Classes;
 
 use Model;
 use BackendAuth;

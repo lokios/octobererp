@@ -1,0 +1,33 @@
+fields:
+    circle_id:
+        label: 'Circle Id'
+        span: auto
+        type: text
+    user_id:
+        label: 'User Id'
+        span: auto
+        type: text
+    username:
+        label: Username
+        span: auto
+        type: text
+    first_name:
+        label: 'First Name'
+        span: auto
+        type: text
+    last_name:
+        label: 'Last Name'
+        span: auto
+        type: text
+    phone_no:
+        label: 'Phone No.'
+        span: auto
+        type: text
+    email:
+        label: Email
+        span: auto
+        type: text
+    fcm_token:
+        label: 'FCM Token'
+        span: auto
+        type: text

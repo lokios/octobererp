@@ -189,6 +189,8 @@ class BaseModel extends Model {
         $history = new StatusHistory();
         $history->_statusChange($this);
 
+        //generate notification
+        $this->sendNotification();
 
         $msg['s'] = true;
         $msg['m'] = 'Record submitted for approval successfully!';
@@ -196,7 +198,40 @@ class BaseModel extends Model {
 
         return $msg;
     }
+    
+    
+    public function sendNotification(){
+        $template_code = $this->getEntityType() . '_' . $this->status;
+        $params = [
+            '{{reference_number}}' => isset($this->reference_number) ? $this->reference_number : '',
+        ];
+        $to_users = [];
+        $from_user = [];
+        
+        $entity_project = $this->project_id;
+        switch ($this->status){
+            case Status::STATUS_SUBMITTED:
+                $filter = self::USER_GROUP_PROJECT_ENCHARGE;
+                //get Project Encharge for the same project
+                $to_users = \Backend\Models\User::select('*')->whereHas('projects', function($project) use ($entity_project) {
+                    $project->where('id', $entity_project);
+                })->whereHas('role', function($role) use ($filter) {
+                    $role->where('code', $filter);
+                })->get();
+        }
+        
+        //If no user found then return
+        if(!count($to_users)){
+            return true;
+        }
+        
+        //Notification model function call
+        $pushService = new \Olabs\Messaging\Models\Notification();
+        $status = $pushService->initialize($template_code, $params, $to_users, $from_user);
+        return $status;
+    }
 
+    
     public function onApproved() {
         $msg = [];
         //check for current status

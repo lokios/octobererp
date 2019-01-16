@@ -1,0 +1,10 @@
+name: Circles
+form: $/olabs/messaging/models/circle/fields.yaml
+modelClass: Olabs\Messaging\Models\Circle
+defaultRedirect: olabs/messaging/circles
+create:
+    redirect: 'olabs/messaging/circles/update/:id'
+    redirectClose: olabs/messaging/circles
+update:
+    redirect: olabs/messaging/circles
+    redirectClose: olabs/messaging/circles
