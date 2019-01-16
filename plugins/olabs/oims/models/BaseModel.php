@@ -18,6 +18,16 @@ class BaseModel extends Model {
     const USER_GROUP_SITE_ENCHARGE = 'inventory_site_encharge';
     const USER_GROUP_PROJECT_ENCHARGE = 'project_encharge';
     const USER_GROUP_ADMIN = 'inventory_administrator';
+    
+    const USER_ROLE_ADMIN = 'inventory_administrator';
+    const USER_ROLE_PROJECT_ENCHARGE = 'project_encharge';
+    const USER_ROLE_PROJECT_ACCOUNTANT = 'project_accountant';
+    const USER_ROLE_SUPPLIER = 'inventory_supplier';
+    const USER_ROLE_CUSTOMER = 'inventory_customer';
+    const USER_ROLE_HO_ACCOUNTANT = 'ho_accountant';
+    const USER_ROLE_EMPLOYEE = 'employee';
+    
+    
     const ATTENDANCE_WORKING_HOUR = 8; //default working hours for attendance
     const ATTENDANCE_GRACE_TIME = 1; //default grace time total working hours
     const ATTENDANCE_LUNCH_HOUR = 0; //default lunch time
@@ -211,13 +221,34 @@ class BaseModel extends Model {
         $entity_project = $this->project_id;
         switch ($this->status){
             case Status::STATUS_SUBMITTED:
-                $filter = self::USER_GROUP_PROJECT_ENCHARGE;
+                $filter = self::USER_ROLE_PROJECT_ENCHARGE;
                 //get Project Encharge for the same project
                 $to_users = \Backend\Models\User::select('*')->whereHas('projects', function($project) use ($entity_project) {
                     $project->where('id', $entity_project);
                 })->whereHas('role', function($role) use ($filter) {
                     $role->where('code', $filter);
                 })->get();
+                break;
+            case Status::STATUS_APPROVED:
+                $filter = self::USER_ROLE_HO_ACCOUNTANT;
+                //get Project Encharge for the same project
+                $to_users = \Backend\Models\User::select('*')->whereHas('projects', function($project) use ($entity_project) {
+                    $project->where('id', $entity_project);
+                })->whereHas('role', function($role) use ($filter) {
+                    $role->where('code', $filter);
+                })->get();
+                break;
+            case Status::STATUS_HO_SUBMITTED:
+                $filter = self::USER_ROLE_HO_ACCOUNTANT;
+                //get Project Encharge for the same project
+                $to_users = \Backend\Models\User::select('*')->whereHas('projects', function($project) use ($entity_project) {
+                    $project->where('id', $entity_project);
+                })->whereHas('role', function($role) use ($filter) {
+                    $role->where('code', $filter);
+                })->get();
+                break;
+            
+                    
         }
         
         //If no user found then return
@@ -249,7 +280,9 @@ class BaseModel extends Model {
         $history = new StatusHistory();
         $history->_statusChange($this);
 
-
+        //generate notification
+        $this->sendNotification();
+        
         $msg['s'] = true;
         $msg['m'] = 'Record approved successfully!';
 
@@ -300,6 +333,10 @@ class BaseModel extends Model {
         $history->_statusChange($this);
 
 
+        //generate notification
+        $this->sendNotification();
+        
+        
         $msg['s'] = true;
         $msg['m'] = 'Record submitted for HO approval successfully!';
 

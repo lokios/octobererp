@@ -534,7 +534,7 @@ class Plugin extends PluginBase {
                         return true;
                     }
 //                    return $model->groups()->whereCode(Models\BaseModel::USER_GROUP_ADMIN)->exists();
-                    return $model->role()->whereCode(Models\BaseModel::USER_GROUP_ADMIN)->exists();
+                    return $model->role()->whereCode(Models\BaseModel::USER_ROLE_ADMIN)->exists();
                 });
             });
             Backend\Controllers\Users::extendFormFields(function($widget) {
