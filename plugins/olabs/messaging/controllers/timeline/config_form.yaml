@@ -1,0 +1,10 @@
+name: Notifications
+form: $/olabs/social/models/notifications/fields.yaml
+modelClass: Olabs\Social\Models\Notifications
+defaultRedirect: olabs/social/notifications
+create:
+    redirect: 'olabs/social/notifications/update/:id'
+    redirectClose: olabs/social/notifications
+update:
+    redirect: olabs/social/notifications
+    redirectClose: olabs/social/notifications

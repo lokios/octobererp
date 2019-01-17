@@ -9,6 +9,7 @@ return [
         'access_manage_messaging' => 'Access to Messaging',
         'access_members' => 'Access to Members',
         'access_circles' => 'Access to Circles',
+        'access_notifications' => 'Access to Notifications',
         'access_templates' => 'Access to Templates',
         'access_manage_settings' => 'Access to Manage Settings',
         'please_select' => '-- Please select --',
@@ -33,5 +34,8 @@ return [
         'web_push_template' => 'Web Push Template',
         'title' => 'Title',
     ],
-    
+    'messaging' => [
+        'menu_label' => 'Messaging',
+        'menu_label_single' => 'Messaging',
+    ],
 ];

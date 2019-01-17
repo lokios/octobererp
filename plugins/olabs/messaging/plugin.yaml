@@ -30,4 +30,10 @@ navigation:
                 icon: icon-sitemap
                 permissions:
                     - olabs.messaging.circles
+            notifications:
+                label: Notifications
+                url: olabs/messaging/notifications
+                icon: icon-sitemap
+                permissions:
+                    - olabs.messaging.notifications
         

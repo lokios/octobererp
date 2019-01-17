@@ -64,6 +64,7 @@ class Plugin extends PluginBase {
             'olabs.messaging.members' => ['tab' => 'olabs.messaging::lang.plugin.messaging', 'label' => 'olabs.messaging::lang.plugin.access_members'],
             'olabs.messaging.templates' => ['tab' => 'olabs.messaging::lang.plugin.messaging', 'label' => 'olabs.messaging::lang.plugin.access_templates'],
             'olabs.messaging.circles' => ['tab' => 'olabs.messaging::lang.plugin.messaging', 'label' => 'olabs.messaging::lang.plugin.access_circles'],
+            'olabs.messaging.notifications' => ['tab' => 'olabs.messaging::lang.plugin.messaging', 'label' => 'olabs.messaging::lang.plugin.access_notifications'],
             
         ];
     }
