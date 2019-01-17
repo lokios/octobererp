@@ -1,0 +1,4 @@
+title: Notifications
+modelClass: Olabs\Messaging\Models\Notification
+toolbar:
+    buttons: reorder_toolbar
