@@ -18,7 +18,7 @@ recordUrl: 'olabs/social/notifications/update/:id'
 noRecordsMessage: 'backend::lang.list.no_records'
 
 # Records to display per page
-recordsPerPage: 5
+recordsPerPage: 50
 
 # Displays the list column set up button
 showSetup: false

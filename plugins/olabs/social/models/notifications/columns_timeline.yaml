@@ -32,7 +32,9 @@ columns:
 #        type: datetime
     created_at:
         label: Date
-        type: timesince
+#        type: timesince
+        type: timetense
+#        type: datetime
         # Display datetime exactly as it is stored, ignores October's and the backend user's specified timezones.
         ignoreTimezone: true
     updated_at:

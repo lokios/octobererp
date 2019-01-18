@@ -7,6 +7,7 @@ use Olabs\Social\Classes\SmsClient;
 use Olabs\Social\Classes\FcmClient;
 use Olabs\Social\Classes\EmailClient;
 use Olabs\Social\Classes\WebPushClient;
+use BackendAuth;
 
 /**
  * Model
@@ -81,7 +82,7 @@ class Notifications extends Model {
                 //$value['message'] = '9958202825';
 
                 $this->sendEmail($value['to'], $value['title'], $value['message']);
-            }else if (isset($value['type']) && $value['type'] == 'web_push') {
+            } else if (isset($value['type']) && $value['type'] == 'web_push') {
                 //$value['to'] = '9958202825';
                 //$value['message'] = '9958202825';
 
@@ -121,7 +122,6 @@ class Notifications extends Model {
         return $status;
     }
 
-    
     //Email @todo
     public function sendEmail($to, $subject, $message) {
         $status = FALSE;
@@ -133,23 +133,23 @@ class Notifications extends Model {
 //        dd($api_key);
 //        if ($api_key != '' && $token != '') {
 
-            $email_client = new EmailClient();
-            $response = $email_client->publish($to, $msgData);
-            // Yii::log("_sendSmsViaAws content ::".CVarDumper::dumpAsString($smsTo." ".$msgText), CLogger::LEVEL_INFO);
-            if (isset($response['s']) && $response['s'] == '200') {
-                $status = true;
-                $this->email_count++;
-                $this->email_status = $response['s'];
-                $this->email_sent_at = date('Y-m-d H:i:s');
+        $email_client = new EmailClient();
+        $response = $email_client->publish($to, $msgData);
+        // Yii::log("_sendSmsViaAws content ::".CVarDumper::dumpAsString($smsTo." ".$msgText), CLogger::LEVEL_INFO);
+        if (isset($response['s']) && $response['s'] == '200') {
+            $status = true;
+            $this->email_count++;
+            $this->email_status = $response['s'];
+            $this->email_sent_at = date('Y-m-d H:i:s');
 //                $this->mobile_push_status = 200;
-            } else {
-                //Yii::log("sendSmsViaAws response ::".CVarDumper::dumpAsString($response), CLogger::LEVEL_INFO);
-            }
+        } else {
+            //Yii::log("sendSmsViaAws response ::".CVarDumper::dumpAsString($response), CLogger::LEVEL_INFO);
+        }
 //        }
 
         return $status;
     }
-        
+
     //Email @todo
     public function sendWebPush($to, $subject, $message) {
         $status = FALSE;
@@ -161,26 +161,23 @@ class Notifications extends Model {
 //        dd($api_key);
 //        if ($api_key != '' && $token != '') {
 
-            $web_push_client = new WebPushClient();
-            $response = $web_push_client->publish($to, $msgData);
-            // Yii::log("_sendSmsViaAws content ::".CVarDumper::dumpAsString($smsTo." ".$msgText), CLogger::LEVEL_INFO);
-            if (isset($response['s']) && $response['s'] == '200') {
-                $status = true;
-                $this->web_push_count++;
-                $this->web_push_status = $response['s'];
-                $this->web_push_sent_at = date('Y-m-d H:i:s');
+        $web_push_client = new WebPushClient();
+        $response = $web_push_client->publish($to, $msgData);
+        // Yii::log("_sendSmsViaAws content ::".CVarDumper::dumpAsString($smsTo." ".$msgText), CLogger::LEVEL_INFO);
+        if (isset($response['s']) && $response['s'] == '200') {
+            $status = true;
+            $this->web_push_count++;
+            $this->web_push_status = 'unread'; //$response['s'];
+            $this->web_push_sent_at = date('Y-m-d H:i:s');
 //                $this->mobile_push_status = 200;
-            } else {
-                //Yii::log("sendSmsViaAws response ::".CVarDumper::dumpAsString($response), CLogger::LEVEL_INFO);
-            }
+        } else {
+            //Yii::log("sendSmsViaAws response ::".CVarDumper::dumpAsString($response), CLogger::LEVEL_INFO);
+        }
 //        }
 
         return $status;
     }
-            
-    
-    
-    
+
     //SMS
 
 
@@ -236,6 +233,105 @@ class Notifications extends Model {
         }
 
         return $sendSms;
+    }
+
+    /*
+     * Get user notification count 
+     * PARAMS : 
+     *  target_id : <user_id>
+     *  target_type : user
+     *  notification_type : web_push, sms, email, fcm
+     *  status : unread, read, all
+     */
+
+    public static function getNotificationCount($params = []) {
+
+        if (!isset($params['target_id'])) {
+            $user = BackendAuth::getUser();
+            $params['target_id'] = $user->id;
+            $params['target_type'] = 'user';
+        }
+
+        $params['target_type'] = isset($params['target_type']) ? $params['target_type'] : 'user';
+        $params['notification_type'] = isset($params['notification_type']) ? $params['notification_type'] : 'web_push';
+        $params['web_push_status'] = isset($params['web_push_status']) ? $params['web_push_status'] : 'unread';
+
+        if ($params['web_push_status'] == 'all') {
+            unset($params['web_push_status']);
+        }
+
+        $count = Notifications::where($params)
+                ->count();
+
+        return $count;
+    }
+
+    /*
+     * Get users all notification
+     * PARAMS : 
+     *  target_id : <user_id>
+     *  target_type : user
+     *  notification_type : web_push, sms, email, fcm
+     *  status : unread, read, all
+     */
+
+    public static function getNotifications($params = []) {
+        if (!isset($params['target_id'])) {
+            $user = BackendAuth::getUser();
+            $params['target_id'] = $user->id;
+            $params['target_type'] = 'user';
+        }
+
+        $params['target_type'] = isset($params['target_type']) ? $params['target_type'] : 'user';
+        $params['notification_type'] = isset($params['notification_type']) ? $params['notification_type'] : 'web_push';
+        $params['web_push_status'] = isset($params['web_push_status']) ? $params['web_push_status'] : 'unread';
+
+        if ($params['web_push_status'] == 'all') {
+            unset($params['web_push_status']);
+        }
+
+        $model = Notifications::where($params)
+                ->take(20)
+                ->orderBy('created_at', 'DESC')
+                ->get();
+
+        return $model;
+    }
+
+    /*
+     * Update users notification status
+     * PARAMS : 
+     *  id : <notification_id>
+     *  target_id : <user_id>
+     *  target_type : user
+     *  notification_type : web_push, sms, email, fcm
+     *  status : unread, read, all
+     */
+
+    public static function setNotificationStatus($params = [], $status = 'read') {
+        
+        if (!isset($params['target_id'])) {
+            $user = BackendAuth::getUser();
+            $params['target_id'] = $user->id;
+            $params['target_type'] = 'user';
+        }
+
+        $params['target_type'] = isset($params['target_type']) ? $params['target_type'] : 'user';
+        $params['notification_type'] = isset($params['notification_type']) ? $params['notification_type'] : 'web_push';
+        $params['web_push_status'] = isset($params['web_push_status']) ? $params['web_push_status'] : 'unread';
+        
+        if (!isset($params['id'])) {
+            return false;
+        }
+
+        if ($params['id'] == 'all') {
+            unset($params['id']);
+        }
+
+        $model = Notifications::where($params)
+                ->update(['web_push_status' => 'read']);
+        
+        return TRUE;
     }
 
 }

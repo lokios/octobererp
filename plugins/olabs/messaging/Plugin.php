@@ -14,7 +14,6 @@ use Route;
 use Redirect;
 use Yaml;
 
-
 /**
  * Oims Plugin Information File
  */
@@ -65,7 +64,6 @@ class Plugin extends PluginBase {
             'olabs.messaging.templates' => ['tab' => 'olabs.messaging::lang.plugin.messaging', 'label' => 'olabs.messaging::lang.plugin.access_templates'],
             'olabs.messaging.circles' => ['tab' => 'olabs.messaging::lang.plugin.messaging', 'label' => 'olabs.messaging::lang.plugin.access_circles'],
             'olabs.messaging.notifications' => ['tab' => 'olabs.messaging::lang.plugin.messaging', 'label' => 'olabs.messaging::lang.plugin.access_notifications'],
-            
         ];
     }
 
@@ -89,12 +87,27 @@ class Plugin extends PluginBase {
      */
     public function boot() {
         $this->bootBackendUserExtend();
-        
+
         $messagingSettings = \Olabs\Messaging\Models\Settings::instance();
         $alias = AliasLoader::getInstance();
+        
+        $this->bootBackendControllerExtend();
+        
+    }
+
+    /**
+     * Extend the Backend Controller for Notify Widget controller to include the Backend\Classes\Controller too
+     */
+    private function bootBackendControllerExtend() {
+        Backend\Classes\Controller::extend(function($controller) {
+
+            $myWidget = new \Olabs\Messaging\Widgets\Notify($controller);
+            $myWidget->alias = 'Notify';
+            $myWidget->bindToController();
+        });
     }
     
-    
+
     /**
      * Extend plugin Backend.User
      */
@@ -104,12 +117,9 @@ class Plugin extends PluginBase {
 
             Backend\Models\User::extend(function($model) {
 
-                $model->belongsToMany['userDevices'] = ['Olabs\Messaging\Models\UserDevice', 'table' => 'olabs_messaging_user_devices', 'conditions'=>'status=`L`'];
-
+                $model->belongsToMany['userDevices'] = ['Olabs\Messaging\Models\UserDevice', 'table' => 'olabs_messaging_user_devices', 'conditions' => 'status=`L`'];
             });
         }
     }
-
-    
 
 }
