@@ -71,7 +71,8 @@ class Template extends BaseModel
         if (isset($template->web_push_template['status']) && $template->web_push_template['status']) {
             $title = isset($template->web_push_template['title']) ? Settings::notification_format($template->web_push_template['title'], $params) : '';
             $message = isset($template->web_push_template['message']) ? Settings::notification_format($template->web_push_template['message'], $params) : '';
-            $notification['web_push'] = ['title' => $title, 'message' => $message];
+            $url = isset($template->web_push_template['url']) ? Settings::notification_format($template->web_push_template['url'], $params) : '';
+            $notification['web_push'] = ['title' => $title, 'message' => $message, 'url' => $url];
         }
         
 

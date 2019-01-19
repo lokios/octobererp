@@ -6,6 +6,7 @@ use Model;
 use DB;
 use Lang;
 use BackendAuth;
+use Queue;
 
 /**
  * Model
@@ -42,6 +43,30 @@ class Notification extends BaseModel {
      */
     public $table = 'olabs_messaging_notifications';
 
+    
+    public function onEventAsync($data) {
+
+        try {
+            return $this->_onEventAsync($data);
+        } catch (\Exception $e) {
+            return ['e' => $e->getMessage()];
+        }
+    }
+
+    public function _onEventAsync($data) {
+        
+//        Queue::push(function($job) use ($data) {
+
+            $service = new \Olabs\Oims\Models\BaseModel();
+            $service->notify($data);
+
+//            $job->delete();
+//        });
+
+        return '200';
+    }
+    
+    
     /*
      * Initilaizing notifications for sending from plugins
      */
@@ -312,7 +337,7 @@ class Notification extends BaseModel {
             //save in social notification for each member
             foreach ($circle_members as $member) {
                 if ($member->user_id != '') {
-                    $temp = [];
+                    $temp = $notification[self::NOTIFICATION_TYPE_WEB_PUSH];
                     $temp['type'] = self::NOTIFICATION_TYPE_WEB_PUSH;
                     $temp['title'] = $title;
                     $temp['message'] = $message;

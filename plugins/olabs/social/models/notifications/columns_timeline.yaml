@@ -15,8 +15,8 @@ columns:
 #        oc.commentPosition: ''
 #        span: auto
 #        type: text    
-    status:
-        label: Status
+    web_push_status:
+        label: Web Push Status
         oc.commentPosition: ''
         span: auto
         type: text

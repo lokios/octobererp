@@ -35,16 +35,19 @@ class Notify extends WidgetBase {
             $json_data = $model->data;
             $title = '';
             $message = '';
+            $url = '';
             foreach($json_data as $v){
                 if($v['type'] == 'web_push'){
                     $title = $v['title'];
                     $message = $v['message'];
+                    $url = isset($v['url']) ? $v['url'] : false ;
                 }
             }
             $temp['id'] = $model->id;
             $temp['s'] = $model->web_push_status;
             $temp['t'] = $title;
             $temp['m'] = $message;
+            $temp['u'] = $url;
             $temp['at'] = DateTime::timeTense($model->created_at);
             
             $notifications[] = $temp;

@@ -27,7 +27,7 @@ var Notifications = function() {
                 if (o.s === 'unread') {
                     itemClass = 'unread';
                 }
-                content = '<li class="n_item ' + itemClass + '" data-nid="' + o.id + '"><a href="#"><h4>' + o.t + '<small><i class="fa fa-clock-o"></i> ' + o.at + '</small></h4><p>' + o.m + '</p></a></li>';
+                content = '<li class="n_item ' + itemClass + '" data-nid="' + o.id + '" data-url="' + o.u + '"><a href="#"><h4>' + o.t + '<small><i class="fa fa-clock-o"></i> ' + o.at + '</small></h4><p>' + o.m + '</p></a></li>';
 //                content = '<li class="n_item ' + itemClass + '" data-nid="' + o.id + '" >' + o.view + '</li>';
                 self.itemsContainer.append(content);
             });
@@ -38,11 +38,17 @@ var Notifications = function() {
 //      console.log('read event');
 //      console.log(data);
         var params = {id: data.nid}
+        var url = data.url;
         $.request('Notify::onNotificationRead', {
             data: params, success: function(dataSource) {
                 self.count_unread = self.count_unread - 1;
                 self.counter.text(self.count_unread);
                 console.log('updated successfully!');
+                console.log('URL : ' + url);
+                if(url){
+                    window.location = url;
+                    return false;
+                }
             }
         });
     };
@@ -114,6 +120,15 @@ var Notifications = function() {
     });
 
     $(document).on('click', 'li.unread', function(e) {
+         e.preventDefault();
+        var that = $(this);
+        var data = that.data();
+        that.removeClass('unread').addClass('read');
+        self.onRead(data);
+        return false;
+    });
+    
+    $(document).on('click', 'div.unread', function(e) {
          e.preventDefault();
         var that = $(this);
         var data = that.data();

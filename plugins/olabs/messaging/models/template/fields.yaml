@@ -51,6 +51,11 @@ tabs:
             tab: olabs.messaging::lang.template.web_push_template
             span: auto
             type: text
+        web_push_template[url]:
+            label: Url
+            tab: olabs.messaging::lang.template.web_push_template
+            span: auto
+            type: text
         web_push_template[status]:
             label: Status
             tab: olabs.messaging::lang.template.web_push_template
