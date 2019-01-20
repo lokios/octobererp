@@ -1,0 +1,46 @@
+
+repo_url="https://github.com/lokios/octobererp.git"
+deploy_base_dir=/home/www/octoberepr/
+
+/etc/init.d/supervisor stop
+
+cd /home/www/octobererp_prod/
+rm -rf /home/www/octoberepr
+cd /home/www/
+git clone -b master  $repo_url
+
+rm -rf /home/www/octoberepr/storage/framework/sessions/
+rm -rf /home/www/octoberepr/storage/framework/logs/
+rm -rf /home/www/octoberepr/storage/framework/cache/
+rm -rf /home/www/octoberepr/storage/oims/cache/
+rm -rf /home/octoberepr/storage/oims/twig/
+
+mkdir -p /home/www/octoberepr/storage/framework/sessions/
+mkdir -p /home/www/octoberepr/storage/framework/logs/
+mkdir -p /home/www/octoberepr/storage/framework/cache/
+mkdir -p /home/www/octoberepr/storage/oims/cache/
+mkdir -p /home/www/octoberepr/storage/oims/twig/
+mkdir -p /home/www/octoberepr/storage/oims/combiner/
+mkdir -p /home/www/octoberepr/storage/logs/
+mkdir -p /home/www/octoberepr/storage/temp/
+
+rm -rf /home/www/octoberepr/storage/cms/cache/
+rm -rf /home/www/octoberepr/storage/cms/twig/
+
+mkdir -p /home/www/octoberepr/storage/cms/cache/
+mkdir -p /home/www/octoberepr/storage/cms/twig/
+mkdir -p /home/www/octoberepr/storage/cms/combiner/
+
+cp -Rf /home/deploy/octobererp/prod/config/ /home/www/octoberepr/
+mv /home/www/octoberepr/plugins/olabs/tenant/config/prod /home/www/octoberepr/plugins/olabs/tenant/config/dev
+
+chown -R www-data:www-data /home/www/octoberepr
+find  /home/www/octoberepr/ -type d -exec chmod 755 {} \;
+find  /home/www/octoberepr/ -type f -exec chmod 644 {} \;
+sudo chmod -R 775 /home/www/octoberepr
+
+/etc/init.d/supervisor start
+cd /home/www/octoberepr/
+php artisan october:up
+
+echo "done!"

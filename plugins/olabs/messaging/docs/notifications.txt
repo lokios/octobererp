@@ -13,6 +13,8 @@ $sudo service supervisor restart
 To check status
 $ supervisord -n
 
+Config file
+$ nano /etc/supervisor/conf.d/octobererp-worker.conf
 
 Supervisor configuration files are typically stored in the /etc/supervisor/conf.d directory. Within this directory, you may create any number of configuration files 
 that instruct supervisor how your processes should be monitored. For example, let's create a october-worker.conf file that starts and monitors a queue:work process:
@@ -27,6 +29,7 @@ autorestart=true
 numprocs=8
 redirect_stderr=true
 stdout_logfile=/tmp/octobererp_worker.log
+
 
 
 

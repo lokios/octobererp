@@ -259,6 +259,7 @@ class BaseModel extends Model {
         $params = [
             '{{reference_number}}' => isset($model->reference_number) ? $model->reference_number : '',
             '{{id}}' => $model->id,
+            '{{project_name}}' => $model->project->name,
         ];
         $to_users = [];
         $from_user = [];
