@@ -1,0 +1,41 @@
+$ sudo apt-get install supervisor
+
+$/etc/init.d/supervisor stop
+$/etc/init.d/supervisor start
+
+Supervisor configuration files are typically stored in the /etc/supervisor/conf.d directory. Within this directory, you may create any number of configuration files 
+that instruct supervisor how your processes should be monitored. For example, let's create a october-worker.conf file that starts and monitors a queue:work process:
+
+#Sample config
+[program:october-worker]
+process_name=%(program_name)s_%(process_num)02d
+command=php /path/to/october/artisan queue:work --sleep=3 --tries=3
+autostart=true
+autorestart=true
+user=october
+numprocs=8
+redirect_stderr=true
+stdout_logfile=/path/to/october/worker.log
+
+#OctoberErp config
+[program:octobererp-worker]
+process_name=%(program_name)s_%(process_num)02d
+command=php /home/dev/www/octobererp/artisan queue:work --sleep=3 --tries=3
+autostart=true
+autorestart=true
+user=apache
+numprocs=8
+redirect_stderr=true
+stdout_logfile=/tmp/octobererp_worker.log
+
+
+#copied
+[program:laravel-worker]
+process_name=%(program_name)s_%(process_num)02d
+command=php /home/icarus/il_oct/cms/artisan  queue:work  --sleep=10 --tries=3 --daemon
+autostart=true
+autorestart=true
+user=apache
+numprocs=2
+redirect_stderr=true
+stdout_logfile=/home/icarus/worker.log
