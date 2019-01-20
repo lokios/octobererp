@@ -55,11 +55,13 @@ class Notification extends BaseModel {
 
     public function _onEventAsync($data) {
         
+        Queue::push('\Olabs\Messaging\Classes\NotificationQueue', $data);
+        
 //        Queue::push(function($job) use ($data) {
-
-            $service = new \Olabs\Oims\Models\BaseModel();
-            $service->notify($data);
-
+//
+//            $service = new \Olabs\Oims\Models\BaseModel();
+//            $service->notify($data);
+//
 //            $job->delete();
 //        });
 

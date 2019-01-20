@@ -1,4 +1,49 @@
 =======================================================================
+Changes : 14/01/2019
+- Notification Queue setup
+
+
+$ sudo apt-get install supervisor
+
+$/etc/init.d/supervisor stop
+$/etc/init.d/supervisor start
+
+$sudo service supervisor restart
+
+To check status
+$ supervisord -n
+
+
+Supervisor configuration files are typically stored in the /etc/supervisor/conf.d directory. Within this directory, you may create any number of configuration files 
+that instruct supervisor how your processes should be monitored. For example, let's create a october-worker.conf file that starts and monitors a queue:work process:
+
+#OctoberErp config
+[program:octobererp-worker]
+process_name=%(program_name)s_%(process_num)02d
+command=php /home/dev/www/octobererp/artisan queue:work --sleep=3 --tries=3
+autostart=true
+autorestart=true
+#user=apache
+numprocs=8
+redirect_stderr=true
+stdout_logfile=/tmp/octobererp_worker.log
+
+
+
+
+
+# Starting Supervisor
+Once the configuration file has been created, you may update the Supervisor configuration and start the processes using the following commands:
+
+$ sudo supervisorctl reread
+
+$ sudo supervisorctl update
+
+$ sudo supervisorctl start octobererp-worker:*
+
+
+
+=======================================================================
 Changes : 30/10/2018
 - Updated table `olabs_social_notifications` for these fields : notification_type, target_id, target_type
 - Updated Messaging notification for web_push, sms, email & mobile_push (fcm)
