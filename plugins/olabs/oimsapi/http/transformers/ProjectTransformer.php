@@ -111,7 +111,7 @@ class ProjectTransformer extends TransformerAbstract
         $base = $app->getBaseEndpoint();
 
           $modules = [];
-          $module =[  'tenant_id'=>$item->id,'name'=>'Employees','list'=>$base.'/api/v1/employees?employee_project_id='.$item->id,'module'=>'user'
+          $module =[  'tenant_id'=>$item->id,'name'=>'Employees','list'=>$base.'/api/v1/employees?employee_project_id='.$item->id,'module'=>'list'
           ,'edit_url2'=>$base.'/api/v1/employees','barcode_enabled'=>true,
 
               'create2'=>[
