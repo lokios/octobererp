@@ -438,7 +438,7 @@ public function addMainModules_OIMS(&$fmodules){
           ,'format'=>'json','method'=>'post'];
             $fmodules[] = $module;
 
-           $module =[  'item_type'=>'list','name'=>'Recent Attendance Entries','list'=>$base.'/social/api/v1/entityrelations?target_type=attendance&actor_id='.$app->user->id,'module'=>'attendance','edit_url2'=>$base.'/social/api/v1/entityrelations?target_type=attendance&actor_id='.$app->user->id,'barcode_enabled'=>false,
+           $module =[  'item_type'=>'list','name'=>'Recent Attendance','list'=>$base.'/social/api/v1/entityrelations?target_type=attendance&actor_id='.$app->user->id,'module'=>'attendance','edit_url2'=>$base.'/social/api/v1/entityrelations?target_type=attendance&actor_id='.$app->user->id,'barcode_enabled'=>false,
 
              
              ];
@@ -490,7 +490,7 @@ public function addMainModules_OIMS(&$fmodules){
 
             $fmodules[] = $module;
 
-           $module =[  'item_type'=>'list','name'=>'Recent MR Entries','list'=>$base.'/social/api/v1/entityrelations?target_type=mr_entry&actor_id='.$app->user->id,'module'=>'mr_entry','edit_url2'=>$base.'/api/v1/entityrelations','barcode_enabled'=>false,
+           $module =[  'item_type'=>'list','name'=>'Recent MR','list'=>$base.'/social/api/v1/entityrelations?target_type=mr_entry&actor_id='.$app->user->id,'module'=>'mr_entry','edit_url2'=>$base.'/api/v1/entityrelations','barcode_enabled'=>false,
 
              
              ];
@@ -650,6 +650,10 @@ public function addMainModules_OIMS(&$fmodules){
         $model = new \Olabs\Oimsapi\Http\Transformers\ProjectTransformer();
             $project = $model->transform($value);
             //$project['geo_required'] = 'Y';
+
+            $status['app_settings']['post_img_width_'.$project['id']] = 500;
+
+            //$project['post_img_width'] = 300;
             $featured[] = $project;
       }
 
@@ -658,7 +662,8 @@ public function addMainModules_OIMS(&$fmodules){
       $status['app_settings']['featured'] = $featured;
       $status['app_settings']['main_modules'] = $main_modules;
 
-    
+      //images
+      $status['app_settings']['post_img_width'] = 700;
 
       return $status ;
 

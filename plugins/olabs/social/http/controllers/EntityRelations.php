@@ -93,6 +93,7 @@ class EntityRelations extends ApiController {
 
         BaseModel::$feature_enabled = false;
         $id = $request->input('id', false);
+        $images_count = $request->input('images_count', false);
         $files = $request->file('images');
 
 
@@ -108,7 +109,7 @@ class EntityRelations extends ApiController {
         if($existing_files && $existing_files->count()>0){
            BaseModel::$feature_enabled = true;
 
-           return $this->respondWithItem($item);
+           //return $this->respondWithItem($item);
 
         }
 
@@ -129,7 +130,7 @@ class EntityRelations extends ApiController {
                     foreach ($existing_files as $ekey => $efile) {
                         # code...  getClientOriginalName()
                         //if($efile->name ==  $file->getFilename()){
-                      if($efile->name ==  $file1->getClientOriginalName()){
+                      if($efile->file_name ==  $file1->getClientOriginalName()){
                             $alreadyExists = true;
 
                         }
