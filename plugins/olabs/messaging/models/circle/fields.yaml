@@ -1,0 +1,17 @@
+fields:
+    title:
+        label: Title
+        span: auto
+        type: text
+    code:
+        label: Code
+        span: auto
+        type: text
+    status:
+        label: Status
+        span: auto
+        type: text
+    tenant_code:
+        label: 'Tenant Code'
+        span: auto
+        type: text

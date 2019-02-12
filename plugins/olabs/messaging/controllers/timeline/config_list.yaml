@@ -1,0 +1,51 @@
+# ===================================
+#  List Behavior Config
+# ===================================
+
+# Model List Column configuration
+list: $/olabs/social/models/notifications/columns_timeline.yaml
+
+# Model Class name
+modelClass: Olabs\Social\Models\Notifications
+
+# List Title
+title: Notifications
+
+# Link URL for each record
+recordUrl: 'olabs/social/notifications/update/:id'
+
+# Message to display if the list is empty
+noRecordsMessage: 'backend::lang.list.no_records'
+
+# Records to display per page
+recordsPerPage: 50
+
+# Displays the list column set up button
+showSetup: false
+
+# Displays the sorting link on each column
+showSorting: false
+
+
+# Custom view path
+customViewPath: $/olabs/messaging/controllers/timeline/list
+
+# Default sorting column
+# defaultSort:
+#     column: created_at
+#     direction: desc
+
+# Display checkboxes next to each record
+# showCheckboxes: true
+
+#filter: config_filter.yaml
+
+# Toolbar widget configuration
+#toolbar:
+#    # Partial for toolbar buttons
+#    buttons: list_toolbar
+#
+#    # Search widget configuration
+#    search:
+#        prompt: backend::lang.list.search_prompt
+

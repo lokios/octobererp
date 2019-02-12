@@ -1,0 +1,53 @@
+columns:
+    id:
+        label: ID
+        type: text
+#    excerpt:
+#        label: Excerpt
+#        type: text
+#    client:
+#        label: Client
+#        searchable: true
+#        select: name
+#        relation: client
+#    sms_count:
+#        label: 'SMS Sent Count'
+#        oc.commentPosition: ''
+#        span: auto
+#        type: text    
+    web_push_status:
+        label: Web Push Status
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    data:
+        label: Data
+        oc.commentPosition: ''
+        span: auto
+        type: partial
+        path: ~/plugins/olabs/social/models/notifications/_timeline_notification_data.htm
+#    created_at:
+#        label: Created At
+#        searchable: true
+#        type: datetime
+    created_at:
+        label: Date
+#        type: timesince
+        type: timetense
+#        type: datetime
+        # Display datetime exactly as it is stored, ignores October's and the backend user's specified timezones.
+        ignoreTimezone: true
+    updated_at:
+        label: Updated At
+        searchable: true
+        type: datetime
+#    peer_tenant_info:
+#        label: "Business Info"
+#        searchable: true
+#        type: text
+#    peer_branch_info:
+#        label: "Branch Info"
+#        searchable: true
+#        type: text        
+               
+           

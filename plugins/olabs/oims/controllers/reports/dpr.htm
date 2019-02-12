@@ -1,6 +1,7 @@
 <?php Block::put('breadcrumb') ?>
 <ul>
-    <li>DPR Report</li>
+    <li><a href="<?= Backend::url('olabs/oims/reports/dpr') ?>">Reports</a></li>
+    <li><?= e($this->pageTitle) ?></li>
 </ul>
 <?php Block::endPut() ?>
 
@@ -21,14 +22,14 @@
             Search
         </button>
 
-<!--        <button
-            type="submit"
-            data-request="onDprExport"
-
-            class="btn btn-primary">
-            Export
-        </button>-->
+        <!--        <button
+                    type="submit"
+                    data-request="onDprExport"
         
+                    class="btn btn-primary">
+                    Export
+                </button>-->
+
         <button
             type="submit"
             data-request="onDprExportExcel"
@@ -37,33 +38,33 @@
             Export Excel
         </button>
 
-<!--        <button
-            type="submit"
-            data-request="onDprExportExcel"
-            data-request-data="type: 'pdf'"
-            class="btn btn-primary">
-            Export PDF
-        </button>
-        <button
-            type="submit"
-            data-request="onDprExportExcel"
-            data-request-data="type: 'xlsx'"
-            class="btn btn-primary">
-            Export Excel
-        </button>-->
+        <!--        <button
+                    type="submit"
+                    data-request="onDprExportExcel"
+                    data-request-data="type: 'pdf'"
+                    class="btn btn-primary">
+                    Export PDF
+                </button>
+                <button
+                    type="submit"
+                    data-request="onDprExportExcel"
+                    data-request-data="type: 'xlsx'"
+                    class="btn btn-primary">
+                    Export Excel
+                </button>-->
 
-<!--        <div class="btn-group">
-            <button type="button" class="btn btn-primary">Export</button>
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                <li>
-
-                </li>
-                <li></li>
-            </ul>
-        </div>-->
+        <!--        <div class="btn-group">
+                    <button type="button" class="btn btn-primary">Export</button>
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+        
+                        </li>
+                        <li></li>
+                    </ul>
+                </div>-->
 
     </div>
 </div>

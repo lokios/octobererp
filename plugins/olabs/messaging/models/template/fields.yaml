@@ -1,0 +1,102 @@
+fields:
+    title:
+        label: Title
+        span: auto
+        type: text
+    code:
+        label: 'Template Code'
+        span: auto
+        type: text
+    tenant_code:
+        label: Tenant
+        span: auto
+        type: text
+        comment: Default will be messaging settings tenant code
+    status:
+        label: Status
+        span: auto
+        type: dropdown
+        options:
+            L : 'Live'
+            D : 'Draft'
+            O : 'Old'
+        comment: 'L => Live, D => Draft, O => Old'
+    descriptions:
+        label: Description
+        size: ''
+        span: auto
+        type: textarea
+        
+tabs:
+    fields:
+        
+        mobile_push_template[title]:
+            label: Title
+            tab: olabs.messaging::lang.template.mobile_push_template
+            span: auto
+            type: text
+        mobile_push_template[status]:
+            label: Status
+            tab: olabs.messaging::lang.template.mobile_push_template
+            span: auto
+            type: switch
+        mobile_push_template[message]:
+            label: Message
+            tab: olabs.messaging::lang.template.mobile_push_template
+            span: full
+            type: textarea
+
+        web_push_template[title]:
+            label: Title
+            tab: olabs.messaging::lang.template.web_push_template
+            span: auto
+            type: text
+        web_push_template[status]:
+            label: Status
+            tab: olabs.messaging::lang.template.web_push_template
+            span: auto
+            type: switch
+        web_push_template[url]:
+            label: Url
+            tab: olabs.messaging::lang.template.web_push_template
+            span: auto
+            type: text
+        web_push_template[message]:
+            label: Message
+            tab: olabs.messaging::lang.template.web_push_template
+            span: full
+            type: textarea
+            
+        sms_template[title]:
+            label: Title
+            tab: olabs.messaging::lang.template.sms_template
+            span: auto
+            type: text
+        sms_template[status]:
+            label: Status
+            tab: olabs.messaging::lang.template.sms_template
+            span: auto
+            type: switch
+        sms_template[message]:
+            label: Message
+            tab: olabs.messaging::lang.template.sms_template
+            span: full
+            type: textarea
+
+        email_template[title]:
+            label: Title
+            tab: olabs.messaging::lang.template.email_template
+            span: auto
+            type: text
+        email_template[status]:
+            label: Status
+            tab: olabs.messaging::lang.template.email_template
+            span: auto
+            type: switch
+        email_template[message]:
+            label: Message
+            tab: olabs.messaging::lang.template.email_template
+            span: full
+            type: textarea
+
+        

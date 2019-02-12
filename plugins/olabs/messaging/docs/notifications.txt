@@ -1,0 +1,226 @@
+=======================================================================
+Changes : 14/01/2019
+- Notification Queue setup
+
+
+$ sudo apt-get install supervisor
+
+$/etc/init.d/supervisor stop
+$/etc/init.d/supervisor start
+
+$sudo service supervisor restart
+
+To check status
+$ supervisord -n
+
+Config file
+$ nano /etc/supervisor/conf.d/octobererp-worker.conf
+
+Supervisor configuration files are typically stored in the /etc/supervisor/conf.d directory. Within this directory, you may create any number of configuration files 
+that instruct supervisor how your processes should be monitored. For example, let's create a october-worker.conf file that starts and monitors a queue:work process:
+
+#OctoberErp config
+[program:octobererp-worker]
+process_name=%(program_name)s_%(process_num)02d
+command=php /home/dev/www/octobererp/artisan queue:work --sleep=3 --tries=3
+autostart=true
+autorestart=true
+#user=apache
+numprocs=8
+redirect_stderr=true
+stdout_logfile=/tmp/octobererp_worker.log
+
+
+
+
+
+
+# Starting Supervisor
+Once the configuration file has been created, you may update the Supervisor configuration and start the processes using the following commands:
+
+$ sudo supervisorctl reread
+
+$ sudo supervisorctl update
+
+$ sudo supervisorctl start octobererp-worker:*
+
+
+
+=======================================================================
+Changes : 30/10/2018
+- Updated table `olabs_social_notifications` for these fields : notification_type, target_id, target_type
+- Updated Messaging notification for web_push, sms, email & mobile_push (fcm)
+- Updated naming convention in messaging template for web_push & mobile_push 
+
+- Updated Social Notification for sending sms, email, mobile push & web push. 
+
+- Need to configure email, sms & fcm api's to deliver notification from exchange.
+
+
+
+
+API's
+URL : http://exchange.opaclabs.com/messaging/api/v2/push/{tenant}/{notification_type}/{entity_type}/{entity_id}/{title}/{message}
+
+## Send FCM
+http://exchange.opaclabs.com/messaging/api/v2/push/resure/fcm/user/1/hello/hello+world1
+
+## Send SMS 
+
+http://exchange.opaclabs.com/messaging/api/v2/push/resure/sms/user/1/hello/hello+world1
+
+
+## Send Email 
+
+http://exchange.opaclabs.com/messaging/api/v2/push/resure/email/user/1/hello/hello+world1
+
+
+## Send Web Message
+
+http://exchange.opaclabs.com/messaging/api/v2/push/resure/web_push/user/1/hello/hello+world1
+
+=======================================================================
+Changes : 15/10/2018 
+
+- FCM token registration in Settings
+- Register permission for messaging settings
+- Message Template Registration : Added manage template screen with permission "manage_templates"
+
+- Notification push on policy purchase
+/*
+     * On policy purchase send notification to these users 
+     * 1) Policy buyer
+     * 2) Insurance Admin
+     */
+    public function sendNotification(){
+        $status = FALSE;
+        
+        //Send notification to policy buyer
+        if($this->policy_holder_id){
+            $params = [];
+            $template_code = 'policy_purchase';
+
+            $to_users = [$this->policy_holder];
+
+            $status = \Olabs\Messaging\Models\Notification::send($template_code, $params, $to_users);
+            
+        }
+        
+        return $status;
+    }
+
+
+DB Design :
+--
+-- Table structure for table `olabs_messaging_templates`
+--
+
+CREATE TABLE `olabs_messaging_templates` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `iam_template` text COLLATE utf8_unicode_ci,
+  `sms_template` text COLLATE utf8_unicode_ci,
+  `email_template` text COLLATE utf8_unicode_ci,
+  `device_template` text COLLATE utf8_unicode_ci,
+  `descriptions` text COLLATE utf8_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+ALTER TABLE `olabs_messaging_templates` ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `olabs_messaging_templates` MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+
+
+
+=======================================================================
+Changes : 12/10/2018 - User device registration for FCM Messaging
+
+Messaging Plugin : added messaging plugin to manage all notification related actions
+
+Menu - Messaging -> User Devices
+Permission - Access to User Devices
+
+DB Design :
+--
+-- Table structure for table `olabs_messaging_user_devices`
+--
+
+CREATE TABLE `olabs_messaging_user_devices` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user_id` int(10) UNSIGNED DEFAULT NULL,
+  `username` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fcm_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fcm_token_datetime` datetime DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `device_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+ALTER TABLE `olabs_messaging_user_devices`  ADD PRIMARY KEY (`id`);
+ALTER TABLE `olabs_messaging_user_devices`  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+
+API Route :: written in insurance route
+
+/*
+ * Register User Device for FCM messaging
+ * Params : user_id, fcm_token, fcm_token_datetime, type, device_id
+ * Type => android, ios
+ */
+
+Route::post('insurance/api/v2/userdevice_register', function (Request $request) {
+        //BaseModel::$feature_enabled = false;
+        $params = $request->json()->all();//Input::all();
+
+        //return $params;
+        $user = false;
+
+        $dataSource = \Olabs\Messaging\Models\UserDevice::register($params);
+        return $dataSource;
+});
+
+
+API Testing :: written seperate php script
+<?php
+/*
+*To test user device registration
+*/
+
+$url = 'http://dev.resure.com/insurance/api/v2/userdevice_register';
+// set post fields
+$post = array(
+    'user_id' => '1',
+    'type' => 'android',
+    'fcm_token' => 'token_1234',
+);
+$post = array('data'=>$post);
+
+$ch = curl_init( $url );
+# Setup request to send json via POST.
+$payload = json_encode( $post );
+curl_setopt( $ch, CURLOPT_POSTFIELDS, $payload );
+curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+# Return response instead of printing.
+curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+# Send request.
+$result = curl_exec($ch);
+curl_close($ch);
+# Print response.
+echo "$result";
+
+
+
+
+
+
+

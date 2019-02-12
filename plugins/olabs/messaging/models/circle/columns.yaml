@@ -1,0 +1,16 @@
+columns:
+    id:
+        label: id
+        type: number
+    title:
+        label: title
+        type: text
+    code:
+        label: code
+        type: text
+    status:
+        label: status
+        type: text
+    tenant_code:
+        label: tenant_code
+        type: text

@@ -1,0 +1,6 @@
+plugin:
+    name: 'Backend Skin'
+    description: 'A plugin that can customize the backend skin'
+    author: 'Cydrick Nonog'
+    icon: oc-icon-dashboard
+    homepage: ''

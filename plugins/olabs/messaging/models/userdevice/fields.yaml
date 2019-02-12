@@ -1,0 +1,21 @@
+fields:
+    user_id:
+        label: 'User Id'
+        span: auto
+        type: text
+    username:
+        label: Username
+        span: auto
+        type: text
+    fcm_token:
+        label: 'FCM Token'
+        span: auto
+        type: text
+    device_id:
+        label: 'Device Id'
+        span: auto
+        type: text
+    status:
+        label: Status
+        span: auto
+        type: text

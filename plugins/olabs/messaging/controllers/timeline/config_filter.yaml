@@ -1,0 +1,64 @@
+# ===================================
+# Filter Scope Definitions
+# ===================================
+
+scopes:
+
+    
+    status:
+        label: Status
+        type: group
+        conditions: status in (:filtered)
+        options:
+            200: Success
+            400: 'Incorrect'
+            500: 'Failure'
+      
+    client:
+
+        # Filter name
+        label: 'Clients'
+
+        # Model Class name
+        modelClass: Olabs\Social\Models\Clients
+
+        # Model attribute to display for the name
+        nameFrom: name
+
+        # Apply query scope
+        scope: FilterCategories
+
+    status_success:
+
+        # Filter name
+        label: 'Success'
+        # Filter type
+        type: switch
+
+        # SQL Conditions
+        conditions:
+            - status <> '200'
+            - status = '200'
+
+    created_at:
+
+        # Filter name
+        label: 'Created At'
+
+        # Filter type
+        type: daterange
+
+        # SQL Conditions
+        conditions: created_at >= ':after' AND created_at <= ':before'
+
+    updated_date:
+
+        # Filter name
+        label: 'Scheduled At'
+
+        # Filter type
+        type: daterange
+
+        # SQL Conditions
+        conditions: updated_date >= ':after' AND updated_date <= ':before'    
+        

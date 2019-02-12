@@ -15,7 +15,7 @@ navigation:
     master_register:
         label: 'My Projects'
         url: olabs/oims/purchases
-        icon: icon-life-ring
+        icon: icon-desktop
         permissions:
             - olabs.oims.purchases
         sideMenu:
@@ -66,7 +66,7 @@ navigation:
     project_assets:
         label: 'Project Assets'
         url: olabs/oims/projectAssets/
-        icon: icon-life-ring
+        icon: icon-anchor
         permissions:
             - olabs.oims.project_assets
         sideMenu:
@@ -104,7 +104,7 @@ navigation:
     dpr_report:
         label: 'Project Progress'
         url: olabs/oims/projectprogress
-        icon: icon-life-ring
+        icon: icon-line-chart
         permissions:
             - olabs.oims.projectprogress
         sideMenu:
@@ -142,7 +142,7 @@ navigation:
     reports:
         label: 'MIS Reports'
         url: olabs/oims/reports/project_plan
-        icon: icon-life-ring
+        icon: icon-bar-chart
         permissions:
             - olabs.oims.reports
         sideMenu:
@@ -220,14 +220,11 @@ navigation:
                 icon: icon-life-ring
                 permissions:
                     - olabs.oims.reports   
-                    
-            
-            
             
     oims_projects:
         label: 'Project Settings'
         url: olabs/oims/suppliers
-        icon: icon-life-ring
+        icon: icon-cogs
         permissions:
             - olabs.oims.suppliers
         sideMenu:
@@ -294,7 +291,7 @@ navigation:
     oims_setup:
         label: 'Setups'
         url: olabs/oims/workgroups
-        icon: icon-life-ring
+        icon: icon-cog
         permissions:
             - olabs.oims.categories
         sideMenu:

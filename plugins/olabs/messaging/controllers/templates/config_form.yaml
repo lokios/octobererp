@@ -1,0 +1,10 @@
+name: Templates
+form: $/olabs/messaging/models/template/fields.yaml
+modelClass: Olabs\Messaging\Models\Template
+defaultRedirect: olabs/messaging/templates
+create:
+    redirect: 'olabs/messaging/templates/update/:id'
+    redirectClose: olabs/messaging/templates
+update:
+    redirect: olabs/messaging/templates
+    redirectClose: olabs/messaging/templates

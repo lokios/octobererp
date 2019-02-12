@@ -1,0 +1,39 @@
+plugin:
+    name: 'olabs.messaging::lang.plugin.name'
+    description: 'olabs.messaging::lang.plugin.description'
+    author: Amit Srivastava
+    icon: oc-icon-adjust
+    homepage: ''
+navigation:
+    messaging:
+        label: 'Messaging'
+        url: olabs/messaging/members
+        icon: icon-life-ring
+        permissions:
+            - olabs.messaging.manage_messaging
+        sideMenu:
+            members:
+                label: Members
+                url: olabs/messaging/members
+                icon: icon-sitemap
+                permissions:
+                    - olabs.messaging.members
+            templates:
+                label: Templates
+                url: olabs/messaging/templates
+                icon: icon-sitemap
+                permissions:
+                    - olabs.messaging.templates
+            circles:
+                label: Circles
+                url: olabs/messaging/circles
+                icon: icon-sitemap
+                permissions:
+                    - olabs.messaging.circles
+            notifications:
+                label: Notifications
+                url: olabs/messaging/notifications
+                icon: icon-sitemap
+                permissions:
+                    - olabs.messaging.notifications
+        

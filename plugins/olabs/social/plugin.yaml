@@ -6,11 +6,11 @@ plugin:
     homepage: ''
 navigation:
     messaging:
-        label: Messaging
-        url: /olabs/social/notifications
+        label: Social
+        url: /olabs/social/clients
         icon: icon-bell
         permissions:
-            - olabs.social.notifications
+            - olabs.social.clients
         sideMenu:
             clients:
                 label: Clients
@@ -19,7 +19,7 @@ navigation:
                 permissions:
                     - olabs.social.clients
             notifications:
-                label: Messages
+                label: Notifications
                 url: /olabs/social/notifications
                 icon: icon-sitemap
                 permissions:

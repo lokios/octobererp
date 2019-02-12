@@ -24,6 +24,11 @@ fields:
         oc.commentPosition: 'Amount per SMS'
         span: auto
         type: text    
+    email_rate:
+        label: 'Email Rate'
+        oc.commentPosition: 'Amount per Email'
+        span: auto
+        type: text    
 tabs:
     fields:
         customer_email:
@@ -46,6 +51,13 @@ tabs:
             tab: 'API Settings'
         secret:
             label: Secret
+            oc.commentPosition: ''
+            span: auto
+            type: text
+            tab: 'API Settings'
+            
+        fcm_access_key:
+            label: FCM Access Key
             oc.commentPosition: ''
             span: auto
             type: text

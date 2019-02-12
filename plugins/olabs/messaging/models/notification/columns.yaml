@@ -1,0 +1,40 @@
+columns:
+    id:
+        label: id
+        type: number
+    tenant_code:
+        label: tenant_code
+        type: text
+    status:
+        label: status
+        type: text
+    actor_id:
+        label: actor_id
+        type: number
+    context_id:
+        label: context_id
+        type: number
+    context_type:
+        label: context_type
+        type: text
+#    data:
+#        label: data
+#        type: text
+    descriptions:
+        label: descriptions
+        type: text
+    callback_url:
+        label: callback_url
+        type: text
+    callback_params:
+        label: callback_params
+        type: text
+    circle_code:
+        label: circle_code
+        type: text
+#    fcm_access_key:
+#        label: fcm_access_key
+#        type: text
+    tenant_id:
+        label: tenant_id
+        type: number

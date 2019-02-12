@@ -18,6 +18,13 @@ class BaseModel extends Model {
     const USER_GROUP_SITE_ENCHARGE = 'inventory_site_encharge';
     const USER_GROUP_PROJECT_ENCHARGE = 'project_encharge';
     const USER_GROUP_ADMIN = 'inventory_administrator';
+    const USER_ROLE_ADMIN = 'inventory_administrator';
+    const USER_ROLE_PROJECT_ENCHARGE = 'project_encharge';
+    const USER_ROLE_PROJECT_ACCOUNTANT = 'project_accountant';
+    const USER_ROLE_SUPPLIER = 'inventory_supplier';
+    const USER_ROLE_CUSTOMER = 'inventory_customer';
+    const USER_ROLE_HO_ACCOUNTANT = 'ho_accountant';
+    const USER_ROLE_EMPLOYEE = 'employee';
     const ATTENDANCE_WORKING_HOUR = 8; //default working hours for attendance
     const ATTENDANCE_GRACE_TIME = 1; //default grace time total working hours
     const ATTENDANCE_LUNCH_HOUR = 0; //default lunch time
@@ -189,12 +196,170 @@ class BaseModel extends Model {
         $history = new StatusHistory();
         $history->_statusChange($this);
 
+        //generate notification
+        $this->sendNotification();
 
         $msg['s'] = true;
         $msg['m'] = 'Record submitted for approval successfully!';
 
 
         return $msg;
+    }
+
+    /*
+     * Load models by CNAME
+     */
+
+    protected function getModal($modalName) {
+
+        switch ($modalName) {
+            case 'purchases':
+                return new Purchase();
+        }
+
+        return false;
+    }
+
+//    public function onEventAsync($data) {
+//
+//        try {
+//            return $this->_onEventAsync($data);
+//        } catch (\Exception $e) {
+//            return ['e' => $e->getMessage()];
+//        }
+//    }
+//
+//    public function _onEventAsync($data) {
+//        
+//        Queue::push(function($job) use ($data) {
+//
+//            $service = new BaseModel();
+//            $service->notify($data);
+//
+//            $job->delete();
+//        });
+//
+//        return '200';
+//    }
+
+    public function notify($data) {
+
+
+        $model = $this->getModal($data['entity_type']);
+
+        if ($model) {
+            $model = $model::find($data['entity_id']);
+        }
+
+        if (!$model) {
+            return false;
+        }
+
+        $template_code = $model->getEntityType() . '_' . $model->status;
+        $params = [
+            '{{reference_number}}' => isset($model->reference_number) ? $model->reference_number : '',
+            '{{id}}' => $model->id,
+            '{{project_name}}' => $model->project->name,
+        ];
+        $to_users = [];
+        $from_user = [];
+
+        $entity_project = $model->project_id;
+        switch ($model->status) {
+            case Status::STATUS_SUBMITTED:
+                $filter = self::USER_ROLE_PROJECT_ENCHARGE;
+                //get Project Encharge for the same project
+                $to_users = \Backend\Models\User::select('*')->whereHas('projects', function($project) use ($entity_project) {
+                            $project->where('id', $entity_project);
+                        })->whereHas('role', function($role) use ($filter) {
+                            $role->where('code', $filter);
+                        })->get();
+                break;
+            case Status::STATUS_APPROVED:
+                $filter = self::USER_ROLE_HO_ACCOUNTANT;
+                //get Project Encharge for the same project
+                $to_users = \Backend\Models\User::select('*')->whereHas('projects', function($project) use ($entity_project) {
+                            $project->where('id', $entity_project);
+                        })->whereHas('role', function($role) use ($filter) {
+                            $role->where('code', $filter);
+                        })->get();
+                break;
+            case Status::STATUS_HO_SUBMITTED:
+                $filter = self::USER_ROLE_HO_ACCOUNTANT;
+                //get Project Encharge for the same project
+                $to_users = \Backend\Models\User::select('*')->whereHas('projects', function($project) use ($entity_project) {
+                            $project->where('id', $entity_project);
+                        })->whereHas('role', function($role) use ($filter) {
+                            $role->where('code', $filter);
+                        })->get();
+                break;
+        }
+
+        //If no user found then return
+        if (!count($to_users)) {
+            return false;
+        }
+
+        //Notification model function call
+        $pushService = new \Olabs\Messaging\Models\Notification();
+        $status = $pushService->initialize($template_code, $params, $to_users, $from_user);
+        return $status;
+    }
+
+    public function sendNotification() {
+        $data = ['entity_type' => $this->getEntityType(), 'entity_id' => $this->id];
+        $obj = new \Olabs\Messaging\Models\Notification();
+        $obj->onEventAsync($data);
+        return true;
+        
+//        $template_code = $this->getEntityType() . '_' . $this->status;
+//        $params = [
+//            '{{reference_number}}' => isset($this->reference_number) ? $this->reference_number : '',
+//            '{{id}}' => $this->id,
+//        ];
+//        $to_users = [];
+//        $from_user = [];
+//
+//        $entity_project = $this->project_id;
+//        switch ($this->status) {
+//            case Status::STATUS_SUBMITTED:
+//                $filter = self::USER_ROLE_PROJECT_ENCHARGE;
+//                //get Project Encharge for the same project
+//                $to_users = \Backend\Models\User::select('*')->whereHas('projects', function($project) use ($entity_project) {
+//                            $project->where('id', $entity_project);
+//                        })->whereHas('role', function($role) use ($filter) {
+//                            $role->where('code', $filter);
+//                        })->get();
+//                break;
+//            case Status::STATUS_APPROVED:
+//                $filter = self::USER_ROLE_HO_ACCOUNTANT;
+//                //get Project Encharge for the same project
+//                $to_users = \Backend\Models\User::select('*')->whereHas('projects', function($project) use ($entity_project) {
+//                            $project->where('id', $entity_project);
+//                        })->whereHas('role', function($role) use ($filter) {
+//                            $role->where('code', $filter);
+//                        })->get();
+//                break;
+//            case Status::STATUS_HO_SUBMITTED:
+//                $filter = self::USER_ROLE_HO_ACCOUNTANT;
+//                //get Project Encharge for the same project
+//                $to_users = \Backend\Models\User::select('*')->whereHas('projects', function($project) use ($entity_project) {
+//                            $project->where('id', $entity_project);
+//                        })->whereHas('role', function($role) use ($filter) {
+//                            $role->where('code', $filter);
+//                        })->get();
+//                break;
+//        }
+//
+//        //If no user found then return
+//        if (!count($to_users)) {
+//            return true;
+//        }
+//
+//        //Notification model function call
+//        $pushService = new \Olabs\Messaging\Models\Notification();
+//        $status = $pushService->initialize($template_code, $params, $to_users, $from_user);
+//        return $status;
     }
 
     public function onApproved() {
@@ -214,6 +379,8 @@ class BaseModel extends Model {
         $history = new StatusHistory();
         $history->_statusChange($this);
 
+        //generate notification
+        $this->sendNotification();
 
         $msg['s'] = true;
         $msg['m'] = 'Record approved successfully!';
@@ -263,6 +430,10 @@ class BaseModel extends Model {
         //save in Status history
         $history = new StatusHistory();
         $history->_statusChange($this);
+
+
+        //generate notification
+        $this->sendNotification();
 
 
         $msg['s'] = true;
@@ -458,14 +629,14 @@ class BaseModel extends Model {
 
         return $options;
     }
-    
+
     public function getLedgerTypeRevenuOptions() {
         $list = [];
         $list = LedgerType::where('status', self::STATUS_ACTIVE)->where('type', self::LEDGER_TYPE_REVENUE)->get()->lists('name', 'slug');
 
         return $list;
     }
-    
+
     public function getLedgerTypePaymentOptions() {
         $list = [];
         $list = LedgerType::where('status', self::STATUS_ACTIVE)->where('type', self::LEDGER_TYPE_PAYMENT)->get()->lists('name', 'slug');

@@ -1,0 +1,10 @@
+name: Members
+form: $/olabs/messaging/models/member/fields.yaml
+modelClass: Olabs\Messaging\Models\Member
+defaultRedirect: olabs/messaging/members
+create:
+    redirect: 'olabs/messaging/members/update/:id'
+    redirectClose: olabs/messaging/members
+update:
+    redirect: olabs/messaging/members
+    redirectClose: olabs/messaging/members
