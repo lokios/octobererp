@@ -9,96 +9,97 @@ $employee_types = [];
 $rows = [];
 $wages = [];
 foreach($reports as $report){ 
-    if(isset($report->employee_offrole)){
-        $employee_type = $report->employee_offrole->employee_type;
-        $employee_wage = $report->total_wages;
-        $employee_types[$employee_type] = ucfirst($employee_type);//['count'=>0,'total'=>0];
-        $attendance_date = $oimsSetting->convertToDisplayDate($report->check_in, 'd/m/Y');
-        $temp = [];
-        $temp['project_name'] = $report->project->name;
-        $temp['supplier_name'] = $report->supplier->fullname;
-        $temp['attendance_date'] = $attendance_date;
+if(isset($report->employee_offrole)){
+$employee_type = $report->employee_offrole->employee_type;
+$employee_wage = $report->total_wages;
+$employee_types[$employee_type] = ucfirst($employee_type);//['count'=>0,'total'=>0];
+$attendance_date = $oimsSetting->convertToDisplayDate($report->check_in, 'd/m/Y');
+$temp = [];
+$temp['project_name'] = $report->project->name;
+$temp['supplier_name'] = $report->supplier->fullname;
+$temp['attendance_date'] = $attendance_date;
 
-        $key = $report->project_id . '_' . $report->supplier_id . '_' . $attendance_date . '_' . $employee_type;
-        $wages[$key]['count'] = isset($wages[$key]['count']) ? $wages[$key]['count'] + 1 : 1;
-        $wages[$key]['total'] = isset($wages[$key]['total']) ? $wages[$key]['total'] + $employee_wage : $employee_wage;
+$key = $report->project_id . '_' . $report->supplier_id . '_' . $attendance_date . '_' . $employee_type;
+$wages[$key]['count'] = isset($wages[$key]['count']) ? $wages[$key]['count'] + 1 : 1;
+$wages[$key]['total'] = isset($wages[$key]['total']) ? $wages[$key]['total'] + $employee_wage : $employee_wage;
 
-        $rows[$report->project_id][$attendance_date][$report->supplier_id] = $temp;
-    }
+$rows[$report->project_id][$attendance_date][$report->supplier_id] = $temp;
+}
 }
 
 foreach($pc_reports as $report){
-    $products = $report->products ? $report->products : array();
-    foreach($products as $product){
-        $employee_type = $product->employee_type;
-        $employee_wage = $product->total_price;
-        $employee_quantity = $product->quantity;
-        $employee_types[$employee_type] = ucfirst($employee_type);//['count'=>0,'total'=>0];
-        $attendance_date = $oimsSetting->convertToDisplayDate($report->context_date, 'd/m/Y');
-        $temp = [];
-        $temp['project_name'] = $report->project->name;
-        $temp['supplier_name'] = $report->supplier->fullname;
-        $temp['attendance_date'] = $attendance_date;
+$products = $report->products ? $report->products : array();
+foreach($products as $product){
+$employee_type = $product->employee_type;
+$employee_wage = $product->total_price;
+$employee_quantity = $product->quantity;
+$employee_types[$employee_type] = ucfirst($employee_type);//['count'=>0,'total'=>0];
+$attendance_date = $oimsSetting->convertToDisplayDate($report->context_date, 'd/m/Y');
+$temp = [];
+$temp['project_name'] = $report->project->name;
+$temp['supplier_name'] = $report->supplier->fullname;
+$temp['attendance_date'] = $attendance_date;
 
-        $key = $report->project_id . '_' . $report->user_id . '_' . $attendance_date . '_' . $employee_type;
-        $wages[$key]['count'] = isset($wages[$key]['count']) ? $wages[$key]['count'] + $employee_quantity : $employee_quantity;
-        $wages[$key]['total'] = isset($wages[$key]['total']) ? $wages[$key]['total'] + $employee_wage : $employee_wage;
+$key = $report->project_id . '_' . $report->user_id . '_' . $attendance_date . '_' . $employee_type;
+$wages[$key]['count'] = isset($wages[$key]['count']) ? $wages[$key]['count'] + $employee_quantity : $employee_quantity;
+$wages[$key]['total'] = isset($wages[$key]['total']) ? $wages[$key]['total'] + $employee_wage : $employee_wage;
 
-        $rows[$report->project_id][$attendance_date][$report->user_id] = $temp;
-    }
+$rows[$report->project_id][$attendance_date][$report->user_id] = $temp;
+}
 }
 
 ?>
-<table class="table table-bordered">
-    <thead> 
-        <tr> 
-            <th>Project</th> 
-            <th>Attendance Date</th> 
-            <th>Supplier</th> 
-            <? foreach($employee_types as $key => $employee_type) { ?>
-            <th><?=ucfirst($key) ?></th>
-            <!--<th><?=ucfirst($key) ?> Wages</th>-->
-            <? } ?>
-            <th>Total Count</th>
-            <th>Total Wages</th>
-
-        </tr> 
-    </thead> 
-    <tbody>
-        <? 
-        $summary_count = 0;
-        $summary_total = 0;
-        foreach($rows as $project_id => $project_row) {
-            foreach($project_row as $attendance_date => $attendance_row) {
-                foreach($attendance_row as $supplier_id => $supplier_row) {
-                    $attendance_count = 0;
-                    $attendance_total = 0;
-                    ?>
-                    <tr>
-                        <td><?= $supplier_row['project_name']?></td>
-                        <td><?= $supplier_row['attendance_date']?></td>
-                        <td><?= $supplier_row['supplier_name']?></td>
-                        <? foreach($employee_types as $key => $employee_type) { 
-                        $data_key = $project_id . '_' . $supplier_id . '_' . $attendance_date . '_' . $key;
-                        $data_count = isset($wages[$data_key]['count']) ? $wages[$data_key]['count'] : 0;
-                        $data_total = isset($wages[$data_key]['total']) ? $wages[$data_key]['total'] : 0;
-                        $attendance_count += $data_count; //Attendance Total
-                        $attendance_total += $data_total;
-                        $summary_count += $data_count; //Grand Total
-                        $summary_total += $data_total;
-                        ?>
-                        <td><?= $data_count?> (<?= $oimsSetting->getPriceFormattedWithoutCurrency($data_total)?>)</td>
-                        <!--<td><?= $oimsSetting->getPriceFormattedWithoutCurrency($data_total)?></td>-->
-                        <? } ?>
-                        <td><?=$attendance_count ?></td>
-                        <td><?= $oimsSetting->getPriceFormattedWithoutCurrency($attendance_total) ?></td>
-                    </tr>
+<div class="table-responsive no-padding">
+    <table class="table table-bordered table-hover">
+        <thead> 
+            <tr> 
+                <th>Project</th> 
+                <th>Attendance Date</th> 
+                <th>Supplier</th> 
+                <? foreach($employee_types as $key => $employee_type) { ?>
+                <th><?=ucfirst($key) ?></th>
+                <!--<th><?=ucfirst($key) ?> Wages</th>-->
                 <? } ?>
-            <? } ?>
-        <? } ?>
-    </tbody>
-</table>
+                <th>Total Count</th>
+                <th>Total Wages</th>
 
+            </tr> 
+        </thead> 
+        <tbody>
+            <? 
+            $summary_count = 0;
+            $summary_total = 0;
+            foreach($rows as $project_id => $project_row) {
+            foreach($project_row as $attendance_date => $attendance_row) {
+            foreach($attendance_row as $supplier_id => $supplier_row) {
+            $attendance_count = 0;
+            $attendance_total = 0;
+            ?>
+            <tr>
+                <td><?= $supplier_row['project_name']?></td>
+                <td><?= $supplier_row['attendance_date']?></td>
+                <td><?= $supplier_row['supplier_name']?></td>
+                <? foreach($employee_types as $key => $employee_type) { 
+                $data_key = $project_id . '_' . $supplier_id . '_' . $attendance_date . '_' . $key;
+                $data_count = isset($wages[$data_key]['count']) ? $wages[$data_key]['count'] : 0;
+                $data_total = isset($wages[$data_key]['total']) ? $wages[$data_key]['total'] : 0;
+                $attendance_count += $data_count; //Attendance Total
+                $attendance_total += $data_total;
+                $summary_count += $data_count; //Grand Total
+                $summary_total += $data_total;
+                ?>
+                <td><?= $data_count?> (<?= $oimsSetting->getPriceFormattedWithoutCurrency($data_total)?>)</td>
+                <!--<td><?= $oimsSetting->getPriceFormattedWithoutCurrency($data_total)?></td>-->
+                <? } ?>
+                <td><?=$attendance_count ?></td>
+                <td><?= $oimsSetting->getPriceFormattedWithoutCurrency($attendance_total) ?></td>
+            </tr>
+            <? } ?>
+            <? } ?>
+            <? } ?>
+        </tbody>
+    </table>
+</div>
 
 <div class="page-header">
     <h3><small>SUMMARY</small></h3>

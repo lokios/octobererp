@@ -2,51 +2,53 @@
 <div class="page-header">
     <h3><small>TOTAL EXPENSE AGAINST MATERIAL AS PER OUR BILLING</small></h3>
 </div>
-<table class="table table-bordered">
-    <thead> 
-        <tr> 
-            <th>ID</th> 
-            <th>Project</th> 
-            <th>Entry Date</th> 
-            <th>Products</th> 
-            <th>Total Price</th>
-        </tr> 
-    </thead> 
-    <tbody>
+<div class="table-responsive no-padding">
+    <table class="table table-bordered table-hover">
+        <thead> 
+            <tr> 
+                <th>ID</th> 
+                <th>Project</th> 
+                <th>Entry Date</th> 
+                <th>Products</th> 
+                <th>Total Price</th>
+            </tr> 
+        </thead> 
+        <tbody>
 
 
-        <?php 
-        $grand_total = 0;
-        foreach($expenseOnMaterials as $expenseOnMaterial){  
-        $products = $expenseOnMaterial->products ? $expenseOnMaterial->products : array();
-        $productArray = array();
-        foreach($products as $product){
-        $product_title = '';
-        if($product->product){
-        
+            <?php 
+            $grand_total = 0;
+            foreach($expenseOnMaterials as $expenseOnMaterial){  
+            $products = $expenseOnMaterial->products ? $expenseOnMaterial->products : array();
+            $productArray = array();
+            foreach($products as $product){
+            $product_title = '';
+            if($product->product){
+
             $product_title =  $product->product->title . ", QTY : " . $product->quantity . " " . $product->unit . ", AMNT : &#8377;" . $oimsSetting->getPriceFormattedWithoutCurrency($product->total_price);
-        }
-        $productArray[] = $product_title;
-        }
-        $grand_total += $expenseOnMaterial->total_price;
-        
-        ?>
+            }
+            $productArray[] = $product_title;
+            }
+            $grand_total += $expenseOnMaterial->total_price;
 
-        <tr> 
-            <th scope="row"><?=$expenseOnMaterial->id?></th> 
-            <td><?=$expenseOnMaterial->project->name?></td>
-            <td><?=date("d-m-Y", strtotime($expenseOnMaterial->context_date) )?></td>
-            <td><?php echo implode("</br> ",$productArray); ?></td>
-            <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($expenseOnMaterial->total_price)?></td>
-        </tr> 
-        <?php } 
-        $this->vars['grand_total'] += $grand_total;
-        ?>
-        <tr> 
-            <td colspan="4">TOTAL E</td>
-            <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($grand_total)?></td>
-        </tr>
+            ?>
 
-    </tbody> </table>
+            <tr> 
+                <th scope="row"><?=$expenseOnMaterial->id?></th> 
+                <td><?=$expenseOnMaterial->project->name?></td>
+                <td><?=date("d-m-Y", strtotime($expenseOnMaterial->context_date) )?></td>
+                <td><?php echo implode("</br> ",$productArray); ?></td>
+                <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($expenseOnMaterial->total_price)?></td>
+            </tr> 
+            <?php } 
+            $this->vars['grand_total'] += $grand_total;
+            ?>
+            <tr> 
+                <td colspan="4">TOTAL E</td>
+                <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($grand_total)?></td>
+            </tr>
+
+        </tbody> </table>
+</div>
 
 <?php // endif ?>
