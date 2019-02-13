@@ -71,10 +71,11 @@ class Attendance extends BaseModel {
             'key' => 'employee_id',
             'scope' => 'matchProject'
         ],
-//        'employee_onrole' => [
-//            'Olabs\Oims\Models\Employee',
-//            'key' => 'employee_id',
-//        ],
+        'employee_backend_user' => [
+            'Olabs\Oims\Models\Employee',
+            'key' => 'employee_id',
+            'conditions' => "employee_type='" . self::EMPLOYEE_TYPE_ONROLE . "'",
+        ],
         'project' => [
             'Olabs\Oims\Models\Project',
             'key' => 'project_id'

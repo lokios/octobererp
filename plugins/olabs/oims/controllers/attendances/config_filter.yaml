@@ -24,6 +24,20 @@ scopes:
         options: getSupplierPettyContractorOptions
         conditions: supplier_id in (:filtered)
         
+    employee_onrole:
+        label: OnRole Employee
+        modelClass: Olabs\Oims\Models\BaseModel
+        nameFrom: name
+        options: getEmployeeOptions
+        conditions: employee_id in (:filtered) AND employee_type = 'onrole'
+#        
+#    employee_offrole:
+#        label: OffRole Employee
+#        modelClass: Olabs\Oims\Models\OffroleEmployee
+#        nameFrom:  name
+##        options: getEmployeeOptions
+#        conditions: employee_id in (:filtered) AND employee_type = 'offrole'
+        
     attendance_date:
         label: Date
         type: date

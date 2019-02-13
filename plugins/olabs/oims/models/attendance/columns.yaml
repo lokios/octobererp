@@ -10,9 +10,15 @@ columns:
         sortable: false
     supplier_id:
         label: Supplier
-        type: partial
-        path: ~/plugins/olabs/oims/models/attendance/_supplier_column.htm
+        relation: supplier
+        select: concat(id, ' | ' ,first_name, ' ', last_name)
         searchable: true
+        sortable: true
+#    supplier_id:
+#        label: Supplier
+#        type: partial
+#        path: ~/plugins/olabs/oims/models/attendance/_supplier_column.htm
+#        searchable: true
     employee_id:
         label: Employee
         type: partial
