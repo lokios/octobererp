@@ -13,12 +13,18 @@ columns:
         select: name
         searchable: true
         sortable: true
-        
-    is_last_name:
+    
+    user_id:
         label: Supplier
-        type: partial
-        path: ~/plugins/olabs/oims/models/purchase/_supplier_column.htm
+        relation: supplier
+        select: concat(id, ' | ' ,first_name, ' ', last_name)
         searchable: true
+        sortable: true
+#    is_last_name:
+#        label: Supplier
+#        type: partial
+#        path: ~/plugins/olabs/oims/models/purchase/_supplier_column.htm
+#        searchable: true
         
     contact_email:
         label: olabs.oims::lang.purchases.contact_email

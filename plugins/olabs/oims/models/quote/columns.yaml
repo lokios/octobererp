@@ -14,12 +14,19 @@ columns:
         searchable: false
         sortable: true
         
-    supplier_name:
+    user_id:
         label: Supplier
-        type: text
-#        path: ~/plugins/olabs/oims/models/quote/_supplier_column.htm
-        searchable: false
-        sortable: false
+        relation: supplier
+        select: concat(id, ' | ' ,first_name, ' ', last_name)
+        searchable: true
+        sortable: true
+        
+#    supplier_name:
+#        label: Supplier
+#        type: text
+##        path: ~/plugins/olabs/oims/models/quote/_supplier_column.htm
+#        searchable: false
+#        sortable: false
         
     contact_email:
         label: olabs.oims::lang.quotes.contact_email
