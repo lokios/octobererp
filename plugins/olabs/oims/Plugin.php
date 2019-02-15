@@ -582,6 +582,10 @@ class Plugin extends PluginBase {
                 'label' => 'DPR Summary',
                 'context' => 'dashboard'
             ],
+            'Olabs\Oims\ReportWidgets\LabourCostSummary' => [
+                'label' => 'Labour Cost Summary',
+                'context' => 'dashboard'
+            ],
         ];
     }
 
