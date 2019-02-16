@@ -4,12 +4,12 @@ fields:
         oc.commentPosition: ''
         span: auto
         type: text
-    status:
-        label: Status
+    reference_number:
+        label: BOQ No.
+        oc.commentPosition: ''
         span: auto
-        default: 1
-        type: switch
-
+        type: text
+    
     work_group:
         label: 'Work Group'
         oc.commentPosition: ''
@@ -45,6 +45,13 @@ fields:
         default: "today"
         required: 1
         type: datepicker
+    
+    status:
+        label: Status
+        span: auto
+        default: 1
+        type: switch
+
     
 tabs:
     fields:
@@ -92,13 +99,32 @@ tabs:
                 - planned_start_date
                 - planned_end_date
         
+        
+            
+        labour_coefficient:
+            label: Labour Coefficient
+            oc.commentPosition: ''
+            default: 1
+            span: auto
+            type: number
+            tab: olabs.oims::lang.products.detail
+        
         description:
             label: Description
             size: ''
             oc.commentPosition: ''
             span: auto
-            type: richeditor
+            type: textarea
             tab: olabs.oims::lang.products.detail
+
+        labour_unit_price:
+            label: Labour Unit Price
+            oc.commentPosition: ''
+            span: auto
+            type: number
+            tab: olabs.oims::lang.products.detail
+        
+            
 
 # Products
         products:

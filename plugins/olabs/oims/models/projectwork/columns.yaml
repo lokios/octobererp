@@ -2,6 +2,9 @@ columns:
     id:
         label: id
         type: number
+    reference_number:
+        label: BOQ No.
+        type: text
     name:
         label: name
         type: text
@@ -19,13 +22,15 @@ columns:
     unit:
         label: unit
         type: text
-#    unit_price:
-#        label: unit_price
-#        type: text
+    unit_price:
+        label: Unit Price
+        type: text
     quantity:
         label: quantity
         type: text
-    
+    total_price:
+        label: Total Price
+        type: text
     planned_start_date:
         label: Planned Start Date
         type: date

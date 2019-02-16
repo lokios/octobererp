@@ -637,3 +637,6 @@
 1.11.33:
     - 'Updated table olabs_oims_quotes'
     - builder_table_update_olabs_oims_quotes_17.php
+1.11.34:
+    - 'Updated table olabs_oims_project_works'
+    - builder_table_update_olabs_oims_project_works_6.php
