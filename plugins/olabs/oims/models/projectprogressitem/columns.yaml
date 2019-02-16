@@ -4,6 +4,9 @@ columns:
         type: number
     product[name]:
         label: Product
+    unit:
+        label: Unit
+        type: text
     unit_price:
         label: unit_price
         type: text

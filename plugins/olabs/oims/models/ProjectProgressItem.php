@@ -35,6 +35,10 @@ class ProjectProgressItem extends Model
 //            'otherKey' =>'project_id',
             
         ],   
+        'unit_code' => [
+            'Olabs\Oims\Models\Unit', 
+            'key' => 'unit'
+        ],
         'work' => [ //to show names
             'Olabs\Oims\Models\ProjectWork', 
             'key' => 'work_id',
@@ -61,8 +65,9 @@ class ProjectProgressItem extends Model
 //            $fields->unit_price->value = $fields->unit_price->value > 0 ?$fields->unit_price->value : 0;
             $fields->total_price->value = $fields->unit_price->value * $fields->quantity->value;
         }else{
-            $fields->unit_price->value = 0;
-            $fields->total_price->value = 0;
+            $fields->unit_price->value = $fields->unit_price->value > 0 ? $fields->unit_price->value : 0;
+            $fields->total_price->value = $fields->unit_price->value * $fields->quantity->value;
+//            $fields->total_price->value = 0;
         }
     }
 }

@@ -14,6 +14,13 @@ fields:
         default: 1
         span: auto
         type: number
+    unit_code:
+        label: Unit
+        oc.commentPosition: ''
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
     unit_price:
         label: 'Unit Price'
         oc.commentPosition: ''
@@ -29,6 +36,12 @@ fields:
             - product
             - quantity
             - unit_price
+    description:
+        label: Description
+        size: ''
+        oc.commentPosition: ''
+        span: auto
+        type: textarea
     project_id:
         label: 'Project'
         span: auto
@@ -36,3 +49,6 @@ fields:
         required: 0
         type: text
         hidden: 1
+        
+    
+            

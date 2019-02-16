@@ -7,6 +7,7 @@
                 <tr>
                     <th><span>Work</span></th>
                     <th><span>Unit Price</span></th>
+                    <th><span>Unit Price</span></th>
                     <th><span>Quantity</span></th>
                     <th><span>Total Price</span></th>
                     <th style="width: 10%"><span></span></th>
@@ -17,9 +18,12 @@
                 <tr>
                     <td>
 
-                        <?= e($item->work ? $item->work->name : 'Unknown') ?>
+                        <?= e($item->work ? $item->work->name : $item->description) ?>
 
 
+                    </td>
+                    <td>
+                        <?= e($item->unit ? $item->unit_code->name : '') ?>
                     </td>
                     <td>
                         <?= e($item->unit_price) ?>
