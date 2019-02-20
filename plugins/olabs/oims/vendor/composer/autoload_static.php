@@ -8,7 +8,6 @@ class ComposerStaticInit663246582da72ada0cc965162c305a60
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
     );
 
@@ -16,42 +15,27 @@ class ComposerStaticInit663246582da72ada0cc965162c305a60
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
-            'Symfony\\Component\\HttpFoundation\\' => 33,
-            'Symfony\\Component\\EventDispatcher\\' => 34,
-            'Stripe\\' => 7,
+            'Symfony\\Contracts\\' => 18,
+            'Symfony\\Component\\Translation\\' => 30,
         ),
-        'O' => 
+        'P' => 
         array (
-            'Omnipay\\WorldPay\\' => 17,
-            'Omnipay\\TwoCheckoutPlus\\' => 24,
-            'Omnipay\\TargetPay\\' => 18,
-            'Omnipay\\Stripe\\' => 15,
-            'Omnipay\\SecurePay\\' => 18,
-            'Omnipay\\SagePay\\' => 16,
-            'Omnipay\\Pin\\' => 12,
-            'Omnipay\\PaymentExpress\\' => 23,
-            'Omnipay\\Payflow\\' => 16,
-            'Omnipay\\PayPal\\' => 15,
-            'Omnipay\\PayFast\\' => 16,
-            'Omnipay\\Netaxept\\' => 17,
-            'Omnipay\\NetBanx\\' => 16,
-            'Omnipay\\MultiSafepay\\' => 21,
-            'Omnipay\\Mollie\\' => 15,
-            'Omnipay\\Migs\\' => 13,
-            'Omnipay\\Manual\\' => 15,
-            'Omnipay\\GoCardless\\' => 19,
-            'Omnipay\\FirstData\\' => 18,
-            'Omnipay\\Eway\\' => 13,
-            'Omnipay\\Dummy\\' => 14,
-            'Omnipay\\Coinbase\\' => 17,
-            'Omnipay\\CardSave\\' => 17,
-            'Omnipay\\Buckaroo\\' => 17,
-            'Omnipay\\AuthorizeNet\\' => 21,
+            'Psr\\SimpleCache\\' => 16,
+            'Psr\\Container\\' => 14,
         ),
         'I' => 
         array (
             'Illuminate\\Support\\' => 19,
             'Illuminate\\Contracts\\' => 21,
+        ),
+        'F' => 
+        array (
+            'FontLib\\' => 8,
+        ),
+        'D' => 
+        array (
+            'Dompdf\\' => 7,
+            'Doctrine\\Common\\Inflector\\' => 26,
         ),
         'B' => 
         array (
@@ -64,117 +48,21 @@ class ComposerStaticInit663246582da72ada0cc965162c305a60
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
-        'Symfony\\Component\\HttpFoundation\\' => 
+        'Symfony\\Contracts\\' => 
         array (
-            0 => __DIR__ . '/..' . '/symfony/http-foundation',
+            0 => __DIR__ . '/..' . '/symfony/contracts',
         ),
-        'Symfony\\Component\\EventDispatcher\\' => 
+        'Symfony\\Component\\Translation\\' => 
         array (
-            0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
+            0 => __DIR__ . '/..' . '/symfony/translation',
         ),
-        'Stripe\\' => 
+        'Psr\\SimpleCache\\' => 
         array (
-            0 => __DIR__ . '/..' . '/stripe/stripe-php/lib',
+            0 => __DIR__ . '/..' . '/psr/simple-cache/src',
         ),
-        'Omnipay\\WorldPay\\' => 
+        'Psr\\Container\\' => 
         array (
-            0 => __DIR__ . '/..' . '/omnipay/worldpay/src',
-        ),
-        'Omnipay\\TwoCheckoutPlus\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/collizo4sky/omnipay-2checkout/src',
-        ),
-        'Omnipay\\TargetPay\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/omnipay/targetpay/src',
-        ),
-        'Omnipay\\Stripe\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/omnipay/stripe/src',
-        ),
-        'Omnipay\\SecurePay\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/omnipay/securepay/src',
-        ),
-        'Omnipay\\SagePay\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/omnipay/sagepay/src',
-        ),
-        'Omnipay\\Pin\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/omnipay/pin/src',
-        ),
-        'Omnipay\\PaymentExpress\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/omnipay/paymentexpress/src',
-        ),
-        'Omnipay\\Payflow\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/omnipay/payflow/src',
-        ),
-        'Omnipay\\PayPal\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/omnipay/paypal/src',
-        ),
-        'Omnipay\\PayFast\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/omnipay/payfast/src',
-        ),
-        'Omnipay\\Netaxept\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/omnipay/netaxept/src',
-        ),
-        'Omnipay\\NetBanx\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/omnipay/netbanx/src',
-        ),
-        'Omnipay\\MultiSafepay\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/omnipay/multisafepay/src',
-        ),
-        'Omnipay\\Mollie\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/omnipay/mollie/src',
-        ),
-        'Omnipay\\Migs\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/omnipay/migs/src',
-        ),
-        'Omnipay\\Manual\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/omnipay/manual/src',
-        ),
-        'Omnipay\\GoCardless\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/omnipay/gocardless/src',
-        ),
-        'Omnipay\\FirstData\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/omnipay/firstdata/src',
-        ),
-        'Omnipay\\Eway\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/omnipay/eway/src',
-        ),
-        'Omnipay\\Dummy\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/omnipay/dummy/src',
-        ),
-        'Omnipay\\Coinbase\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/omnipay/coinbase/src',
-        ),
-        'Omnipay\\CardSave\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/omnipay/cardsave/src',
-        ),
-        'Omnipay\\Buckaroo\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/omnipay/buckaroo/src',
-        ),
-        'Omnipay\\AuthorizeNet\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/omnipay/authorizenet/src',
+            0 => __DIR__ . '/..' . '/psr/container/src',
         ),
         'Illuminate\\Support\\' => 
         array (
@@ -184,154 +72,49 @@ class ComposerStaticInit663246582da72ada0cc965162c305a60
         array (
             0 => __DIR__ . '/..' . '/illuminate/contracts',
         ),
+        'FontLib\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib',
+        ),
+        'Dompdf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dompdf/dompdf/src',
+        ),
+        'Doctrine\\Common\\Inflector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
+        ),
         'Barryvdh\\DomPDF\\' => 
         array (
             0 => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src',
         ),
     );
 
+    public static $fallbackDirsPsr4 = array (
+        0 => __DIR__ . '/..' . '/nesbot/carbon/src',
+    );
+
     public static $prefixesPsr0 = array (
-        'O' => 
+        'S' => 
         array (
-            'Omnipay\\Common\\' => 
+            'Svg\\' => 
             array (
-                0 => __DIR__ . '/..' . '/omnipay/common/src',
+                0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src',
             ),
-        ),
-        'I' => 
-        array (
-            'Ignited\\LaravelOmnipay' => 
+            'Sabberworm\\CSS' => 
             array (
-                0 => __DIR__ . '/..' . '/ignited/laravel-omnipay/src',
-            ),
-        ),
-        'G' => 
-        array (
-            'Guzzle\\Tests' => 
-            array (
-                0 => __DIR__ . '/..' . '/guzzle/guzzle/tests',
-            ),
-            'Guzzle' => 
-            array (
-                0 => __DIR__ . '/..' . '/guzzle/guzzle/src',
-            ),
-        ),
-        'D' => 
-        array (
-            'Doctrine\\Common\\Inflector\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/doctrine/inflector/lib',
+                0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/lib',
             ),
         ),
     );
 
     public static $classMap = array (
-        'Absolute_Positioner' => __DIR__ . '/..' . '/dompdf/dompdf/include/absolute_positioner.cls.php',
-        'Abstract_Renderer' => __DIR__ . '/..' . '/dompdf/dompdf/include/abstract_renderer.cls.php',
-        'Adobe_Font_Metrics' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Adobe_Font_Metrics.php',
-        'Attribute_Translator' => __DIR__ . '/..' . '/dompdf/dompdf/include/attribute_translator.cls.php',
-        'Block_Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/block_frame_decorator.cls.php',
-        'Block_Frame_Reflower' => __DIR__ . '/..' . '/dompdf/dompdf/include/block_frame_reflower.cls.php',
-        'Block_Positioner' => __DIR__ . '/..' . '/dompdf/dompdf/include/block_positioner.cls.php',
-        'Block_Renderer' => __DIR__ . '/..' . '/dompdf/dompdf/include/block_renderer.cls.php',
-        'CPDF_Adapter' => __DIR__ . '/..' . '/dompdf/dompdf/include/cpdf_adapter.cls.php',
-        'CSS_Color' => __DIR__ . '/..' . '/dompdf/dompdf/include/css_color.cls.php',
-        'Cached_PDF_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/cached_pdf_decorator.cls.php',
-        'Canvas' => __DIR__ . '/..' . '/dompdf/dompdf/include/canvas.cls.php',
-        'Canvas_Factory' => __DIR__ . '/..' . '/dompdf/dompdf/include/canvas_factory.cls.php',
-        'Cellmap' => __DIR__ . '/..' . '/dompdf/dompdf/include/cellmap.cls.php',
-        'DOMPDF' => __DIR__ . '/..' . '/dompdf/dompdf/include/dompdf.cls.php',
-        'DOMPDF_Exception' => __DIR__ . '/..' . '/dompdf/dompdf/include/dompdf_exception.cls.php',
-        'DOMPDF_Image_Exception' => __DIR__ . '/..' . '/dompdf/dompdf/include/dompdf_image_exception.cls.php',
-        'Encoding_Map' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Encoding_Map.php',
-        'Fixed_Positioner' => __DIR__ . '/..' . '/dompdf/dompdf/include/fixed_positioner.cls.php',
-        'Font' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font.php',
-        'Font_Binary_Stream' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Binary_Stream.php',
-        'Font_EOT' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_EOT.php',
-        'Font_EOT_Header' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_EOT_Header.php',
-        'Font_Glyph_Outline' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Glyph_Outline.php',
-        'Font_Glyph_Outline_Component' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Glyph_Outline_Component.php',
-        'Font_Glyph_Outline_Composite' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Glyph_Outline_Composite.php',
-        'Font_Glyph_Outline_Simple' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Glyph_Outline_Simple.php',
-        'Font_Header' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Header.php',
-        'Font_Metrics' => __DIR__ . '/..' . '/dompdf/dompdf/include/font_metrics.cls.php',
-        'Font_OpenType' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_OpenType.php',
-        'Font_OpenType_Table_Directory_Entry' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_OpenType_Table_Directory_Entry.php',
-        'Font_Table' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table.php',
-        'Font_Table_Directory_Entry' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table_Directory_Entry.php',
-        'Font_Table_cmap' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table_cmap.php',
-        'Font_Table_glyf' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table_glyf.php',
-        'Font_Table_head' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table_head.php',
-        'Font_Table_hhea' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table_hhea.php',
-        'Font_Table_hmtx' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table_hmtx.php',
-        'Font_Table_kern' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table_kern.php',
-        'Font_Table_loca' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table_loca.php',
-        'Font_Table_maxp' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table_maxp.php',
-        'Font_Table_name' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table_name.php',
-        'Font_Table_name_Record' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table_name_Record.php',
-        'Font_Table_os2' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table_os2.php',
-        'Font_Table_post' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table_post.php',
-        'Font_TrueType' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_TrueType.php',
-        'Font_TrueType_Collection' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_TrueType_Collection.php',
-        'Font_TrueType_Header' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_TrueType_Header.php',
-        'Font_TrueType_Table_Directory_Entry' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_TrueType_Table_Directory_Entry.php',
-        'Font_WOFF' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_WOFF.php',
-        'Font_WOFF_Header' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_WOFF_Header.php',
-        'Font_WOFF_Table_Directory_Entry' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_WOFF_Table_Directory_Entry.php',
-        'Frame' => __DIR__ . '/..' . '/dompdf/dompdf/include/frame.cls.php',
-        'FrameList' => __DIR__ . '/..' . '/dompdf/dompdf/include/frame.cls.php',
-        'FrameListIterator' => __DIR__ . '/..' . '/dompdf/dompdf/include/frame.cls.php',
-        'FrameTreeIterator' => __DIR__ . '/..' . '/dompdf/dompdf/include/frame.cls.php',
-        'FrameTreeList' => __DIR__ . '/..' . '/dompdf/dompdf/include/frame.cls.php',
-        'Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/frame_decorator.cls.php',
-        'Frame_Factory' => __DIR__ . '/..' . '/dompdf/dompdf/include/frame_factory.cls.php',
-        'Frame_Reflower' => __DIR__ . '/..' . '/dompdf/dompdf/include/frame_reflower.cls.php',
-        'Frame_Tree' => __DIR__ . '/..' . '/dompdf/dompdf/include/frame_tree.cls.php',
-        'GD_Adapter' => __DIR__ . '/..' . '/dompdf/dompdf/include/gd_adapter.cls.php',
-        'Image_Cache' => __DIR__ . '/..' . '/dompdf/dompdf/include/image_cache.cls.php',
-        'Image_Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/image_frame_decorator.cls.php',
-        'Image_Frame_Reflower' => __DIR__ . '/..' . '/dompdf/dompdf/include/image_frame_reflower.cls.php',
-        'Image_Renderer' => __DIR__ . '/..' . '/dompdf/dompdf/include/image_renderer.cls.php',
-        'Inline_Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/inline_frame_decorator.cls.php',
-        'Inline_Frame_Reflower' => __DIR__ . '/..' . '/dompdf/dompdf/include/inline_frame_reflower.cls.php',
-        'Inline_Positioner' => __DIR__ . '/..' . '/dompdf/dompdf/include/inline_positioner.cls.php',
-        'Inline_Renderer' => __DIR__ . '/..' . '/dompdf/dompdf/include/inline_renderer.cls.php',
-        'Javascript_Embedder' => __DIR__ . '/..' . '/dompdf/dompdf/include/javascript_embedder.cls.php',
-        'Line_Box' => __DIR__ . '/..' . '/dompdf/dompdf/include/line_box.cls.php',
-        'List_Bullet_Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/list_bullet_frame_decorator.cls.php',
-        'List_Bullet_Frame_Reflower' => __DIR__ . '/..' . '/dompdf/dompdf/include/list_bullet_frame_reflower.cls.php',
-        'List_Bullet_Image_Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/list_bullet_image_frame_decorator.cls.php',
-        'List_Bullet_Positioner' => __DIR__ . '/..' . '/dompdf/dompdf/include/list_bullet_positioner.cls.php',
-        'List_Bullet_Renderer' => __DIR__ . '/..' . '/dompdf/dompdf/include/list_bullet_renderer.cls.php',
-        'Null_Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/null_frame_decorator.cls.php',
-        'Null_Frame_Reflower' => __DIR__ . '/..' . '/dompdf/dompdf/include/null_frame_reflower.cls.php',
-        'Null_Positioner' => __DIR__ . '/..' . '/dompdf/dompdf/include/null_positioner.cls.php',
-        'Omnipay\\Omnipay' => __DIR__ . '/..' . '/omnipay/common/src/Omnipay/Omnipay.php',
-        'PDFLib_Adapter' => __DIR__ . '/..' . '/dompdf/dompdf/include/pdflib_adapter.cls.php',
-        'PHP_Evaluator' => __DIR__ . '/..' . '/dompdf/dompdf/include/php_evaluator.cls.php',
-        'Page_Cache' => __DIR__ . '/..' . '/dompdf/dompdf/include/page_cache.cls.php',
-        'Page_Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/page_frame_decorator.cls.php',
-        'Page_Frame_Reflower' => __DIR__ . '/..' . '/dompdf/dompdf/include/page_frame_reflower.cls.php',
-        'Positioner' => __DIR__ . '/..' . '/dompdf/dompdf/include/positioner.cls.php',
-        'Renderer' => __DIR__ . '/..' . '/dompdf/dompdf/include/renderer.cls.php',
-        'Style' => __DIR__ . '/..' . '/dompdf/dompdf/include/style.cls.php',
-        'Stylesheet' => __DIR__ . '/..' . '/dompdf/dompdf/include/stylesheet.cls.php',
-        'TCPDF_Adapter' => __DIR__ . '/..' . '/dompdf/dompdf/include/tcpdf_adapter.cls.php',
-        'Table_Cell_Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/table_cell_frame_decorator.cls.php',
-        'Table_Cell_Frame_Reflower' => __DIR__ . '/..' . '/dompdf/dompdf/include/table_cell_frame_reflower.cls.php',
-        'Table_Cell_Positioner' => __DIR__ . '/..' . '/dompdf/dompdf/include/table_cell_positioner.cls.php',
-        'Table_Cell_Renderer' => __DIR__ . '/..' . '/dompdf/dompdf/include/table_cell_renderer.cls.php',
-        'Table_Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/table_frame_decorator.cls.php',
-        'Table_Frame_Reflower' => __DIR__ . '/..' . '/dompdf/dompdf/include/table_frame_reflower.cls.php',
-        'Table_Row_Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/table_row_frame_decorator.cls.php',
-        'Table_Row_Frame_Reflower' => __DIR__ . '/..' . '/dompdf/dompdf/include/table_row_frame_reflower.cls.php',
-        'Table_Row_Group_Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/table_row_group_frame_decorator.cls.php',
-        'Table_Row_Group_Frame_Reflower' => __DIR__ . '/..' . '/dompdf/dompdf/include/table_row_group_frame_reflower.cls.php',
-        'Table_Row_Group_Renderer' => __DIR__ . '/..' . '/dompdf/dompdf/include/table_row_group_renderer.cls.php',
-        'Table_Row_Positioner' => __DIR__ . '/..' . '/dompdf/dompdf/include/table_row_positioner.cls.php',
-        'Text_Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/text_frame_decorator.cls.php',
-        'Text_Frame_Reflower' => __DIR__ . '/..' . '/dompdf/dompdf/include/text_frame_reflower.cls.php',
-        'Text_Renderer' => __DIR__ . '/..' . '/dompdf/dompdf/include/text_renderer.cls.php',
+        'Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
+        'HTML5_Data' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/Data.php',
+        'HTML5_InputStream' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/InputStream.php',
+        'HTML5_Parser' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/Parser.php',
+        'HTML5_Tokenizer' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/Tokenizer.php',
+        'HTML5_TreeBuilder' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/TreeBuilder.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -339,6 +122,7 @@ class ComposerStaticInit663246582da72ada0cc965162c305a60
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit663246582da72ada0cc965162c305a60::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit663246582da72ada0cc965162c305a60::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInit663246582da72ada0cc965162c305a60::$fallbackDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit663246582da72ada0cc965162c305a60::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit663246582da72ada0cc965162c305a60::$classMap;
 

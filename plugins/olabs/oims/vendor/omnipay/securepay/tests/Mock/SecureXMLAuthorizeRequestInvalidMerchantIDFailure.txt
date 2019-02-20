@@ -1,8 +1,0 @@
-HTTP/1.1 200 OK
-Date: Fri, 17 Apr 2015 02:22:45 GMT
-Server: Apache
-Content-Type: text/xml;charset=ISO-8859-1
-Content-Length: 194
-Connection: close
-
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><SecurePayMessage><Status><statusCode>504</statusCode><statusDescription>Invalid merchant ID</statusDescription></Status></SecurePayMessage>

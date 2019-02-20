@@ -311,3 +311,25 @@ tabs:
             path: $/olabs/oims/models/settings/_material_receipt_help_field.htm
             type: partial
             tab: 'olabs.oims::lang.settings.material_receipt_template'
+        daily_cash_sheet_template_style:
+            tab: 'olabs.oims::lang.settings.daily_cash_sheet_template'
+            label: 'olabs.oims::lang.settings.daily_cash_sheet_template_style'
+            span: full
+            type: textarea
+            size: giant
+        daily_cash_sheet_template_content:
+            tab: 'olabs.oims::lang.settings.daily_cash_sheet_template'
+            label: 'olabs.oims::lang.settings.daily_cash_sheet_template_content'
+            span: full
+            type: richeditor
+            size: giant
+        daily_cash_sheet_help_section:
+            label: 'olabs.oims::lang.settings.daily_cash_sheet_help_section'
+            span: full
+            type: section
+            comment: 'olabs.oims::lang.settings.daily_cash_sheet_help_section_comment'
+            tab: 'olabs.oims::lang.settings.daily_cash_sheet_template'
+        daily_cash_sheet_help:
+            tab: 'olabs.oims::lang.settings.daily_cash_sheet_template'
+            type: partial
+            path: $/olabs/oims/models/settings/_daily_cash_sheet_help_field.htm

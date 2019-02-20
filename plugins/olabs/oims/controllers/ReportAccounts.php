@@ -27,7 +27,7 @@ class ReportAccounts extends ReportHelper {
         $this->searchFormWidget = $this->createDPRSearchFormWidget();
         BackendMenu::setContext('Olabs.Oims', 'reportaccounts', 'transaction_report');
     }
-    
+
     //Transaction Report
     public function transaction_report() {
         BackendMenu::setContext('Olabs.Oims', 'reportaccounts', 'transaction_report');
@@ -62,7 +62,7 @@ class ReportAccounts extends ReportHelper {
             // get dpr components
             $this->searchTransactionReport($searchParams);
         }
-        
+
         $oimsSetting = \Olabs\Oims\Models\Settings::instance();
 
         $this->vars['search'] = true;
@@ -157,8 +157,7 @@ class ReportAccounts extends ReportHelper {
 
         return \Redirect::to('/backend/olabs/oims/reports/download?name=' . $fileName);
     }
-    
-    
+
     //Cash Flow Report
     public function cash_flow_report() {
         BackendMenu::setContext('Olabs.Oims', 'reportaccounts', 'cash_flow_report');
@@ -193,7 +192,7 @@ class ReportAccounts extends ReportHelper {
             // get dpr components
             $this->searchTransactionReport($searchParams);
         }
-        
+
         $oimsSetting = \Olabs\Oims\Models\Settings::instance();
 
         $this->vars['search'] = true;
@@ -249,52 +248,49 @@ class ReportAccounts extends ReportHelper {
         $grand_total = 0;
         $count = 0;
 
-        $payment_types = ['Payment Received'=>0];
+        $payment_types = ['Payment Received' => 0];
 
-        foreach($reports as $report){ 
-            if($report->payment_type != '' AND !isset($payment_types[$report->payment_type]) AND $report->debit_amount != 0 ){
+        foreach ($reports as $report) {
+            if ($report->payment_type != '' AND ! isset($payment_types[$report->payment_type]) AND $report->debit_amount != 0) {
                 $ledger_name = isset($report->ledger_type) ? $report->ledger_type->name : $report->payment_type;
                 $payment_types[$report->payment_type] = 0;
                 $header_columns[] = $ledger_name;
             }
         }
-        
+
         $header_columns[] = 'Total';
-        
-        
-        
-        
+
+
+
+
         foreach ($reports as $report) {
             $total = 0;
             $temp = [];
-             
+
             $temp[] = date("d-m-Y", strtotime($report->context_date));
             $temp[] = $report->project->slug;
             $temp[] = $report->reference_number;
             $temp[] = $report->description;
-            foreach($payment_types as $key => $value){
+            foreach ($payment_types as $key => $value) {
                 $amount = '';
-                if($report->payment_type == $key){
+                if ($report->payment_type == $key) {
                     $amount = $report->debit_amount != 0 ? $report->debit_amount : $report->credit_amount;
                     $payment_types[$key] += is_numeric($amount) ? $amount : 0;
-                    if($report->debit_amount != 0) {
-                        $total +=$amount;    
+                    if ($report->debit_amount != 0) {
+                        $total += $amount;
                         $grand_total += $amount;
                     }
-                    
                 }
                 $temp[] = $amount;
-                
-                
             }
             $temp[] = $total;
-            
+
             $excel_rows[] = $temp;
         }
-        
+
         //Report total
-        $temp = ['Total','','',''];
-        foreach($payment_types as $key => $value){
+        $temp = ['Total', '', '', ''];
+        foreach ($payment_types as $key => $value) {
             $temp[] = $value;
         }
         $temp[] = $grand_total;
@@ -312,7 +308,7 @@ class ReportAccounts extends ReportHelper {
             ["Opening Balance On Date " . date("d-m-Y", strtotime($from_date)) . "", $balance_amount],
             ["Total Received", $oimsSetting->getPriceFormattedWithoutCurrency($payment_types['Payment Received'])],
             ["Total Expenses", $oimsSetting->getPriceFormattedWithoutCurrency($grand_total)],
-            ["Closing Balance On Date ". date("d-m-Y", strtotime($to_date)) . "", $oimsSetting->getPriceFormattedWithoutCurrency($closing_balance_amount)],
+            ["Closing Balance On Date " . date("d-m-Y", strtotime($to_date)) . "", $oimsSetting->getPriceFormattedWithoutCurrency($closing_balance_amount)],
         ];
 //        foreach ($status_count as $k => $v) {
 //            $temp['rows'][] = [$k . ' MR Count', $v];
@@ -325,8 +321,7 @@ class ReportAccounts extends ReportHelper {
 
         return \Redirect::to('/backend/olabs/oims/reports/download?name=' . $fileName);
     }
-    
-    
+
     //Daily Cash Flow Sheet
     public function daily_cash_flow() {
         BackendMenu::setContext('Olabs.Oims', 'reportaccounts', 'daily_cash_flow');
@@ -361,14 +356,14 @@ class ReportAccounts extends ReportHelper {
             // get dpr components
             $this->searchTransactionReport($searchParams);
         }
-        
+
         $oimsSetting = \Olabs\Oims\Models\Settings::instance();
 
         $this->vars['search'] = true;
         $this->vars['oimsSetting'] = $oimsSetting;
     }
 
-    public function onDailyCashFLowExportExcel() {
+    public function onDailyCashFlowExport() {
         $file_type = '.' . post('type');
 
         ////////Generate Excel Data
@@ -391,6 +386,9 @@ class ReportAccounts extends ReportHelper {
             if ($search_to_date != '') {
                 $timeFormat = '23:59:59';
                 $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
+            } else {
+                $timeFormat = '23:59:59';
+                $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_from_date, $timeFormat);
             }
             $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
 
@@ -406,6 +404,169 @@ class ReportAccounts extends ReportHelper {
         $reports = $this->vars['reports'];
         $balance_amount = $this->vars['balance_amount'];
 
+        //Generate HTML
+        // Create invoice html
+        $oimsSetting = \Olabs\Oims\Models\Settings::instance();
+
+        $template_style = str_replace("\r\n", "", $oimsSetting->daily_cash_sheet_template_style);
+
+        $template_content = str_replace("\r\n", "", $oimsSetting->daily_cash_sheet_template_content);
+        $template_content = str_replace("\t", "", $template_content);
+
+        $html = "";
+        $html = "<html><head><style> $template_style </style></head><body>$template_content</body></html>";
+
+
+        //Logo src
+        $logo = \Backend\Models\BrandSetting::getLogo();
+        $html = str_replace("{{logo_src}}", $logo, $html);
+
+        $company = $projectModal->company;
+        $companyFullAddress = $company ? $company->getFullAddressAttribute() : "";
+        $html = str_replace("{{company_name}}", $company->name, $html);
+        $html = str_replace("{{company_address}}", $company->address, $html);
+        $html = str_replace("{{company_address2}}", $company->address_2, $html);
+        $html = str_replace("{{company_city}}", $company->city, $html);
+        $html = str_replace("{{company_country}}", $company->country, $html);
+        $html = str_replace("{{company_postcode}}", $company->postcode, $html);
+        $html = str_replace("{{company_contact_person}}", $company->contact_person, $html);
+        $html = str_replace("{{company_contact_phone}}", $company->contact_phone, $html);
+        $html = str_replace("{{company_contact_email}}", $company->contact_email, $html);
+        $html = str_replace("{{company_full_address}}", $companyFullAddress, $html);
+
+
+        $project = $projectModal;
+        $projectFullAddress = $project ? $project->getFullAddressAttribute() : "";
+        $projectBillingAddress = $project ? $project->getFullBillingAddressAttribute() : "";
+        $projectContactPerson = $project ? $project->contact_person : "";
+        $projectContactPhone = $project ? $project->contact_phone : "";
+        $projectContactEmail = $project ? $project->contact_email : "";
+        $projectGSTNumber = $project ? $project->gst_number : "";
+
+        $html = str_replace("{{project_name}}", $project->name, $html);
+        $html = str_replace("{{project_address}}", $project->address, $html);
+        $html = str_replace("{{project_address2}}", $project->address_2, $html);
+        $html = str_replace("{{project_city}}", $project->city, $html);
+        $html = str_replace("{{project_country}}", $project->country, $html);
+        $html = str_replace("{{project_postcode}}", $project->postcode, $html);
+        $html = str_replace("{{project_full_address}}", $projectFullAddress, $html);
+        $html = str_replace("{{project_billing_address}}", $project->billing_address, $html);
+        $html = str_replace("{{project_billing_address2}}", $project->billing_address_2, $html);
+        $html = str_replace("{{project_billing_city}}", $project->billing_city, $html);
+        $html = str_replace("{{project_billing_country}}", $project->billing_country, $html);
+        $html = str_replace("{{project_billing_postcode}}", $project->billing_postcode, $html);
+        $html = str_replace("{{project_billing_address}}", $projectBillingAddress, $html);
+        $html = str_replace("{{project_contact_person}}", $projectContactPerson, $html);
+        $html = str_replace("{{project_contact_phone}}", $projectContactPhone, $html);
+        $html = str_replace("{{project_contact_email}}", $projectContactEmail, $html);
+        $html = str_replace("{{project_gst_number}}", $projectGSTNumber, $html);
+
+        $contextDate = empty($from_date) ? "" : \Olabs\Oims\Models\Settings::convertToDisplayDate($from_date);
+        $html = str_replace("{{context_date}}", $contextDate, $html);
+
+        $grand_total = 0;
+        $count = 0;
+        $total_receipt = 0;
+        $total_payment = 0;
+        $payment_types = ['Payment Received' => 'Payment Received'];
+
+        //Receipts
+        $productsTemplate = $oimsSetting->getTableRowContent($html, 'class', 'receipt_item_row');
+        $productTableRow = "";
+        $isProductTemplateSet = ($productsTemplate != "") ? true : false;
+        foreach ($reports as $report) {
+            if (in_array($report->payment_type, $payment_types)) {
+                $total_receipt += $report->credit_amount;
+                $productFields = array(
+                    '{{receipt_date}}' => $oimsSetting->convertToDisplayDate($report->context_date),
+                    '{{receipt_description}}' => $report->description,
+                    '{{receipt_reference_number}}' => $report->reference_number,
+                    '{{receipt_amount}}' => $oimsSetting->getPriceFormattedWithoutCurrency($report->credit_amount),
+                );
+
+                $productTableRow .= $isProductTemplateSet ? strtr($productsTemplate, $productFields) : "";
+            }
+        }
+
+        //if empty receipts then fill it by blank
+        if ($productTableRow == '') {
+            $productFields = array(
+                '{{receipt_date}}' => '',
+                '{{receipt_description}}' => '',
+                '{{receipt_reference_number}}' => '',
+                '{{receipt_amount}}' => '',
+            );
+
+            $productTableRow .= $isProductTemplateSet ? strtr($productsTemplate, $productFields) : "";
+        }
+
+        $html = str_replace($productsTemplate, $productTableRow, $html);
+
+
+        //Payments
+        $productsTemplate = $oimsSetting->getTableRowContent($html, 'class', 'payment_item_row');
+        $productTableRow = "";
+        $isProductTemplateSet = ($productsTemplate != "") ? true : false;
+        foreach ($reports as $report) {
+            if (!in_array($report->payment_type, $payment_types)) {
+                $ledger_name = isset($report->ledger_type) ? $report->ledger_type->name : $report->payment_type;
+                $total_payment += $report->debit_amount;
+                
+                $productFields = array(
+                    '{{payment_date}}' => $oimsSetting->convertToDisplayDate($report->context_date),
+                    '{{payment_description}}' => $report->description,
+                    '{{payment_reference_number}}' => $report->reference_number,
+                    '{{payment_type}}' => $ledger_name,
+                    '{{payment_amount}}' => $oimsSetting->getPriceFormattedWithoutCurrency($report->debit_amount),
+                );
+
+                $productTableRow .= $isProductTemplateSet ? strtr($productsTemplate, $productFields) : "";
+            }
+        }
+
+        //if empty receipts then fill it by blank
+        if ($productTableRow == '') {
+            $productFields = array(
+                '{{payment_date}}' => '',
+                '{{payment_description}}' => '',
+                '{{payment_reference_number}}' => '',
+                '{{payment_type}}' => '',
+                '{{payment_amount}}' => '',
+            );
+
+            $productTableRow .= $isProductTemplateSet ? strtr($productsTemplate, $productFields) : "";
+        }
+
+        $html = str_replace($productsTemplate, $productTableRow, $html);
+
+
+        $closing_balance_amount = $balance_amount + $total_receipt - $total_payment;
+        
+        
+        //Summary
+        $html = str_replace("{{total_receipt}}", $oimsSetting->getPriceFormattedWithoutCurrency($total_receipt), $html);
+        $html = str_replace("{{total_payment}}", $oimsSetting->getPriceFormattedWithoutCurrency($total_payment), $html);
+        $html = str_replace("{{balance_amount}}", $oimsSetting->getPriceFormattedWithoutCurrency($balance_amount), $html);
+        $html = str_replace("{{closing_balance_amount}}", $oimsSetting->getPriceFormattedWithoutCurrency($closing_balance_amount), $html);
+        
+        
+        
+
+//        $report_body = $this->makePartial('daily_cash_flow_list', ['reports' => $reports, 'oimsSetting' => $oimsSetting]);
+//        $html = str_replace("{{report_body}}", $report_body, $html);
+        // Generate invoice
+        $fileName = 'daily_cash_sheet_' . $this->id . '_' . time();
+        $invoiceTempFile = temp_path() . "/" . $fileName . ".pdf";
+//        $invoiceTempFile = temp_path() . "/invoice-" . $this->id . ".pdf";
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadHTML($html);
+//        $pdf->define('isHtml5ParserEnabled', true);
+        $pdf->setPaper('A4', 'portrait'); //landscape
+        $pdf->save($invoiceTempFile);
+
+
+        return \Redirect::to('/backend/olabs/oims/reports/downloadPdf?name=' . $fileName);
+        //exit();
         //Generating Excel
         $header_columns = ['Date', 'Project', 'Reference No.', 'Description', 'Payment Received'];
 
@@ -417,52 +578,49 @@ class ReportAccounts extends ReportHelper {
         $grand_total = 0;
         $count = 0;
 
-        $payment_types = ['Payment Received'=>0];
+        $payment_types = ['Payment Received' => 0];
 
-        foreach($reports as $report){ 
-            if($report->payment_type != '' AND !isset($payment_types[$report->payment_type]) AND $report->debit_amount != 0 ){
+        foreach ($reports as $report) {
+            if ($report->payment_type != '' AND ! isset($payment_types[$report->payment_type]) AND $report->debit_amount != 0) {
                 $ledger_name = isset($report->ledger_type) ? $report->ledger_type->name : $report->payment_type;
                 $payment_types[$report->payment_type] = 0;
                 $header_columns[] = $ledger_name;
             }
         }
-        
+
         $header_columns[] = 'Total';
-        
-        
-        
-        
+
+
+
+
         foreach ($reports as $report) {
             $total = 0;
             $temp = [];
-             
+
             $temp[] = date("d-m-Y", strtotime($report->context_date));
             $temp[] = $report->project->slug;
             $temp[] = $report->reference_number;
             $temp[] = $report->description;
-            foreach($payment_types as $key => $value){
+            foreach ($payment_types as $key => $value) {
                 $amount = '';
-                if($report->payment_type == $key){
+                if ($report->payment_type == $key) {
                     $amount = $report->debit_amount != 0 ? $report->debit_amount : $report->credit_amount;
                     $payment_types[$key] += is_numeric($amount) ? $amount : 0;
-                    if($report->debit_amount != 0) {
-                        $total +=$amount;    
+                    if ($report->debit_amount != 0) {
+                        $total += $amount;
                         $grand_total += $amount;
                     }
-                    
                 }
                 $temp[] = $amount;
-                
-                
             }
             $temp[] = $total;
-            
+
             $excel_rows[] = $temp;
         }
-        
+
         //Report total
-        $temp = ['Total','','',''];
-        foreach($payment_types as $key => $value){
+        $temp = ['Total', '', '', ''];
+        foreach ($payment_types as $key => $value) {
             $temp[] = $value;
         }
         $temp[] = $grand_total;
@@ -480,22 +638,24 @@ class ReportAccounts extends ReportHelper {
             ["Opening Balance On Date " . date("d-m-Y", strtotime($from_date)) . "", $balance_amount],
             ["Total Received", $oimsSetting->getPriceFormattedWithoutCurrency($payment_types['Payment Received'])],
             ["Total Expenses", $oimsSetting->getPriceFormattedWithoutCurrency($grand_total)],
-            ["Closing Balance On Date ". date("d-m-Y", strtotime($to_date)) . "", $oimsSetting->getPriceFormattedWithoutCurrency($closing_balance_amount)],
+            ["Closing Balance On Date " . date("d-m-Y", strtotime($to_date)) . "", $oimsSetting->getPriceFormattedWithoutCurrency($closing_balance_amount)],
         ];
 //        foreach ($status_count as $k => $v) {
 //            $temp['rows'][] = [$k . ' MR Count', $v];
 //        }
         $export_data[] = $temp;
         ////////////////////////////////////////////////////////////
-        $fileName = 'cash_flow_report_' . time() . $file_type;
+        $fileName = 'daily_cash_flow_' . time() . $file_type;
 
         Excel::excel()->store(new \Olabs\Oims\Exports\ReportsExport($export_data), $fileName, 'local');
 
         return \Redirect::to('/backend/olabs/oims/reports/download?name=' . $fileName);
     }
-    
-    
-    
+
+    public function template() {
+        #to check printing template's html
+    }
+
     //Attendance Report
     public function attendance_report() {
         BackendMenu::setContext('Olabs.Oims', 'reportaccounts', 'attendance_report');
@@ -621,7 +781,7 @@ class ReportAccounts extends ReportHelper {
 
         return \Redirect::to('/backend/olabs/oims/reports/download?name=' . $fileName);
     }
-    
+
     //Attendance Summary Report
     public function attendanceSummary_report() {
         BackendMenu::setContext('Olabs.Oims', 'reportaccounts', 'attendance_summary_report');
@@ -949,4 +1109,5 @@ class ReportAccounts extends ReportHelper {
 
         return \Redirect::to('/backend/olabs/oims/reports/download?name=' . $fileName);
     }
+
 }

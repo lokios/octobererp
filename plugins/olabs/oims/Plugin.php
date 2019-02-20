@@ -262,12 +262,12 @@ class Plugin extends PluginBase {
         // -----------------------------------------------------------
         // Omnipay
         // -----------------------------------------------------------
-        \App::register('Ignited\LaravelOmnipay\LaravelOmnipayServiceProvider');
-        $alias->alias('Omnipay', 'Ignited\LaravelOmnipay\Facades\OmnipayFacade');
-        // add extra gateways
-        $factory = \Omnipay\Omnipay::getFactory();
-        $factory->register("TwoCheckoutPlus");
-        $factory->register("TwoCheckoutPlus_Token");
+//        \App::register('Ignited\LaravelOmnipay\LaravelOmnipayServiceProvider');
+//        $alias->alias('Omnipay', 'Ignited\LaravelOmnipay\Facades\OmnipayFacade');
+//        // add extra gateways
+//        $factory = \Omnipay\Omnipay::getFactory();
+//        $factory->register("TwoCheckoutPlus");
+//        $factory->register("TwoCheckoutPlus_Token");
         // -----------------------------------------------------------
         //Banned Backend User
         User::extend(function (User $model) {
