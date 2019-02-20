@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            @page { margin: 0px; }    
+            .invoice-box {
+                max-width: 800px;
+                /*border: 1px solid #eee;*/
+                line-height: 14px;
+                font-family: 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif';
+                color: #555;
+                position: relative;
+                margin: 10px; 
+                background: #FFFFFF; 
+                font-size: 11px; 
+                width: 100%;
+            }
+            .table-header{
+                border: 1px solid #eee;
+            }
+            /*    table { width: 100%; border-collapse: collapse;}
+                td, th { border: 1px solid #ccc; }*/
+
+            .invoice-box  td{
+                vertical-align: top;
+            }
+            .logo {
+                float: left;
+                margin-top: 2px;
+                width: 80px;
+            }
+
+            .logo img {
+                height: 60px;
+            }
+
+            .company {
+
+                text-align: center;
+
+            }
+
+            .billings {
+
+                text-align: right;
+            }
+
+            .client {
+                padding-left: 6px;
+
+            }
+
+            .client .to {
+                color: #777777;
+            }
+
+            .invoice {
+                float: right;
+                text-align: right;
+            }
+
+            .invoice h1 {
+                color: #0087C3;
+                font-size: 1.4em;
+                line-height: 1em;
+                font-weight: normal;
+                margin: 0 0 5px 0;
+            }
+
+            .invoice .date {
+                font-size: 1.1em;
+                color: #555;
+
+                margin-bottom: 7px;
+            }
+
+
+            .subject {
+                padding-left: 6px;
+                border-left: 6px; 
+            }
+
+            .clearfix:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+
+            a {
+                color: #0087C3;
+                text-decoration: none;
+            }
+
+            /*border-bottom: 1px solid #eee; margin-bottom: 10px;*/
+            .header {
+                padding: 10px 0;
+                margin-bottom: 10px;
+                border-bottom: 1px solid #AAAAAA;
+            }
+
+            .details {
+                margin-bottom: 10px;
+            }
+
+            h2.name {
+                font-size: 1.4em;
+                font-weight: normal;
+                margin: 0;
+            }
+            h4.name {
+                font-size: 1.0em;
+                font-weight: normal;
+                margin: 0;
+            }
+
+
+
+            .items  {
+                width: 100%;
+                border-collapse: collapse;
+                border-spacing: 0;
+                margin-bottom: 20px;
+            }
+
+            .items th,
+            .items td {
+                padding: 10px;
+                background: #fff;
+                text-align: center;
+                border-bottom: 1px solid #eee;
+            }
+
+            .items th {
+                white-space: nowrap;        
+                font-weight: bold;
+            }
+
+            .items  td {
+                text-align: right;
+            }
+
+            .items  td h3{
+                color: #57B223;
+                font-size: 1.2em;
+                font-weight: normal;
+                margin: 0 0 0.2em 0;
+            }
+
+            .items .summary_heading {
+                white-space: nowrap;        
+                font-weight: bold;
+            }
+
+            .items  .no {
+                /*        color: #FFFFFF;
+                        font-size: 1.6em;
+                        background: #57B223;*/
+            }
+
+            .items  .desc {
+                text-align: left;
+            }
+
+            .items  .unit {
+                /*background: #DDDDDD;*/
+            }
+
+            .items  .qty {
+            }
+
+            .items  .total {
+                /*        background: #57B223;
+                        color: #FFFFFF;*/
+            }
+
+            .items  td.unit,
+            .items  td.qty,
+            .items  td.total {
+                font-size: 1.0em;
+            }
+
+            .items  tbody tr:last-child td {
+                border: none;
+            }
+
+            .items  tfoot td {
+                padding: 10px 20px;
+                background: #FFFFFF;
+                border-bottom: none;
+                font-size: 1.2em;
+                white-space: nowrap; 
+                border-top: 1px solid #AAAAAA; 
+            }
+
+            .items  tfoot tr:first-child td {
+                border-top: none; 
+            }
+
+            .items  tfoot tr:last-child td {
+                color: #57B223;
+                font-size: 1.4em;
+                border-top: 1px solid #57B223; 
+
+            }
+
+            .items  tfoot tr td:first-child {
+                border: none;
+            }
+
+            .invoice_details{
+                /*margin-bottom: 10px;*/
+            }
+            .invoice_detail_left{
+                /*float: left;*/
+                width: 48%
+            }
+            .invoice_detail_right{
+                /*float: right;*/
+                width: 48%
+            }
+
+
+            .invoice_detail_table  {
+                width: 100%;
+                border-collapse: collapse;
+                border-spacing: 0;
+                font-size: 1.0em;
+
+                /*margin-bottom: 20px;*/
+            }
+
+            .invoice_detail_table th{
+                width: 140px;
+                text-align: left;
+                /*border-bottom: 1px solid #c2c2c2;*/
+                padding: 10px;
+                color: #555;
+            }
+
+            .invoice_detail_table td{
+                text-align: left;
+                border-bottom: 1px solid #c2c2c2;
+                padding: 10px;
+                color: #555;
+            }
+
+            .authorize_signatory_table th{
+                width: 160px;
+                text-align: left;
+                /*border-bottom: 1px solid #c2c2c2;*/
+                padding: 10px;
+                color: #555;
+            }
+
+            .authorize_signatory_table td{
+                text-align: left;
+                border-bottom: 1px solid #c2c2c2;
+                padding: 10px;
+                color: #555;
+            }
+
+            #thanks{
+                font-size: 2em;
+                margin-bottom: 50px;
+            }
+
+            #notices{
+                padding-left: 6px;
+                border-left: 6px solid #0087C3;  
+            }
+
+            #notices .notice {
+                font-size: 1.2em;
+            }
+
+            .footer {
+                color: #777777;
+                width: 100%;
+                height: 30px;
+                position: fixed;
+                bottom: 0px;
+                border-top: 1px solid #AAAAAA;
+                padding: 8px 0;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <!--Header-->
+
+        <table class="invoice-box header">
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="logo"><img src="{{logo_src}}" style="width: 100%; max-width: 300px;" alt="" class="fr-fic fr-dii"></div>
+                    </td>
+                    <td>
+                        <div class="company">
+
+                            <h2 class="name">{{company_name}}</h2>
+                            <div>{{company_address}}, {{company_address2}}</div>
+                            <div>{{company_city}} - {{company_postcode}}</div>
+                            <div>{{company_contact_phone}}, <a href="mailto:{{company_contact_email}}">{{company_contact_email}}</a></div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="invoice-box ">
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="company">
+
+                            <h3 class="report_heading">Daily Cash Sheet</h3>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="invoice-box">
+            <tbody>
+                <tr>
+                    <td>
+
+                        <table class="invoice_detail_table">
+                            <tbody>
+                                <tr>
+                                    <th>IB No.</th>
+                                    <td>
+                                        <br>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Site Name:</th>
+                                    <td>{{project_name}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>
+
+                        <table class="invoice_detail_table">
+                            <tbody>
+                                <tr>
+                                    <th>Date:</th>
+                                    <td>{{context_date}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Accountant:</th>
+                                    <td>
+                                        <br>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!--Descriptions-->
+        <!--<div>{{report_body}}</div> -->
+
+        <table class="invoice-box items ">
+            <thead>
+                <tr>
+                    <th class="no">Date</th>
+                    <th class="desc">Received Through Cash &amp; Cheque</th>
+                    <th class="unit">LF</th>
+                    <th class="qty">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="receipt_item_row">
+                    <td class="no">{{receipt_date}}</td>
+                    <td class="desc">{{receipt_description}}</td>
+                    <td class="unit">{{receipt_reference_number}}</td>
+                    <td class="total">{{receipt_amount}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <br>
+                    </td>
+                    <td class="summary_heading"><strong>Total Receipt</strong></td>
+                    <td>
+                        <br>
+                    </td>
+                    <td class="summary_heading">{{total_receipt}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <!--Descriptions-->
+
+        <table class="invoice-box items ">
+            <thead>
+                <tr>
+                    <th class="no">Date</th>
+                    <th class="desc">Particulars</th>
+                    <th class="unit">Payment Type</th>
+                    <th class="unit">LF</th>
+                    <th class="qty">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="payment_item_row">
+                    <td class="no">{{payment_date}}</td>
+                    <td class="desc">{{payment_description}}</td>
+                    <td class="unit">{{payment_type}}</td>
+                    <td class="unit">{{payment_reference_number}}</td>
+                    <td class="total">{{payment_amount}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <br>
+                    </td>
+                    <td></td>
+                    <td class="summary_heading"><strong>Total</strong></td>
+                    <td>
+                        <br>
+                    </td>
+                    <td class="summary_heading">{{total_payment}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="invoice-box ">
+            <tbody>
+            <td>
+                <table class="invoice_detail_table">
+                    <tbody>
+                       
+
+                        <tr>
+                            <th class="summary_heading"><strong>Cumulative Receipt</strong></th>
+                            <td>: {{balance_amount}}</td>
+                        </tr>
+                        <tr>
+                            <th class="summary_heading"><strong>Add Receipt</strong></th>
+                            <td>: {{total_receipt}}</td>
+                        </tr>
+                        <tr>
+                            <th class="summary_heading"><strong>Less Expenses</strong></th>
+                            <td>: {{total_payment}}</td>
+                        </tr>
+                        <tr>
+                            <th class="summary_heading"><strong>Closing Balance</strong></th>
+                            <td>: {{closing_balance_amount}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+
+        </tbody>
+    </table>
+    <!--Footer-->
+
+    <table class="invoice-box authorize_signatory_table">
+        <tbody>
+            <tr>
+                <th>AUTHORIZED SIGNATORY</th>
+                <td>
+                    <br>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="invoice-box">
+        <tbody>
+            <tr>
+                <td>
+                    <div class="footer">Invoice was created on a computer and is valid without the signature and seal.</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
+
