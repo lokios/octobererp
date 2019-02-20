@@ -105,53 +105,120 @@ class ReportAccounts extends ReportHelper {
         $this->vars['to_date'] = $to_date;
 
         $reports = $this->vars['reports'];
-
+        $balance_amount = $this->vars['balance_amount'];
         //Generating Excel
-        $header_columns = ['MR No.', 'Project', 'Entry Date', 'Status', 'Supplier', 'Product', 'Quantity', 'Unit', 'Unit Price', 'Total Price'];
-
-        //MR Report
-        $excel_rows = [];
+        $header_columns = ['Date', 'Project', 'Reference No.', 'Description', 'Narration', 'Payment Type', 'Debit', 'Credit', 'Balance'];
+        
         $status_count = [];
+        $opening_balance_amount = $balance_amount;
         $grand_total = 0;
+        $total_received = 0;
+        $total_expense = 0;
         $count = 0;
         foreach ($reports as $report) {
             $count++;
-            $grand_total += $report->total_price;
-            $products = $report->products ? $report->products : array();
-            $status_count[$report->status_name] = isset($status_count[$report->status_name]) ? $status_count[$report->status_name] + 1 : 1;
-            foreach ($products as $product) {
-                $temp = [];
-                $temp['mr_no'] = $report->reference_number;
-                $temp['project'] = $report->project->name;
-                $temp['entry_date'] = date("d-m-Y", strtotime($report->context_date));
-                $temp['status'] = $report->status_name;
-                $temp['supplier'] = $report->supplier ? $report->supplier->fullname : '--';
-                $temp['product'] = $product->product ? $product->product->title : '';
-                $temp['quantity'] = $product->quantity;
-                $temp['unit'] = $product->unit;
-                $temp['unit_price'] = $oimsSetting->getPriceFormattedWithoutCurrency($product->unit_price);
-                $temp['total_price'] = $oimsSetting->getPriceFormattedWithoutCurrency($product->total_price);
-                $excel_rows[] = $temp;
+            $balance_amount = $balance_amount + $report->credit_amount - $report->debit_amount;
+            
+            $total_received += $report->credit_amount > 0 ? $report->credit_amount : 0;
+            $total_expense += $report->debit_amount > 0 ? $report->debit_amount : 0;
+            
+            $narration = [];
+            if ($report->entity_type == 'vouchers') {
+                $products = $report->products ? $report->products : array();
+
+                foreach ($products as $product) {
+                    $product_title = '';
+                    $product_title .= $product->purchase != NULL ? "MR Number :" . $product->purchase->reference_number : "";
+                    $product_title .= $product->supplier != NULL ? "Supplier :" . $product->supplier->full_name : "";
+                    $product_title .= $product->emplolyee != NULL ? "Employee :" . $product->emplolyee->full_name : "";
+                    $product_title .= ", AMNT : " . $oimsSetting->getPriceFormattedWithoutCurrency($product->total_price);
+                    $product_title .= "</br> " . $product->description;
+
+                    $narration[] = $product_title;
+                }
+            } else {
+                $narration[] = $report->narration;
             }
+            $temp = [];
+            
+            $temp[] = $oimsSetting->convertToDisplayDate($report->context_date);
+            $temp[] = $report->project->slug;
+            $temp[] = $report->reference_number;
+            $temp[] = $report->description;
+            $temp[] = implode("</br> ",$narration);
+            $temp[] = isset($report->ledger_type) ? $report->ledger_type->name : $report->payment_type;
+            $temp[] = $report->debit_amount != 0 ? $oimsSetting->getPriceFormattedWithoutCurrency($report->debit_amount) : '';
+            $temp[] = $report->credit_amount != 0 ? $oimsSetting->getPriceFormattedWithoutCurrency($report->credit_amount) : '';
+            $temp[] = $oimsSetting->getPriceFormattedWithoutCurrency($balance_amount);
+            
+            
+            
+            
+            $excel_rows[] = $temp;
         }
 
-        $export_data[] = ['title' => 'MR Report', 'header' => $header_columns, 'rows' => $excel_rows];
-
+        $export_data[] = ['title' => 'Account Statement', 'header' => $header_columns, 'rows' => $excel_rows];
 
         //Summary
+        $closing_balance_amount = $opening_balance_amount + $total_received - $total_expense;
         $temp = [];
         $temp['title'] = 'Summary';
         $temp['header'] = ['DESCRIPTION', 'AMOUNT / COUNT'];
         $temp['rows'] = [
-            ['TOTAL MR ENTRY', $count],
-            ["TOTAL MR AMOUNT", $oimsSetting->getPriceFormattedWithoutCurrency($grand_total)],
+            ["Opening Balance On Date " . date("d-m-Y", strtotime($from_date)) . "", $oimsSetting->getPriceFormattedWithoutCurrency($opening_balance_amount)],
+            ["Total Received", $oimsSetting->getPriceFormattedWithoutCurrency($total_received)],
+            ["Total Expenses", $oimsSetting->getPriceFormattedWithoutCurrency($total_expense)],
+            ["Closing Balance On Date " . date("d-m-Y", strtotime($to_date)) . "", $oimsSetting->getPriceFormattedWithoutCurrency($closing_balance_amount)],
         ];
-        foreach ($status_count as $k => $v) {
-            $temp['rows'][] = [$k . ' MR Count', $v];
-        }
+//        foreach ($status_count as $k => $v) {
+//            $temp['rows'][] = [$k . ' MR Count', $v];
+//        }
         $export_data[] = $temp;
+
+
+//        //MR Report
+//        $excel_rows = [];
+//        $status_count = [];
+//        $grand_total = 0;
+//        $count = 0;
+//        foreach ($reports as $report) {
+//            $count++;
+//            $grand_total += $report->total_price;
+//            $products = $report->products ? $report->products : array();
+//            $status_count[$report->status_name] = isset($status_count[$report->status_name]) ? $status_count[$report->status_name] + 1 : 1;
+//            foreach ($products as $product) {
+//                $temp = [];
+//                $temp['mr_no'] = $report->reference_number;
+//                $temp['project'] = $report->project->name;
+//                $temp['entry_date'] = date("d-m-Y", strtotime($report->context_date));
+//                $temp['status'] = $report->status_name;
+//                $temp['supplier'] = $report->supplier ? $report->supplier->fullname : '--';
+//                $temp['product'] = $product->product ? $product->product->title : '';
+//                $temp['quantity'] = $product->quantity;
+//                $temp['unit'] = $product->unit;
+//                $temp['unit_price'] = $oimsSetting->getPriceFormattedWithoutCurrency($product->unit_price);
+//                $temp['total_price'] = $oimsSetting->getPriceFormattedWithoutCurrency($product->total_price);
+//                $excel_rows[] = $temp;
+//            }
+//        }
+//
+//        $export_data[] = ['title' => 'MR Report', 'header' => $header_columns, 'rows' => $excel_rows];
+//
+//
+//        //Summary
+//        $temp = [];
+//        $temp['title'] = 'Summary';
+//        $temp['header'] = ['DESCRIPTION', 'AMOUNT / COUNT'];
+//        $temp['rows'] = [
+//            ['TOTAL MR ENTRY', $count],
+//            ["TOTAL MR AMOUNT", $oimsSetting->getPriceFormattedWithoutCurrency($grand_total)],
+//        ];
+//        foreach ($status_count as $k => $v) {
+//            $temp['rows'][] = [$k . ' MR Count', $v];
+//        }
+//        $export_data[] = $temp;
         ////////////////////////////////////////////////////////////
-        $fileName = 'mr_report_' . time() . $file_type;
+        $fileName = 'account_statement_report_' . time() . $file_type;
 
         Excel::excel()->store(new \Olabs\Oims\Exports\ReportsExport($export_data), $fileName, 'local');
 
@@ -511,7 +578,7 @@ class ReportAccounts extends ReportHelper {
             if (!in_array($report->payment_type, $payment_types)) {
                 $ledger_name = isset($report->ledger_type) ? $report->ledger_type->name : $report->payment_type;
                 $total_payment += $report->debit_amount;
-                
+
                 $productFields = array(
                     '{{payment_date}}' => $oimsSetting->convertToDisplayDate($report->context_date),
                     '{{payment_description}}' => $report->description,
@@ -541,16 +608,16 @@ class ReportAccounts extends ReportHelper {
 
 
         $closing_balance_amount = $balance_amount + $total_receipt - $total_payment;
-        
-        
+
+
         //Summary
         $html = str_replace("{{total_receipt}}", $oimsSetting->getPriceFormattedWithoutCurrency($total_receipt), $html);
         $html = str_replace("{{total_payment}}", $oimsSetting->getPriceFormattedWithoutCurrency($total_payment), $html);
         $html = str_replace("{{balance_amount}}", $oimsSetting->getPriceFormattedWithoutCurrency($balance_amount), $html);
         $html = str_replace("{{closing_balance_amount}}", $oimsSetting->getPriceFormattedWithoutCurrency($closing_balance_amount), $html);
-        
-        
-        
+
+
+
 
 //        $report_body = $this->makePartial('daily_cash_flow_list', ['reports' => $reports, 'oimsSetting' => $oimsSetting]);
 //        $html = str_replace("{{report_body}}", $report_body, $html);
