@@ -1,10 +1,10 @@
 <?php Block::put('breadcrumb') ?>
 <ul>
-    <li><a href="<?= Backend::url('olabs/oims/reports/transaction_report') ?>">Reports</a></li>
+    <li><a href="<?= Backend::url('olabs/oims/reportaccounts/daily_cash_flow') ?>">Reports</a></li>
     <li><?= e($this->pageTitle) ?></li>
 </ul>
 <!--<ul>
-    <li>Account Statement Report</li>
+    <li>Cash Flow Report</li>
 </ul>-->
 <?php Block::endPut() ?>
 
@@ -16,22 +16,22 @@
     <div class="loading-indicator-container">
         <button
             type="submit"
-            data-request="onTransactionSearch"
+            data-request="onDailyCashFlowSearch"
             data-request-data="refresh:0"
             data-hotkey="ctrl+s, cmd+s"
             data-load-indicator="Searching.."
-            data-request-update="transaction_report_list: '#mrReportDiv', no_result: '#noResultDiv' "
+            data-request-update="cash_flow_report_list: '#mrReportDiv', no_result: '#noResultDiv' "
             class="btn btn-primary">
             Search
         </button>
         
-<!--        <button
+        <button
             type="submit"
-            data-request="onMaterialExportExcel"
+            data-request="onDailyCashFLowExportExcel"
             data-request-data="type: 'xlsx'"
             class="btn btn-primary">
             Export Excel
-        </button>-->
+        </button>
     </div>
 </div>
 <?= Form::close() ?>
@@ -42,7 +42,7 @@
 </div>
 
 <div id="mrReportDiv">
-    <?= $this->makePartial('transaction_report_list', [
+    <?= $this->makePartial('daily_cash_flow_list', [
         'reports' => $reports, 
 
         'oimsSetting' => $oimsSetting]) ?>

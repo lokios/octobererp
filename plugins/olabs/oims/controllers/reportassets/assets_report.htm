@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
 <ul>
-    <li><a href="<?= Backend::url('olabs/oims/reports/assets_report') ?>">Reports</a></li>
+    <li><a href="<?= Backend::url('olabs/oims/reportassets/assets_report') ?>">Reports</a></li>
     <li><?= e($this->pageTitle) ?></li>
 </ul>
 <!--<ul>
@@ -87,7 +87,7 @@
             e.preventDefault();
             
             var that = $(this);
-            var url = "/backend/olabs/oims/reports/onAssetsLabelExport";
+            var url = "/backend/olabs/oims/reportassets/onAssetsLabelExport";
             var project_id = $('#Form-reportSearch-field-reportSearch-project').val();
             var print_style = $('#Form-reportSearch-field-reportSearch-print_style').val();
             var type = 'all';
@@ -103,7 +103,7 @@
             e.preventDefault();
             
             var that = $(this);
-            var url = "/backend/olabs/oims/reports/onAssetsLabelExport";
+            var url = "/backend/olabs/oims/reportassets/onAssetsLabelExport";
             var project_id = $('#Form-reportSearch-field-reportSearch-project').val();
             var print_style = $('#Form-reportSearch-field-reportSearch-print_style').val();
             if(project_id === ''){

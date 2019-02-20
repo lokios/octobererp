@@ -1,10 +1,10 @@
 <?php Block::put('breadcrumb') ?>
 <ul>
-    <li><a href="<?= Backend::url('olabs/oims/reports/pcattendance_report') ?>">Reports</a></li>
+    <li><a href="<?= Backend::url('olabs/oims/reportprojects/mr_report') ?>">Reports</a></li>
     <li><?= e($this->pageTitle) ?></li>
 </ul>
 <!--<ul>
-    <li>Petty Contractor Attendance Report</li>
+    <li>MR Report</li>
 </ul>-->
 <?php Block::endPut() ?>
 
@@ -16,18 +16,18 @@
     <div class="loading-indicator-container">
         <button
             type="submit"
-            data-request="onPcAttendanceSearch"
+            data-request="onMrSearch"
             data-request-data="refresh:0"
             data-hotkey="ctrl+s, cmd+s"
             data-load-indicator="Searching.."
-            data-request-update="pc_attendance_report_list: '#attendanceReportDiv', no_result: '#noResultDiv' "
+            data-request-update="mr_report_list: '#mrReportDiv', no_result: '#noResultDiv' "
             class="btn btn-primary">
             Search
         </button>
         
 <!--        <button
             type="submit"
-            data-request="onPcAttendanceReportExport"
+            data-request="onMrReportExport"
             
             class="btn btn-primary">
             Export
@@ -35,7 +35,7 @@
         
         <button
             type="submit"
-            data-request="onPCAttendanceExportExcel"
+            data-request="onMRExportExcel"
             data-request-data="type: 'xlsx'"
             class="btn btn-primary">
             Export Excel
@@ -49,8 +49,8 @@
     <?= $this->makePartial('no_result', [ 'search' => $search , 'msg' => $msg]) ?>
 </div>
 
-<div id="attendanceReportDiv">
-    <?= $this->makePartial('pc_attendance_report_list', [
+<div id="mrReportDiv">
+    <?= $this->makePartial('mr_report_list', [
         'reports' => $reports, 
 
         'oimsSetting' => $oimsSetting]) ?>

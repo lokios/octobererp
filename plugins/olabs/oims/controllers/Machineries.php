@@ -27,7 +27,7 @@ class Machineries extends Controller {
     public function __construct() {
         parent::__construct();
 
-        BackendMenu::setContext('Olabs.Oims', 'dpr_report', 'machineries');
+        BackendMenu::setContext('Olabs.Oims', 'projectprogress', 'machineries');
         
         $this->productFormWidget = $this->createMachineryProductFormWidget();
     }

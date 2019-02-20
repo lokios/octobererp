@@ -28,7 +28,7 @@ class ExpenseOnPcs extends Controller {
     public function __construct() {
         parent::__construct();
 
-        BackendMenu::setContext('Olabs.Oims', 'dpr_report', 'expenseonpcs');
+        BackendMenu::setContext('Olabs.Oims', 'projectprogress', 'expenseonpcs');
 
         $this->productFormWidget = $this->createExpenseOnPcProductFormWidget();
     }

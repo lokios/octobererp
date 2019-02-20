@@ -63,6 +63,156 @@ navigation:
                 icon: icon-life-ring
                 permissions:
                     - olabs.oims.payment_receivables
+    
+
+    projectprogress:
+        label: 'Project Progress'
+        url: olabs/oims/projectprogress
+        icon: icon-line-chart
+        permissions:
+            - olabs.oims.projectprogress
+        sideMenu:
+            project_progress:
+                label: 'Project Progress'
+                url: olabs/oims/projectprogress
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.projectprogress
+            manpowers:
+                label: 'Consumed Manpower'
+                url: olabs/oims/manpowers
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.manpowers
+            machineries:
+                label: 'Machinery Expenditure'
+                url: olabs/oims/machineries
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.machineries
+            expenseonmaterials:
+                label: 'Expense Against Material As per Our Billing' 
+                url: olabs/oims/expenseonmaterials
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.expenseonmaterials
+            expenseonpcs:
+                label: 'Expense Against P/C on Measurement Basis'
+                url: olabs/oims/expenseonpcs
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.expenseonpcs                         
+     
+    reports:
+        label: 'MIS Reports'
+        url: olabs/oims/reports/project_plan
+        icon: icon-bar-chart
+        permissions:
+            - olabs.oims.reports
+        sideMenu:
+            project_plan:
+                label: 'Project Planning'
+                url: olabs/oims/reports/project_plan
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.reports   
+            project_plan_details:
+                label: 'Project Plan Details'
+                url: olabs/oims/reports/project_plan_details
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.reports   
+            
+             
+    reportprojects:
+        label: 'Reports - Project Progress'
+        url: olabs/oims/reportprojects/dpr
+        icon: icon-bar-chart
+        permissions:
+            - olabs.oims.reportprojects
+        sideMenu:       
+            drp_report:
+                label: 'DPR Report'
+                url: olabs/oims/reportprojects/dpr
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.reportprojects
+            progress_report:
+                label: 'Progress Report'
+                url: olabs/oims/reportprojects/progress_report
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.reportprojects
+            mr_report:
+                label: 'MR Report'
+                url: olabs/oims/reportprojects/mr_report
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.reportprojects
+            material_report:
+                label: 'Material Consumption Report'
+                url: olabs/oims/reportprojects/material_report
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.reportprojects  
+                
+    reportaccounts:
+        label: 'Reports - Accounts'
+        url: olabs/oims/reportaccounts/transaction_report
+        icon: icon-bar-chart
+        permissions:
+            - olabs.oims.reportaccounts
+        sideMenu:       
+            transaction_report:
+                label: 'Account Statement Report'
+                url: olabs/oims/reportaccounts/transaction_report
+                icon: icon-dollar
+                permissions:
+                    - olabs.oims.reportaccounts   
+            cash_flow_report:
+                label: 'Cash Flow Report'
+                url: olabs/oims/reportaccounts/cash_flow_report
+                icon: icon-dollar
+                permissions:
+                    - olabs.oims.reportaccounts  
+            daily_cash_flow:
+                label: 'Daily Cash Flow Sheet'
+                url: olabs/oims/reportaccounts/daily_cash_flow
+                icon: icon-dollar
+                permissions:
+                    - olabs.oims.reportaccounts  
+            attendance_report:
+                label: 'Attendance Report'
+                url: olabs/oims/reportaccounts/attendance_report
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.reportaccounts
+            attendance_summary_report:
+                label: 'Attendance Summary Report'
+                url: olabs/oims/reportaccounts/attendanceSummary_report
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.reportaccounts
+            pcattendance_report:
+                label: 'PC Attendance Report'
+                url: olabs/oims/reportaccounts/pcattendance_report
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.reportaccounts
+                    
+    reportassets:
+        label: 'Reports - Project Assets'
+        url: olabs/oims/reportassets/assets_report
+        icon: icon-bar-chart
+        permissions:
+            - olabs.oims.reportprojects
+        sideMenu:       
+            assets_report:
+                label: 'Assets Report'
+                url: olabs/oims/reportassets/assets_report
+                icon: icon-life-ring
+                permissions:
+                    - olabs.oims.reportassets  
     project_assets:
         label: 'Project Assets'
         url: olabs/oims/projectAssets/
@@ -100,127 +250,7 @@ navigation:
                 icon: icon-life-ring
                 permissions:
                     - olabs.oims.project_assets
-
-    dpr_report:
-        label: 'Project Progress'
-        url: olabs/oims/projectprogress
-        icon: icon-line-chart
-        permissions:
-            - olabs.oims.projectprogress
-        sideMenu:
-            project_progress:
-                label: 'Project Progress'
-                url: olabs/oims/projectprogress
-                icon: icon-life-ring
-                permissions:
-                    - olabs.oims.projectprogress
-            manpowers:
-                label: 'Consumed Manpower'
-                url: olabs/oims/manpowers
-                icon: icon-life-ring
-                permissions:
-                    - olabs.oims.manpowers
-            machineries:
-                label: 'Machinery Expenditure'
-                url: olabs/oims/machineries
-                icon: icon-life-ring
-                permissions:
-                    - olabs.oims.machineries
-            expenseonmaterials:
-                label: 'Expense Against Material As per Our Billing'
-                url: olabs/oims/expenseonmaterials
-                icon: icon-life-ring
-                permissions:
-                    - olabs.oims.expenseonmaterials
-            expenseonpcs:
-                label: 'Expense Against P/C on Measurement Basis'
-                url: olabs/oims/expenseonpcs
-                icon: icon-life-ring
-                permissions:
-                    - olabs.oims.expenseonpcs                         
-            
-    reports:
-        label: 'MIS Reports'
-        url: olabs/oims/reports/project_plan
-        icon: icon-bar-chart
-        permissions:
-            - olabs.oims.reports
-        sideMenu:
-            project_plan:
-                label: 'Project Planning'
-                url: olabs/oims/reports/project_plan
-                icon: icon-life-ring
-                permissions:
-                    - olabs.oims.reports   
-            project_plan_details:
-                label: 'Project Plan Details'
-                url: olabs/oims/reports/project_plan_details
-                icon: icon-life-ring
-                permissions:
-                    - olabs.oims.reports   
-            drp_report:
-                label: 'DPR Report'
-                url: olabs/oims/reports/dpr
-                icon: icon-life-ring
-                permissions:
-                    - olabs.oims.reports
-            progress_report:
-                label: 'Progress Report'
-                url: olabs/oims/reports/progress_report
-                icon: icon-life-ring
-                permissions:
-                    - olabs.oims.reports
-            mr_report:
-                label: 'MR Report'
-                url: olabs/oims/reports/mr_report
-                icon: icon-life-ring
-                permissions:
-                    - olabs.oims.reports
-            transaction_report:
-                label: 'Account Statement Report'
-                url: olabs/oims/reports/transaction_report
-                icon: icon-dollar
-                permissions:
-                    - olabs.oims.reports           
-            cash_flow_report:
-                label: 'Cash Flow Report'
-                url: olabs/oims/reports/cash_flow_report
-                icon: icon-dollar
-                permissions:
-                    - olabs.oims.reports     
-            
-            attendance_report:
-                label: 'Attendance Report'
-                url: olabs/oims/reports/attendance_report
-                icon: icon-life-ring
-                permissions:
-                    - olabs.oims.reports
-            attendance_summary_report:
-                label: 'Attendance Summary Report'
-                url: olabs/oims/reports/attendanceSummary_report
-                icon: icon-life-ring
-                permissions:
-                    - olabs.oims.reports
-            pcattendance_report:
-                label: 'PC Attendance Report'
-                url: olabs/oims/reports/pcattendance_report
-                icon: icon-life-ring
-                permissions:
-                    - olabs.oims.reports
-            assets_report:
-                label: 'Assets Report'
-                url: olabs/oims/reports/assets_report
-                icon: icon-life-ring
-                permissions:
-                    - olabs.oims.reports   
-            
-            material_report:
-                label: 'Material Report'
-                url: olabs/oims/reports/material_report
-                icon: icon-life-ring
-                permissions:
-                    - olabs.oims.reports   
-            
+                    
     oims_projects:
         label: 'Project Settings'
         url: olabs/oims/suppliers

@@ -32,7 +32,7 @@ class Manpowers extends Controller {
     public function __construct() {
         parent::__construct();
 
-        BackendMenu::setContext('Olabs.Oims', 'dpr_report', 'manpowers');
+        BackendMenu::setContext('Olabs.Oims', 'projectprogress', 'manpowers');
 
         $this->productFormWidget = $this->createManpowerProductFormWidget();
         

@@ -28,7 +28,7 @@ class ExpenseOnMaterials extends Controller {
     public function __construct() {
         parent::__construct();
 
-        BackendMenu::setContext('Olabs.Oims', 'dpr_report', 'expenseonmaterials');
+        BackendMenu::setContext('Olabs.Oims', 'projectprogress', 'expenseonmaterials');
         
         $this->productFormWidget = $this->createExpenseOnMaterialProductFormWidget();
     }

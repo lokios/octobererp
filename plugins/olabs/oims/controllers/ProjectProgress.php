@@ -26,7 +26,7 @@ class ProjectProgress extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Olabs.Oims', 'dpr_report', 'project_progress');
+        BackendMenu::setContext('Olabs.Oims', 'projectprogress', 'project_progress');
         
         $this->productFormWidget = $this->createProjectProgressProductFormWidget();
     }

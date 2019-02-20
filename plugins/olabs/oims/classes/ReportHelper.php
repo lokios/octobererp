@@ -146,6 +146,22 @@ class ReportHelper extends Controller {
 
         return $widget;
     }
+    
+    protected function createDailyCashFlowSearchFormWidget() {
+        $config = $this->makeConfig('$/olabs/oims/models/report/daily_cash_flow_search_fields.yaml');
+
+        $config->alias = 'reportSearch';
+
+        $config->arrayName = 'reportSearch';
+
+        $config->model = new \Olabs\Oims\Models\Manpower;
+
+        $widget = $this->makeWidget('Backend\Widgets\Form', $config);
+
+        $widget->bindToController();
+
+        return $widget;
+    }
 
     protected function createProjectPlanSearchFormWidget() {
         $config = $this->makeConfig('$/olabs/oims/models/report/project_plan_search_fields.yaml');
@@ -758,6 +774,9 @@ class ReportHelper extends Controller {
         if ($search_to_date != '') {
             $timeFormat = '23:59:59';
             $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
+        }else{
+            $timeFormat = '23:59:59';
+            $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_from_date, $timeFormat);
         }
 
         $project = ( trim($searchParams['project']) != "" ) ? $searchParams['project'] : false;
