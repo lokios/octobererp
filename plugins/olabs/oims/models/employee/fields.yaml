@@ -75,13 +75,13 @@ tabs:
             commentAbove: backend::lang.user.role_comment
             type: radio
             tab: Permissions
-        groups:
-            context: [create, update, preview]
-            label: backend::lang.user.groups
-            commentAbove: backend::lang.user.groups_comment
-            type: checkboxlist
-#            tab: backend::lang.user.groups
-            tab: Permissions
+#        groups:
+#            context: [create, update, preview]
+#            label: backend::lang.user.groups
+#            commentAbove: backend::lang.user.groups_comment
+#            type: checkboxlist
+##            tab: backend::lang.user.groups
+#            tab: Permissions
         access_projects:
             context: [create, update, preview]
             label: Projects
