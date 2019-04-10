@@ -65,9 +65,11 @@ class QuoteProduct extends Model
                 $fields->tax->value = $this->product->tax_id ;
                 $fields->tax_percent->value = $this->product->percent;
                 $fields->tax->disabled = true;
+                $fields->tax_percent->disabled = true;
             }else{
                 
                 $fields->tax->disabled = false;
+                $fields->tax_percent->disabled = false;
             }
             
             $fields->tax_code->value = $this->product->tax_code;
