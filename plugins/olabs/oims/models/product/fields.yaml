@@ -21,20 +21,20 @@ tabs:
             tab: olabs.oims::lang.products.detail
             label: olabs.oims::lang.products.ean_13
             span: auto    
-        unit_code:
-            tab: olabs.oims::lang.products.detail
-            label: Unit
-            oc.commentPosition: ''
-            nameFrom: name
-            descriptionFrom: description
-            span: auto
-            type: relation
-        retail_price_with_tax:
-            tab: olabs.oims::lang.products.detail
-            label: Price
-#            comment: olabs.oims::lang.products.retail_price_with_tax_comment 
-            span: auto 
-            type: number
+#        unit_code:
+#            tab: olabs.oims::lang.products.detail
+#            label: Unit
+#            oc.commentPosition: ''
+#            nameFrom: name
+#            descriptionFrom: description
+#            span: auto
+#            type: relation
+#        retail_price_with_tax:
+#            tab: olabs.oims::lang.products.detail
+#            label: Price
+##            comment: olabs.oims::lang.products.retail_price_with_tax_comment 
+#            span: auto 
+#            type: number
         barcode:
             tab: olabs.oims::lang.products.detail
             label: olabs.oims::lang.products.barcode
@@ -54,19 +54,19 @@ tabs:
             span: auto
             default: true            
 
-        available_for_order:
-            tab: olabs.oims::lang.products.detail
-            label: olabs.oims::lang.products.available_for_order
-            type: switch
-            span: auto
-            default: true
-
-        show_price:
-            tab: olabs.oims::lang.products.detail
-            label: olabs.oims::lang.products.show_price
-            type: switch
-            span: auto
-            default: true
+#        available_for_order:
+#            tab: olabs.oims::lang.products.detail
+#            label: olabs.oims::lang.products.available_for_order
+#            type: switch
+#            span: auto
+#            default: true
+#
+#        show_price:
+#            tab: olabs.oims::lang.products.detail
+#            label: olabs.oims::lang.products.show_price
+#            type: switch
+#            span: auto
+#            default: true
 
         condition:
             tab: olabs.oims::lang.products.detail
@@ -99,34 +99,68 @@ tabs:
             type: richeditor
 
 # Prices
+#        available_for_order:
+#            tab: olabs.oims::lang.products.prices
+#            label: olabs.oims::lang.products.available_for_order
+#            type: switch
+#            span: auto
+#            default: true
+#
+#        show_price:
+#            tab: olabs.oims::lang.products.prices
+#            label: olabs.oims::lang.products.show_price
+#            type: switch
+#            span: auto
+#            default: true
+        unit_code:
+            tab: olabs.oims::lang.products.prices
+            label: Unit
+            oc.commentPosition: ''
+            nameFrom: name
+            descriptionFrom: description
+            span: auto
+            type: relation
+        
+        tax:
+            tab: olabs.oims::lang.products.prices
+            label: olabs.oims::lang.products.tax
+            type: relation
+            emptyOption: -- no selection --
+            span: auto  
+        
+        tax_code:
+            tab: olabs.oims::lang.products.prices
+            label: olabs.oims::lang.products.tax_code
+            comment: olabs.oims::lang.products.tax_code_comment
+            span: auto  
+#            type: number
+#            default: 0
+        
+        pre_tax_wholesale_price:
+            tab: olabs.oims::lang.products.prices
+            label: olabs.oims::lang.products.pre_tax_wholesale_price
+            comment: olabs.oims::lang.products.pre_tax_wholesale_price_comment
+            span: auto  
+            type: number
+            default: 0
 
-#        pre_tax_wholesale_price:
-#            tab: olabs.oims::lang.products.prices
-#            label: olabs.oims::lang.products.pre_tax_wholesale_price
-#            comment: olabs.oims::lang.products.pre_tax_wholesale_price_comment
-#            span: full  
-#            type: number
-#
-#
-#        pre_tax_retail_price:
-#            tab: olabs.oims::lang.products.prices
-#            label: olabs.oims::lang.products.pre_tax_retail_price
-#            comment: olabs.oims::lang.products.pre_tax_retail_price_comment
-#            span: full  
-#            type: number
-#
-#        tax:
-#            tab: olabs.oims::lang.products.prices
-#            label: olabs.oims::lang.products.tax
-#            type: relation
-#            span: full  
-#            
-#        retail_price_with_tax:
-#            tab: olabs.oims::lang.products.prices
-#            label: olabs.oims::lang.products.retail_price_with_tax
-#            comment: olabs.oims::lang.products.retail_price_with_tax_comment 
-#            span: full 
-#            type: number
+
+        pre_tax_retail_price:
+            tab: olabs.oims::lang.products.prices
+            label: olabs.oims::lang.products.pre_tax_retail_price
+            comment: olabs.oims::lang.products.pre_tax_retail_price_comment
+            span: auto  
+            type: number
+            default: 0
+
+        
+            
+        retail_price_with_tax:
+            tab: olabs.oims::lang.products.prices
+            label: olabs.oims::lang.products.retail_price_with_tax
+            comment: olabs.oims::lang.products.retail_price_with_tax_comment 
+            span: auto 
+            type: number
             
 #        on_sale:
 #            tab: olabs.oims::lang.products.prices
@@ -134,14 +168,15 @@ tabs:
 #            type: switch
 #            span: auto
 #            default: false
-#            
-#        individual_prices:
-#            tab: olabs.oims::lang.products.prices
-#            label: olabs.oims::lang.products.individual_prices
-#            type: partial
-#            path: ~/plugins/olabs/oims/models/product/_individual_prices_relation.htm            
             
-
+        individual_prices:
+            tab: olabs.oims::lang.products.prices
+            label: olabs.oims::lang.products.individual_prices
+            type: partial
+            path: ~/plugins/olabs/oims/models/product/_individual_prices_relation.htm            
+            
+        
+        
 
 # SEO
 #        meta_title:

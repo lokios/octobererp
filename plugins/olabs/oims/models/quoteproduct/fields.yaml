@@ -14,19 +14,72 @@ fields:
         descriptionFrom: description
         span: auto
         type: relation
+    
+    
+    
+    tax:
+        label: olabs.oims::lang.products.tax
+        type: relation
+        span: auto  
+        emptyOption: -- no selection --
+        dependsOn: product
+
+    tax_code:
+        
+        label: olabs.oims::lang.products.tax_code
+#        comment: olabs.oims::lang.products.tax_code_comment
+        span: auto  
+        dependsOn: product
+    
+    pre_tax_retail_price:
+        label: olabs.oims::lang.products.pre_tax_retail_price
+#        comment: olabs.oims::lang.products.pre_tax_retail_price_comment
+        span: auto  
+        type: number
+        default: 0
+        dependsOn: product
+
+    unit_price:
+        label: 'Retail price with tax'
+        oc.commentPosition: ''
+        span: auto
+        type: number
+        default: 0
+        dependsOn: 
+            - product
+            - tax
+            - pre_tax_retail_price
+#        defaultFrom: quantity
+            
+    tax_percent:
+        label: Tax in Percent
+#        comment: olabs.oims::lang.products.retail_price_with_tax_comment 
+        span: auto 
+        type: number
+        dependsOn: 
+            - product
+            - tax
+    
     quantity:
         label: Quantity
         oc.commentPosition: ''
         default: 1
         span: auto
         type: number
-    unit_price:
-        label: 'Unit Price'
-        oc.commentPosition: ''
+    
+    
+    
+    total_tax:
+        label: 'Total Tax'
         span: auto
+        oc.commentPosition: ''
         type: number
-        dependsOn: product
-#        defaultFrom: quantity
+        dependsOn: 
+          - product
+          - quantity
+          - unit_price
+          - tax
+    
     total_price:
         label: 'Total Price'
         span: auto
@@ -36,4 +89,5 @@ fields:
           - product
           - quantity
           - unit_price
+          - tax
         

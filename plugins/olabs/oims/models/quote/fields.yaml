@@ -165,7 +165,7 @@ tabs:
         tax_igst:
             tab: olabs.oims::lang.quotes.detail
             label: olabs.oims::lang.quotes.tax_igst
-            type: number
+            type: checkbox
             span: left
             
         payment_terms:
@@ -178,13 +178,13 @@ tabs:
         tax_cgst:
             tab: olabs.oims::lang.quotes.detail
             label: olabs.oims::lang.quotes.tax_cgst
-            type: number
+            type: checkbox
             span: left
             
         tax_sgst:
             tab: olabs.oims::lang.quotes.detail
             label: olabs.oims::lang.quotes.tax_sgst
-            type: number
+            type: checkbox
             span: left
         
         tax_method:

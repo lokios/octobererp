@@ -602,6 +602,7 @@ class Quote extends BaseModel {
         $html = str_replace("{{date_now_31}}", \Carbon\Carbon::now()->addDay(31)->toDateString(), $html);
 
         $html = str_replace("{{total_price}}", $oimsSetting->getPriceFormattedWithoutCurrency($this->total_price), $html);
+        $html = str_replace("{{total_tax}}", $oimsSetting->getPriceFormattedWithoutCurrency($this->total_tax), $html);
 
         // products + shipping
         $htmlProducts = "";
@@ -624,16 +625,20 @@ class Quote extends BaseModel {
                 $title = $product->product->title;
                 $qty = $product->quantity;
                 $productUnit = $product->unit;
+                $productTaxPercent = $product->tax_percent;
                 $productRate = $oimsSetting->getPriceFormattedWithoutCurrency($product->unit_price);
                 $totalPrice = $oimsSetting->getPriceFormattedWithoutCurrency($product->total_price);
+                $totalTax = $oimsSetting->getPriceFormattedWithoutCurrency($product->total_tax);
 
                 $productFields = array(
                     '{{product_sno}}' => $serialNumber,
                     '{{product_title}}' => $title,
                     '{{product_unit}}' => $productUnit,
+                    '{{product_tax_percent}}' => $productTaxPercent,
                     '{{product_qty}}' => $qty,
                     '{{product_rate}}' => $productRate,
-                    '{{product_total_price}}' => $totalPrice
+                    '{{product_total_price}}' => $totalPrice,
+                    '{{product_total_tax}}' => $totalTax
                 );
 
                 $productTableRow .= $isProductTemplateSet ?  strtr($productsTemplate, $productFields)  : "";
@@ -659,8 +664,10 @@ class Quote extends BaseModel {
         //Tax breakups
         $taxTemplate = $oimsSetting->getTableRowContent($html, 'class', 'tax_row');
         $isTaxTemplateSet = ($taxTemplate != "") ? true : false;
-        if($this->tax_igst_amount > 0){
-            $label = "iGST $this->tax_igst%";
+//        if($this->tax_igst_amount > 0){
+        if($this->tax_igst > 0){
+//            $label = "iGST $this->tax_igst%";
+            $label = "iGST";
             $amount = $oimsSetting->getPriceFormattedWithoutCurrency($this->tax_igst_amount);
             $fields = array(
                     '{{tax_label}}' => $label,
@@ -668,8 +675,10 @@ class Quote extends BaseModel {
                 );
             $taxTableRow .= $isTaxTemplateSet ?  strtr($taxTemplate, $fields)  : "";
         }
-        if($this->tax_cgst_amount > 0){
-            $label = "cGST $this->tax_cgst%";
+//        if($this->tax_cgst_amount > 0){
+        if($this->tax_cgst > 0){
+//            $label = "cGST $this->tax_cgst%";
+            $label = "cGST";
             $amount = $oimsSetting->getPriceFormattedWithoutCurrency($this->tax_cgst_amount);
             $fields = array(
                     '{{tax_label}}' => $label,
@@ -677,8 +686,10 @@ class Quote extends BaseModel {
                 );
             $taxTableRow .= $isTaxTemplateSet ?  strtr($taxTemplate, $fields)  : "";
         }
-        if($this->tax_sgst_amount > 0){
-            $label = "sGST $this->tax_sgst%";
+//        if($this->tax_sgst_amount > 0){
+        if($this->tax_sgst > 0){
+//            $label = "sGST $this->tax_sgst%";
+            $label = "sGST";
             $amount = $oimsSetting->getPriceFormattedWithoutCurrency($this->tax_sgst_amount);
             $fields = array(
                     '{{tax_label}}' => $label,
@@ -751,38 +762,56 @@ class Quote extends BaseModel {
         
 //        $total_price_without_tax = $this->total_price_without_tax;
         
-        if(!$this->total_price_without_tax){
+//        if(!$this->total_price_without_tax){
             //Calculate it from products total price
             $this->total_price_without_tax = 0;
+            $this->total_tax = 0;
             foreach($this->products as $product){
-                $this->total_price_without_tax += $product->total_price;
+                $this->total_price_without_tax += $product->total_price - $product->total_tax;
+                $this->total_tax += $product->total_tax;
             }
-        }
+//        }
         
         //calculate Taxes
         
-        $this->tax_igst_amount = 0;
-        $this->tax_cgst_amount = 0;
-        $this->tax_sgst_amount = 0;
+//        $this->tax_igst_amount = 0;
+//        $this->tax_cgst_amount = 0;
+//        $this->tax_sgst_amount = 0;
         
+        
+//        //iGST
+//        if($this->tax_igst){
+//            $this->tax_igst_amount = ($this->total_price_without_tax * $this->tax_igst) / 100;
+//        }
+//        
+//        //cGST
+//        if($this->tax_cgst){
+//            $this->tax_cgst_amount = ($this->total_price_without_tax * $this->tax_cgst) / 100;
+//        }
+//        
+//        //sGST
+//        if($this->tax_sgst){
+//            $this->tax_sgst_amount = ($this->total_price_without_tax * $this->tax_sgst) / 100;
+//        }
+        
+//        $this->total_tax = $this->tax_igst_amount + $this->tax_cgst_amount + $this->tax_sgst_amount;
+        $this->total_price = $this->total_tax + $this->total_price_without_tax;
         
         //iGST
-        if($this->tax_igst){
-            $this->tax_igst_amount = ($this->total_price_without_tax * $this->tax_igst) / 100;
-        }
+        
+        $this->tax_igst_amount = $this->total_tax;
+        
         
         //cGST
-        if($this->tax_cgst){
-            $this->tax_cgst_amount = ($this->total_price_without_tax * $this->tax_cgst) / 100;
-        }
+        
+        $this->tax_cgst_amount = $this->total_tax / 2;
+        
         
         //sGST
-        if($this->tax_sgst){
-            $this->tax_sgst_amount = ($this->total_price_without_tax * $this->tax_sgst) / 100;
-        }
         
-        $this->total_tax = $this->tax_igst_amount + $this->tax_cgst_amount + $this->tax_sgst_amount;
-        $this->total_price = $this->total_tax + $this->total_price_without_tax;
+        $this->tax_sgst_amount = $this->total_tax / 2;
+        
+        
         
         //finally save it
         $this->save();

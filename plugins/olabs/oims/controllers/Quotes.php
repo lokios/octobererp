@@ -109,13 +109,15 @@ class Quotes extends Controller {
         $this->vars['items'] = $products;
         
         $total_price = 0;
+        $total_tax = 0;
         foreach($products as $product){
 //            dd($product);
             $total_price += $product->total_price;
+            $total_tax += $product->total_tax;
         }
         
-        $this->vars['total_price_without_tax'] = $total_price;
-        $this->vars['total_tax'] = 0;
+        $this->vars['total_price_without_tax'] = $total_price - $total_tax;
+        $this->vars['total_tax'] = $total_tax;
         $this->vars['total_price'] = $total_price;
         $this->vars['formContext'] = 'update';
 
