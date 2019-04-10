@@ -230,6 +230,13 @@ tabs:
             type: text
             span: left
             
+        operational_terms:
+            tab: olabs.oims::lang.quotes.detail
+            label: olabs.oims::lang.quotes.operational_terms
+            type: textarea
+            span: right
+            size: small
+            
         
 
 

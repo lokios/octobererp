@@ -10,7 +10,7 @@
                     <th><span>Product</span></th>
                     <th><span>Unit</span></th>
                     <th><span>Tax %</span></th>
-                    <th><span>Unit Price</span></th>
+                    <th><span>Retail price with tax</span></th>
                     <th><span>Quantity</span></th>
                     <th><span>Total Price</span></th>
                     <th><span>Total Tax</span></th>
@@ -21,7 +21,7 @@
                 <?php foreach ($items as $item): ?>
                 <tr>
                     <td>
-                        <?= e($item->product ? $item->product->title : 'Unknown') ?>
+                        <?= e($item->product ? $item->product->title : $item->description) ?>
                     </td>
                     <td>
                         <?= e($item->unit) ?>

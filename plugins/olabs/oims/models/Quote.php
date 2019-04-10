@@ -24,8 +24,9 @@ class Quote extends BaseModel {
     const CNAME = 'quotes';
     const QUOTE_TYPE_PETTY_CONTRACT = 'petty_contract';
     const QUOTE_TYPE_MATERIAL = 'material';
+    const QUOTE_TYPE_WORK_ORDER = 'work_order';
 
-    protected $QUOTE_TYPES = ['material' => 'Material', 'petty_contract' => 'Petty Contract'];
+    protected $QUOTE_TYPES = ['material' => 'Material', 'petty_contract' => 'Petty Contract', 'work_order' => 'Work Order'];
 
     public function getEntityType() {
         return self::CNAME;
@@ -556,6 +557,9 @@ class Quote extends BaseModel {
         
         $temp = empty($this->terms_condition) ? "N/A" : $this->terms_condition;
         $html = str_replace("{{terms_condition}}", $temp, $html);
+        
+        $temp = empty($this->operational_terms) ? "N/A" : $this->operational_terms;
+        $html = str_replace("{{operational_terms}}", $temp, $html);
 
         $html = str_replace("{{quote_id}}", $this->id, $html);
 
@@ -622,7 +626,7 @@ class Quote extends BaseModel {
             $serialNumber = 1;
             foreach ($products as $product) {
 
-                $title = $product->product->title;
+                $title = $product->product ? $product->product->title : $product->description;
                 $qty = $product->quantity;
                 $productUnit = $product->unit;
                 $productTaxPercent = $product->tax_percent;

@@ -8,7 +8,7 @@ columns:
         label: Unit
         type: text
     unit_price:
-        label: unit_price
+        label: Retail price with tax
         type: text
         searchable: true
         sortable: true

@@ -79,6 +79,7 @@ fields:
           - quantity
           - unit_price
           - tax
+          - pre_tax_retail_price
     
     total_price:
         label: 'Total Price'
@@ -90,4 +91,11 @@ fields:
           - quantity
           - unit_price
           - tax
+          - pre_tax_retail_price
         
+    description:
+        label: Description
+        size: ''
+        oc.commentPosition: ''
+        span: auto
+        type: textarea
