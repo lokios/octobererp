@@ -1,11 +1,16 @@
 <!-- <div class="text-danger">Sorry, this is as far as behaviors can go...</div> -->
 
 <?
-$total_price = isset($this->vars['total_price'])? $this->vars['total_price']:$model->total_price
+$total_price_without_tax = isset($this->vars['total_price'])? $this->vars['total_price']:$model->total_price_without_tax;
+$total_tax = $model->total_tax;
+$total_price = $model->total_price;
 ?>
 
 <div id="productList">
-    <?= $this->makePartial('product_list', ['items' => $model->products,'total_price'=>$total_price]) ?>
+    <?= $this->makePartial('product_list', ['items' => $model->products,'purchase_id' => $model->id,
+    'total_price_without_tax'=>$total_price_without_tax,
+    'total_tax'=>$total_tax,
+    'total_price'=>$total_price,]) ?>
 </div>
 <p class="loading-indicator-container">
     <? if($this->vars['formContext'] != 'preview'): ?>
@@ -35,10 +40,17 @@ $total_price = isset($this->vars['total_price'])? $this->vars['total_price']:$mo
 </p>
 <!--<div id="loading" style="display: none;">Loading...</div> data-request-loading="#loading"-->
 
+
 <script>
     $(function () {
         $(document).on('ready ajaxComplete', function () {
             // ...attach your events/plugins here
+            var total_price_without_tax = $('#temp_total_price_without_tax').val();
+            $('#Form-field-Purchase-total_price_without_tax').val(total_price_without_tax);
+            
+            var total_tax = $('#temp_total_tax').val();
+            $('#Form-field-Purchase-total_tax').val(total_tax);
+            
             var total_price = $('#temp_total_price').val();
             $('#Form-field-Purchase-total_price').val(total_price);
         });

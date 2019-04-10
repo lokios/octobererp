@@ -154,12 +154,19 @@ class Purchases extends Controller {
         $this->vars['items'] = $products;
 
         $total_price = 0;
-        foreach ($products as $product) {
+        $total_tax = 0;
+        foreach($products as $product){
 //            dd($product);
             $total_price += $product->total_price;
+            $total_tax += $product->total_tax;
         }
-        $this->vars['formContext'] = 'update';
+        
+        $this->vars['total_price_without_tax'] = $total_price - $total_tax;
+        $this->vars['total_tax'] = $total_tax;
         $this->vars['total_price'] = $total_price;
+        
+        $this->vars['formContext'] = 'update';
+        
 
         return ['#productList' => $this->makePartial('product_list')];
     }
@@ -190,7 +197,9 @@ class Purchases extends Controller {
             $product->purchase_id = $model->id;
             $product->save();
         }
-
+        
+        $model->recalculateAmounts();
+        
         //$purchaseModel = \Olabs\Oims\Models\Purchase::find($manageId);
 //        $model->genereateInvoice(); //Invoice is now generate on click
     }
@@ -205,6 +214,7 @@ class Purchases extends Controller {
         $context = 'update';
         $result = $this->asExtension('FormController')->update_onSave($recordId, $context);
         $model = \Olabs\Oims\Models\Purchase::find($recordId);
+        $model->recalculateAmounts();
 //        $model->genereateInvoice();
         return $result;
     }

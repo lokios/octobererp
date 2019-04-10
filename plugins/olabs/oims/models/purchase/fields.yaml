@@ -77,11 +77,26 @@ tabs:
             tab: olabs.oims::lang.quotes.products_json
             type: partial
             path: purchase_products   
-        total_price:
-            label: 'olabs.oims::lang.purchases.total_price'
-            tab: 'olabs.oims::lang.quotes.products_json'
+        
+        total_price_without_tax:
+            label: olabs.oims::lang.purchases.total_price_without_tax
+            tab: olabs.oims::lang.quotes.products_json
             type: number
             span: auto
+        
+        total_tax:
+            label: olabs.oims::lang.purchases.total_tax
+            tab: olabs.oims::lang.quotes.products_json
+            type: number
+            span: auto
+            disabled: true
+        
+        total_price:
+            label: olabs.oims::lang.purchases.total_price
+            tab: olabs.oims::lang.quotes.products_json
+            type: number
+            span: auto
+            disabled: true
 
  #  Detail
             
@@ -128,6 +143,21 @@ tabs:
             type: fileupload
             mode: file
             span: auto
+        tax_igst:
+            tab: olabs.oims::lang.purchases.detail
+            label: olabs.oims::lang.quotes.tax_igst
+            type: checkbox
+            span: left
+        tax_cgst:
+            tab: olabs.oims::lang.purchases.detail
+            label: olabs.oims::lang.quotes.tax_cgst
+            type: checkbox
+            span: left
+        tax_sgst:
+            tab: olabs.oims::lang.purchases.detail
+            label: olabs.oims::lang.quotes.tax_sgst
+            type: checkbox
+            span: left
         note:
             label: 'olabs.oims::lang.purchases.note'
             size: small

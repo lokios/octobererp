@@ -1,4 +1,6 @@
 <?php if (count($items)): ?>
+<input type="hidden" id='temp_total_price_without_tax' value="<?= $total_price_without_tax?>">
+<input type="hidden" id='temp_total_tax' value="<?= $total_tax?>">
 <input type="hidden" id='temp_total_price' value="<?= $total_price?>">
 <div class="list-preview list-flush">
     <div class="control-list">
@@ -7,9 +9,11 @@
                 <tr>
                     <th><span>Product</span></th>
                     <th><span>Unit</span></th>
-                    <th><span>Unit Price</span></th>
+                    <th><span>Tax %</span></th>
+                    <th><span>Retail price with tax</span></th>
                     <th><span>Quantity</span></th>
                     <th><span>Total Price</span></th>
+                    <th><span>Total Tax</span></th>
                     <th style="width: 10%"><span></span></th>
                 </tr>
             </thead>
@@ -17,10 +21,13 @@
                 <?php foreach ($items as $item): ?>
                 <tr>
                     <td>
-                        <?= e($item->product ? $item->product->title : 'Unknown') ?>
+                        <?= e($item->product ? $item->product->title : $item->description) ?>
                     </td>
                     <td>
                         <?= e($item->unit) ?>
+                    </td>
+                    <td>
+                        <?= e($item->tax_percent) ?>
                     </td>
                     <td>
                         <?= e($item->unit_price) ?>
@@ -30,6 +37,9 @@
                     </td>
                     <td>
                         <?= e($item->total_price) ?>
+                    </td>
+                    <td>
+                        <?= e($item->total_tax) ?>
                     </td>
                     <td class="nolink text-right">
                         <? if(isset($this->vars['formContext']) && $this->vars['formContext'] != 'preview'): ?>

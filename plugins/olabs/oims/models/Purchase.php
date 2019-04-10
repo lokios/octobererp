@@ -449,7 +449,18 @@ class Purchase extends BaseModel
         // Create invoice html
         $oimsSetting = \Olabs\Oims\Models\Settings::instance();
 
-        $html = "<html><head><style>".$oimsSetting->material_receipt_template_style."</style></head><body>".$oimsSetting->material_receipt_template_content."</body></html>";
+//        $html = "<html><head><style>".$oimsSetting->material_receipt_template_style."</style></head><body>".$oimsSetting->material_receipt_template_content."</body></html>";
+        
+        $template_style = str_replace("\r\n", "", $oimsSetting->material_receipt_template_style);
+
+        
+        
+        $template_content = str_replace("\r\n", "", $oimsSetting->material_receipt_template_content);
+        $template_content = str_replace("\t", "", $template_content);
+
+        $html = "";
+        $html = "<html><head><style> $template_style </style></head><body>$template_content</body></html>";
+        
         
         $html =  str_replace("{{m_r_number}}", $this->reference_number, $html);
         $html =  str_replace("{{context_date}}", $this->context_date, $html);
@@ -471,11 +482,19 @@ class Purchase extends BaseModel
         $html =  str_replace("{{driver_name}}", $this->driver_name, $html);        
         $html =  str_replace("{{note}}", $this->note, $html);
 
-        $html =  str_replace("{{total_price}}", $oimsSetting->getPriceFormattedWithoutCurrency($this->total_price), $html);
+//        $html =  str_replace("{{total_price}}", $oimsSetting->getPriceFormattedWithoutCurrency($this->total_price), $html);
+        $html = str_replace("{{total_global_discount}}", $oimsSetting->getPriceFormattedWithoutCurrency($this->total_global_discount), $html);
+        $html = str_replace("{{total_price_without_tax}}", $oimsSetting->getPriceFormattedWithoutCurrency($this->total_price_without_tax + $this->shipping_price_without_tax), $html);
+        $html = str_replace("{{total_tax}}", $oimsSetting->getPriceFormattedWithoutCurrency($this->total_tax + $this->shipping_tax), $html);
+        $html =  str_replace("{{total_price}}", $oimsSetting->getPriceFormattedWithoutCurrency($this->total_price), $html); 
 
+        $html = str_replace("{{total_price}}", $oimsSetting->getPriceFormattedWithoutCurrency($this->total_price), $html);
+        $html = str_replace("{{total_tax}}", $oimsSetting->getPriceFormattedWithoutCurrency($this->total_tax), $html);
+        
         // products + shipping
         $htmlProducts = "";
         $productTableRow = "";
+        $taxTableRow = "";
 
         $products = (count($this->products)) ? $this->products : PurchaseProduct::getPurchaseProducts($this->id);
         $productsTemplate = $oimsSetting->get_string_between($html, '<tr id="products_row">', '</tr>');
@@ -483,32 +502,39 @@ class Purchase extends BaseModel
         if(count($products)) {
             // id based product template set in HTML
             $isProductTemplateSet = ($productsTemplate != "") ? true : false;
-
+            $serialNumber = 1;
             foreach ($products as $product) {
 
-                $title = $product->product->title;
+                $title = $product->product ? $product->product->title : $product->description;
                 $qty = $product->quantity;
                 $productUnit = $product->unit;
+                $productTaxPercent = $product->tax_percent;
                 $productRate = $oimsSetting->getPriceFormattedWithoutCurrency($product->unit_price);
                 $totalPrice = $oimsSetting->getPriceFormattedWithoutCurrency($product->total_price);
+                $totalTax = $oimsSetting->getPriceFormattedWithoutCurrency($product->total_tax);
 
                 $productFields = array(
+                    '{{product_sno}}' => $serialNumber,
                     '{{product_title}}' => $title,
                     '{{product_unit}}' => $productUnit,
+                    '{{product_tax_percent}}' => $productTaxPercent,
                     '{{product_qty}}' => $qty,
                     '{{product_rate}}' => $productRate,
-                    '{{product_total_price}}' => $totalPrice
-                    );
-                
+                    '{{product_total_price}}' => $totalPrice,
+                    '{{product_total_tax}}' => $totalTax
+                );
+
                 $productTableRow .= $isProductTemplateSet ? "<tr>".strtr($productsTemplate, $productFields)."</tr>" : "";
 
                 $htmlProducts .= "<div>";
-                $htmlProducts .= "<span class='product-title'>".$title." <small class='product-title-options'>".$title."</small></span>";
-                $htmlProducts .= "<span class='product-quantity'>".$qty."</span>";
-                $htmlProducts .= "<span class='product-price-without-tax'>".$oimsSetting->getPriceFormatted($product->total_price_without_tax)."</span>";
-                $htmlProducts .= "<span class='product-tax'>".$oimsSetting->getPriceFormatted($product->total_tax)."</span>";
-                $htmlProducts .= "<span class='product-price'>".$oimsSetting->getPriceFormatted($product->total_price)."</span>";
+                $htmlProducts .= "<span class='product-title'>" . $title . " <small class='product-title-options'>" . $title . "</small></span>";
+                $htmlProducts .= "<span class='product-quantity'>" . $qty . "</span>";
+                $htmlProducts .= "<span class='product-price-without-tax'>" . $oimsSetting->getPriceFormatted($product->total_price_without_tax) . "</span>";
+                $htmlProducts .= "<span class='product-tax'>" . $oimsSetting->getPriceFormatted($product->total_tax) . "</span>";
+                $htmlProducts .= "<span class='product-price'>" . $oimsSetting->getPriceFormatted($product->total_price) . "</span>";
                 $htmlProducts .= "</div>";
+
+                $serialNumber += 1;
             }
         }
         
@@ -522,6 +548,49 @@ class Purchase extends BaseModel
 
         $html =  str_replace("{{products}}", $htmlProducts, $html);
 
+        //Tax breakups
+        $taxTemplate = $oimsSetting->getTableRowContent($html, 'class', 'tax_row');
+        $isTaxTemplateSet = ($taxTemplate != "") ? true : false;
+//        if($this->tax_igst_amount > 0){
+        if($this->tax_igst > 0){
+//            $label = "iGST $this->tax_igst%";
+            $label = "iGST";
+            $amount = $oimsSetting->getPriceFormattedWithoutCurrency($this->tax_igst_amount);
+            $fields = array(
+                    '{{tax_label}}' => $label,
+                    '{{tax_amount}}' => $amount,
+                );
+            $taxTableRow .= $isTaxTemplateSet ?  strtr($taxTemplate, $fields)  : "";
+        }
+//        if($this->tax_cgst_amount > 0){
+        if($this->tax_cgst > 0){
+//            $label = "cGST $this->tax_cgst%";
+            $label = "cGST";
+            $amount = $oimsSetting->getPriceFormattedWithoutCurrency($this->tax_cgst_amount);
+            $fields = array(
+                    '{{tax_label}}' => $label,
+                    '{{tax_amount}}' => $amount,
+                );
+            $taxTableRow .= $isTaxTemplateSet ?  strtr($taxTemplate, $fields)  : "";
+        }
+//        if($this->tax_sgst_amount > 0){
+        if($this->tax_sgst > 0){
+//            $label = "sGST $this->tax_sgst%";
+            $label = "sGST";
+            $amount = $oimsSetting->getPriceFormattedWithoutCurrency($this->tax_sgst_amount);
+            $fields = array(
+                    '{{tax_label}}' => $label,
+                    '{{tax_amount}}' => $amount,
+                );
+            $taxTableRow .= $isTaxTemplateSet ?  strtr($taxTemplate, $fields)  : "";
+        }
+        
+        $html = str_replace($taxTemplate,$taxTableRow, $html);
+        
+        
+        
+        
+        
 //        dd($html);
         // Generate invoice
         $fileName = 'invoice_' . $this->id . '_' . time();
@@ -587,6 +656,66 @@ class Purchase extends BaseModel
         if($this->updated_by == ''){
             $this->updated_by = $user->id;
         }
+    }
+    
+    //Recalcualte Taxes and final amount
+    public function recalculateAmounts(){
+        
+//        $total_price_without_tax = $this->total_price_without_tax;
+        
+//        if(!$this->total_price_without_tax){
+            //Calculate it from products total price
+            $this->total_price_without_tax = 0;
+            $this->total_tax = 0;
+            foreach($this->products as $product){
+                $this->total_price_without_tax += $product->total_price - $product->total_tax;
+                $this->total_tax += $product->total_tax;
+            }
+//        }
+        
+        //calculate Taxes
+        
+//        $this->tax_igst_amount = 0;
+//        $this->tax_cgst_amount = 0;
+//        $this->tax_sgst_amount = 0;
+        
+        
+//        //iGST
+//        if($this->tax_igst){
+//            $this->tax_igst_amount = ($this->total_price_without_tax * $this->tax_igst) / 100;
+//        }
+//        
+//        //cGST
+//        if($this->tax_cgst){
+//            $this->tax_cgst_amount = ($this->total_price_without_tax * $this->tax_cgst) / 100;
+//        }
+//        
+//        //sGST
+//        if($this->tax_sgst){
+//            $this->tax_sgst_amount = ($this->total_price_without_tax * $this->tax_sgst) / 100;
+//        }
+        
+//        $this->total_tax = $this->tax_igst_amount + $this->tax_cgst_amount + $this->tax_sgst_amount;
+        $this->total_price = $this->total_tax + $this->total_price_without_tax;
+        
+        //iGST
+        
+        $this->tax_igst_amount = $this->total_tax;
+        
+        
+        //cGST
+        
+        $this->tax_cgst_amount = $this->total_tax / 2;
+        
+        
+        //sGST
+        
+        $this->tax_sgst_amount = $this->total_tax / 2;
+        
+        
+        
+        //finally save it
+        $this->save();
     }
 
     /**
