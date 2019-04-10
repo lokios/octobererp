@@ -57,6 +57,7 @@ fields:
         span: auto 
         type: number
 #        disabled: true
+        readOnly: true 
         dependsOn: 
             - product
             - tax
