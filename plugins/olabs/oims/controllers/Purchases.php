@@ -199,6 +199,7 @@ class Purchases extends Controller {
         }
         
         $model->recalculateAmounts();
+        $model->updateProjectBookBalance();
         
         //$purchaseModel = \Olabs\Oims\Models\Purchase::find($manageId);
 //        $model->genereateInvoice(); //Invoice is now generate on click
@@ -215,6 +216,8 @@ class Purchases extends Controller {
         $result = $this->asExtension('FormController')->update_onSave($recordId, $context);
         $model = \Olabs\Oims\Models\Purchase::find($recordId);
         $model->recalculateAmounts();
+        $model->updateProjectBookBalance();
+        
 //        $model->genereateInvoice();
         return $result;
     }

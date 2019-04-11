@@ -1,4 +1,6 @@
-<?php namespace Olabs\Oims\Models;
+<?php
+
+namespace Olabs\Oims\Models;
 
 use Model;
 use DB;
@@ -11,8 +13,7 @@ use Log;
 /**
  * Purchase Model
  */
-class Purchase extends BaseModel
-{
+class Purchase extends BaseModel {
 
     /**
      * @var string The database table used by the model.
@@ -20,15 +21,13 @@ class Purchase extends BaseModel
     public $table = 'olabs_oims_purchases';
 
     const CNAME = 'purchases';
-    
+
     public $execute_validation = True;
-    
-    
-    public function getEntityType()
-    {
+
+    public function getEntityType() {
         return self::CNAME;
     }
-    
+
     /**
      * @var array Guarded fields
      */
@@ -41,11 +40,9 @@ class Purchase extends BaseModel
         "objectstatus",
         "note",
         "tracking_number",
-        
         // User - Rainlab User if exist
         "user",
         "user_id",
-        
         // Delivery address
         "ds_first_name",
         "ds_last_name",
@@ -55,7 +52,6 @@ class Purchase extends BaseModel
         "ds_city",
         "ds_county",
         "ds_country",
-        
         // Invoice address
         "is_first_name",
         "is_last_name",
@@ -65,31 +61,24 @@ class Purchase extends BaseModel
         "is_city",
         "is_county",
         "is_country",
-        
         // Contact
         "contact_email",
         "contact_phone",
-
         // Carrier
         "carrier",
-
         // Price
         "total_price_without_tax",
         "total_tax",
         "total_price",
-        
         "coupon",
         "total_global_discount",
-        
         "shipping_price_without_tax",
         "shipping_tax",
         "shipping_price",
-
         // Payment methods                            
-        "payment_method",  // obsolete
+        "payment_method", // obsolete
         "execute_validation",
     ];
-    
     public $rules = [
 //        'title' => 'required|between:2,255',
         'user_id' => 'numeric|required',
@@ -103,65 +92,59 @@ class Purchase extends BaseModel
 //        'ean_13'   => 'numeric|ean13',
 ////        'default_category' => 'required',
 //        'retail_price_with_tax' => 'numeric|required',
-        
-    ];  
-            
+    ];
     protected $jsonable = [
         // Products
         // propably save ID + qty + price, all other can be from producst DB
 //        'products_json', 
         'paid_detail'
-        ];
-    
+    ];
     protected $dates = ['paid_date'];
-    
-    
-    
-    
+
     /**
      * @var array Relations
      */
     public $hasOne = [];
     public $hasMany = [
         'products' => [
-            'Olabs\Oims\Models\PurchaseProduct', 
+            'Olabs\Oims\Models\PurchaseProduct',
             'key' => 'purchase_id'
-        ],  
+        ],
     ];
     public $belongsTo = [
         'objectstatus' => [
-            'Olabs\Oims\Models\Status', 
+            'Olabs\Oims\Models\Status',
             'key' => 'status'
-        ],           
+        ],
         'carrier' => [
-            'Olabs\Oims\Models\Carrier', 
+            'Olabs\Oims\Models\Carrier',
             'key' => 'carrier_id'
-        ], 
+        ],
         'project' => [
-            'Olabs\Oims\Models\Project', 
+            'Olabs\Oims\Models\Project',
             'key' => 'project_id'
-        ], 
+        ],
         'coupon' => [
-            'Olabs\Oims\Models\Coupon', 
+            'Olabs\Oims\Models\Coupon',
             'key' => 'coupon_id'
-        ],        
+        ],
         'paymentGateway' => [
-            'Olabs\Oims\Models\PaymentGateway', 
+            'Olabs\Oims\Models\PaymentGateway',
             'key' => 'payment_gateway_id'
-        ],    
+        ],
         'supplier' => [
-            'Backend\Models\User', 
+            'Backend\Models\User',
             'key' => 'user_id'
-        ],   
+        ],
         'quote' => [
             'Olabs\Oims\Models\Quote',
             'key' => 'quote_id',
             'scope' => 'matchPurchase'
         ],
         'projectBook' => [
-            'Olabs\Oims\ProjectBook\Coupon', 
+            'Olabs\Oims\ProjectBook\Coupon',
             'key' => 'project_book_id'
-        ],  
+        ],
     ];
 //    public $belongsToMany = [];
 //    public $morphTo = [];
@@ -174,32 +157,27 @@ class Purchase extends BaseModel
         'featured_images' => ['System\Models\File', 'order' => 'sort_order'],
         'content_images' => ['System\Models\File']
     ];
-    
-    
-    public function getSetupCodeAttribute()
-    {
+
+    public function getSetupCodeAttribute() {
         return strtoupper(str_random(8));
     }
-    
-    public function getProductOptions()
-    {
-        return Product::get()->lists("title","id");
+
+    public function getProductOptions() {
+        return Product::get()->lists("title", "id");
     }
-    
-    public function getUserOptions()
-    {
+
+    public function getUserOptions() {
         if (class_exists("\RainLab\User\Models\User")) {
             $usersList = \RainLab\User\Models\User::select(
-                    DB::raw("CONCAT_WS(' ', id, '|', name, surname) AS full_name, id")
+                            DB::raw("CONCAT_WS(' ', id, '|', name, surname) AS full_name, id")
                     )->lists('full_name', 'id');
             return [null => Lang::get("olabs.oims::lang.plugin.please_select")] + $usersList;
-        }
-        else {
+        } else {
             return [
                 null => "Firstly install Rainlab User plugin"
             ];
         }
-    }  
+    }
 
     /**
      * OBSOLETE 12.11.2016 
@@ -226,8 +204,7 @@ class Purchase extends BaseModel
 //      
 //        return $options;
 //    }
-    
-    
+
     /**
      * Get Payment Method Label
      * 
@@ -242,49 +219,45 @@ class Purchase extends BaseModel
 //        else {
 //            return "";
 //        }
-        
         // 12.11.2016 new version
         if ($this->paymentGateway) {
             return $this->paymentGateway->gateway_title;
-        }
-        else {
+        } else {
             return "";
         }
     }
-    
-    
+
     /**
      * Sets the "url" attribute with a URL to this object
      * @param string $pageName
      * @param Cms\Classes\Controller $controller
      */
-    public function setUrl($pageName, $controller)
-    {
+    public function setUrl($pageName, $controller) {
         $params = [
             'id' => $this->id,
         ];
 
         return $this->url = $controller->pageUrl($pageName, $params);
-    }  
-    
-
+    }
 
     /*
      * After fetch data from DB
      * 
      */
+
     public $extend_products_json = array();
+
     public function afterFetch() {
         // add product relation by products_json into extend_products_json
         $this->extend_products_json = array();
-        if($this->products_json){
+        if ($this->products_json) {
             foreach ($this->products_json as $key => $producJson) {
                 $producJson["product"] = \Olabs\Oims\Models\Product::find($producJson["product_id"]);
                 $this->extend_products_json += [$key => $producJson];
             }
         }
     }
-    
+
     /**
      * Complete create purchase from basket
      * - fill all
@@ -430,71 +403,69 @@ class Purchase extends BaseModel
 //
 //        
 //    }
-    
+
     /**
      * Event: after create
      * 
      */
-  // public function afterCreate() {
-  //      $this->genereateInvoice();
-  //  }
-    
-    
+    // public function afterCreate() {
+    //      $this->genereateInvoice();
+    //  }
     //public function afterUpdate() {
     //    $this->genereateInvoice();
     //}
-    
-    
-    
-    public function genereateInvoice($download = false){
-        
+
+
+
+    public function genereateInvoice($download = false) {
+
         $this->onPurchaseStatusChange($this->objectstatus, null);
-        
+
         // Create invoice html
         $oimsSetting = \Olabs\Oims\Models\Settings::instance();
 
 //        $html = "<html><head><style>".$oimsSetting->material_receipt_template_style."</style></head><body>".$oimsSetting->material_receipt_template_content."</body></html>";
-        
+
         $template_style = str_replace("\r\n", "", $oimsSetting->material_receipt_template_style);
 
-        
-        
+
+
         $template_content = str_replace("\r\n", "", $oimsSetting->material_receipt_template_content);
         $template_content = str_replace("\t", "", $template_content);
 
         $html = "";
         $html = "<html><head><style> $template_style </style></head><body>$template_content</body></html>";
-        
-        
-        $html =  str_replace("{{m_r_number}}", $this->reference_number, $html);
-        $html =  str_replace("{{context_date}}", $this->context_date, $html);
 
-        if($this->user_id){
+
+        $html = str_replace("{{m_r_number}}", $this->reference_number, $html);
+        $html = str_replace("{{context_date}}", $this->context_date, $html);
+
+        if ($this->user_id) {
             $supplier = \Backend\Models\User::find($this->user_id);
             $supplierName = $supplier ? $supplier->getFullNameAttribute() : "";
-        }else{
+        } else {
             $supplierName = "";
         }
-        
 
-        $html =  str_replace("{{supplier}}", $supplierName, $html);
 
-        $html =  str_replace("{{bill_number}}", $this->bill_number, $html);
-        $html =  str_replace("{{bill_date}}", $this->bill_date, $html);
-        $html =  str_replace("{{thru_vehicle_number}}", $this->thru_vehicle_number, $html);
-        $html =  str_replace("{{arrived_on_date}}", $this->arrived_on_date, $html);
-        $html =  str_replace("{{driver_name}}", $this->driver_name, $html);        
-        $html =  str_replace("{{note}}", $this->note, $html);
+        $html = str_replace("{{supplier}}", $supplierName, $html);
+
+        $html = str_replace("{{bill_number}}", $this->bill_number, $html);
+        $html = str_replace("{{bill_date}}", $this->bill_date, $html);
+        $html = str_replace("{{thru_vehicle_number}}", $this->thru_vehicle_number, $html);
+        $html = str_replace("{{arrived_on_date}}", $this->arrived_on_date, $html);
+        $html = str_replace("{{driver_name}}", $this->driver_name, $html);
+        $html = str_replace("{{note}}", $this->note, $html);
 
 //        $html =  str_replace("{{total_price}}", $oimsSetting->getPriceFormattedWithoutCurrency($this->total_price), $html);
         $html = str_replace("{{total_global_discount}}", $oimsSetting->getPriceFormattedWithoutCurrency($this->total_global_discount), $html);
         $html = str_replace("{{total_price_without_tax}}", $oimsSetting->getPriceFormattedWithoutCurrency($this->total_price_without_tax + $this->shipping_price_without_tax), $html);
         $html = str_replace("{{total_tax}}", $oimsSetting->getPriceFormattedWithoutCurrency($this->total_tax + $this->shipping_tax), $html);
-        $html =  str_replace("{{total_price}}", $oimsSetting->getPriceFormattedWithoutCurrency($this->total_price), $html); 
+        $html = str_replace("{{total_price}}", $oimsSetting->getPriceFormattedWithoutCurrency($this->total_price), $html);
 
         $html = str_replace("{{total_price}}", $oimsSetting->getPriceFormattedWithoutCurrency($this->total_price), $html);
         $html = str_replace("{{total_tax}}", $oimsSetting->getPriceFormattedWithoutCurrency($this->total_tax), $html);
-        
+
         // products + shipping
         $htmlProducts = "";
         $productTableRow = "";
@@ -503,7 +474,7 @@ class Purchase extends BaseModel
         $products = (count($this->products)) ? $this->products : PurchaseProduct::getPurchaseProducts($this->id);
         $productsTemplate = $oimsSetting->get_string_between($html, '<tr id="products_row">', '</tr>');
 
-        if(count($products)) {
+        if (count($products)) {
             // id based product template set in HTML
             $isProductTemplateSet = ($productsTemplate != "") ? true : false;
             $serialNumber = 1;
@@ -528,7 +499,7 @@ class Purchase extends BaseModel
                     '{{product_total_tax}}' => $totalTax
                 );
 
-                $productTableRow .= $isProductTemplateSet ? "<tr>".strtr($productsTemplate, $productFields)."</tr>" : "";
+                $productTableRow .= $isProductTemplateSet ? "<tr>" . strtr($productsTemplate, $productFields) . "</tr>" : "";
 
                 $htmlProducts .= "<div>";
                 $htmlProducts .= "<span class='product-title'>" . $title . " <small class='product-title-options'>" . $title . "</small></span>";
@@ -541,60 +512,60 @@ class Purchase extends BaseModel
                 $serialNumber += 1;
             }
         }
-        
+
         /* Log::info('replace html start ');
-        trace_log($html);
-        trace_log($productTableRow); */
+          trace_log($html);
+          trace_log($productTableRow); */
 
         $html = $oimsSetting->replace_string($html, '<tr id="products_row">', '</tr>', $productTableRow);
         //Log::info('html after replace ');
         //trace_log($html);
 
-        $html =  str_replace("{{products}}", $htmlProducts, $html);
+        $html = str_replace("{{products}}", $htmlProducts, $html);
 
         //Tax breakups
         $taxTemplate = $oimsSetting->getTableRowContent($html, 'class', 'tax_row');
         $isTaxTemplateSet = ($taxTemplate != "") ? true : false;
 //        if($this->tax_igst_amount > 0){
-        if($this->tax_igst > 0){
+        if ($this->tax_igst > 0) {
 //            $label = "iGST $this->tax_igst%";
             $label = "iGST";
             $amount = $oimsSetting->getPriceFormattedWithoutCurrency($this->tax_igst_amount);
             $fields = array(
-                    '{{tax_label}}' => $label,
-                    '{{tax_amount}}' => $amount,
-                );
-            $taxTableRow .= $isTaxTemplateSet ?  strtr($taxTemplate, $fields)  : "";
+                '{{tax_label}}' => $label,
+                '{{tax_amount}}' => $amount,
+            );
+            $taxTableRow .= $isTaxTemplateSet ? strtr($taxTemplate, $fields) : "";
         }
 //        if($this->tax_cgst_amount > 0){
-        if($this->tax_cgst > 0){
+        if ($this->tax_cgst > 0) {
 //            $label = "cGST $this->tax_cgst%";
             $label = "cGST";
             $amount = $oimsSetting->getPriceFormattedWithoutCurrency($this->tax_cgst_amount);
             $fields = array(
-                    '{{tax_label}}' => $label,
-                    '{{tax_amount}}' => $amount,
-                );
-            $taxTableRow .= $isTaxTemplateSet ?  strtr($taxTemplate, $fields)  : "";
+                '{{tax_label}}' => $label,
+                '{{tax_amount}}' => $amount,
+            );
+            $taxTableRow .= $isTaxTemplateSet ? strtr($taxTemplate, $fields) : "";
         }
 //        if($this->tax_sgst_amount > 0){
-        if($this->tax_sgst > 0){
+        if ($this->tax_sgst > 0) {
 //            $label = "sGST $this->tax_sgst%";
             $label = "sGST";
             $amount = $oimsSetting->getPriceFormattedWithoutCurrency($this->tax_sgst_amount);
             $fields = array(
-                    '{{tax_label}}' => $label,
-                    '{{tax_amount}}' => $amount,
-                );
-            $taxTableRow .= $isTaxTemplateSet ?  strtr($taxTemplate, $fields)  : "";
+                '{{tax_label}}' => $label,
+                '{{tax_amount}}' => $amount,
+            );
+            $taxTableRow .= $isTaxTemplateSet ? strtr($taxTemplate, $fields) : "";
         }
-        
-        $html = str_replace($taxTemplate,$taxTableRow, $html);
-        
-        
-        
-        
-        
+
+        $html = str_replace($taxTemplate, $taxTableRow, $html);
+
+
+
+
+
 //        dd($html);
         // Generate invoice
         $fileName = 'invoice_' . $this->id . '_' . time();
@@ -603,13 +574,13 @@ class Purchase extends BaseModel
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadHTML($html);
         $pdf->save($invoiceTempFile);
-        
+
 //        // add into invoice
 //        $invoiceFile = new \System\Models\File();
 //        $invoiceFile->fromFile($invoiceTempFile);
 //        $this->invoice = $invoiceFile;
 //        $this->save();
-        
+
         if (!$download) {
             // add into invoice
             $invoiceFile = new \System\Models\File();
@@ -621,11 +592,9 @@ class Purchase extends BaseModel
             unlink($invoiceTempFile);
         }
         return $fileName;
-        
-        
     }
 
-        /**
+    /**
      * Event: before Update
      * 
      */
@@ -638,52 +607,46 @@ class Purchase extends BaseModel
         if (isset($oldModel)) {
             if (($oldModel->objectstatus == null) && ($this->objectstatus != null)) {
                 $this->onPurchaseStatusChange($this->objectstatus, null);
-            }
-            else if (($oldModel->objectstatus != null) && ($this->objectstatus != null)) {
+            } else if (($oldModel->objectstatus != null) && ($this->objectstatus != null)) {
                 if ($oldModel->objectstatus->id != $this->objectstatus->id) {
                     $this->onPurchaseStatusChange($this->objectstatus, $oldModel->objectstatus);
                 }
             }
         }
     }
-    
+
     public function beforeCreate() {
         $this->uniqueMRNumberCheck();
-        if($this->status == ''){
+        if ($this->status == '') {
             $this->status = Status::STATUS_NEW;
         }
-        
+
         $user = BackendAuth::getUser();
-        if($this->created_by == ''){
+        if ($this->created_by == '') {
             $this->created_by = $user->id;
         }
-        if($this->updated_by == ''){
+        if ($this->updated_by == '') {
             $this->updated_by = $user->id;
         }
     }
-    
+
     //Recalcualte Taxes and final amount
-    public function recalculateAmounts(){
-        
+    public function recalculateAmounts() {
+
 //        $total_price_without_tax = $this->total_price_without_tax;
-        
 //        if(!$this->total_price_without_tax){
-            //Calculate it from products total price
-            $this->total_price_without_tax = 0;
-            $this->total_tax = 0;
-            foreach($this->products as $product){
-                $this->total_price_without_tax += $product->total_price - $product->total_tax;
-                $this->total_tax += $product->total_tax;
-            }
+        //Calculate it from products total price
+        $this->total_price_without_tax = 0;
+        $this->total_tax = 0;
+        foreach ($this->products as $product) {
+            $this->total_price_without_tax += $product->total_price - $product->total_tax;
+            $this->total_tax += $product->total_tax;
+        }
 //        }
-        
         //calculate Taxes
-        
 //        $this->tax_igst_amount = 0;
 //        $this->tax_cgst_amount = 0;
 //        $this->tax_sgst_amount = 0;
-        
-        
 //        //iGST
 //        if($this->tax_igst){
 //            $this->tax_igst_amount = ($this->total_price_without_tax * $this->tax_igst) / 100;
@@ -698,26 +661,25 @@ class Purchase extends BaseModel
 //        if($this->tax_sgst){
 //            $this->tax_sgst_amount = ($this->total_price_without_tax * $this->tax_sgst) / 100;
 //        }
-        
 //        $this->total_tax = $this->tax_igst_amount + $this->tax_cgst_amount + $this->tax_sgst_amount;
         $this->total_price = $this->total_tax + $this->total_price_without_tax;
-        
+
         //iGST
-        
+
         $this->tax_igst_amount = $this->total_tax;
-        
-        
+
+
         //cGST
-        
+
         $this->tax_cgst_amount = $this->total_tax / 2;
-        
-        
+
+
         //sGST
-        
+
         $this->tax_sgst_amount = $this->total_tax / 2;
-        
-        
-        
+
+
+
         //finally save it
         $this->save();
     }
@@ -729,9 +691,9 @@ class Purchase extends BaseModel
      * @param type $prevPurchaseStatus
      */
     private function onPurchaseStatusChange($newPurchaseStatus, $prevPurchaseStatus) {
-        
+
         $oimsSetting = \Olabs\Oims\Models\Settings::instance();
-        
+
         if (isset($newPurchaseStatus)) {
             // prepair data
             $data = [];
@@ -739,29 +701,29 @@ class Purchase extends BaseModel
             $data["last_name"] = $this->is_last_name;
             $data["purchase_id"] = $this->id;
             $tracking_url = ($this->carrier) ? $this->carrier->tracking_url : "";
-            $tracking_url = str_replace("@", $this->tracking_number , $tracking_url);
+            $tracking_url = str_replace("@", $this->tracking_number, $tracking_url);
             $data["tracking_url"] = ($this->tracking_number != null && $this->tracking_number != "") ? $tracking_url : "";
-            
+
             // send email
             if ($newPurchaseStatus->mail_template != null) {
                 Mail::send($newPurchaseStatus->mail_template->code, $data, function($message) use ($oimsSetting, $newPurchaseStatus) {
 
                     $message->to($this->contact_email);
-                    
+
                     if ($oimsSetting->copy_all_purchase_emails_to != "") {
                         $message->bcc($oimsSetting->copy_all_purchase_emails_to);
                     }
-                    
+
                     // attach invoice?
                     if (($newPurchaseStatus->attach_invoice_pdf_to_email) && ($this->invoice != null)) {
-                        $message->attach($this->invoice->getLocalPath(), ['as' => "invoice-".$this->id.".pdf"]);
+                        $message->attach($this->invoice->getLocalPath(), ['as' => "invoice-" . $this->id . ".pdf"]);
                     }
-                });                
+                });
             }
 
             // extended_inventory_management - after change purchase status
             if ($oimsSetting->extended_inventory_management) {
-                
+
                 // qty decrease
                 if ($newPurchaseStatus->qty_decrease) {
                     foreach ($this->products_json as $key => $producJson) {
@@ -772,7 +734,7 @@ class Purchase extends BaseModel
                         }
                     }
                 }
-                
+
                 // qty increase back
                 if ($newPurchaseStatus->qty_increase_back) {
                     // !!! ONLY if have previous status with qty_decrease
@@ -787,11 +749,9 @@ class Purchase extends BaseModel
                     }
                 }
             }
-
         }
-        
     }
-    
+
     /**
      * Find purchase for payment gateway or return null
      * 
@@ -799,93 +759,87 @@ class Purchase extends BaseModel
      */
     public static function findPurchaseBySlugForPaymentGateway($id) {
         $purchase = self::find($id);
-        
+
         // check if purchase have user => user have to be logged in
         if ($purchase->user_id) {
             $user = \RainLab\User\Facades\Auth::getUser();
-            
+
             // check anonymous access
             if ($user == null) {
                 return null;
             }
-            
+
             // check another user
             if ($purchase->user_id != $user->id) {
                 return null;
             }
         }
-        
+
         // check disallowed purchase statuses
         if ($purchase->objectstatus) {
             if ($purchase->objectstatus->disallow_for_gateway) {
                 return null;
             }
         }
-        
-        return $purchase;
-        
-    }
-    
 
-    public function uniqueMRNumberCheck(){
+        return $purchase;
+    }
+
+    public function uniqueMRNumberCheck() {
 //        return true; // Not required to check, running default
-        
         //If dont want to execute validation : use in Entity Relation data sync from mobile
-        if(!$this->execute_validation){
+        if (!$this->execute_validation) {
             return;
         }
-        
+
         //Check MR Number uniqueness through out project
-        if($this->id){
+        if ($this->id) {
             $invalid = Purchase::where('reference_number', $this->reference_number)
 //                               ->where('project_id', $this->project_id)
-                               ->where('id', '<>', $this->id)->count();
-        }else{
+                            ->where('id', '<>', $this->id)->count();
+        } else {
             $invalid = Purchase::where('reference_number', $this->reference_number)
 //                               ->where('project_id', $this->project_id)
-                               ->count();
+                    ->count();
         }
         if ($invalid) {
             throw new \ValidationException(['reference_number' => 'M.R. Number must be unique for a project.']);
         }
-        
-        
+
+
         //Check MR Number perent in assing MR books
-        $project_book = ProjectBook::where('project_id', $this->project_id)
-                        ->where('status', '1')
-                        ->where('book_type', $this->getEntityType())
-//                        ->whereBetween($this->reference_number, ['series_from', 'series_to'])
-                        ->where('series_from', '<=',$this->reference_number)
-                        ->where('series_to', '>=',$this->reference_number)
-                        ->first();
+//        $project_book = ProjectBook::where('project_id', $this->project_id)
+//                        ->where('status', '1')
+//                        ->where('book_type', $this->getEntityType())
+////                        ->whereBetween($this->reference_number, ['series_from', 'series_to'])
+//                        ->where('series_from', '<=',$this->reference_number)
+//                        ->where('series_to', '>=',$this->reference_number)
+//                        ->first();
+        $project_book = $this->getProjectBookByReferenceNumber();
 //        dd($project_book);
-        if(!$project_book){
+        if (!$project_book) {
             throw new \ValidationException(['reference_number' => 'M.R. Number must be matched with Book Issued.']);
         }
-        
-        $this->project_book_id = $project_book->id;
-        $project_book->leaf_balance = $project_book->leaf_balance - 1;
-        $project_book->save();
-        
+
+
         return true;
-        
     }
+
     
-    
-    public function filterFields($fields, $context = null)
-    {
+
+    public function filterFields($fields, $context = null) {
         if ($this->quote) {
             $fields->user_id->value = $this->quote->user_id;
         }
         //user Modal
         $user = BackendAuth::getUser();
-        
+
         //If MR Number entered then dont allow for edit
         $referenceNumber = isset($fields->reference_number) ? $fields->reference_number->value : false;
-        if($referenceNumber && $referenceNumber != '' && !$user->isAdmin()){
+        if ($referenceNumber && $referenceNumber != '' && !$user->isAdmin()) {
             $fields->reference_number->disabled = true;
         }
-        
+
         //If Date is entered then don't allow for edit 
 //        $contextDate = isset($fields->context_date) ? $fields->context_date->value : false;
 //        
@@ -896,39 +850,37 @@ class Purchase extends BaseModel
 //            }
 //            $fields->context_date->default = 'today';
 //        }
-        
-        
-        
-        if($fields->payment_method && isset($fields->{'paid_detail[payment_from]'})){
+
+
+
+        if ($fields->payment_method && isset($fields->{'paid_detail[payment_from]'})) {
 //            dd($fields->{'paid_detail[payment_from]'});
             $fields->{'paid_detail[payment_from]'}->hidden = true;
             $fields->{'paid_detail[payment_to]'}->hidden = true;
             $fields->{'paid_detail[transaction_id]'}->hidden = true;
-            
+
             $fields->{'paid_detail[cheque_number]'}->hidden = true;
             $fields->{'paid_detail[cheque_date]'}->hidden = true;
             $fields->{'paid_detail[cheque_account]'}->hidden = true;
-            
+
             $fields->{'paid_detail[dd_number]'}->hidden = true;
             $fields->{'paid_detail[issuing_bank]'}->hidden = true;
             $fields->{'paid_detail[issue_date]'}->hidden = true;
-            
-            if($fields->payment_method->value == PaymentReceivable::PAYMENT_METHOD_CHEQUE){
+
+            if ($fields->payment_method->value == PaymentReceivable::PAYMENT_METHOD_CHEQUE) {
                 $fields->{'paid_detail[cheque_number]'}->hidden = false;
                 $fields->{'paid_detail[cheque_date]'}->hidden = false;
                 $fields->{'paid_detail[cheque_account]'}->hidden = false;
-            }else if($fields->payment_method->value == PaymentReceivable::PAYMENT_METHOD_BANK_TRANSFER){
+            } else if ($fields->payment_method->value == PaymentReceivable::PAYMENT_METHOD_BANK_TRANSFER) {
                 $fields->{'paid_detail[payment_from]'}->hidden = false;
                 $fields->{'paid_detail[payment_to]'}->hidden = false;
                 $fields->{'paid_detail[transaction_id]'}->hidden = false;
-            }else if($fields->payment_method->value == PaymentReceivable::PAYMENT_METHOD_DEMAND_DRAFT){
+            } else if ($fields->payment_method->value == PaymentReceivable::PAYMENT_METHOD_DEMAND_DRAFT) {
                 $fields->{'paid_detail[dd_number]'}->hidden = false;
                 $fields->{'paid_detail[issuing_bank]'}->hidden = false;
                 $fields->{'paid_detail[issue_date]'}->hidden = false;
             }
-                
         }
-        
     }
 
 }

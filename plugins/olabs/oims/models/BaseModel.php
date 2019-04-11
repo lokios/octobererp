@@ -313,7 +313,7 @@ class BaseModel extends Model {
         $obj = new \Olabs\Messaging\Models\Notification();
         $obj->onEventAsync($data);
         return true;
-        
+
 //        $template_code = $this->getEntityType() . '_' . $this->status;
 //        $params = [
 //            '{{reference_number}}' => isset($this->reference_number) ? $this->reference_number : '',
@@ -695,6 +695,38 @@ class BaseModel extends Model {
 //<option value="50">Continuous feed</option>
 //</select>
         return $options;
+    }
+
+    /*
+     * Get Project Book Object by Reference Number
+     */
+
+    public function getProjectBookByReferenceNumber() {
+        $project_book = ProjectBook::where('project_id', $this->project_id)
+                ->where('status', '1')
+                ->where('book_type', $this->getEntityType())
+//                        ->whereBetween($this->reference_number, ['series_from', 'series_to'])
+                ->where('series_from', '<=', $this->reference_number)
+                ->where('series_to', '>=', $this->reference_number)
+                ->first();
+        return $project_book;
+    }
+
+    /*
+     * Update Project leaf balance
+     * If project book id not assigned prevously
+     */
+
+    public function updateProjectBookBalance() {
+        if (!$this->project_book_id) {
+            $project_book = $this->getProjectBookByReferenceNumber();
+            if ($project_book) {
+                $this->project_book_id = $project_book->id;
+                $project_book->leaf_balance = $project_book->leaf_balance - 1;
+                $project_book->save();
+                $this->save();
+            }
+        }
     }
 
 }
