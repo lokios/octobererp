@@ -152,7 +152,8 @@ class Quotes extends Controller {
             $product->quote_id = $model->id;
             $product->save();
         }
-         
+        
+        $model->updateReferenceNumberObject();
         $model->recalculateAmounts();
 //        $model->genereateInvoice();
         
@@ -170,6 +171,8 @@ class Quotes extends Controller {
        $context = 'update';
        $result = $this->asExtension('FormController')->update_onSave($recordId, $context);
        $model = \Olabs\Oims\Models\Quote::find($recordId);
+       
+       $model->updateReferenceNumberObject();
        $model->recalculateAmounts();
 //       $model->genereateInvoice();
        

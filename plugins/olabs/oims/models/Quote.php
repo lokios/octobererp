@@ -249,149 +249,7 @@ class Quote extends BaseModel {
         }
     }
 
-    /**
-     * Complete create quote from basket
-     * - fill all
-     * - create invoice
-     * - 
-     * 
-     */
-//    public function createFromBasket($basket) {
-//        $oimsSetting = \Olabs\Oims\Models\Settings::instance();
-//
-//        // User - Rainlab User if exist
-//        if (class_exists("\RainLab\User\Models\User")) {
-//            $user = \RainLab\User\Facades\Auth::getUser();
-//            if (isset($user)) {
-//                $this->user_id = \RainLab\User\Facades\Auth::getUser()->id;
-//            }
-//        }
-//
-//        // Delivery address
-//        $this->ds_first_name = $basket["ds_first_name"];
-//        $this->ds_last_name = $basket["ds_last_name"];
-//        $this->ds_address = $basket["ds_address"];
-//        $this->ds_address_2 = $basket["ds_address_2"];
-//        $this->ds_postcode = $basket["ds_postcode"];
-//        $this->ds_city = $basket["ds_city"];
-//        $this->ds_county = $basket["ds_county"];
-//        $this->ds_country = $basket["ds_country"];
-//
-//        // Invoice address
-//        $this->is_first_name = $basket["is_first_name"];
-//        $this->is_last_name = $basket["is_last_name"];
-//        $this->is_address = $basket["is_address"];
-//        $this->is_address_2 = $basket["is_address_2"];
-//        $this->is_postcode = $basket["is_postcode"];
-//        $this->is_city = $basket["is_city"];
-//        $this->is_county = $basket["is_county"];
-//        $this->is_country = $basket["is_country"];
-//
-//        // Carrier
-//        $this->carrier = Carrier::find($basket["shipping_id"]);
-//
-//        // Price
-//        $this->total_price_without_tax = $basket["total_price_without_tax"];
-//        $this->total_tax = $basket["total_tax"];
-//        $this->total_price = $basket["total_price"];
-//        $this->total_global_discount = $basket["total_global_discount"];
-//
-//        $this->shipping_price_without_tax = $basket["shipping_price_without_tax"];
-//        $this->shipping_tax = $basket["shipping_tax"];
-//        $this->shipping_price = $basket["shipping_price"];
-//
-//        // coupon
-//        if ($basket["coupon_model"] != null) {
-//            $this->coupon = $basket["coupon_model"];
-//            $wCoupon = Coupon::find($this->coupon->id);
-//            $wCoupon->used_count++;
-//            $wCoupon->save();
-//        }
-//
-//
-//        // Contact
-//        $this->contact_email = $basket["contact_email"];
-//        $this->contact_phone = $basket["contact_phone"];
-//        $this->note = $basket["note"];
-//
-//        // Payment method + QuoteStatus
-//        //$this->payment_method = $basket["payment_method_id"]; // obsolete
-//        $paymentGateway = PaymentGateway::find($basket["payment_method_id"]);
-//        $this->paymentGateway = $paymentGateway;
-//        if (($paymentGateway) && ($paymentGateway->quoteStatusBefore)) {
-//            $this->objectstatus = $paymentGateway->quoteStatusBefore;
-//        }
-//
-//        // Products
-//        $products_json = [];
-//        foreach ($basket["products"] as $id => $productJson) {
-//
-//            $qty = $productJson["basket_quantity"];
-//            $product = Product::find($productJson["product_id"]);
-//
-//            if ($oimsSetting->extended_inventory_management) {
-//                // extended_inventory_management - after change quote status
-//            } else {
-//                // check and remove qty form stock
-//                $qty = $product->quoteProduct($qty, true);
-//                // i call this immediately get basket and this method check stock availability
-//            }
-//
-//            // $basket["products"][$id]["product"]
-//            $products_json[] = [
-//                "product_id" => $productJson["product_id"],
-//                "quantity" => $qty,
-//                "total_price_without_tax" => $productJson["total_price_without_tax"],
-//                "total_tax" => $productJson["total_tax"],
-//                "total_price" => $productJson["total_price"],
-//                "options_data" => $productJson["options_data"],
-//                "options_text" => $productJson["options_text"],
-//            ];
-//        }
-//        $this->products_json = $products_json;
-//
-//        // ---------------------------------------------------------------------
-//        // Try to update rainlab user if exist
-//        // ---------------------------------------------------------------------
-//        try {
-//            // User - Rainlab User if exist
-//            if (class_exists("\RainLab\User\Models\User")) {
-//                $user = \RainLab\User\Facades\Auth::getUser();
-//                if (isset($user)) {
-//                    // Delivery address
-//                    $user->oims_ds_first_name = $basket["ds_first_name"];
-//                    $user->oims_ds_last_name = $basket["ds_last_name"];
-//                    $user->oims_ds_address = $basket["ds_address"];
-//                    $user->oims_ds_address_2 = $basket["ds_address_2"];
-//                    $user->oims_ds_postcode = $basket["ds_postcode"];
-//                    $user->oims_ds_city = $basket["ds_city"];
-//                    $user->oims_ds_county = $basket["ds_county"];
-//                    $user->oims_ds_country = $basket["ds_country"];
-//
-//                    // Invoice address
-//                    $user->oims_is_first_name = $basket["is_first_name"];
-//                    $user->oims_is_last_name = $basket["is_last_name"];
-//                    $user->oims_is_address = $basket["is_address"];
-//                    $user->oims_is_address_2 = $basket["is_address_2"];
-//                    $user->oims_is_postcode = $basket["is_postcode"];
-//                    $user->oims_is_city = $basket["is_city"];
-//                    $user->oims_is_county = $basket["is_county"];
-//                    $user->oims_is_country = $basket["is_country"];
-//
-//                    // Contact
-//                    $user->oims_contact_email = $basket["contact_email"];
-//                    $user->oims_contact_phone = $basket["contact_phone"];
-//
-//                    $user->forceSave();
-//                }
-//            }
-//        } catch (Exception $ex) {
-//            // do nothing - update user is not important
-//            return;
-//        }
-//        // ---------------------------------------------------------------------
-//    }
-
+    
     /**
      * Event: after create
      * 
@@ -733,7 +591,10 @@ class Quote extends BaseModel {
      */
     public function beforeUpdate() {
         $oldModel = self::find($this->id);
-
+        
+        //Reference Number is empty then set form default
+        $this->reference_number = $this->reference_number != ''? $this->reference_number : $this->generateReferenceNumber();
+        
         // check quote status change
         if (isset($oldModel)) {
             if (($oldModel->objectstatus == null) && ($this->objectstatus != null)) {
@@ -751,6 +612,9 @@ class Quote extends BaseModel {
         if ($this->status == '') {
             $this->status = Status::STATUS_NEW;
         }
+        
+        //Reference Number is empty then set form default
+        $this->reference_number = $this->reference_number != ''? $this->reference_number : $this->generateReferenceNumber();
 
         $user = BackendAuth::getUser();
         if ($this->created_by == '') {
@@ -1013,6 +877,16 @@ class Quote extends BaseModel {
         $query->where('quote_type', self::QUOTE_TYPE_MATERIAL);
 
         return is_array($projectId) ? $query->whereIn('project_id', $projectId) : $query->where('project_id', $projectId); // ->orderBy('name', 'desc')
+    }
+    
+    
+    public function filterFields($fields, $context = null)
+    {
+        //If reference number once entered then make it readonly
+        if($fields->reference_number->value != ''){
+            $fields->reference_number->readOnly = True;
+        }
+        
     }
 
 }

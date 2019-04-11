@@ -59,8 +59,68 @@ tabs:
             tab: 'olabs.oims::lang.settings.general'
             label: 'olabs.oims::lang.orderstatuses.extended_inventory_management'
             type: switch
-            span: full
+            span: auto
             default: false
+            
+        check_with_project_book:
+            tab: 'olabs.oims::lang.settings.general'
+            label: 'olabs.oims::lang.settings.check_with_project_book'
+            type: switch
+            span: auto
+            default: false
+            
+        reference_number_auto_generate:
+            tab: 'olabs.oims::lang.settings.general'
+            label: 'olabs.oims::lang.settings.reference_number_auto_generate'
+            type: switch
+            span: auto
+            default: false
+            
+        reference_number_section:
+            tab: 'olabs.oims::lang.settings.general'
+            label: 'olabs.oims::lang.settings.reference_number_section'
+#            comment: 'olabs.oims::lang.settings.extended_inventory_management_comment'
+            type: section
+        
+        quotes_prefix:
+            tab: 'olabs.oims::lang.settings.general'
+            label: 'olabs.oims::lang.settings.quotes_prefix'
+            span: auto
+            type: text
+            
+        quotes_reference_format:
+            tab: 'olabs.oims::lang.settings.general'
+            label: 'olabs.oims::lang.settings.quotes_reference_format'
+            span: auto
+            type: dropdown
+            options:
+                1: 'olabs.oims::lang.settings.reference_format_1'
+                2: 'olabs.oims::lang.settings.reference_format_2'
+                3: 'olabs.oims::lang.settings.reference_format_3'
+                4: 'olabs.oims::lang.settings.reference_format_4'
+                5: 'olabs.oims::lang.settings.reference_format_5'
+        
+        
+#        purchases_prefix:
+#            tab: 'olabs.oims::lang.settings.general'
+#            label: 'olabs.oims::lang.settings.purchases_prefix'
+#            span: auto
+#            type: text
+#            
+#        purchases_reference_format:
+#            tab: 'olabs.oims::lang.settings.general'
+#            label: 'olabs.oims::lang.settings.purchases_reference_format'
+#            span: auto
+#            type: dropdown
+#            options:
+#                1: 'olabs.oims::lang.settings.reference_format_1'
+#                2: 'olabs.oims::lang.settings.reference_format_2'
+#                3: 'olabs.oims::lang.settings.reference_format_3'
+#                4: 'olabs.oims::lang.settings.reference_format_4'
+#                5: 'olabs.oims::lang.settings.reference_format_5'
+        
+        
+            
 #        cash_on_delivery_obsolete:
 #            tab: 'olabs.oims::lang.settings.cash_on_delivery'
 #            label: 'olabs.oims::lang.settings.section_obsolete'

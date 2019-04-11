@@ -717,7 +717,7 @@ class BaseModel extends Model {
      * If project book id not assigned prevously
      */
 
-    public function updateProjectBookBalance() {
+    protected function updateProjectBookBalance() {
         if (!$this->project_book_id) {
             $project_book = $this->getProjectBookByReferenceNumber();
             if ($project_book) {
@@ -727,6 +727,107 @@ class BaseModel extends Model {
                 $this->save();
             }
         }
+    }
+
+    /*
+     * Gernerate Reference Number from Reference Number Table
+     */
+
+    public function generateReferenceNumber() {
+
+        $oimsSetting = \Olabs\Oims\Models\Settings::instance();
+
+        //Auto genreate reference number is disabled
+        if (!$oimsSetting->reference_number_auto_generate) {
+            return false;
+        }
+
+        $reference_number_modal = $this->getReferenceNumberObject();
+
+        if (!$reference_number_modal) {
+            return false;
+        }
+
+        $prefix = isset($oimsSetting->{$this->getEntityType() . '_prefix'}) ? $oimsSetting->{$this->getEntityType() . '_prefix'} : Null;
+//        $format = isset($oimsSetting->{$this->getEntityType() . '_reference_format'}) ? $oimsSetting->{$this->getEntityType() . '_reference_format'} : Null;
+
+        $ref_no = (!empty($prefix)) ? $prefix . '/' : '';
+
+        if ($oimsSetting->{$this->getEntityType() . '_reference_format'} == 1) {
+            // Company/Project/YEAR/Sequence Number (SL/CM/PR/2019/001)
+            $ref_no .= $this->project->company->slug . "/" . $this->project->slug . "/" . date('Y') . "/" . sprintf("%06s", $reference_number_modal->sequence);
+        } elseif ($oimsSetting->{$this->getEntityType() . '_reference_format'} == 2) {
+            // Company/Project/YEAR/MONTH/Sequence Number (SL/CM/PR/2019/04/001)
+            $ref_no .= $this->project->company->slug . "/" . $this->project->slug . "/" . date('Y') . "/" . date('m') . "/" . sprintf("%06s", $reference_number_modal->sequence);
+        } elseif ($oimsSetting->{$this->getEntityType() . '_reference_format'} == 3) {
+            //Company/Project/Sequence Number (SL/CM/PR/001)
+            $ref_no .= $this->project->company->slug . "/" . $this->project->slug . "/" . sprintf("%06s", $reference_number_modal->sequence);
+        } elseif ($oimsSetting->{$this->getEntityType() . '_reference_format'} == 4) {
+            //Sequence Number (SL/001)
+            $ref_no .= sprintf("%06s", $reference_number_modal->sequence);
+        } else {
+            //Random Number (SL/001)
+            $ref_no .= $this->getRandomReferenceNumber();
+        }
+
+        return $ref_no;
+    }
+
+    /*
+     * 
+     */
+
+    public function getReferenceNumberObject() {
+        $reference_number_modal = ReferenceNumber::where('reference_type', $this->getEntityType())
+                ->where('status', '1')
+                ->first();
+        return $reference_number_modal;
+    }
+
+    /*
+     * Generate Random Reference Number
+     */
+
+    private function getRandomReferenceNumber($len = 12) {
+        $result = '';
+        for ($i = 0; $i < $len; $i++) {
+            $result .= mt_rand(0, 9);
+        }
+
+        if ($this->getEntityModalByReferenceNumber($result)) {
+            $this->getRandomReferenceNumber();
+        }
+
+        return $result;
+    }
+
+    /*
+     * Load Object Modal by entity type and reference number to check duplicate reference number in random genreation
+     */
+
+    public function getEntityModalByReferenceNumber($reference_number) {
+        $object_modal = $this->getModal($this->getEntityType())::where('reference_number', $reference_number)->first();
+        return $object_modal;
+    }
+
+    /*
+     * Update reference number sequence
+     */
+    public function updateReferenceNumberObject() {
+        
+        if($this->reference_number != $this->generateReferenceNumber()){
+            return false;
+        }
+        
+        $reference_number_modal = $this->getReferenceNumberObject();
+
+        if ($reference_number_modal) {
+            $reference_number_modal->sequence = $reference_number_modal->sequence + 1;
+            $reference_number_modal->save();
+            return TRUE;
+        }
+
+        return false;
     }
 
 }
