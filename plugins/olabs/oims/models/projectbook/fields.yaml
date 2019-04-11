@@ -1,12 +1,4 @@
 fields:
-    series_from:
-        label: 'Series From'
-        span: auto
-        type: number
-    series_to:
-        label: 'Series To'
-        span: auto
-        type: number
     book_type:
         label: 'Book Type'
         span: auto
@@ -21,6 +13,15 @@ fields:
         span: auto
         required: 1
         type: dropdown
+    series_from:
+        label: 'Series From'
+        span: auto
+        type: number
+    series_to:
+        label: 'Series To'
+        span: auto
+        type: number
+    
     context_date:
         label: Date
         oc.commentPosition: ''
@@ -44,11 +45,34 @@ fields:
 tabs:
     fields:         
     
+        leaf_count:
+            tab: olabs.oims::lang.products.detail
+            label: Leaf Count
+            span: auto     
+            size: ''
+            type: text
+            readOnly: true
+            dependsOn:
+                - series_from
+                - series_to
+            
+        leaf_balance:
+            tab: olabs.oims::lang.products.detail
+            label: Leaf Balance
+            span: auto     
+            size: ''
+            type: text
+            readOnly: true
+            dependsOn:
+                - series_from
+                - series_to
+    
         note:
             tab: olabs.oims::lang.products.detail
             label: olabs.oims::lang.products.description
-            span: auto                  
-            type: richeditor
+            span: auto     
+            size: ''
+            type: textarea
 
 
     # Images

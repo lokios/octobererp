@@ -93,7 +93,7 @@ class Purchase extends BaseModel
     public $rules = [
 //        'title' => 'required|between:2,255',
         'user_id' => 'numeric|required',
-        'reference_number' => 'numeric|required|between:1,255|unique:olabs_oims_purchases',
+        'reference_number' => 'numeric|required|unique:olabs_oims_purchases',
 //        'reference_number' => [
 //            'required',
 ////            'alpha_dash',
@@ -158,6 +158,10 @@ class Purchase extends BaseModel
             'key' => 'quote_id',
             'scope' => 'matchPurchase'
         ],
+        'projectBook' => [
+            'Olabs\Oims\ProjectBook\Coupon', 
+            'key' => 'project_book_id'
+        ],  
     ];
 //    public $belongsToMany = [];
 //    public $morphTo = [];
@@ -841,12 +845,30 @@ class Purchase extends BaseModel
 //                               ->where('project_id', $this->project_id)
                                ->count();
         }
-        
         if ($invalid) {
             throw new \ValidationException(['reference_number' => 'M.R. Number must be unique for a project.']);
-        }else{
-            return true;
         }
+        
+        
+        //Check MR Number perent in assing MR books
+        $project_book = ProjectBook::where('project_id', $this->project_id)
+                        ->where('status', '1')
+                        ->where('book_type', $this->getEntityType())
+//                        ->whereBetween($this->reference_number, ['series_from', 'series_to'])
+                        ->where('series_from', '<=',$this->reference_number)
+                        ->where('series_to', '>=',$this->reference_number)
+                        ->first();
+//        dd($project_book);
+        if(!$project_book){
+            throw new \ValidationException(['reference_number' => 'M.R. Number must be matched with Book Issued.']);
+        }
+        
+        $this->project_book_id = $project_book->id;
+        $project_book->leaf_balance = $project_book->leaf_balance - 1;
+        $project_book->save();
+        
+        return true;
+        
     }
     
     
@@ -855,6 +877,27 @@ class Purchase extends BaseModel
         if ($this->quote) {
             $fields->user_id->value = $this->quote->user_id;
         }
+        //user Modal
+        $user = BackendAuth::getUser();
+        
+        //If MR Number entered then dont allow for edit
+        $referenceNumber = isset($fields->reference_number) ? $fields->reference_number->value : false;
+        if($referenceNumber && $referenceNumber != '' && !$user->isAdmin()){
+            $fields->reference_number->disabled = true;
+        }
+        
+        //If Date is entered then don't allow for edit 
+//        $contextDate = isset($fields->context_date) ? $fields->context_date->value : false;
+//        
+//        //User is not admin and have not permission for back date entry
+//        if(!$user->isAdmin() OR !$user->hasAccess('olabs.oims.record_back_date_entry')){
+//            if ($contextDate && date('Y-m-d H:i:s', strtotime($contextDate)) < date('Y-m-d 00:00:00', strtotime('today'))) {
+//                $fields->context_date->disabled = true;
+//            }
+//            $fields->context_date->default = 'today';
+//        }
+        
+        
         
         if($fields->payment_method && isset($fields->{'paid_detail[payment_from]'})){
 //            dd($fields->{'paid_detail[payment_from]'});

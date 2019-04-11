@@ -664,3 +664,15 @@
 1.11.42:
     - 'Updated table olabs_oims_purchases'
     - builder_table_update_olabs_oims_purchases_5.php
+1.11.43:
+    - 'Updated table olabs_oims_purchases'
+    - builder_table_update_olabs_oims_purchases_6.php
+1.11.44:
+    - 'Updated table olabs_oims_project_books'
+    - builder_table_update_olabs_oims_project_books_2.php
+1.11.45:
+    - 'Updated table olabs_oims_project_books'
+    - builder_table_update_olabs_oims_project_books_3.php
+1.11.46:
+    - 'Updated table olabs_oims_purchases'
+    - builder_table_update_olabs_oims_purchases_7.php

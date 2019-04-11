@@ -215,6 +215,8 @@ class BaseModel extends Model {
         switch ($modalName) {
             case 'purchases':
                 return new Purchase();
+            case 'quotes':
+                return new Quote();
         }
 
         return false;
