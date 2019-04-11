@@ -56,6 +56,7 @@ return [
         'access_ledger_types' => 'Access into Ledger Types',
         'access_bank_accounts' => 'Access into Bank Accounts',
         'access_project_books' => 'Access into Project Books',
+        'access_reference_numbers' => 'Access into Reference Numbers',
         'access_payment_receivables' => 'Access into Payment Receivables',
         'access_offrole_employees' => 'Access into OffRole Employees',
 //        'access_settings' => 'Access into Settings',

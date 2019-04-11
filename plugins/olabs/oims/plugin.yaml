@@ -318,6 +318,12 @@ navigation:
                 icon: icon-sitemap
                 permissions:
                     - olabs.oims.project_books
+            reference_numbers:
+                label: Reference Numbers
+                url: olabs/oims/referenceNumbers
+                icon: icon-sitemap
+                permissions:
+                    - olabs.oims.reference_numbers
     oims_setup:
         label: 'Setups'
         url: olabs/oims/workgroups

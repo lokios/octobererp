@@ -1,0 +1,31 @@
+fields:
+    reference_type:
+        label: 'Reference Type'
+        span: auto
+        required: 1
+        type: dropdown
+        
+    start_from:
+        label: Start From
+        span: auto
+        type: number
+    sequence:
+        label: Sequence
+        span: auto
+        type: number
+        
+    context_date:
+        label: Date
+        oc.commentPosition: ''
+        mode: date
+        span: auto
+        default: 'today'
+        required: 1
+        type: datepicker
+        format: 'd/m/Y'
+#            minDate: "today -1 days"
+    status:
+        label: Status
+        span: auto
+        type: switch
+        default: true

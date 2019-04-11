@@ -1,0 +1,4 @@
+title: ReferenceNumbers
+modelClass: Olabs\Oims\Models\ReferenceNumber
+toolbar:
+    buttons: reorder_toolbar

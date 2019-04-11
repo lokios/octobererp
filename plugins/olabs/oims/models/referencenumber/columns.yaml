@@ -1,0 +1,25 @@
+columns:
+    id:
+        label: id
+        type: number
+    reference_type:
+        label: Reference Number Type
+        type: partial
+        path: ~/plugins/olabs/oims/models/referencenumber/_reference_type_column.htm
+        searchable: false
+        sortable: false 
+    context_date:
+        label: reference_date
+        type: text
+    sequence:
+        label: sequence
+        type: number
+    start_from:
+        label: start_from
+        type: number
+    status:
+        label: status
+        type: switch
+        searchable: true
+        sortable: true
+    

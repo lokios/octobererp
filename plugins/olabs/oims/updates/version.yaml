@@ -676,3 +676,12 @@
 1.11.46:
     - 'Updated table olabs_oims_purchases'
     - builder_table_update_olabs_oims_purchases_7.php
+1.11.47:
+    - 'Created table olabs_oims_reference_number'
+    - builder_table_create_olabs_oims_reference_number.php
+1.11.48:
+    - 'Updated table olabs_oims_reference_number'
+    - builder_table_update_olabs_oims_reference_number.php
+1.11.49:
+    - 'Updated table olabs_oims_reference_number'
+    - builder_table_update_olabs_oims_reference_number_2.php
