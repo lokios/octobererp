@@ -882,8 +882,9 @@ class Quote extends BaseModel {
     
     public function filterFields($fields, $context = null)
     {
+        $user = BackendAuth::getUser();
         //If reference number once entered then make it readonly
-        if($fields->reference_number->value != ''){
+        if($fields->reference_number->value != '' && !$user->isAdmin()){
             $fields->reference_number->readOnly = True;
         }
         
