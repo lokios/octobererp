@@ -69,21 +69,25 @@ class ProjectBook extends BaseModel {
     
     public function filterFields($fields, $context = null)
     {
-        $series_from = $fields->series_from->value > 0 ?$fields->series_from->value - 1 : 0;
-        $series_to = $fields->series_to->value > 0 ?$fields->series_to->value : 0;
+        $series_from = $fields->series_from->value > 0 ? $fields->series_from->value - 1 : 0;
+        $series_to = $fields->series_to->value > 0 ? $fields->series_to->value : 0;
         
         
         $leaf_count = $series_to - $series_from;
         
-        $fields->leaf_count->value = $leaf_count;
+        if($leaf_count > 0){
+            $fields->leaf_count->value = $leaf_count;
         
-        //Calculate Leaf Balance
-        if($this->id){
-            $count_lead_used = $this->getModal($this->book_type)->where('project_book_id', $this->id)->count(); 
-            $fields->leaf_balance->value = $leaf_count - $count_lead_used;
-        }else{
-            $fields->leaf_balance->value = $leaf_count;
+            //Calculate Leaf Balance
+            if($this->id){
+                $count_lead_used = $this->getModal($this->book_type)->where('project_book_id', $this->id)->count(); 
+                $fields->leaf_balance->value = $leaf_count - $count_lead_used;
+            }else{
+                $fields->leaf_balance->value = $leaf_count;
+            }
         }
+        
+        
         
     }
 
