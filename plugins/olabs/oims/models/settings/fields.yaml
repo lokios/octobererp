@@ -101,23 +101,23 @@ tabs:
                 5: 'olabs.oims::lang.settings.reference_format_5'
         
         
-#        purchases_prefix:
-#            tab: 'olabs.oims::lang.settings.general'
-#            label: 'olabs.oims::lang.settings.purchases_prefix'
-#            span: auto
-#            type: text
-#            
-#        purchases_reference_format:
-#            tab: 'olabs.oims::lang.settings.general'
-#            label: 'olabs.oims::lang.settings.purchases_reference_format'
-#            span: auto
-#            type: dropdown
-#            options:
-#                1: 'olabs.oims::lang.settings.reference_format_1'
-#                2: 'olabs.oims::lang.settings.reference_format_2'
-#                3: 'olabs.oims::lang.settings.reference_format_3'
-#                4: 'olabs.oims::lang.settings.reference_format_4'
-#                5: 'olabs.oims::lang.settings.reference_format_5'
+        purchases_prefix:
+            tab: 'olabs.oims::lang.settings.general'
+            label: 'olabs.oims::lang.settings.purchases_prefix'
+            span: auto
+            type: text
+            
+        purchases_reference_format:
+            tab: 'olabs.oims::lang.settings.general'
+            label: 'olabs.oims::lang.settings.purchases_reference_format'
+            span: auto
+            type: dropdown
+            options:
+                1: 'olabs.oims::lang.settings.reference_format_1'
+                2: 'olabs.oims::lang.settings.reference_format_2'
+                3: 'olabs.oims::lang.settings.reference_format_3'
+                4: 'olabs.oims::lang.settings.reference_format_4'
+                5: 'olabs.oims::lang.settings.reference_format_5'
         
         
             
