@@ -647,6 +647,11 @@ class Purchase extends BaseModel {
         if (!$this->execute_validation) {
             return;
         }
+        
+        //Check for numeric only
+        if(!ctype_digit($this->reference_number)){
+            throw new \ValidationException(['reference_number' => 'M.R. Number must be in digit only [0-9].']);
+        }
 
         //Check MR Number uniqueness through out project
         if ($this->id) {
