@@ -703,7 +703,7 @@ class BaseModel extends Model {
 
     public function getProjectBookByReferenceNumber() {
         $project_book = ProjectBook::where('project_id', $this->project_id)
-                ->where('status', '1')
+                ->where('status', self::STATUS_ACTIVE)
                 ->where('book_type', $this->getEntityType())
 //                        ->whereBetween($this->reference_number, ['series_from', 'series_to'])
                 ->where('series_from', '<=', $this->reference_number)
@@ -717,7 +717,7 @@ class BaseModel extends Model {
      * If project book id not assigned prevously
      */
 
-    protected function updateProjectBookBalance() {
+    public function updateProjectBookBalance() {
         if (!$this->project_book_id) {
             $project_book = $this->getProjectBookByReferenceNumber();
             if ($project_book) {
