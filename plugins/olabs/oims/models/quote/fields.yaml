@@ -30,7 +30,7 @@ fields:
             oc.commentPosition: ''
             span: auto
             type: text
-
+            readOnly: true
         user_id:
             label: Supplier
             span: auto
