@@ -258,8 +258,6 @@ class Purchase extends BaseModel {
         }
     }
 
-    
-
     /**
      * Event: after create
      * 
@@ -472,6 +470,9 @@ class Purchase extends BaseModel {
     }
 
     public function beforeCreate() {
+
+        $this->contextDateCheck();
+
         $this->uniqueReferenceNumberCheck();
         if ($this->status == '') {
             $this->status = Status::STATUS_NEW;
@@ -641,6 +642,28 @@ class Purchase extends BaseModel {
         return $purchase;
     }
 
+    public function contextDateCheck() {
+        //check for mr reference date should be today only
+        if ($this->context_date != '') {
+            $date = date("d.m.Y");
+            $match_date = date('d.m.Y', strtotime($this->context_date));
+            if ($date != $match_date) {
+                throw new \ValidationException(['context_date' => 'M.R. Date should be today only.']);
+                //Today
+            } 
+//            elseif (strtotime("-1 day", $date) == $match_date) {
+//
+//                //Yesterday
+//            } elseif (strtotime("+1 day", $date) == $match_date) {
+//
+//                //Tomorrow
+//            } else {
+//
+//                //Sometime
+//            }
+        }
+    }
+
     public function uniqueReferenceNumberCheck() {
 //        return true; // Not required to check, running default
         //If dont want to execute validation : use in Entity Relation data sync from mobile
@@ -648,9 +671,8 @@ class Purchase extends BaseModel {
 //        if (!$this->execute_validation) {
 //            return;
 //        }
-        
         //Check for numeric only
-        if(!ctype_digit($this->reference_number)){
+        if (!ctype_digit($this->reference_number)) {
             throw new \ValidationException(['reference_number' => 'M.R. Number must be in digit only [0-9].']);
         }
 
