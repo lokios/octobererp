@@ -145,6 +145,14 @@ class Purchase extends BaseModel {
             'Olabs\Oims\ProjectBook\Coupon',
             'key' => 'project_book_id'
         ],
+        'createdBy' => [
+            'Backend\Models\User',
+            'key' => 'created_by'
+        ],
+        'updatedBy' => [
+            'Backend\Models\User',
+            'key' => 'updated_by'
+        ],
     ];
 //    public $belongsToMany = [];
 //    public $morphTo = [];
@@ -760,6 +768,13 @@ class Purchase extends BaseModel {
                 $fields->{'paid_detail[issue_date]'}->hidden = false;
             }
         }
+    }
+    
+    public function getEntityRelation(){
+        $model = \Olabs\Social\Models\EntityRelations::where('target_type','mr_entry')
+                ->where('target_id',$this->id)->first();
+        return $model;
+        
     }
 
 }

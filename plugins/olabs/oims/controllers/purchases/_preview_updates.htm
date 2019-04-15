@@ -1,0 +1,48 @@
+<style>
+    .plugin-details-content dl dt,
+    .plugin-details-content dl dd {
+        margin-bottom: 10px;
+    }
+    .plugin-details-content dl dt {
+        width: 150px;
+        float: left;
+        text-align: right;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        text-transform: capitalize;
+    }
+    .plugin-details-content dl dd {
+        margin-left: 125px;
+    }
+    .plugin-details-content dl dd blockquote{
+        font-size: 13px;
+        border: 0;
+        padding: 2px 20px;
+    }
+</style>
+<?php
+//$lists = $formModel->getStatusHistory();
+// $list->created_at->format('l jS \of F Y h:i:s A')
+//if(count($lists)) :
+?>
+
+<div class="list-preview list-flush">
+    <div class="control-list ">
+        <div class="col-md-5">
+            <b>Last Updated By : </b><?= $formModel->updatedBy->getFullNameAttribute() ?> <b>At</b> <?= $formModel->updated_at->format('l jS \of F Y h:i:s A ') ?>
+        </div>
+        <div class="col-md-5">
+            <b> Created By : </b><?= $formModel->createdBy->getFullNameAttribute() ?> <b>At</b> <?= $formModel->created_at->format('l jS \of F Y h:i:s A ') ?>
+        </div>
+        <div class="col-md-2">
+            <?php 
+            if($formModel->getEntityRelation()){
+            ?>
+            <b> MOBILE UPLOAD <?php  echo $formModel->getEntityRelation()->id; ?></b>
+            <?php } ?>
+        </div>
+    </div>
+</div>
+
+<?php // endif  ?>
