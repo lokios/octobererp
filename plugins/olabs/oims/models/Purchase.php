@@ -644,9 +644,10 @@ class Purchase extends BaseModel {
     public function uniqueReferenceNumberCheck() {
 //        return true; // Not required to check, running default
         //If dont want to execute validation : use in Entity Relation data sync from mobile
-        if (!$this->execute_validation) {
-            return;
-        }
+        //Run validation in any case
+//        if (!$this->execute_validation) {
+//            return;
+//        }
         
         //Check for numeric only
         if(!ctype_digit($this->reference_number)){
