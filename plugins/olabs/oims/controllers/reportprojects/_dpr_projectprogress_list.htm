@@ -30,7 +30,7 @@
         //dd($product->work);  . " " . $product->unit
             $product_title = '';
             if($product->work){
-                $product_title = $product->work->name . ", QTY : " . $product->quantity . ", AMNT : &#8377;" . $oimsSetting->getPriceFormattedWithoutCurrency($product->total_price);
+                $product_title = $product->work->name . ", QTY : " . $product->quantity. " " . $product->unit . ", AMNT : &#8377;" . $oimsSetting->getPriceFormattedWithoutCurrency($product->total_price);
             }
                 $productArray[] = $product_title;
             $total_price += $product->total_price;

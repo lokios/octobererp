@@ -154,6 +154,7 @@ class ReportProjects extends ReportHelper {
                 $temp['entry_date'] = date("d-m-Y", strtotime($progress->start_date));
                 $temp['product'] = $product->work ? $product->work->name : '';
                 $temp['quantity'] = $product->quantity;
+                $temp['unit'] = $product->unit;
                 $temp['unit_price'] = $oimsSetting->getPriceFormattedWithoutCurrency($product->unit_price);
                 $temp['total_price'] = $oimsSetting->getPriceFormattedWithoutCurrency($product->total_price);
                 $excel_rows[] = $temp;
@@ -174,6 +175,7 @@ class ReportProjects extends ReportHelper {
                 $temp['entry_date'] = date("d-m-Y", strtotime($manpower->context_date));
                 $temp['product'] = $product->product ? $product->product->title : '';
                 $temp['quantity'] = $product->quantity;
+                $temp['unit'] = $product->unit;
                 $temp['unit_price'] = $oimsSetting->getPriceFormattedWithoutCurrency($product->unit_price);
                 $temp['total_price'] = $oimsSetting->getPriceFormattedWithoutCurrency($product->total_price);
                 $excel_rows[] = $temp;
@@ -193,6 +195,7 @@ class ReportProjects extends ReportHelper {
                 $temp['entry_date'] = date("d-m-Y", strtotime($machinery->context_date));
                 $temp['product'] = $product->product ? $product->product->title : '';
                 $temp['quantity'] = $product->quantity;
+                $temp['unit'] = $product->unit;
                 $temp['unit_price'] = $oimsSetting->getPriceFormattedWithoutCurrency($product->unit_price);
                 $temp['total_price'] = $oimsSetting->getPriceFormattedWithoutCurrency($product->total_price);
                 $excel_rows[] = $temp;
@@ -212,6 +215,7 @@ class ReportProjects extends ReportHelper {
                 $temp['entry_date'] = date("d-m-Y", strtotime($expenseOnPc->context_date));
                 $temp['product'] = $product->product ? $product->product->title : '';
                 $temp['quantity'] = $product->quantity;
+                $temp['unit'] = $product->unit;
                 $temp['unit_price'] = $oimsSetting->getPriceFormattedWithoutCurrency($product->unit_price);
                 $temp['total_price'] = $oimsSetting->getPriceFormattedWithoutCurrency($product->total_price);
                 $excel_rows[] = $temp;
@@ -231,6 +235,7 @@ class ReportProjects extends ReportHelper {
                 $temp['entry_date'] = date("d-m-Y", strtotime($expenseOnMaterial->context_date));
                 $temp['product'] = $product->product ? $product->product->title : '';
                 $temp['quantity'] = $product->quantity;
+                $temp['unit'] = $product->unit;
                 $temp['unit_price'] = $oimsSetting->getPriceFormattedWithoutCurrency($product->unit_price);
                 $temp['total_price'] = $oimsSetting->getPriceFormattedWithoutCurrency($product->total_price);
                 $excel_rows[] = $temp;
