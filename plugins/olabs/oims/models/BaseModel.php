@@ -560,7 +560,7 @@ class BaseModel extends Model {
         }
 
         //IF Entry is New 
-        if ($this->isStatusNew()) {
+        if ($this->isStatusNew() && $user->hasAccess('olabs.oims.record_submit_for_approval')) {
             return true;
         }
 

@@ -403,7 +403,7 @@ class Purchases extends Controller {
                 $status[] =  Status::STATUS_HO_APPROVED;
             }
             
-            $query->whereIn('status', $status);
+//            $query->whereIn('status', $status);
             
         }
     }
