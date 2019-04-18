@@ -5,28 +5,54 @@ columns:
     request_id:
         label: request_id
         type: text    
-    excerpt:
-        label: Excerpt
-        type: text
-    relation:
-        label: Relation
-        type: text
+#    excerpt:
+#        label: Excerpt
+#        type: text
+#    relation:
+#        label: Relation
+#        type: text
+#    target_type:
+#        label: 'Target Type'
+#        type: text
+#        searchable: true
+#        sortable: true
     target_type:
-        label: 'Target Type'
-        type: text
-        searchable: true
-        sortable: true
+        label: Target Type
+        type: partial
+        path: ~/plugins/olabs/social/models/entityrelations/_target_type_column.htm
+        searchable: false
+        sortable: false  
+        
     target_id:
         label: 'Target ID'
         type: text
+    
+        
+#    actor_id:
+#        label: 'Actor '
+#        type: text
+#        searchable: true
+#        sortable: true
+    reference_number:
+        label: 'Reference Number '
+        type: partial
+        path: ~/plugins/olabs/social/models/entityrelations/_reference_number_column.htm
+        searchable: false
+        sortable: false  
+        
+    objectstatus:
+        label: Status
+        type: partial
+        path: ~/plugins/olabs/social/models/entityrelations/_status_column.htm
+        searchable: false
+        sortable: false  
+        
     created_at:
         label: 'Created AT'
         type: datetime
-    actor_id:
-        label: 'Actor '
-        type: text
+        
+    actorBy:
+        label: 'Created By'
+        relation: actorBy
+        select: login
         searchable: true
-        sortable: true
-    status:
-        label: 'Status '
-        type: text

@@ -10,11 +10,19 @@ scopes:
 #        conditions: target_type like '%:filtered%'
         
 
-#    orderstatus:
-#        label: olabs.oims::lang.orders.orderstatus
-#        modelClass: Olabs\Oims\Models\OrderStatus
-#        nameFrom: title
-#        conditions: orderstatus_id in (:filtered)
+    status:
+        label: Status
+#        type: dropdown
+        modelClass: Olabs\Social\Models\EntityRelations
+        options: getStatusOptions 
+        conditions: status in (:filtered)
+        
+    target_type:
+        label: Target Type
+#        type: dropdown
+        modelClass: Olabs\Social\Models\EntityRelations
+        options: getTargetTypeOptions 
+        conditions: target_type in (:filtered)
 #       
 #
 #    carrier:

@@ -23,6 +23,19 @@ class EntityRelations extends Model {
     const STATUS_DONE = 'O';
     const STATUS_ERROR = 'E';
 
+    public static $status_codes = [
+        'L' => 'Live',
+        'O' => 'Done',
+        'E' => 'Error',
+    ];
+
+    
+    public static $target_type_codes = [
+        'mr_entry' => 'Material Receipt',
+        'attendanceO' => 'Attendance',
+        'voucher' => 'Voucher',
+    ];
+
     public $rules = [
     ];
     protected $jsonable = ['data'];
@@ -32,6 +45,17 @@ class EntityRelations extends Model {
      */
     public $table = 'olabs_social_entity_relations';
 
+    
+    public $belongsTo = [
+        
+        'actorBy' => [
+            'Backend\Models\User',
+            'key' => 'actor_id'
+        ],
+        
+    ];
+    
+    
     public function beforeSave() {
 
        //  throw new Exception("Error Processing Request", 403);
@@ -579,4 +603,36 @@ class EntityRelations extends Model {
         }
     }
 
+    public function getEntityRelationStatus() {
+        
+        return isset(self::$status_codes[$this->status]) ? self::$status_codes[$this->status] : $this->status;
+    }
+    
+    public function getStatusOptions(){
+        return self::$status_codes;
+    }
+    
+    public function getEntityRelationTargetType() {
+        
+        return isset(self::$target_type_codes[$this->target_type]) ? self::$target_type_codes[$this->target_type] : $this->target_type;
+    }
+    
+    public function getTargetTypeOptions(){
+        return self::$target_type_codes;
+    }
+    
+    public function getReferenceNumber() {
+        $rerference_number = '';
+        if($this->target_type == self::TARGET_TYPE_MR_ENTRY){
+            $rerference_number = isset($this->data[0]['mr_id']) ? $this->data[0]['mr_id'] : '';
+        }else if($this->target_type == self::TARGET_TYPE_ATTENDANCE){
+            $rerference_number = isset($this->data[0]['employee_id']) ? $this->data[0]['employee_id'] : '';
+        }else if($this->target_type == self::TARGET_TYPE_VOUCHERS){
+            $rerference_number = isset($this->data[0]['voucher_number']) ? $this->data[0]['voucher_number'] : '';
+        }
+        
+        
+        return $rerference_number;
+    }
+    
 }

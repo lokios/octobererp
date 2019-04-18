@@ -6,11 +6,11 @@ plugin:
     homepage: ''
 navigation:
     messaging:
-        label: Social
-        url: /olabs/social/clients
+        label: Mobile Data
+        url: /olabs/social/entityrelations
         icon: icon-bell
         permissions:
-            - olabs.social.clients
+            - olabs.social.entityrelations
         sideMenu:
             clients:
                 label: Clients
@@ -31,7 +31,7 @@ navigation:
                 permissions:
                     - olabs.social.clientsbilling
             entityrelations:
-                label: Activities
+                label: Mobile Entries
                 url: /olabs/social/entityrelations
                 icon: icon-sitemap
                 permissions:
