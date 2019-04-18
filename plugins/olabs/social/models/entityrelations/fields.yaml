@@ -8,7 +8,7 @@ fields:
         label: Target Type
         oc.commentPosition: ''
         span: auto
-        type: text
+        type: dropdown
     target_id:
         label: Target ID
         oc.commentPosition: ''
@@ -23,7 +23,7 @@ fields:
         label: Status
         oc.commentPosition: ''
         span: auto
-        type: text
+        type: dropdown
     descriptions:
         label: Descriptions
         oc.commentPosition: ''
