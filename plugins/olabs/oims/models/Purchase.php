@@ -695,10 +695,18 @@ class Purchase extends BaseModel {
 //            return TRUE;
 //        }
         //If dont want to execute validation : use in Entity Relation data sync from mobile
-        //Run validation in any case
+        
+        //Skip validation if status is not new!
+        if($this->status != Status::STATUS_NEW){
+            return TRUE;
+        }
+        
+        //Skip validation if execute_validation is false and user is admin
         if (!$this->execute_validation && $user->isAdmin()) {
             return TRUE;
         }
+        
+        
         
         return false;
     }
