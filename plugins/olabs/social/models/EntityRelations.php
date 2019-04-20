@@ -19,6 +19,7 @@ class EntityRelations extends Model {
     const TARGET_TYPE_MR_ENTRY = 'mr_entry';
     const TARGET_TYPE_ATTENDANCE = 'attendance';
     const TARGET_TYPE_VOUCHERS = 'voucher';
+    const TARGET_TYPE_SYNC = 'sync';
     const STATUS_LIVE = 'L';
     const STATUS_DONE = 'O';
     const STATUS_ERROR = 'E';
@@ -34,6 +35,7 @@ class EntityRelations extends Model {
         'mr_entry' => 'Material Receipt',
         'attendanceO' => 'Attendance',
         'voucher' => 'Voucher',
+        'sync' => 'Sync',
     ];
 
     public $rules = [
