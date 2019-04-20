@@ -1,9 +1,9 @@
 list: $/olabs/oims/models/customer/columns.yaml
 modelClass: Olabs\Oims\Models\Customer
-title: Customers
+title: Clients
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
-showCheckboxes: true
+showCheckboxes: false
 toolbar:
     buttons: list_toolbar
     search:

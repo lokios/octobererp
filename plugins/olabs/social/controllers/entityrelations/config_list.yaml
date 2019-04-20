@@ -12,7 +12,7 @@ modelClass: Olabs\Social\Models\EntityRelations
 title: Entity Relations
 
 # Link URL for each record
-recordUrl: 'olabs/social/entityrelations/update/:id'
+recordUrl: 'olabs/social/entityrelations/preview/:id'
 
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records

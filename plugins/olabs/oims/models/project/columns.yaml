@@ -24,7 +24,7 @@ columns:
         searchable: true
         sortable: false
     customer:
-        label: Customer
+        label: Client
         relation: customer
         select: name
         searchable: true

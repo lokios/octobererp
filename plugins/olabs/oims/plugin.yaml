@@ -283,7 +283,7 @@ navigation:
                 permissions:
                     - olabs.oims.companies
             customers:
-                label: Customers
+                label: Clients
                 url: olabs/oims/customers
                 icon: icon-university
                 permissions:

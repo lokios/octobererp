@@ -1,4 +1,4 @@
-name: Customers
+name: Client
 form: $/olabs/oims/models/customer/fields.yaml
 modelClass: Olabs\Oims\Models\Customer
 defaultRedirect: olabs/oims/customers

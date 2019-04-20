@@ -1,4 +1,4 @@
-title: Customers
+title: Clients
 modelClass: Olabs\Oims\Models\Customer
 toolbar:
     buttons: reorder_toolbar

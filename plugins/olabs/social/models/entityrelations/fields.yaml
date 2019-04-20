@@ -29,6 +29,7 @@ fields:
         oc.commentPosition: ''
         span: auto
         type: text
+        readOnly: true
         
     data:
         label: Data

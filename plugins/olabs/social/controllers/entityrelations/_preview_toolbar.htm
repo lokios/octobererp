@@ -1,0 +1,39 @@
+<a href="<?= Backend::url('olabs/social/entityrelations') ?>" class="btn btn-default oc-icon-chevron-left">Back to Entity Relations</a>
+<a
+    href="<?= Backend::url('olabs/social/entityrelations/update/' . $formModel->id) ?>"
+    class="btn btn-primary oc-icon-pencil">Update details
+</a>
+
+
+
+<a
+    href="javascript:;"
+    data-request="onSyncData"
+    data-request-data="record_id: '<?= $formModel->id ?>'"
+    data-request-confirm="Are you sure to Re-Sync this data?"
+    
+    class="btn btn-warning oc-icon-refresh"
+    data-toggle="tooltip"
+    title="Re-Sync">Re-Sync</a>
+
+<?php
+/* @todo
+  <div class="btn-group">
+  <a
+  href="<?= Backend::url('rainlab/user/users/update/'.$formModel->id) ?>"
+  class="btn btn-default oc-icon-pencil">
+  Deactivate
+  </a>
+  <a
+  href="<?= Backend::url('rainlab/user/users/update/'.$formModel->id) ?>"
+  class="btn btn-default oc-icon-pencil">
+  Ban user
+  </a>
+  <a
+  href="<?= Backend::url('rainlab/user/users/update/'.$formModel->id) ?>"
+  class="btn btn-default oc-icon-pencil">
+  Delete
+  </a>
+  </div>
+ */
+?>

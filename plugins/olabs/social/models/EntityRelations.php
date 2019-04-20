@@ -413,7 +413,7 @@ class EntityRelations extends Model {
                     }
                 }
             }
-
+            $record->relation = 'created';
             $record->status = self::STATUS_DONE;
             $record->save();
         } catch (\October\Rain\Database\ModelException $me) {
@@ -483,7 +483,7 @@ class EntityRelations extends Model {
                 }
             }
 
-
+            $record->relation = 'created';
             $record->status = self::STATUS_DONE;
             $record->save();
         } catch (Exception $ex) {
@@ -542,7 +542,7 @@ class EntityRelations extends Model {
                 }
             }
 
-
+            $record->relation = 'created';
             $record->status = self::STATUS_DONE;
             $record->save();
         } catch (Exception $ex) {

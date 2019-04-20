@@ -465,6 +465,12 @@ class Purchase extends BaseModel {
         $this->uniqueReferenceNumberCheck();
         $oldModel = self::find($this->id);
 
+        $user = BackendAuth::getUser();
+        
+        if ($this->updated_by == '') {
+            $this->updated_by = $user->id;
+        }
+        
         // check purchase status change
         if (isset($oldModel)) {
             if (($oldModel->objectstatus == null) && ($this->objectstatus != null)) {

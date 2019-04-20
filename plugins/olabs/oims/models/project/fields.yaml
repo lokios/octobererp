@@ -28,7 +28,7 @@ fields:
         type: relation
         
     customer:
-        label: Customer
+        label: Client
         oc.commentPosition: ''
         nameFrom: name
         descriptionFrom: description

@@ -4,6 +4,7 @@ namespace Olabs\Social\Controllers;
 
 use Backend\Classes\Controller;
 use BackendMenu;
+use Flash;
 
 class EntityRelations extends Controller {
 
@@ -22,18 +23,20 @@ class EntityRelations extends Controller {
         echo $status;
     }
 
-    public function syncData($id) {
+    public function onSyncData($record_id) {
         $status = "";
         $model = new \Olabs\Social\Models\EntityRelations();
 
 //        if($id){
-        $record = EntityRelations::whereIn('target_type', array(self::TARGET_TYPE_ATTENDANCE, self::TARGET_TYPE_MR_ENTRY, self::TARGET_TYPE_VOUCHERS))
-                        ->where('status', self::STATUS_LIVE)->where('id', $id)->get();
+        $record = \Olabs\Social\Models\EntityRelations::whereIn('target_type', array(\Olabs\Social\Models\EntityRelations::TARGET_TYPE_ATTENDANCE, \Olabs\Social\Models\EntityRelations::TARGET_TYPE_MR_ENTRY, \Olabs\Social\Models\EntityRelations::TARGET_TYPE_VOUCHERS))
+                        ->where('status', \Olabs\Social\Models\EntityRelations::STATUS_LIVE)->where('id', $record_id)->first();
         if ($record) {
             $status = $model->SyncDataRecord($record);
         }
 
-        echo $status;
+        Flash::success('Recored Synced.');
+//        echo $status;
+        return ["#object-status" => "Recored Synced."];
     }
 
 }
