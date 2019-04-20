@@ -9,6 +9,7 @@ fields:
         oc.commentPosition: ''
         span: auto
         type: dropdown
+        emptyOption: Select Target Type
     target_id:
         label: Target ID
         oc.commentPosition: ''
