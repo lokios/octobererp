@@ -386,7 +386,7 @@ class EntityRelations extends Model {
                             }
                             $attendace->employee_type = $employee_type;
                             $attendace->check_in = $check_in;
-                            $attendace->created_by = $entry['created_by'];
+                            $attendace->created_by = isset($entry['created_by']) ? $entry['created_by'] : 0;
                             $attendace->created_at = date('Y-m-d H:i:s');
                         }
 
@@ -398,7 +398,7 @@ class EntityRelations extends Model {
                         }
 
                         $attendace->check_out = $check_in;
-                        $attendace->updated_by = $entry['created_by'];
+                        $attendace->updated_by = isset($entry['created_by']) ? $entry['created_by'] : 0;//$entry['created_by'];
                         $attendace->updated_at = date('Y-m-d H:i:s');
 
                         $attendace->execute_validation = false;
