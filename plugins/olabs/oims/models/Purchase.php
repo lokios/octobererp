@@ -651,6 +651,15 @@ class Purchase extends BaseModel {
     }
 
     public function contextDateCheck() {
+        //If dont want to execute validation : use in Entity Relation data sync from mobile
+        //Run validation in any case
+//        if (!$this->execute_validation) {
+//            return;
+//        }
+        if($this->skipValidation()){
+            return;
+        }
+        
         //check for mr reference date should be today only
         if ($this->context_date != '') {
             $date = date("d.m.Y");
@@ -671,6 +680,22 @@ class Purchase extends BaseModel {
 //            }
         }
     }
+    
+    private function skipValidation(){
+        //user Modal
+        $user = BackendAuth::getUser();
+        
+//        if($user->isAdmin()){
+//            return TRUE;
+//        }
+        //If dont want to execute validation : use in Entity Relation data sync from mobile
+        //Run validation in any case
+        if (!$this->execute_validation && $user->isAdmin()) {
+            return TRUE;
+        }
+        
+        return false;
+    }
 
     public function uniqueReferenceNumberCheck() {
 //        return true; // Not required to check, running default
@@ -679,6 +704,9 @@ class Purchase extends BaseModel {
 //        if (!$this->execute_validation) {
 //            return;
 //        }
+        if($this->skipValidation()){
+            return;
+        }
         //Check for numeric only
         if (!ctype_digit($this->reference_number)) {
             throw new \ValidationException(['reference_number' => 'M.R. Number must be in digit only [0-9].']);
