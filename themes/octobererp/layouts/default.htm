@@ -1,4 +1,5 @@
 description = "Default layout"
+
 [olabs_session]
 security = "all"
 ==
@@ -28,7 +29,7 @@ $this['org'] = Tenant::getOrg();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{org.name}} - {{ this.page.title }}</title>
+    <title>{{ this.page.title }}</title>
     <meta name="author" content="{{org.name}}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="{{ 'assets/images/logo.png'|theme }}"/>
