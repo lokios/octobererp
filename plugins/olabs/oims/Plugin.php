@@ -276,10 +276,11 @@ class Plugin extends PluginBase {
         });
 
         $user = BackendAuth::getUser();
-        if ($user AND $user->is_superuser) {
+//        dd($user);
+//        if ($user AND $user->is_superuser) {
             $this->addIsBannedColumn();
             $this->addIsBannedField();
-        }
+//        }
     }
 
     private function addIsBannedColumn() {
