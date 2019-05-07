@@ -511,17 +511,20 @@ class Purchases extends Controller {
 //        if($id){
 //        $record = \Olabs\Social\Models\EntityRelations::whereIn('target_type', array(\Olabs\Social\Models\EntityRelations::TARGET_TYPE_ATTENDANCE, \Olabs\Social\Models\EntityRelations::TARGET_TYPE_MR_ENTRY, \Olabs\Social\Models\EntityRelations::TARGET_TYPE_VOUCHERS))
 //                        ->where('status', \Olabs\Social\Models\EntityRelations::STATUS_LIVE)->where('id', $record_id)->first();
-        $record = \Olabs\Social\Models\EntityRelations::whereIn('target_type', array(\Olabs\Social\Models\EntityRelations::TARGET_TYPE_ATTENDANCE, \Olabs\Social\Models\EntityRelations::TARGET_TYPE_MR_ENTRY, \Olabs\Social\Models\EntityRelations::TARGET_TYPE_VOUCHERS))
-                        ->whereIn('status', array(\Olabs\Social\Models\EntityRelations::STATUS_LIVE, \Olabs\Social\Models\EntityRelations::STATUS_DONE))->where('id', $record_id)->first();
+//        $record = \Olabs\Social\Models\EntityRelations::whereIn('target_type', array(\Olabs\Social\Models\EntityRelations::TARGET_TYPE_ATTENDANCE, \Olabs\Social\Models\EntityRelations::TARGET_TYPE_MR_ENTRY, \Olabs\Social\Models\EntityRelations::TARGET_TYPE_VOUCHERS))
+//                        ->whereIn('status', array(\Olabs\Social\Models\EntityRelations::STATUS_LIVE, \Olabs\Social\Models\EntityRelations::STATUS_DONE))->where('id', $record_id)->first();
+        $record = \Olabs\Social\Models\EntityRelations::where('target_id', $record_id)->where('target_type', \Olabs\Social\Models\EntityRelations::TARGET_TYPE_MR_ENTRY)->first();
         if ($record) {
             $status = $model->SyncDataRecord($record);
             Flash::success('Recored Synced.');
 //        echo $status;
-            return ["#object-status" => "Recored Synced."];
+            return ["#object-status" => "Record Synced. Kindly reload the page."];
+        }else{
+            Flash::success('Recored not found.');
+            return ["#object-status" => "Record not found."];
         }
         
-        Flash::success('Recored not found.');
-        return ["#object-status" => "Recored not found."];
+        
     }
 
     public function download_invoice($id) {
