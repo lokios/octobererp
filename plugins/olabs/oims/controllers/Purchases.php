@@ -516,11 +516,11 @@ class Purchases extends Controller {
         $record = \Olabs\Social\Models\EntityRelations::where('target_id', $record_id)->where('target_type', \Olabs\Social\Models\EntityRelations::TARGET_TYPE_MR_ENTRY)->first();
         if ($record) {
             $status = $model->SyncDataRecord($record);
-            Flash::success('Recored Synced.');
+            Flash::success('Record Synced. Kindly reload the page.');
 //        echo $status;
             return ["#object-status" => "Record Synced. Kindly reload the page."];
         }else{
-            Flash::success('Recored not found.');
+            Flash::success('Record not found.');
             return ["#object-status" => "Record not found."];
         }
         
