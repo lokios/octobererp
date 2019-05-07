@@ -2,6 +2,8 @@ columns:
     id:
         label: ID
         type: text
+        searchable: true
+        sortable: true  
     request_id:
         label: request_id
         type: text    
