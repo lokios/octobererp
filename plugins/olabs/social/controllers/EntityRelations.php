@@ -28,8 +28,10 @@ class EntityRelations extends Controller {
         $model = new \Olabs\Social\Models\EntityRelations();
 
 //        if($id){
+//        $record = \Olabs\Social\Models\EntityRelations::whereIn('target_type', array(\Olabs\Social\Models\EntityRelations::TARGET_TYPE_ATTENDANCE, \Olabs\Social\Models\EntityRelations::TARGET_TYPE_MR_ENTRY, \Olabs\Social\Models\EntityRelations::TARGET_TYPE_VOUCHERS))
+//                        ->where('status', \Olabs\Social\Models\EntityRelations::STATUS_LIVE)->where('id', $record_id)->first();
         $record = \Olabs\Social\Models\EntityRelations::whereIn('target_type', array(\Olabs\Social\Models\EntityRelations::TARGET_TYPE_ATTENDANCE, \Olabs\Social\Models\EntityRelations::TARGET_TYPE_MR_ENTRY, \Olabs\Social\Models\EntityRelations::TARGET_TYPE_VOUCHERS))
-                        ->where('status', \Olabs\Social\Models\EntityRelations::STATUS_LIVE)->where('id', $record_id)->first();
+                        ->whereIn('status', array(\Olabs\Social\Models\EntityRelations::STATUS_LIVE, \Olabs\Social\Models\EntityRelations::STATUS_DONE))->where('id', $record_id)->first();
         if ($record) {
             $status = $model->SyncDataRecord($record);
         }

@@ -4,4 +4,16 @@
     href="<?= Backend::url('olabs/oims/purchases/update/'.$formModel->id) ?>"
     class="btn btn-primary oc-icon-pencil">Update details
 </a>
+
+<?php if($formModel->featured_images->count() == 0 && $formModel->getEntityRelation() && $formModel->getEntityRelation()->images->count() > 0): ?>
+<a
+    href="javascript:;"
+    data-request="onSyncMobileData"
+    data-request-data="record_id: '<?= $formModel->getEntityRelation()->id ?>'"
+    data-request-confirm="Are you sure to Re-Sync this data?"
+    
+    class="btn btn-warning oc-icon-refresh"
+    data-toggle="tooltip"
+    title="Sync Image">Sync Image</a>
+<?php endif ?>
 <?php endif ?>
