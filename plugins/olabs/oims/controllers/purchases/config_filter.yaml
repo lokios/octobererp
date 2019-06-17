@@ -17,11 +17,21 @@ scopes:
         options: getProjectOptions
         conditions: project_id in (:filtered)
         
-    context_date:
-        label: Date
+#    context_date:
+#        label: Date
+#        type: date
+#        # Scope Conditions (match against a timestamp column for the whole day)
+#        conditions: context_date >= ':filtered 00:00:00' AND context_date <= ':filtered 23:59:59'
+        
+    context_date_from:
+        label: From Date
         type: date
-        # Scope Conditions (match against a timestamp column for the whole day)
-        conditions: context_date >= ':filtered 00:00:00' AND context_date <= ':filtered 23:59:59'
+        conditions: context_date >= ':filtered 00:00:00' 
+        
+    context_date_to:
+        label: To Date
+        type: date
+        conditions:  context_date <= ':filtered 23:59:59'
         
 #    carrier:
 #        label: olabs.oims::lang.purchases.carrier
