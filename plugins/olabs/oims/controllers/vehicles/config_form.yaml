@@ -1,0 +1,10 @@
+name: Vehicles
+form: $/olabs/oims/models/vehicle/fields.yaml
+modelClass: Olabs\Oims\Models\Vehicle
+defaultRedirect: olabs/oims/vehicles
+create:
+    redirect: 'olabs/oims/vehicles/update/:id'
+    redirectClose: olabs/oims/vehicles
+update:
+    redirect: olabs/oims/vehicles
+    redirectClose: olabs/oims/vehicles

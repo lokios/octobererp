@@ -1,0 +1,53 @@
+columns:
+    id:
+        label: id
+        type: number
+    vehicle_type:
+        label: Vehicle Type
+        type: partial
+        path: ~/plugins/olabs/oims/models/vehicle/_vehicle_type_column.htm
+        searchable: false
+        sortable: false 
+    reference_number:
+        label: Registration Number
+        type: text
+    name:
+        label: Vehicle Name
+        type: text
+    model:
+        label: Vehicle Model
+        type: text
+    
+    
+    context_date:
+        label: Register date
+        type: date
+        searchable: true
+        sortable: true  
+    
+    
+    
+#    description:
+#        label: description
+#        type: text
+    
+    length:
+        label: Length
+        type: number
+    width:
+        label: Width
+        type: number
+    height:
+        label: Height
+        type: number
+    unit:
+        label: unit
+        type: text
+    status:
+        label: status
+        type: switch
+        searchable: true
+        sortable: true
+        
+   
+    
