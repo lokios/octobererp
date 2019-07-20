@@ -55,6 +55,7 @@ class Employees extends Controller {
             $form->removeField('role');
             $form->removeField('groups');
             $form->removeField('access_projects');
+            $form->removeField('user_is_banned');
 //            $fields->role->hidden = true;
 //            $fields->groups->hidden = true;
 //            $fields->access_projects->hidden = true;
@@ -65,7 +66,7 @@ class Employees extends Controller {
         parent::preview($recordId, $context);
         //check if user is banned
         $model = \Olabs\Oims\Models\Employee::find($recordId);
-        if ($model->user_is_banned) {
+        if (!$this->user->isAdmin() && $model->user_is_banned) {
             Flash::warning('User is banned! Contact Administrator!');
             $redirectUrl = 'olabs/oims/employees'; // . $id;
             return Backend::redirect($redirectUrl);
@@ -76,7 +77,7 @@ class Employees extends Controller {
         parent::update($recordId, $context);
         //check if user is banned
         $model = \Olabs\Oims\Models\Employee::find($recordId);
-        if ($model->user_is_banned) {
+        if (!$this->user->isAdmin() && $model->user_is_banned) {
             Flash::warning('User is banned! Contact Administrator!');
             $redirectUrl = 'olabs/oims/employees'; // . $id;
             return Backend::redirect($redirectUrl);

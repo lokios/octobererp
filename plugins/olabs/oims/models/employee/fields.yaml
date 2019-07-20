@@ -69,6 +69,12 @@ tabs:
             span: auto
             required: 1
             type: dropdown
+        user_is_banned:
+            context: [create, update, preview]
+            label: 'Banned'
+            commentAbove: 'Banned user cant login'
+            type: switch
+            tab: Permissions
         role:
             context: [create, update, preview]
             label: backend::lang.user.role_field
