@@ -697,3 +697,6 @@
 1.11.53:
     - 'Updated table olabs_oims_vehicles'
     - builder_table_update_olabs_oims_vehicles_2.php
+1.11.54:
+    - 'Updated table olabs_oims_purchases'
+    - builder_table_update_olabs_oims_purchases_8.php

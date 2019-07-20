@@ -88,6 +88,9 @@ tabs:
             label: Projects
 #            commentAbove: Assign projects for OIMS
             type: relation
+#            type: dropdown
             span: auto
             tab: Projects
+#            options: getProjectOptions 
+#            scope: matchProjects
         

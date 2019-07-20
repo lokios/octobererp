@@ -26,6 +26,7 @@ class Purchases extends Controller {
     public $reorderConfig = 'config_reorder.yaml';
     public $relationConfig = 'config_relation.yaml';
     protected $productFormWidget;
+    protected $vehicleFormWidget;
 
     public function __construct() {
         parent::__construct();
@@ -33,6 +34,7 @@ class Purchases extends Controller {
         BackendMenu::setContext('Olabs.Oims', 'master_register', 'material_receipt');
 
         $this->productFormWidget = $this->createPurchaseProductFormWidget();
+        $this->vehicleFormWidget = $this->createVehicleFormWidget();
     }
 
     public function onAddWorkOrderProducts() {
@@ -234,6 +236,26 @@ class Purchases extends Controller {
             $config->model = \Olabs\Oims\Models\PurchaseProduct::find($recordId);
         } else {
             $config->model = new \Olabs\Oims\Models\PurchaseProduct;
+        }
+
+        $widget = $this->makeWidget('Backend\Widgets\Form', $config);
+
+        $widget->bindToController();
+
+        return $widget;
+    }
+    
+    protected function createVehicleFormWidget($recordId = 0) {
+        $config = $this->makeConfig('$/olabs/oims/models/vehicle/fields.yaml');
+
+        $config->alias = 'vehicleCreate';
+
+        $config->arrayName = 'vehicleCreate';
+
+        if ($recordId) {
+            $config->model = \Olabs\Oims\Models\Vehicle::find($recordId);
+        } else {
+            $config->model = new \Olabs\Oims\Models\Vehicle;
         }
 
         $widget = $this->makeWidget('Backend\Widgets\Form', $config);
@@ -539,5 +561,36 @@ class Purchases extends Controller {
 //        dd($fileName);
         return \Redirect::to('/backend/olabs/oims/reports/downloadPdf?name=' . $fileName);
     }
+    
+    
+    public function onModalVehicleCreateForm(){
+        
 
+        
+        $this->vars['vehicleFormWidget'] = $this->vehicleFormWidget;
+        
+//        $this->vars['purchaseId'] = post('purchase_id');
+
+        return $this->makePartial('vehicle_create_form');
+    }
+
+    
+    public function onCreateVehicle(){
+        $data = $this->vehicleFormWidget->getSaveData();
+//        dd($data);
+        $model = new \Olabs\Oims\Models\Vehicle;
+
+        $model->fill($data);
+
+        $model->save();
+
+//        $order = $this->getPurchaseModel();
+
+//        $order->products()->add($model, $this->itemFormWidget->getSessionKey());
+//        $order->products()->add($model, $this->productFormWidget->getSessionKey());
+
+//        return $this->refreshPurchaseProductList();
+        return $this->refreshPurchaseProductList();
+    }
+    
 }

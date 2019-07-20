@@ -69,9 +69,35 @@ class Vehicle extends BaseModel
         'projects' => [
             'Olabs\Oims\Models\Project', 
             'table' => 'olabs_oims_vehicle_projects', 
-            'conditions' => 'status=1'
+            'conditions' => 'status=1',
+//            'scope' => 'matchPurchase'
         ],
 
+    ];
+    
+    /**
+     * @var array Guarded fields
+     */
+    protected $guarded = ['*'];
+    
+    /**
+     * @var array Fillable fields
+     */
+    protected $fillable = [
+        'vehicle_type',
+        'reference_number',
+        'name',
+        'model',
+        'context_date',
+        'status',
+        'unit_code',
+        'length',
+        'width',
+        'height',
+        'description',
+        'attachments',
+        'projects',
+        
     ];
     
     public function getVehicleTypeOptions($activeOnly = false) {

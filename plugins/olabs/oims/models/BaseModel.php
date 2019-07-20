@@ -178,6 +178,15 @@ class BaseModel extends Model {
 
         return [null => Lang::get("olabs.oims::lang.plugin.please_select")] + $usersList;
     }
+    
+    public function getVehicleOptions() {
+
+        $list = Vehicle::select(
+                        DB::raw("CONCAT_WS(' ', reference_number, '|', name) AS name, id")
+                )->where('status', '1')->lists('name', 'id');
+        return [null => Lang::get("olabs.oims::lang.plugin.please_select")] + $list;
+    }
+    
 
     public function onSubmitForApproval() {
         $msg = [];

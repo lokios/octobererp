@@ -113,6 +113,67 @@ tabs:
             span: auto
             type: datepicker
             tab: 'olabs.oims::lang.purchases.detail'
+        
+        vehicle:
+            label: Vehicle
+            oc.commentPosition: ''
+            nameFrom: reference_number
+            descriptionFrom: description
+            list: $/olabs/oims/models/vehicle/columns.yaml
+            span: auto
+            type: recordfinder
+            tab: olabs.oims::lang.purchases.detail
+            context: [create, update, preview]
+            commentHtml: true
+            comment: '<a href="javascript:;" class=" " data-control="popup" data-size="huge" data-handler="onModalVehicleCreateForm" data-disposable="">Add Vehicle</a>'
+        
+        
+        
+#        vehicle_id:
+#            label: Vehicle
+#            span: auto
+#            type: dropdown
+#            options: getVehicleOptions 
+#            
+#            tab: olabs.oims::lang.purchases.detail
+#            commentHtml: true
+#            comment: '<a href="javascript:;" class=" " data-control="popup" data-size="huge" data-handler="onModalVehicleCreateForm" data-disposable="">Add Vehicle</a>'
+        
+        vehicle_meta[unit]:
+            label: Vehicle Unit
+            tab: olabs.oims::lang.purchases.detail
+            span: auto
+            type: dropdown
+            options: getUnitOptions
+            disabled: true  
+            hidden: true
+            dependsOn: vehicle
+        vehicle_meta[length]:
+            label: Vehicle Length
+            tab: olabs.oims::lang.purchases.detail
+            span: auto
+            type: number
+            readOnly: true  
+            hidden: true
+            dependsOn: vehicle
+
+        vehicle_meta[width]:
+            label: Vehicle Width
+            tab: olabs.oims::lang.purchases.detail
+            span: auto
+            type: number
+            readOnly: true  
+            hidden: true
+            dependsOn: vehicle
+        vehicle_meta[height]:
+            label: Vehicle Height
+            tab: olabs.oims::lang.purchases.detail
+            span: auto
+            type: number
+#            readOnly: true  
+            hidden: true
+            dependsOn: vehicle
+            
         thru_vehicle_number:
             label: 'Thru Vehicle No'
             oc.commentPosition: ''
@@ -143,6 +204,13 @@ tabs:
             type: fileupload
             mode: file
             span: auto
+        note:
+            label: 'olabs.oims::lang.purchases.note'
+            size: small
+            oc.commentPosition: ''
+            span: auto
+            type: textarea
+            tab: 'olabs.oims::lang.purchases.detail'
         tax_igst:
             tab: olabs.oims::lang.purchases.detail
             label: olabs.oims::lang.quotes.tax_igst
@@ -158,13 +226,7 @@ tabs:
             label: olabs.oims::lang.quotes.tax_sgst
             type: checkbox
             span: left
-        note:
-            label: 'olabs.oims::lang.purchases.note'
-            size: small
-            oc.commentPosition: ''
-            span: full
-            type: textarea
-            tab: 'olabs.oims::lang.purchases.detail'
+        
 
 #  Customer
 

@@ -97,7 +97,8 @@ class Purchase extends BaseModel {
         // Products
         // propably save ID + qty + price, all other can be from producst DB
 //        'products_json', 
-        'paid_detail'
+        'paid_detail',
+        'vehicle_meta',
     ];
     protected $dates = ['paid_date'];
 
@@ -152,6 +153,10 @@ class Purchase extends BaseModel {
         'updatedBy' => [
             'Backend\Models\User',
             'key' => 'updated_by'
+        ],
+        'vehicle' => [
+            'Olabs\Oims\Models\Vehicle',
+            'key' => 'vehicle_id'
         ],
     ];
 //    public $belongsToMany = [];
@@ -757,6 +762,7 @@ class Purchase extends BaseModel {
     }
 
     public function filterFields($fields, $context = null) {
+//        dd($context);
         if ($this->quote) {
             $fields->user_id->value = $this->quote->user_id;
         }
@@ -781,7 +787,7 @@ class Purchase extends BaseModel {
 //        }
 
 
-
+        //Payment checks
         if ($fields->payment_method && isset($fields->{'paid_detail[payment_from]'})) {
 //            dd($fields->{'paid_detail[payment_from]'});
             $fields->{'paid_detail[payment_from]'}->hidden = true;
@@ -810,6 +816,37 @@ class Purchase extends BaseModel {
                 $fields->{'paid_detail[issue_date]'}->hidden = false;
             }
         }
+        
+        //Hide comment if form context is preview
+        if($context == 'preview'){
+            $fields->vehicle->comment = '';
+        }
+        
+        //Vehicle checks
+        if ($fields->vehicle) {
+            $fields->{'vehicle_meta[unit]'}->hidden = true;
+            $fields->{'vehicle_meta[length]'}->hidden = true;
+            $fields->{'vehicle_meta[width]'}->hidden = true;
+            $fields->{'vehicle_meta[height]'}->hidden = true;
+            if ($fields->vehicle->value > 0) {
+                $fields->{'vehicle_meta[unit]'}->hidden = false;
+                $fields->{'vehicle_meta[length]'}->hidden = false;
+                $fields->{'vehicle_meta[width]'}->hidden = false;
+                $fields->{'vehicle_meta[height]'}->hidden = false;
+                
+                $fields->{'vehicle_meta[unit]'}->value = $this->vehicle->unit;
+                $fields->{'vehicle_meta[length]'}->value = $this->vehicle->length;
+                $fields->{'vehicle_meta[width]'}->value = $this->vehicle->width;
+                $fields->{'vehicle_meta[height]'}->value = $this->vehicle->height;
+            }
+        }
+    }
+    
+    public function getUnitOptions() {
+        $list = Unit::select(
+                        DB::raw("name, slug")
+                )->where('status', '1')->lists('name', 'slug');
+        return [null => Lang::get("olabs.oims::lang.plugin.please_select")] + $list;
     }
     
     public function getEntityRelation(){
@@ -818,5 +855,5 @@ class Purchase extends BaseModel {
         return $model;
         
     }
-
+    
 }

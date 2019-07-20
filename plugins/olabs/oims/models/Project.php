@@ -5,7 +5,7 @@ use Model;
 /**
  * Model
  */
-class Project extends Model
+class Project extends BaseModel
 {
     use \October\Rain\Database\Traits\Validation;
     use \October\Rain\Database\Traits\Sluggable;
@@ -120,4 +120,23 @@ class Project extends Model
         return $add;
 
     }
+    
+//    public function scopeMatchProjects($query, $model){
+//        $projectId = (isset($model->project_id)) ? $model->project_id : 0;
+////        
+////        if (!$projectId) {
+////            //check with session value
+////            $projectId = \Session::get('purchase_ProjectId', $projectId);
+////        }
+//        //if still projectId is null then check with assign projects
+//        if (!$projectId) {
+//            $projects = $this->getProjectOptions();
+//            $projectId = array_keys($projects);
+//        }
+//        dd($this->getProjectOptions());
+//        //check for quote type Petty Contract
+////        $query->where('quote_type', self::QUOTE_TYPE_MATERIAL);
+//
+//        return is_array($projectId) ? $query->whereIn('id', $projectId) : $query->where('id', $projectId); // ->orderBy('name', 'desc')
+//    }
 }
