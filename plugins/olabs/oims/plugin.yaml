@@ -294,6 +294,14 @@ navigation:
                 icon: icon-sitemap
                 permissions:
                     - olabs.oims.bank_accounts
+                    
+            vehicles:
+                label: Vehicles
+                url: olabs/oims/vehicles
+                icon: icon-sitemap
+                permissions:
+                    - olabs.oims.vehicles
+                    
             suppliers:
                 label: Suppliers
                 url: olabs/oims/suppliers

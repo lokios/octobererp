@@ -39,6 +39,7 @@ return [
         'access_project_assets' => 'Access into Project Assets',
         
         'access_statuses' => 'Access into Statuses',
+        'access_vehicles' => 'Access into Vehicles',
         'access_units' => 'Access into Units',
         'access_workgroups' => 'Access into Work Groups',
         'access_project_workgroups' => 'Access into Project Workgroups',

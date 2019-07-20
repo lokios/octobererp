@@ -100,6 +100,7 @@ class Plugin extends PluginBase {
             'olabs.oims.categories' => ['tab' => 'olabs.oims::lang.plugin.oims_setup', 'label' => 'olabs.oims::lang.plugin.access_categories'],
             'olabs.oims.brands' => ['tab' => 'olabs.oims::lang.plugin.oims_setup', 'label' => 'olabs.oims::lang.plugin.access_brands'],
             'olabs.oims.bank_accounts' => ['tab' => 'olabs.oims::lang.plugin.oims_project', 'label' => 'olabs.oims::lang.plugin.access_bank_accounts'],
+            'olabs.oims.vehicles' => ['tab' => 'olabs.oims::lang.plugin.oims_project', 'label' => 'olabs.oims::lang.plugin.access_vehicles'],
             'olabs.oims.project_books' => ['tab' => 'olabs.oims::lang.plugin.oims_project', 'label' => 'olabs.oims::lang.plugin.access_project_books'],
             'olabs.oims.reference_numbers' => ['tab' => 'olabs.oims::lang.plugin.oims_project', 'label' => 'olabs.oims::lang.plugin.access_reference_numbers'],
             'olabs.oims.orderstatuses' => ['tab' => 'olabs.oims::lang.plugin.oims_setup', 'label' => 'olabs.oims::lang.plugin.access_orderstatuses'],

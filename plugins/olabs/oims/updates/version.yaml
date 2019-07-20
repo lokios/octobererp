@@ -685,3 +685,15 @@
 1.11.49:
     - 'Updated table olabs_oims_reference_number'
     - builder_table_update_olabs_oims_reference_number_2.php
+1.11.50:
+    - 'Created table olabs_oims_vehicles'
+    - builder_table_create_olabs_oims_vehicles.php
+1.11.51:
+    - 'Created table olabs_oims_vehicle_projects'
+    - builder_table_create_olabs_oims_vehicle_projects.php
+1.11.52:
+    - 'Updated table olabs_oims_vehicles'
+    - builder_table_update_olabs_oims_vehicles.php
+1.11.53:
+    - 'Updated table olabs_oims_vehicles'
+    - builder_table_update_olabs_oims_vehicles_2.php
