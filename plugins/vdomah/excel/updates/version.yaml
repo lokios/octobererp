@@ -2,3 +2,6 @@
     - Initialize plugin.
 1.0.2:
     - Class to get excel object easily.
+1.0.3:
+    - Compatibility with latest build (446 at the moment).
+3.0.1: !!! Migration to Maatwebsite.Laravel-Excel version 3.x.

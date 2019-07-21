@@ -1,4 +1,4 @@
-<?
+<?php
 $custom_widget = $this->property('customWidget') != "" ? $this->property('customWidget') : 0;
 
 $custom_widget_modal = Olabs\Widgets\Models\ReportWidget::where('id', $custom_widget)->first();
@@ -12,7 +12,7 @@ if($custom_widget_modal) {
     <h3><?= e(trans('olabs.widgets::lang.plugin.name')) ?></h3>
     <h5><?= e(trans('olabs.widgets::lang.plugin.description')) ?></h5>
 </div>
-<?
+<?php
 
 }
 ?>

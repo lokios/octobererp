@@ -1,12 +1,15 @@
 <?php namespace Vdomah\Excel\Classes;
 
-class Excel {
+use October\Rain\Support\Traits\Singleton;
+use Maatwebsite\Excel\Sheet;
 
-    protected static $instance;
+class Excel
+{
+    use Singleton;
 
     protected $excel;
 
-    private function __construct()
+    protected function init()
     {
         \App::register('\Maatwebsite\Excel\ExcelServiceProvider');
 
@@ -14,19 +17,27 @@ class Excel {
         $facade->alias('Excel', '\Maatwebsite\Excel\Facades\Excel');
 
         $this->excel = \App::make('excel');
-    }
 
-    public static function getInstance()
-    {
-        if (is_null(static::$instance)) {
-            return static::$instance = new static();
-        }
-
-        return static::$instance;
+        Sheet::macro('freezePane', function (Sheet $sheet, $pane) {
+            $sheet->getDelegate()->getActiveSheet()->freezePane($pane);  // <-- https://stackoverflow.com/questions/49678273/setting-active-cell-for-excel-generated-by-phpspreadsheet
+        });
     }
     
     public static function excel()
     {
-        return self::getInstance()->excel;
+        return self::instance()->excel;
     }
+
+    public static function export($class, $filename, $type = 'csv')
+    {
+        if (! in_array($type, ['xls', 'csv'])) {
+            $type = 'csv';
+        }
+
+        $fn = $filename;
+
+        return self::excel()->download(new $class, $fn.'.'.$type);
+    }
+
+
 }

@@ -44,13 +44,3 @@ ALTER TABLE `olabs_widgets_reportwidgets`
 ALTER TABLE `olabs_widgets_reportwidgets`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
-- Documentation
-After adding this plugin it will add Widget icon on admin menu. You can set manage widget access permission for user's. 
-First needs to create new plugin on Manage Widget, its support php short tags <? --- ?> 
-<div class="report-widget widget-welcome">
-    <h3>Hello World!</h3>
-    <h5><?= e(trans('olabs.widgets::lang.plugin.description')) ?></h5>
-</div>
-
-On dashboard select manage widgets > Add Widget : Add Custom Widget, it will add new widget on dasboard with default content.
-Select Widget configuration and choose Custom Widget.

@@ -639,6 +639,7 @@ class Filter extends WidgetBase
 
         $scope = new FilterScope($name, $label);
         $scope->displayAs($scopeType, $config);
+        $scope->idPrefix = $this->alias;
 
         /*
          * Set scope value
@@ -934,7 +935,7 @@ class Filter extends WidgetBase
     {
         $processed = [];
         foreach ($options as $id => $result) {
-            $processed[] = ['id' => $id, 'name' => e(trans($result))];
+            $processed[] = ['id' => $id, 'name' => trans($result)];
         }
         return $processed;
     }

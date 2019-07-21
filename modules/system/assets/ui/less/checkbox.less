@@ -265,6 +265,9 @@
                 }
             }
         }
+        &[disabled] {
+            ~ span { background-color: #666666 !important; }
+        }
     }
 
     > span {
@@ -282,7 +285,6 @@
         span {
             z-index: @zindex-checkbox;
             display: block;
-            width: 50%;
             position: absolute;
             top: 2px;
             left: -1px;

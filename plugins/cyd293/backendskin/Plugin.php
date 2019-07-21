@@ -2,11 +2,13 @@
 
 namespace Cyd293\BackendSkin;
 
+use Backend\Classes\Skin as AbstractSkin;
+use Backend\Classes\WidgetBase;
 use Config;
+use Cyd293\BackendSkin\Listener\PluginEventSubscriber;
+use Cyd293\BackendSkin\Skin\BackendSkin;
 use Event;
 use System\Classes\PluginBase;
-use Cyd293\BackendSkin\Listener\PluginEventSubscriber;
-use Backend\Classes\Skin as AbstractSkin;
 
 class Plugin extends PluginBase
 {
@@ -14,10 +16,10 @@ class Plugin extends PluginBase
 
     public function boot()
     {
-        Config::set('cms.backendSkin', Skin\BackendSkin::class);
+        Config::set('cms.backendSkin', BackendSkin::class);
 
         Event::subscribe(new PluginEventSubscriber());
-        \Backend\Classes\WidgetBase::extendableExtendCallback(function (\Backend\Classes\WidgetBase $widget) {
+        WidgetBase::extendableExtendCallback(function (WidgetBase $widget) {
             $origViewPath = $widget->guessViewPath();
             $newViewPath = str_replace(base_path(), '', $origViewPath);
             $newViewPath = $this->getActiveSkin()->skinPath . '/views/' . $newViewPath . '/partials';
@@ -32,6 +34,11 @@ class Plugin extends PluginBase
 
     public function registerSettings()
     {
+    }
+
+    public function register()
+    {
+        $this->registerConsoleCommand('cyd293.backendskin', Console\SetSkinCommand::class);
     }
 
     /**

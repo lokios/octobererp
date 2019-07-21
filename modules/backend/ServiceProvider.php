@@ -74,6 +74,8 @@ class ServiceProvider extends ModuleServiceProvider
             $combiner->registerBundle('~/modules/backend/formwidgets/repeater/assets/less/repeater.less');
             $combiner->registerBundle('~/modules/backend/formwidgets/codeeditor/assets/js/build.js');
             $combiner->registerBundle('~/modules/backend/formwidgets/fileupload/assets/less/fileupload.less');
+            $combiner->registerBundle('~/modules/backend/formwidgets/nestedform/assets/less/nestedform.less');
+            $combiner->registerBundle('~/modules/backend/formwidgets/richeditor/assets/js/build-plugins.js');
 
             /*
              * Rich Editor is protected by DRM
@@ -136,9 +138,17 @@ class ServiceProvider extends ModuleServiceProvider
                     'label' => 'system::lang.permissions.view_the_dashboard',
                     'tab'   => 'system::lang.permissions.name'
                 ],
+                'backend.manage_default_dashboard' => [
+                    'label' => 'system::lang.permissions.manage_default_dashboard',
+                    'tab'   => 'system::lang.permissions.name',
+                ],
                 'backend.manage_users' => [
                     'label' => 'system::lang.permissions.manage_other_administrators',
                     'tab'   => 'system::lang.permissions.name'
+                ],
+                'backend.impersonate_users' => [
+                    'label' => 'system::lang.permissions.impersonate_users',
+                    'tab'   => 'system::lang.permissions.name',
                 ],
                 'backend.manage_preferences' => [
                     'label' => 'system::lang.permissions.manage_preferences',
@@ -179,6 +189,7 @@ class ServiceProvider extends ModuleServiceProvider
             $manager->registerFormWidget('Backend\FormWidgets\Repeater', 'repeater');
             $manager->registerFormWidget('Backend\FormWidgets\TagList', 'taglist');
             $manager->registerFormWidget('Backend\FormWidgets\MediaFinder', 'mediafinder');
+            $manager->registerFormWidget('Backend\FormWidgets\NestedForm', 'nestedform');
         });
     }
 

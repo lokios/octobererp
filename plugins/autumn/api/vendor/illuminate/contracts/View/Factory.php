@@ -49,7 +49,8 @@ interface Factory
      * @param  int|null  $priority
      * @return array
      */
-    public function composer($views, $callback, $priority = null);
+//    public function composer($views, $callback, $priority = null); //Commented by Amit
+    public function composer($views, $callback);
 
     /**
      * Register a view creator event.

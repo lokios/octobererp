@@ -6,3 +6,6 @@
     - Update PluginEventSubscriber.php
 1.0.4:
     - Fix modules theme customization
+1.1.0:
+    - Add separation of backendskin and theme
+    - Add new method on defining skin code

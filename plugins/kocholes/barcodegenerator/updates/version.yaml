@@ -1,2 +1,4 @@
 1.0.1:
     - Initialize plugin.
+1.0.2:
+    - Compatibility with latest build (446 at the moment).

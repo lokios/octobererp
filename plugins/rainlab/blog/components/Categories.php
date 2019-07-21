@@ -1,14 +1,12 @@
 <?php namespace RainLab\Blog\Components;
 
 use Db;
-use App;
-use Request;
 use Carbon\Carbon;
 use Cms\Classes\Page;
-use Cms\Classes\ComponentBase;
+use RainLab\Blog\Classes\ComponentAbstract;
 use RainLab\Blog\Models\Category as BlogCategory;
 
-class Categories extends ComponentBase
+class Categories extends ComponentAbstract
 {
     /**
      * @var Collection A collection of categories to display
@@ -40,20 +38,20 @@ class Categories extends ComponentBase
                 'title'       => 'rainlab.blog::lang.settings.category_slug',
                 'description' => 'rainlab.blog::lang.settings.category_slug_description',
                 'default'     => '{{ :slug }}',
-                'type'        => 'string'
+                'type'        => 'string',
             ],
             'displayEmpty' => [
                 'title'       => 'rainlab.blog::lang.settings.category_display_empty',
                 'description' => 'rainlab.blog::lang.settings.category_display_empty_description',
                 'type'        => 'checkbox',
-                'default'     => 0
+                'default'     => 0,
             ],
             'categoryPage' => [
                 'title'       => 'rainlab.blog::lang.settings.category_page',
                 'description' => 'rainlab.blog::lang.settings.category_page_description',
                 'type'        => 'dropdown',
                 'default'     => 'blog/category',
-                'group'       => 'Links',
+                'group'       => 'rainlab.blog::lang.settings.group_links',
             ],
         ];
     }
@@ -76,25 +74,20 @@ class Categories extends ComponentBase
      */
     protected function loadCategories()
     {
+        $categories = BlogCategory::with('posts_count')->getNested();
         if (!$this->property('displayEmpty')) {
-            $categories = BlogCategory::whereExists(function($query) {
-                $prefix = Db::getTablePrefix();
-
-                $query
-                    ->select(Db::raw(1))
-                    ->from('rainlab_blog_posts_categories')
-                    ->join('rainlab_blog_posts', 'rainlab_blog_posts.id', '=', 'rainlab_blog_posts_categories.post_id')
-                    ->whereNotNull('rainlab_blog_posts.published')
-                    ->where('rainlab_blog_posts.published', '=', 1)
-                    ->whereNotNull('rainlab_blog_posts.published_at')
-                    ->where('rainlab_blog_posts.published_at', '<', Carbon::now())
-                    ->whereRaw($prefix.'rainlab_blog_categories.id = '.$prefix.'rainlab_blog_posts_categories.category_id')
-                ;
-            });
-            $categories = $categories->getNested();
-        }
-        else {
-            $categories = BlogCategory::getNested();
+            $iterator = function ($categories) use (&$iterator) {
+                return $categories->reject(function ($category) use (&$iterator) {
+                    if ($category->getNestedPostCount() == 0) {
+                        return true;
+                    }
+                    if ($category->children) {
+                        $category->children = $iterator($category->children);
+                    }
+                    return false;
+                });
+            };
+            $categories = $iterator($categories);
         }
 
         /*
@@ -105,8 +98,16 @@ class Categories extends ComponentBase
 
     protected function linkCategories($categories)
     {
-        return $categories->each(function($category) {
-            $category->setUrl($this->categoryPage, $this->controller);
+        $blogPostsComponent = $this->getComponent('blogPosts', $this->categoryPage);
+
+        return $categories->each(function ($category) use ($blogPostsComponent) {
+            $category->setUrl(
+                $this->categoryPage,
+                $this->controller,
+                [
+                    'slug' => $this->urlProperty($blogPostsComponent, 'categoryFilter')
+                ]
+            );
 
             if ($category->children) {
                 $this->linkCategories($category->children);

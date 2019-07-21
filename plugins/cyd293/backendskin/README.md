@@ -19,5 +19,6 @@ And you can change everything without changing the original file of octobercms.
 
 Getting started is just simple.
 Simple because all you need is to add **backend** folder in your current theme.
+Or you can add **backendskin/<yourskin>** in root directory
 
 Your next step is to got documentation.
