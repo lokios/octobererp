@@ -59,7 +59,7 @@ interface Job
      *
      * @return void
      */
-    public function failed();
+    public function failed($e);
 
     /**
      * Get the name of the queue the job belongs to.

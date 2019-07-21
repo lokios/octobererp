@@ -1,3 +1,32 @@
+Installation on mac
+$ brew install supervisor
+
+==> supervisor
+To have launchd start supervisor now and restart at login:
+  brew services start supervisor
+Or, if you don't want/need a background service you can just run:
+  supervisord -c /usr/local/etc/supervisord.ini
+
+
+#Config file
+$cd /usr/local/etc/supervisor.d
+$nano october-worker.conf
+
+#OctoberErp config
+[program:octobererp-worker]
+process_name=%(program_name)s_%(process_num)02d
+command=php /Users/amitsrivastava/Sites/octobererp/artisan queue:work --sleep=3 --tries=3
+autostart=true
+autorestart=true
+user=apache
+numprocs=8
+redirect_stderr=true
+stdout_logfile=/tmp/octobererp_worker.log
+
+
+--------------------------------
+
+
 $ sudo apt-get install supervisor
 
 $/etc/init.d/supervisor stop
