@@ -145,8 +145,8 @@ tabs:
             span: auto
             type: dropdown
             options: getUnitOptions
-            disabled: true  
-            hidden: true
+            readOnly: true  
+#            hidden: true
             dependsOn: vehicle
         vehicle_meta[length]:
             label: Vehicle Length
@@ -154,7 +154,7 @@ tabs:
             span: auto
             type: number
             readOnly: true  
-            hidden: true
+#            hidden: true
             dependsOn: vehicle
 
         vehicle_meta[width]:
@@ -163,7 +163,7 @@ tabs:
             span: auto
             type: number
             readOnly: true  
-            hidden: true
+#            hidden: true
             dependsOn: vehicle
         vehicle_meta[height]:
             label: Vehicle Height
@@ -171,7 +171,7 @@ tabs:
             span: auto
             type: number
 #            readOnly: true  
-            hidden: true
+#            hidden: true
             dependsOn: vehicle
             
         thru_vehicle_number:

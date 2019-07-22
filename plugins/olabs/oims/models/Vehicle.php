@@ -115,4 +115,19 @@ class Vehicle extends BaseModel
         return isset($list[$this->vehicle_type]) ? $list[$this->vehicle_type] : $this->vehicle_type;
     }
     
+    public function getTotalCapacity(){
+        $lenght = $this->lenght > 0 ? $this->lenght : 0;
+        $width = $this->widght > 0 ? $this->widht : 0;
+        $height = $this->height > 0 ? $this->height : 0;
+        
+        $volumn = $lenght * $width * $height;
+        
+        return $this->getConversions($volumn);
+        
+    }
+    
+    public function getConversions($volumn){
+        return $this->unit_code->getConversions($volumn);
+    }
+    
 }

@@ -838,5 +838,13 @@ class BaseModel extends Model {
 
         return false;
     }
+    
+    public function getUnitOptions() {
+        $list = Unit::select(
+                        DB::raw("name, slug")
+                )->where('status', '1')->lists('name', 'slug');
+        return [null => Lang::get("olabs.oims::lang.plugin.please_select")] + $list;
+    }
+    
 
 }

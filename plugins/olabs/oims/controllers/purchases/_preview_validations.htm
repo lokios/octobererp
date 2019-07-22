@@ -1,0 +1,17 @@
+<div class="form-preview">
+    <h5><strong>Validations :</strong></h5>
+<?php
+if ($formModel->vehicle) :
+    $conversions = $formModel->getVehicleCapacity();
+    $list = [];
+    foreach($conversions as $conversion){
+        $list[] = $conversion['value'] . " " . $conversion['name'];
+    }
+
+    ?>
+
+    <h5>1) Vehicle total capacity for Registration Number <strong><?= $formModel->vehicle->reference_number ?></strong> is <strong><?=$list[0]?></strong> (<?= implode(", ", $list)?>)</h5>
+    <?php
+ endif ?>
+</div>
+

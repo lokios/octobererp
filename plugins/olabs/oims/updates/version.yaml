@@ -700,3 +700,6 @@
 1.11.54:
     - 'Updated table olabs_oims_purchases'
     - builder_table_update_olabs_oims_purchases_8.php
+1.11.55:
+    - 'Updated table olabs_oims_units'
+    - builder_table_update_olabs_oims_units_3.php

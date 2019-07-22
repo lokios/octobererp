@@ -834,10 +834,10 @@ class Purchase extends BaseModel {
                 $fields->{'vehicle_meta[width]'}->hidden = false;
                 $fields->{'vehicle_meta[height]'}->hidden = false;
                 
-                $fields->{'vehicle_meta[unit]'}->value = $this->vehicle->unit;
-                $fields->{'vehicle_meta[length]'}->value = $this->vehicle->length;
-                $fields->{'vehicle_meta[width]'}->value = $this->vehicle->width;
-                $fields->{'vehicle_meta[height]'}->value = $this->vehicle->height;
+                $fields->{'vehicle_meta[unit]'}->value = $fields->{'vehicle_meta[unit]'}->value != "" ? $fields->{'vehicle_meta[unit]'}->value : $this->vehicle->unit;
+                $fields->{'vehicle_meta[length]'}->value = $fields->{'vehicle_meta[length]'}->value != "" ? $fields->{'vehicle_meta[length]'}->value : $this->vehicle->length;
+                $fields->{'vehicle_meta[width]'}->value = $fields->{'vehicle_meta[width]'}->value != "" ? $fields->{'vehicle_meta[width]'}->value : $this->vehicle->width;
+                $fields->{'vehicle_meta[height]'}->value = $fields->{'vehicle_meta[height]'}->value != "" ? $fields->{'vehicle_meta[height]'}->value : $this->vehicle->height;
             }
         }
     }
@@ -853,6 +853,23 @@ class Purchase extends BaseModel {
         $model = \Olabs\Social\Models\EntityRelations::where('target_type','mr_entry')
                 ->where('target_id',$this->id)->first();
         return $model;
+        
+    }
+    
+    public function getVehicleCapacity(){
+//        return false;
+        if(!$this->vehicle){
+            return false;
+        }
+        //dd($this->vehicle_meta);
+        
+        $lenght = $this->vehicle_meta['length']  > 0 ? $this->vehicle_meta['length']  : 0;
+        $width = $this->vehicle_meta['width']  > 0 ? $this->vehicle_meta['width']  : 0;
+        $height = $this->vehicle_meta['height']  > 0 ? $this->vehicle_meta['height']  : 0;
+        
+        $volumn = $lenght * $width * $height;
+        
+        return $this->vehicle->getConversions($volumn);
         
     }
     

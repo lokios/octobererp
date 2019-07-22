@@ -25,10 +25,12 @@
     <?= $this->formRender(['preview' => true, 'section' => 'secondary']) ?>
 </div>
 
-<div class="form-preview">
+<!--<div class="form-preview">
     <? // $this->formRenderPreview() ?>
-</div>
+</div>-->
+<?= $this->makePartial('~/plugins/olabs/oims/controllers/purchases/_preview_validations.htm') ?>
 <div class="layout-row">
+    
     <?php if ($this->user->hasAccess('olabs.oims.record_submit_for_approval')):?>
     <?php if($formModel->isStatusNew() || $formModel->isStatusRejected()):?>
     <div class="list-preview list-flush">

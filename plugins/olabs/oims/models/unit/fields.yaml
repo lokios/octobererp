@@ -17,3 +17,21 @@ fields:
         span: auto
         default: 1
         type: switch
+    
+    conversion_meta:
+        type: repeater
+        titleFrom: unit
+        prompt: Add New Conversion Unit
+        form:
+            fields:
+                unit:
+                    label: Conversion Unit
+                    type: dropdown
+                    options: getUnitOptions
+                    span: auto
+                conversion:
+                    label: Conversion Value
+                    type: number
+                    default: 0
+                    span: auto
+                

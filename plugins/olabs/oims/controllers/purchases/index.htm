@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 $assigned_projects = false;
 //if(!$this->user->isAdmin()){
 $baseModel = new \Olabs\Oims\Models\BaseModel();
@@ -7,119 +6,114 @@ $assigned_projects = $baseModel->getProjectOptions();
 //}
 
 $today = Carbon\Carbon::now();
-$monthStartDate = Carbon\Carbon::now()->startOfMonth();  
+$monthStartDate = Carbon\Carbon::now()->startOfMonth();
 
-/*                        
-$monthStartInstance = Carbon\Carbon::now()->startOfMonth(); 
-$monthStartInstanceTwo = Carbon\Carbon::now()->startOfMonth(); 
-$monthStartInstanceThree = Carbon\Carbon::now()->startOfMonth(); 
+/*
+  $monthStartInstance = Carbon\Carbon::now()->startOfMonth();
+  $monthStartInstanceTwo = Carbon\Carbon::now()->startOfMonth();
+  $monthStartInstanceThree = Carbon\Carbon::now()->startOfMonth();
 
-$previousMonthDay = $monthStartInstance->subDay();
+  $previousMonthDay = $monthStartInstance->subDay();
 
-$previousMonthInstanceOne = $monthStartInstanceTwo->subDay();
-$previousMonthInstanceTwo = $monthStartInstanceThree->subDay();
+  $previousMonthInstanceOne = $monthStartInstanceTwo->subDay();
+  $previousMonthInstanceTwo = $monthStartInstanceThree->subDay();
 
-$previousMonthEnd = $previousMonthInstanceOne->endOfMonth();
+  $previousMonthEnd = $previousMonthInstanceOne->endOfMonth();
 
-$previousMonthStart = $previousMonthInstanceTwo->startOfMonth(); 
+  $previousMonthStart = $previousMonthInstanceTwo->startOfMonth();
 
-*/ 
+ */
 
 $overallDetail = array();
 $thisMonthDetail = array();
 
-if(count($assigned_projects)){
+if (count($assigned_projects)) {
 
-$overallDetail = Db::table('olabs_oims_purchases')
-->select(Db::raw('count(*) as total_count, sum(total_price) as price_total, project_id'))
+    $overallDetail = Db::table('olabs_oims_purchases')
+            ->select(Db::raw('count(*) as total_count, sum(total_price) as price_total, project_id'))
 //->whereBetween("created_at", [$previousMonthStart, $previousMonthEnd])
-->whereIn('project_id', array_keys($assigned_projects))
-->groupBy('project_id')
-->get();
+            ->whereIn('project_id', array_keys($assigned_projects))
+            ->groupBy('project_id')
+            ->get();
 
-$thisMonthDetail = Db::table('olabs_oims_purchases')
-->select(Db::raw('count(*) as total_count, sum(total_price) as price_total, project_id'))
-->whereBetween("created_at", [$monthStartDate, $today])
-->whereIn('project_id', array_keys($assigned_projects))
-->groupBy('project_id')
-->get(); 
-
+    $thisMonthDetail = Db::table('olabs_oims_purchases')
+            ->select(Db::raw('count(*) as total_count, sum(total_price) as price_total, project_id'))
+            ->whereBetween("created_at", [$monthStartDate, $today])
+            ->whereIn('project_id', array_keys($assigned_projects))
+            ->groupBy('project_id')
+            ->get();
 }
 
-if($assigned_projects){
+if ($assigned_projects) {
 
-$purchasesCount = \Olabs\Oims\Models\Purchase::whereIn('project_id', array_keys($assigned_projects))->count();
-$purchasesPending = \Olabs\Oims\Models\Purchase::where("paid_date", null)->whereIn('project_id', array_keys($assigned_projects))->count();
+    $purchasesCount = \Olabs\Oims\Models\Purchase::whereIn('project_id', array_keys($assigned_projects))->count();
+    $purchasesPending = \Olabs\Oims\Models\Purchase::where("paid_date", null)->whereIn('project_id', array_keys($assigned_projects))->count();
 
-/*
-$purchasesCountThis = \Olabs\Oims\Models\Purchase::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->whereIn('project_id', array_keys($assigned_projects))->count();
+    /*
+      $purchasesCountThis = \Olabs\Oims\Models\Purchase::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->whereIn('project_id', array_keys($assigned_projects))->count();
 
-$purchasesCountLast = \Olabs\Oims\Models\Purchase::whereBetween("created_at", [Carbon\Carbon::now()->addDay(-60), Carbon\Carbon::now()->addDay(-30)])->whereIn('project_id', array_keys($assigned_projects))->count();
+      $purchasesCountLast = \Olabs\Oims\Models\Purchase::whereBetween("created_at", [Carbon\Carbon::now()->addDay(-60), Carbon\Carbon::now()->addDay(-30)])->whereIn('project_id', array_keys($assigned_projects))->count();
 
-$purchasesValueThis = \Olabs\Oims\Models\Purchase::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->whereIn('project_id', array_keys($assigned_projects))->sum("total_price");
+      $purchasesValueThis = \Olabs\Oims\Models\Purchase::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->whereIn('project_id', array_keys($assigned_projects))->sum("total_price");
 
-$purchasesValueLast = \Olabs\Oims\Models\Purchase::whereBetween("created_at", [Carbon\Carbon::now()->addDay(-60), Carbon\Carbon::now()->addDay(-30)])->whereIn('project_id', array_keys($assigned_projects))->sum("total_price");
-*/   
+      $purchasesValueLast = \Olabs\Oims\Models\Purchase::whereBetween("created_at", [Carbon\Carbon::now()->addDay(-60), Carbon\Carbon::now()->addDay(-30)])->whereIn('project_id', array_keys($assigned_projects))->sum("total_price");
+     */
 
-/*
-$approved = \Olabs\Oims\Models\Purchase::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_APPROVED)->whereIn('project_id', array_keys($assigned_projects))->count();
-$rejected = \Olabs\Oims\Models\Purchase::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_REJECTED)->whereIn('project_id', array_keys($assigned_projects))->count();
-$new = \Olabs\Oims\Models\Purchase::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_NEW)->whereIn('project_id', array_keys($assigned_projects))->count();
-$submited = \Olabs\Oims\Models\Purchase::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_SUBMITTED)->whereIn('project_id', array_keys($assigned_projects))->count();
+    /*
+      $approved = \Olabs\Oims\Models\Purchase::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_APPROVED)->whereIn('project_id', array_keys($assigned_projects))->count();
+      $rejected = \Olabs\Oims\Models\Purchase::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_REJECTED)->whereIn('project_id', array_keys($assigned_projects))->count();
+      $new = \Olabs\Oims\Models\Purchase::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_NEW)->whereIn('project_id', array_keys($assigned_projects))->count();
+      $submited = \Olabs\Oims\Models\Purchase::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_SUBMITTED)->whereIn('project_id', array_keys($assigned_projects))->count();
 
-*/
+     */
 
-$approved = \Olabs\Oims\Models\Purchase::where("status",\Olabs\Oims\Models\Status::STATUS_APPROVED)->whereIn('project_id', array_keys($assigned_projects))->count();
-$rejected = \Olabs\Oims\Models\Purchase::where("status",\Olabs\Oims\Models\Status::STATUS_REJECTED)->whereIn('project_id', array_keys($assigned_projects))->count();
-$new = \Olabs\Oims\Models\Purchase::where("status",\Olabs\Oims\Models\Status::STATUS_NEW)->whereIn('project_id', array_keys($assigned_projects))->count();
-$submited = \Olabs\Oims\Models\Purchase::where("status",\Olabs\Oims\Models\Status::STATUS_SUBMITTED)->whereIn('project_id', array_keys($assigned_projects))->count();
+    $approved = \Olabs\Oims\Models\Purchase::where("status", \Olabs\Oims\Models\Status::STATUS_APPROVED)->whereIn('project_id', array_keys($assigned_projects))->count();
+    $rejected = \Olabs\Oims\Models\Purchase::where("status", \Olabs\Oims\Models\Status::STATUS_REJECTED)->whereIn('project_id', array_keys($assigned_projects))->count();
+    $new = \Olabs\Oims\Models\Purchase::where("status", \Olabs\Oims\Models\Status::STATUS_NEW)->whereIn('project_id', array_keys($assigned_projects))->count();
+    $submited = \Olabs\Oims\Models\Purchase::where("status", \Olabs\Oims\Models\Status::STATUS_SUBMITTED)->whereIn('project_id', array_keys($assigned_projects))->count();
+} else {
 
+    $purchasesCount = \Olabs\Oims\Models\Purchase::count();
+    $purchasesPending = \Olabs\Oims\Models\Purchase::where("paid_date", null)->count();
+    /*
+      $purchasesCountThis = \Olabs\Oims\Models\Purchase::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->count();
+      $purchasesCountLast = \Olabs\Oims\Models\Purchase::whereBetween("created_at", [Carbon\Carbon::now()->addDay(-60), Carbon\Carbon::now()->addDay(-30)])->count();
+      $purchasesValueThis = \Olabs\Oims\Models\Purchase::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->sum("total_price");
+      $purchasesValueLast = \Olabs\Oims\Models\Purchase::whereBetween("created_at", [Carbon\Carbon::now()->addDay(-60), Carbon\Carbon::now()->addDay(-30)])->sum("total_price");
+     */
 
-}else{
+    /*
+      $approved = \Olabs\Oims\Models\Purchase::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_APPROVED)->count();
+      $rejected = \Olabs\Oims\Models\Purchase::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_REJECTED)->count();
+      $new = \Olabs\Oims\Models\Purchase::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_NEW)->count();
+      $submited = \Olabs\Oims\Models\Purchase::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_SUBMITTED)->count();
+     */
 
-$purchasesCount = \Olabs\Oims\Models\Purchase::count();
-$purchasesPending = \Olabs\Oims\Models\Purchase::where("paid_date", null)->count();
-/*
-$purchasesCountThis = \Olabs\Oims\Models\Purchase::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->count();
-$purchasesCountLast = \Olabs\Oims\Models\Purchase::whereBetween("created_at", [Carbon\Carbon::now()->addDay(-60), Carbon\Carbon::now()->addDay(-30)])->count();
-$purchasesValueThis = \Olabs\Oims\Models\Purchase::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->sum("total_price");
-$purchasesValueLast = \Olabs\Oims\Models\Purchase::whereBetween("created_at", [Carbon\Carbon::now()->addDay(-60), Carbon\Carbon::now()->addDay(-30)])->sum("total_price");
-*/
-
-/*
-$approved = \Olabs\Oims\Models\Purchase::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_APPROVED)->count();
-$rejected = \Olabs\Oims\Models\Purchase::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_REJECTED)->count();
-$new = \Olabs\Oims\Models\Purchase::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_NEW)->count();
-$submited = \Olabs\Oims\Models\Purchase::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_SUBMITTED)->count();
-*/
-
-$approved = \Olabs\Oims\Models\Purchase::where("status",\Olabs\Oims\Models\Status::STATUS_APPROVED)->count();
-$rejected = \Olabs\Oims\Models\Purchase::where("status",\Olabs\Oims\Models\Status::STATUS_REJECTED)->count();
-$new = \Olabs\Oims\Models\Purchase::where("status",\Olabs\Oims\Models\Status::STATUS_NEW)->count();
-$submited = \Olabs\Oims\Models\Purchase::where("status",\Olabs\Oims\Models\Status::STATUS_SUBMITTED)->count();
-
-
+    $approved = \Olabs\Oims\Models\Purchase::where("status", \Olabs\Oims\Models\Status::STATUS_APPROVED)->count();
+    $rejected = \Olabs\Oims\Models\Purchase::where("status", \Olabs\Oims\Models\Status::STATUS_REJECTED)->count();
+    $new = \Olabs\Oims\Models\Purchase::where("status", \Olabs\Oims\Models\Status::STATUS_NEW)->count();
+    $submited = \Olabs\Oims\Models\Purchase::where("status", \Olabs\Oims\Models\Status::STATUS_SUBMITTED)->count();
 }
 
 /*
-$previousMonthFrom = date('d-m-Y', strtotime($previousMonthStart)); 
-$previousMonthTo = date('d-m-Y', strtotime($previousMonthEnd));
-*/ 
-$thisMonthFrom = date('d-m-Y', strtotime($monthStartDate)); 
-$thisMonthTo = date('d-m-Y', strtotime($today)); 
+  $previousMonthFrom = date('d-m-Y', strtotime($previousMonthStart));
+  $previousMonthTo = date('d-m-Y', strtotime($previousMonthEnd));
+ */
+$thisMonthFrom = date('d-m-Y', strtotime($monthStartDate));
+$thisMonthTo = date('d-m-Y', strtotime($today));
 
 /*
-$purchasesCountClass = "positive"; if ($purchasesCountThis < $purchasesCountLast) { $purchasesCountClass = "negative";  }
-$purchasesValueClass = "positive"; if ($purchasesValueThis < $purchasesValueLast) { $purchasesValueClass = "negative";  }
-*/
+  $purchasesCountClass = "positive"; if ($purchasesCountThis < $purchasesCountLast) { $purchasesCountClass = "negative";  }
+  $purchasesValueClass = "positive"; if ($purchasesValueThis < $purchasesValueLast) { $purchasesValueClass = "negative";  }
+ */
 
 $oimsSetting = \Olabs\Oims\Models\Settings::instance();
 ?>
 
 <div>
-    <div class="scoreboard-item control-chart col-md-3" data-control="chart-pie">
+    <div class="scoreboard-item control-chart col-md-3" data-control="chart-pie" style="max-height: 200px;">
         <ul>
-            <li data-color="#4caf50">Approved <span><?= $approved  ?></span></li>
+            <li data-color="#4caf50">Approved <span><?= $approved ?></span></li>
             <li data-color="#3f51b5">New <span><?= $new ?></span></li>
             <li data-color=" #ff9800">Submitted <span><?= $submited ?></span></li>
             <li data-color="#f44336">Rejected <span><?= $rejected ?></span></li>
@@ -128,48 +122,74 @@ $oimsSetting = \Olabs\Oims\Models\Settings::instance();
     </div>
 
     <div class="scoreboard-item title-value col-md-9">
-        <?php if(count($overallDetail)){ ?>
-        <div class="scoreboard-item title-value col-md-6">
-            <table class="table table-bordered table-condensed" style="font-size: 0.8em;">
-                <tr> <th rowspan="2">Project</th> <th colspan="2" >Overall Report till today</td> </th>
-                <tr> <th>Count</th> <th>Total Price</th> </tr>
-                <?php foreach($overallDetail as $detail){ 
-                $projectName = isset($assigned_projects[$detail->project_id]) ? $assigned_projects[$detail->project_id] : "";
-                ?>
-                <tr> <th><?=$projectName?></th> <td><?=$detail->total_count?></td> <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($detail->price_total)?></td> </tr>
-                <?php } ?>
+        <?php if (count($overallDetail)) { ?>
+            <div class="scoreboard-item title-value col-md-6">
+                <table class="table table-bordered table-condensed" style="font-size: 0.8em;">
+                    
+                    <tbody style="display: block; max-height: 200px; overflow: auto;">
+                        <tr> 
+                            <th rowspan="2">Projects</th> 
+                            <th colspan="2" >Overall purchases till Today</th>
+                        </tr>
+                        <tr> 
+                            <th>Count</th> 
+                            <th>Total Price</th> 
+                        </tr>
+                        <?php
+                        foreach ($overallDetail as $detail) {
+                            $projectName = isset($assigned_projects[$detail->project_id]) ? $assigned_projects[$detail->project_id] : "";
+                            ?>
+                            <tr> 
+                                <th><?= $projectName ?></th> 
+                                <td><?= $detail->total_count ?></td> 
+                                <td><?= $oimsSetting->getPriceFormattedWithoutCurrency($detail->price_total) ?></td> 
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
 
-            </table>
+                <?php /*
+                  <h4><?= Lang::get("olabs.oims::lang.purchases.purchases_last_month")?></h4>
+                  <p class="<?= $purchasesCountClass ?>"><?= $purchasesCountThis ?></p>
+                  <p class="description">: <?= $purchasesCountLast ?></p>
+                 */ ?>
 
-            <?php /*
-            <h4><?= Lang::get("olabs.oims::lang.purchases.purchases_last_month")?></h4>
-            <p class="<?= $purchasesCountClass ?>"><?= $purchasesCountThis ?></p>
-            <p class="description">: <?= $purchasesCountLast ?></p>
-            */ ?>
-
-        </div>
+            </div>
         <?php } ?>
 
 
-        <?php if(count($thisMonthDetail)){ ?>   
-        <div class="scoreboard-item title-value col-md-6">
+        <?php if (count($thisMonthDetail)) { ?>   
+            <div class="scoreboard-item title-value col-md-6">
 
-            <table class="table table-bordered table-condensed" style="font-size: 0.8em;">
-                <tr> <th rowspan="2">Project</th> <th colspan="2" ><?php echo "From ".$thisMonthFrom." To ".$thisMonthTo  ?></th>
-                <tr> <th>Count</th> <th>Total Price</th> </tr>
-                <?php foreach($thisMonthDetail as $detail){ 
-                $projectName = isset($assigned_projects[$detail->project_id]) ? $assigned_projects[$detail->project_id] : "";
-                ?>
-                <tr> <th><?=$projectName?></th> <td><?=$detail->total_count?></td> <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($detail->price_total)?></td> </tr>
-                <?php } ?> 
-            </table>
+                <table class="table table-bordered table-condensed" style="font-size: 0.8em;">
+                    <tbody style="display: block; max-height: 200px; overflow: auto;">
+                        <tr> 
+                            <th rowspan="2">Projects</th> 
+                            <th colspan="2" ><?= "From " . $thisMonthFrom . " To " . $thisMonthTo ?></th>
+                        </tr>
+                        <tr> 
+                            <th>Count</th> 
+                            <th>Total Price</th> 
+                        </tr>
+                    <?php
+                    foreach ($thisMonthDetail as $detail) {
+                        $projectName = isset($assigned_projects[$detail->project_id]) ? $assigned_projects[$detail->project_id] : "";
+                        ?>
+                        <tr> 
+                            <th><?= $projectName ?></th> 
+                            <td><?= $detail->total_count ?></td> 
+                            <td><?= $oimsSetting->getPriceFormattedWithoutCurrency($detail->price_total) ?></td> 
+                        </tr>
+                    <?php } ?> 
+                    </tbody>
+                </table>
 
 
-            <?php /*
-            <h4><?= Lang::get("olabs.oims::lang.purchases.previous_30_days")?></h4>
-            <p class="<?= $purchasesValueClass ?>"><?= $purchasesValueThis ?></p>
-            <p class="description"><?= Lang::get("olabs.oims::lang.purchases.previous_30_days")?>: <?= $purchasesValueLast ?></p> */ ?>
-        </div>    
+                <?php /*
+                  <h4><?= Lang::get("olabs.oims::lang.purchases.previous_30_days")?></h4>
+                  <p class="<?= $purchasesValueClass ?>"><?= $purchasesValueThis ?></p>
+                  <p class="description"><?= Lang::get("olabs.oims::lang.purchases.previous_30_days")?>: <?= $purchasesValueLast ?></p> */ ?>
+            </div>    
         <?php } ?>
     </div>
     <div class="clearfix"></div>
