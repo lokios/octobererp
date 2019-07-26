@@ -662,6 +662,7 @@ class ReportProjects extends ReportHelper {
         $excel_rows = [];
         foreach ($reports as $report) {
             $revisions = $report->getStatusHistory();
+
             foreach($revisions as $revision){
                 $temp = [];
                 $temp['mr_no'] = $report->reference_number;
