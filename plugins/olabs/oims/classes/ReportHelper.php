@@ -390,6 +390,7 @@ class ReportHelper extends Controller {
 //        dd($searchParams);
         $project = ( isset($searchParams['project']) ) ? $searchParams['project'] : false;
         $supplier = ( trim($searchParams['supplier']) != "" ) ? $searchParams['supplier'] : false;
+        $status = ( trim($searchParams['status']) != "" ) ? $searchParams['status'] : false;
 //        dd($project);
         $baseModel = new \Olabs\Oims\Models\BaseModel();
         $assigned_projects = [];
@@ -404,7 +405,10 @@ class ReportHelper extends Controller {
         if ($supplier) {
             $params['user_id'] = $supplier;
         }
-
+        if ($status) {
+            $params['status'] = $status;
+        }
+        
         if ($from_date && $to_date) {
             $datetime1 = new DateTime($from_date);
             $datetime2 = new DateTime($to_date);

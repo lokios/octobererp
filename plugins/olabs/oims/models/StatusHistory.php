@@ -25,6 +25,10 @@ class StatusHistory extends Model {
             'Backend\Models\User',
             'key' => 'created_by'
         ],
+        'objectstatus' => [
+            'Olabs\Oims\Models\Status',
+            'key' => 'status'
+        ],
     ];
 
     /**

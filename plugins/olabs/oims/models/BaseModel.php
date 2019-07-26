@@ -123,6 +123,15 @@ class BaseModel extends Model {
         return [null => Lang::get("olabs.oims::lang.plugin.please_select")] + $list;
     }
 
+    public function getStatusOptions() {
+
+        $list = Status::select(
+                        DB::raw("name, slug")
+                )->where('status', '1')->lists('name', 'slug');
+        return [null => Lang::get("olabs.oims::lang.plugin.please_select")] + $list;
+//        return $list;
+    }
+    
     public function getCustomerOptions() {
         $filter = self::USER_GROUP_CUSTOMER; //'inventory_customer'; //group code
         $usersList = \Backend\Models\User::select(

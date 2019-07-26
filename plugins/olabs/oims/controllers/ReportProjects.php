@@ -657,7 +657,25 @@ class ReportProjects extends ReportHelper {
 
         $export_data[] = ['title' => 'MR Report', 'header' => $header_columns, 'rows' => $excel_rows];
 
-
+        //MR Revisions
+        $header_columns = ['MR No.', 'Status', 'Comment', 'Created By', 'Created On'];
+        $excel_rows = [];
+        foreach ($reports as $report) {
+            $revisions = $report->getStatusHistory();
+            foreach($revisions as $revision){
+                $temp = [];
+                $temp['mr_no'] = $report->reference_number;
+                $temp['status'] = isset($revision->objectstatus) ? $revision->objectstatus->name : $revision->status;
+                $temp['comment'] = $revision->comment;
+                $temp['created_by'] = $revision->createdBy->getFullNameAttribute();
+                $temp['created_on'] = date("d-m-Y", strtotime($revision->created_at));
+                $excel_rows[] = $temp;
+            }
+        }
+        
+        $export_data[] = ['title' => 'MR Revisions', 'header' => $header_columns, 'rows' => $excel_rows];
+        
+        
         //Summary
         $temp = [];
         $temp['title'] = 'Summary';

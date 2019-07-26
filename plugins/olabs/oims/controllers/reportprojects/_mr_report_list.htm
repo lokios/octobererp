@@ -47,6 +47,8 @@
             ?>
             <tr>
                 <!--            <td><?=$report->id?></td>-->
+                <!--<td><a href="javascript:;" class=" " data-control="popup" data-size="huge" data-handler="onModalPurchasePreview" data-disposable=""><?=$report->reference_number?></a></td>-->
+                <!--<td><a href="javascript:;" class=" " data-control="popup" data-size="giant" data-ajax="<?= Backend::url('olabs/oims/purchases/preview/'.$report->id) ?>" data-disposable=""><?=$report->reference_number?></a></td>-->
                 <td><?=$report->reference_number?></td>
                 <td><?=$report->project->name?></td>
                 <td><?= $oimsSetting->convertToDisplayDate($report->context_date)?></td>

@@ -38,6 +38,16 @@ fields:
         emptyOption: None
 #        required: 1
         type: dropdown
+        
+    status:
+        label: Status
+#        modelClass: Olabs\Oims\Models\Status
+        nameFrom: name
+        type: dropdown
+        emptyOption: None
+        options: getStatusOptions
+        span: right
+
 #    to_date:
 #        label: 'To Date'
 #        oc.commentPosition: ''
