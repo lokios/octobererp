@@ -668,14 +668,37 @@ class BaseModel extends Model {
      * To show status history or the object
      * 
      */
-    public function getStatusHistory() {
+    public function getStatusHistory($status = []) {
 
 
         $list = StatusHistory::where('entity_id', $this->id)
                 ->where('entity_type', $this->getEntityType())
-                ->orderBy('id', 'desc')
-                ->get();
+                ->orderBy('id', 'desc');
+        if(count($status)){
+            $list->where('status', $status);
+        }
+                
 //        dd($list->count());
+        return $list->get();
+    }
+    
+    public function getApprovedCommnets(){
+        $list = array();
+        $status = [Status::STATUS_APPROVED, Status::STATUS_HO_APPROVED];
+        $revisions = $this->getStatusHistory($status);
+        foreach($revisions as $revision){
+            $list[] = $revision->comment;
+        }
+        return $list;
+    }
+    
+    public function getRejectedCommnets(){
+        $list = array();
+        $status = [Status::STATUS_REJECTED, Status::STATUS_HO_REJECTED];
+        $revisions = $this->getStatusHistory($status);
+        foreach($revisions as $revision){
+            $list[] = $revision->comment;
+        }
         return $list;
     }
 

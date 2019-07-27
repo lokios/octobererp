@@ -441,6 +441,7 @@ class ReportHelper extends Controller {
 
         $this->vars['from_date'] = $from_date;
         $this->vars['to_date'] = $to_date;
+        $this->vars['report_status'] = $status;
         $this->vars['reports'] = $reports;
         $this->vars['msg'] = $msg;
     }

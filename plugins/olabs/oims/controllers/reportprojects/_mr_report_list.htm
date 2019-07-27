@@ -21,7 +21,10 @@
                 <th>Supplier</th> 
                 <th>Products</th>
                 <th>Total Price</th>
-
+                <?php if($report_status){ ?>
+                <th>Approved Comments</th>
+                <th>Rejected Comments</th>
+                <?php } ?>
             </tr> 
         </thead> 
         <tbody>
@@ -56,7 +59,10 @@
                 <td><?=$report->supplier ? $report->supplier->fullname : '--' ?></td>
                 <td><?php echo implode("</br> ",$productArray); ?></td>
                 <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($report->total_price)?></td>
-
+                <?php if($report_status){ ?>
+                <td><?= implode(',',$report->getApprovedCommnets())?></td>
+                <td><?= implode(',',$report->getRejectedCommnets())?></td>
+                <?php } ?>
             </tr>
             <? } ?>
         </tbody>

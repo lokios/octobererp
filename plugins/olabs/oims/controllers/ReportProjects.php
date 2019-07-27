@@ -567,6 +567,7 @@ class ReportProjects extends ReportHelper {
         $this->vars['msg'] = false;
         $this->vars['searchFormWidget'] = $searchForm;
         $this->vars['reports'] = $reports;
+        $this->vars['report_status'] = false;
 
         $this->vars['oimsSetting'] = $oimsSetting;
     }
@@ -627,7 +628,7 @@ class ReportProjects extends ReportHelper {
         $reports = $this->vars['reports'];
 
         //Generating Excel
-        $header_columns = ['MR No.', 'Project', 'Entry Date', 'Status', 'Supplier', 'Product', 'Quantity', 'Unit', 'Unit Price', 'Total Price'];
+        $header_columns = ['MR No.', 'Project', 'Entry Date', 'Status', 'Supplier', 'Product', 'Quantity', 'Unit', 'Unit Price', 'Total Price', 'Approved Comments', 'Reject Comments'];
 
         //MR Report
         $excel_rows = [];
@@ -639,6 +640,8 @@ class ReportProjects extends ReportHelper {
             $grand_total += $report->total_price;
             $products = $report->products ? $report->products : array();
             $status_count[$report->status_name] = isset($status_count[$report->status_name]) ? $status_count[$report->status_name] + 1 : 1;
+            $approved_comments = $report->getApprovedCommnets();
+            $rejected_comments = $report->getRejectedCommnets();
             foreach ($products as $product) {
                 $temp = [];
                 $temp['mr_no'] = $report->reference_number;
@@ -649,8 +652,16 @@ class ReportProjects extends ReportHelper {
                 $temp['product'] = $product->product ? $product->product->title : '';
                 $temp['quantity'] = $product->quantity;
                 $temp['unit'] = $product->unit;
-                $temp['unit_price'] = $oimsSetting->getPriceFormattedWithoutCurrency($product->unit_price);
-                $temp['total_price'] = $oimsSetting->getPriceFormattedWithoutCurrency($product->total_price);
+//                $temp['unit_price'] = $oimsSetting->getPriceFormattedWithoutCurrency($product->unit_price);
+                $temp['unit_price'] = $product->unit_price;
+//                $temp['total_price'] = $oimsSetting->getPriceFormattedWithoutCurrency($product->total_price);
+                $temp['total_price'] = $product->total_price;
+                $temp['approved_comments'] = implode(',', $approved_comments);
+                $temp['rejected_comments'] = implode(',', $rejected_comments);
+                //empty the comments
+                $approved_comments = [];
+                $rejected_comments = [];
+                
                 $excel_rows[] = $temp;
             }
         }
