@@ -668,7 +668,7 @@ class BaseModel extends Model {
      * To show status history or the object
      * 
      */
-    public function getStatusHistory($status = []) {
+    public function getStatusHistory($status = [], $only_comments = false) {
 
 
         $list = StatusHistory::where('entity_id', $this->id)
@@ -676,6 +676,10 @@ class BaseModel extends Model {
                 ->orderBy('id', 'desc');
         if(count($status)){
             $list->where('status', $status);
+        }
+        
+        if($only_comments){
+            $list->whereNotNull('comment');
         }
                 
 //        dd($list->count());
@@ -685,7 +689,8 @@ class BaseModel extends Model {
     public function getCommnets(){
         $list = array();
 //        $status = [Status::STATUS_APPROVED, Status::STATUS_HO_APPROVED];
-        $revisions = $this->getStatusHistory();
+//        $status = [Status::STATUS_APPROVED, Status::STATUS_HO_APPROVED];
+        $revisions = $this->getStatusHistory([], true);
         foreach($revisions as $revision){
             if($revision->comment != ''){
                 $list[] = $revision->comment;
