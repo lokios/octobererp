@@ -333,5 +333,36 @@ class Notifications extends Model {
         
         return TRUE;
     }
+    
+    
+    public static function setNotificationPublishedAt($params = [], $at = false) {
+        
+        if (!isset($params['target_id'])) {
+            $user = BackendAuth::getUser();
+            $params['target_id'] = $user->id;
+            $params['target_type'] = 'user';
+        }
+
+        $params['target_type'] = isset($params['target_type']) ? $params['target_type'] : 'user';
+        $params['notification_type'] = isset($params['notification_type']) ? $params['notification_type'] : 'web_push';
+        $params['web_push_status'] = isset($params['web_push_status']) ? $params['web_push_status'] : 'unread';
+        
+        if (!isset($params['id'])) {
+            return false;
+        }
+
+        if ($params['id'] == 'all') {
+            unset($params['id']);
+        }
+        
+        if(!$at){
+            $at = date('Y-m-d H:i:s');
+        }
+
+        $model = Notifications::where($params)
+                ->update(['published_at' => $at]);
+        
+        return TRUE;
+    }
 
 }
