@@ -1,4 +1,4 @@
-<?php namespace Olabs\Oims;
+<?php namespace Olabs\Oims\Models;
 
 use Backend\Classes\AuthManager;
 use Exception;
@@ -51,4 +51,6 @@ class UserBehavior extends ModelBehavior
         $throttle->unban();
     }
 
+    
+    
 }

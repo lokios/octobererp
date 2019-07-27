@@ -273,29 +273,34 @@ class Plugin extends PluginBase {
         // -----------------------------------------------------------
         //Banned Backend User
         User::extend(function (User $model) {
-            $model->implement[] = 'Olabs\Oims\UserBehavior';
+            $model->implement[] = 'Olabs\Oims\Models\UserBehavior';
         });
 
-        $user = BackendAuth::getUser();
+//        $user = BackendAuth::getUser();
 //        dd($user);
 //        if ($user AND $user->is_superuser) {
-            $this->addIsBannedColumn();
-            $this->addIsBannedField();
+        $this->addIsBannedColumn();
+        $this->addIsBannedField();
 //        }
     }
-
+    
     private function addIsBannedColumn() {
         Users::extendListColumns(function ($list, $model) {
 
             if (!$model instanceof User) {
                 return;
             }
-
+            $user = BackendAuth::getUser();
+            if(!$user->is_superuser){
+                return;
+            }
+            
             $list->addColumns([
                 'user_is_banned' => [
                     'label' => 'Banned',
                     'type' => 'switch',
                     'span' => 'auto',
+//                    'hidden' => 'isAdmin()',
                 ],
             ]);
         });
@@ -307,12 +312,17 @@ class Plugin extends PluginBase {
             if (!$model instanceof User || $form->isNested) {
                 return;
             }
-
+            $user = BackendAuth::getUser();
+            if(!$user->is_superuser){
+                return;
+            }
+            
             $form->addFields([
                 'user_is_banned' => [
                     'label' => 'Banned',
                     'comment' => 'Banned user can\'t login',
                     'type' => 'switch',
+//                    'hidden' => 'isAdmin()',
                 ],
             ]);
         });
