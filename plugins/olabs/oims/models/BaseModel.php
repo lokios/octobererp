@@ -682,6 +682,16 @@ class BaseModel extends Model {
         return $list->get();
     }
     
+    public function getCommnets(){
+        $list = array();
+//        $status = [Status::STATUS_APPROVED, Status::STATUS_HO_APPROVED];
+        $revisions = $this->getStatusHistory();
+        foreach($revisions as $revision){
+            $list[] = $revision->comment;
+        }
+        return $list;
+    }
+    
     public function getApprovedCommnets(){
         $list = array();
         $status = [Status::STATUS_APPROVED, Status::STATUS_HO_APPROVED];

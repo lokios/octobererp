@@ -22,8 +22,7 @@
                 <th>Products</th>
                 <th>Total Price</th>
                 <?php if($report_status){ ?>
-                <th>Approved Comments</th>
-                <th>Rejected Comments</th>
+                <th>Comments</th>
                 <?php } ?>
             </tr> 
         </thead> 
@@ -60,8 +59,8 @@
                 <td><?php echo implode("</br> ",$productArray); ?></td>
                 <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($report->total_price)?></td>
                 <?php if($report_status){ ?>
-                <td><?= implode(',',$report->getApprovedCommnets())?></td>
-                <td><?= implode(',',$report->getRejectedCommnets())?></td>
+                <td><?= implode(',',$report->getCommnets())?></td>
+                <!--<td><? // implode(',',$report->getRejectedCommnets())?></td>-->
                 <?php } ?>
             </tr>
             <? } ?>
