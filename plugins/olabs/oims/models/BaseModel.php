@@ -54,10 +54,6 @@ class BaseModel extends Model {
 
     public function beforeCreate() {
 
-//        if($this->status == ''){
-//            $this->status = Status::STATUS_NEW;
-//        }
-
         $user = BackendAuth::getUser();
         if ($this->created_by == '') {
             $this->created_by = $user->id;
@@ -88,9 +84,6 @@ class BaseModel extends Model {
 
         $user = BackendAuth::getUser();
         if (!$user->isAdmin()) {
-//            foreach ($user->projects as $project) {
-//                $list[$project->id] = $project->name;
-//            }
             $list = $user->projects->lists('name', 'id');
         } else {
             $list = Project::where('status', self::STATUS_ACTIVE)->get()->lists('name', 'id');
@@ -104,9 +97,6 @@ class BaseModel extends Model {
 
         $user = BackendAuth::getUser();
         if (!$user->isAdmin()) {
-//            foreach ($user->projects as $project) {
-//                $list[$project->id] = $project->name;
-//            }
             $list = $user->projects->lists('name', 'id');
         } else {
             $list = Project::all()->lists('name', 'id');
@@ -197,32 +187,7 @@ class BaseModel extends Model {
     }
     
 
-    public function onSubmitForApproval() {
-        $msg = [];
-        //check for current status it should be new or rejected for resubmit
-        if ($this->status != Status::STATUS_NEW && $this->status != Status::STATUS_REJECTED) {
-            $msg['s'] = false;
-            $msg['m'] = 'Current status of recored is not new or rejected!';
-
-            return $msg;
-        }
-
-        $this->status = Status::STATUS_SUBMITTED;
-        $this->save();
-
-        //save in Status history
-        $history = new StatusHistory();
-        $history->_statusChange($this);
-
-        //generate notification
-        $this->sendNotification();
-
-        $msg['s'] = true;
-        $msg['m'] = 'Record submitted for approval successfully!';
-
-
-        return $msg;
-    }
+    
 
     /*
      * Load models by CNAME
@@ -240,27 +205,7 @@ class BaseModel extends Model {
         return false;
     }
 
-//    public function onEventAsync($data) {
-//
-//        try {
-//            return $this->_onEventAsync($data);
-//        } catch (\Exception $e) {
-//            return ['e' => $e->getMessage()];
-//        }
-//    }
-//
-//    public function _onEventAsync($data) {
-//        
-//        Queue::push(function($job) use ($data) {
-//
-//            $service = new BaseModel();
-//            $service->notify($data);
-//
-//            $job->delete();
-//        });
-//
-//        return '200';
-//    }
+
 
     public function notify($data) {
 
@@ -287,30 +232,57 @@ class BaseModel extends Model {
         $entity_project = $model->project_id;
         switch ($model->status) {
             case Status::STATUS_SUBMITTED:
-                $filter = self::USER_ROLE_PROJECT_ENCHARGE;
+                $filter = [self::USER_ROLE_PROJECT_ENCHARGE];
                 //get Project Encharge for the same project
                 $to_users = \Backend\Models\User::select('*')->whereHas('projects', function($project) use ($entity_project) {
                             $project->where('id', $entity_project);
                         })->whereHas('role', function($role) use ($filter) {
-                            $role->where('code', $filter);
+                            $role->whereIn('code', $filter);
                         })->get();
                 break;
             case Status::STATUS_APPROVED:
-                $filter = self::USER_ROLE_HO_ACCOUNTANT;
+                $filter = [self::USER_ROLE_HO_ACCOUNTANT, self::USER_ROLE_PROJECT_ACCOUNTANT];
                 //get Project Encharge for the same project
                 $to_users = \Backend\Models\User::select('*')->whereHas('projects', function($project) use ($entity_project) {
                             $project->where('id', $entity_project);
                         })->whereHas('role', function($role) use ($filter) {
-                            $role->where('code', $filter);
+                            $role->whereIn('code', $filter);
+                        })->get();
+                break;
+            case Status::STATUS_REJECTED:
+                $filter = [self::USER_ROLE_PROJECT_ACCOUNTANT, self::USER_ROLE_ADMIN];
+                //get Project Encharge for the same project
+                $to_users = \Backend\Models\User::select('*')->whereHas('projects', function($project) use ($entity_project) {
+                            $project->where('id', $entity_project);
+                        })->whereHas('role', function($role) use ($filter) {
+                            $role->whereIn('code', $filter);
                         })->get();
                 break;
             case Status::STATUS_HO_SUBMITTED:
-                $filter = self::USER_ROLE_HO_ACCOUNTANT;
+                $filter = [self::USER_ROLE_HO_ACCOUNTANT];
                 //get Project Encharge for the same project
                 $to_users = \Backend\Models\User::select('*')->whereHas('projects', function($project) use ($entity_project) {
                             $project->where('id', $entity_project);
                         })->whereHas('role', function($role) use ($filter) {
-                            $role->where('code', $filter);
+                            $role->whereIn('code', $filter);
+                        })->get();
+                break;
+            case Status::STATUS_HO_APPROVED:
+                $filter = [self::USER_ROLE_PROJECT_ACCOUNTANT];
+                //get Project Encharge for the same project
+                $to_users = \Backend\Models\User::select('*')->whereHas('projects', function($project) use ($entity_project) {
+                            $project->where('id', $entity_project);
+                        })->whereHas('role', function($role) use ($filter) {
+                            $role->whereIn('code', $filter);
+                        })->get();
+                break;
+            case Status::STATUS_HO_REJECTED:
+                $filter = [self::USER_ROLE_PROJECT_ACCOUNTANT, self::USER_ROLE_ADMIN];
+                //get Project Encharge for the same project
+                $to_users = \Backend\Models\User::select('*')->whereHas('projects', function($project) use ($entity_project) {
+                            $project->where('id', $entity_project);
+                        })->whereHas('role', function($role) use ($filter) {
+                            $role->whereIn('code', $filter);
                         })->get();
                 break;
         }
@@ -332,56 +304,36 @@ class BaseModel extends Model {
         $obj->onEventAsync($data);
         return true;
 
-//        $template_code = $this->getEntityType() . '_' . $this->status;
-//        $params = [
-//            '{{reference_number}}' => isset($this->reference_number) ? $this->reference_number : '',
-//            '{{id}}' => $this->id,
-//        ];
-//        $to_users = [];
-//        $from_user = [];
-//
-//        $entity_project = $this->project_id;
-//        switch ($this->status) {
-//            case Status::STATUS_SUBMITTED:
-//                $filter = self::USER_ROLE_PROJECT_ENCHARGE;
-//                //get Project Encharge for the same project
-//                $to_users = \Backend\Models\User::select('*')->whereHas('projects', function($project) use ($entity_project) {
-//                            $project->where('id', $entity_project);
-//                        })->whereHas('role', function($role) use ($filter) {
-//                            $role->where('code', $filter);
-//                        })->get();
-//                break;
-//            case Status::STATUS_APPROVED:
-//                $filter = self::USER_ROLE_HO_ACCOUNTANT;
-//                //get Project Encharge for the same project
-//                $to_users = \Backend\Models\User::select('*')->whereHas('projects', function($project) use ($entity_project) {
-//                            $project->where('id', $entity_project);
-//                        })->whereHas('role', function($role) use ($filter) {
-//                            $role->where('code', $filter);
-//                        })->get();
-//                break;
-//            case Status::STATUS_HO_SUBMITTED:
-//                $filter = self::USER_ROLE_HO_ACCOUNTANT;
-//                //get Project Encharge for the same project
-//                $to_users = \Backend\Models\User::select('*')->whereHas('projects', function($project) use ($entity_project) {
-//                            $project->where('id', $entity_project);
-//                        })->whereHas('role', function($role) use ($filter) {
-//                            $role->where('code', $filter);
-//                        })->get();
-//                break;
-//        }
-//
-//        //If no user found then return
-//        if (!count($to_users)) {
-//            return true;
-//        }
-//
-//        //Notification model function call
-//        $pushService = new \Olabs\Messaging\Models\Notification();
-//        $status = $pushService->initialize($template_code, $params, $to_users, $from_user);
-//        return $status;
     }
 
+    
+    public function onSubmitForApproval() {
+        $msg = [];
+        //check for current status it should be new or rejected for resubmit
+        if ($this->status != Status::STATUS_NEW && $this->status != Status::STATUS_REJECTED) {
+            $msg['s'] = false;
+            $msg['m'] = 'Current status of recored is not new or rejected!';
+
+            return $msg;
+        }
+
+        $this->status = Status::STATUS_SUBMITTED;
+        $this->save();
+
+        //save in Status history
+        $history = new StatusHistory();
+        $history->_statusChange($this);
+
+        //generate notification
+        $this->sendNotification();
+
+        $msg['s'] = true;
+        $msg['m'] = 'Record submitted for approval successfully!';
+
+
+        return $msg;
+    }
+    
     public function onApproved() {
         $msg = [];
         //check for current status
@@ -426,6 +378,8 @@ class BaseModel extends Model {
         $history = new StatusHistory();
         $history->_statusChange($this);
 
+        //generate notification
+        $this->sendNotification();
 
         $msg['s'] = true;
         $msg['m'] = 'Record rejected successfully!';
@@ -480,6 +434,8 @@ class BaseModel extends Model {
         $history = new StatusHistory();
         $history->_statusChange($this);
 
+        //generate notification
+        $this->sendNotification();
 
         $msg['s'] = true;
         $msg['m'] = 'Record approved by HO successfully!';
@@ -505,7 +461,9 @@ class BaseModel extends Model {
         $history = new StatusHistory();
         $history->_statusChange($this);
 
-
+        //generate notification
+        $this->sendNotification();
+        
         $msg['s'] = true;
         $msg['m'] = 'Record rejected by HO successfully!';
 
@@ -688,9 +646,8 @@ class BaseModel extends Model {
     
     public function getCommnets(){
         $list = array();
-//        $status = [Status::STATUS_APPROVED, Status::STATUS_HO_APPROVED];
-//        $status = [Status::STATUS_APPROVED, Status::STATUS_HO_APPROVED];
-        $revisions = $this->getStatusHistory([], true);
+        $status = [];
+        $revisions = $this->getStatusHistory($status, true);
         foreach($revisions as $revision){
             if($revision->comment != ''){
                 $list[] = $revision->comment;
@@ -745,18 +702,6 @@ class BaseModel extends Model {
         $options['10'] = '10 per sheet (4" x 2")';
 
 
-//                <select name="style" class="form-control tip" id="style" required="required" tabindex="-1" title="" style="display: none;" data-original-title="Style" data-bv-field="style">
-//<option value="">Select Style</option>
-//<option value="40" selected="selected">40 per sheet (a4) (1.799" x 1.003")</option>
-//<option value="30">30 per sheet (2.625" x 1")</option>
-//<option value="24">24 per sheet (a4) (2.48" x 1.334")</option>
-//<option value="20">20 per sheet (4" x 1")</option>
-//<option value="18">18 per sheet (a4) (2.5" x 1.835")</option>
-//<option value="14">14 per sheet (4" x 1.33")</option>
-//<option value="12">12 per sheet (a4) (2.5" x 2.834")</option>
-//<option value="10">10 per sheet (4" x 2")</option>
-//<option value="50">Continuous feed</option>
-//</select>
         return $options;
     }
 
