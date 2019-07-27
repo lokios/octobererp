@@ -268,7 +268,7 @@ class BaseModel extends Model {
                         })->get();
                 break;
             case Status::STATUS_HO_APPROVED:
-                $filter = [self::USER_ROLE_PROJECT_ACCOUNTANT];
+                $filter = [self::USER_ROLE_PROJECT_ACCOUNTANT, self::USER_ROLE_PROJECT_ENCHARGE];
                 //get Project Encharge for the same project
                 $to_users = \Backend\Models\User::select('*')->whereHas('projects', function($project) use ($entity_project) {
                             $project->where('id', $entity_project);
@@ -277,7 +277,7 @@ class BaseModel extends Model {
                         })->get();
                 break;
             case Status::STATUS_HO_REJECTED:
-                $filter = [self::USER_ROLE_PROJECT_ACCOUNTANT, self::USER_ROLE_ADMIN];
+                $filter = [self::USER_ROLE_PROJECT_ACCOUNTANT, self::USER_ROLE_PROJECT_ENCHARGE, self::USER_ROLE_ADMIN];
                 //get Project Encharge for the same project
                 $to_users = \Backend\Models\User::select('*')->whereHas('projects', function($project) use ($entity_project) {
                             $project->where('id', $entity_project);
