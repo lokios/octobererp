@@ -687,7 +687,10 @@ class BaseModel extends Model {
 //        $status = [Status::STATUS_APPROVED, Status::STATUS_HO_APPROVED];
         $revisions = $this->getStatusHistory();
         foreach($revisions as $revision){
-            $list[] = $revision->comment;
+            if($revision->comment != ''){
+                $list[] = $revision->comment;
+            }
+            
         }
         return $list;
     }
@@ -697,7 +700,9 @@ class BaseModel extends Model {
         $status = [Status::STATUS_APPROVED, Status::STATUS_HO_APPROVED];
         $revisions = $this->getStatusHistory($status);
         foreach($revisions as $revision){
-            $list[] = $revision->comment;
+            if($revision->comment != ''){
+                $list[] = $revision->comment;
+            }
         }
         return $list;
     }
@@ -707,7 +712,9 @@ class BaseModel extends Model {
         $status = [Status::STATUS_REJECTED, Status::STATUS_HO_REJECTED];
         $revisions = $this->getStatusHistory($status);
         foreach($revisions as $revision){
-            $list[] = $revision->comment;
+            if($revision->comment != ''){
+                $list[] = $revision->comment;
+            }
         }
         return $list;
     }
