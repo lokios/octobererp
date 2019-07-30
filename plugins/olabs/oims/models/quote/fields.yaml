@@ -237,7 +237,47 @@ tabs:
             span: right
             size: small
             
-        
+        meta[supplier_quote_date]:
+            tab: olabs.oims::lang.quotes.terms
+            label: Supplier Quote Date
+            type: text
+            span: auto
+            
+        meta[challan_days]:
+            tab: olabs.oims::lang.quotes.terms
+            label: Challan Days
+            type: text
+            span: auto
+            
+        meta[payment_days]:
+            tab: olabs.oims::lang.quotes.terms
+            label: Payment Days
+            type: text
+            span: auto
+            
+        meta[material_delivery_days]:
+            tab: olabs.oims::lang.quotes.terms
+            label: Material Delivery Days
+            type: text
+            span: auto
+            
+        meta[advance_payment]:
+            tab: olabs.oims::lang.quotes.terms
+            label: Advance Payments
+            type: text
+            span: auto
+            
+        meta[first_installment]:
+            tab: olabs.oims::lang.quotes.terms
+            label: First Installment
+            type: text
+            span: auto
+            
+        meta[second_installment]:
+            tab: olabs.oims::lang.quotes.terms
+            label: Second Installment
+            type: text
+            span: auto
 
 
 

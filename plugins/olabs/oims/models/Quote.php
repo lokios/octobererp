@@ -91,7 +91,8 @@ class Quote extends BaseModel {
         // Products
         // propably save ID + qty + price, all other can be from producst DB
         'products_json',
-        'paid_detail'
+        'paid_detail',
+        'meta'
     ];
     protected $dates = ['paid_date'];
 
@@ -154,18 +155,18 @@ class Quote extends BaseModel {
         return Product::get()->lists("title", "id");
     }
 
-    public function getUserOptions() {
-        if (class_exists("\RainLab\User\Models\User")) {
-            $usersList = \RainLab\User\Models\User::select(
-                            DB::raw("CONCAT_WS(' ', id, '|', name, surname) AS full_name, id")
-                    )->lists('full_name', 'id');
-            return [null => Lang::get("olabs.oims::lang.plugin.please_select")] + $usersList;
-        } else {
-            return [
-                null => "Firstly install Rainlab User plugin"
-            ];
-        }
-    }
+//    public function getUserOptions() {
+//        if (class_exists("\RainLab\User\Models\User")) {
+//            $usersList = \RainLab\User\Models\User::select(
+//                            DB::raw("CONCAT_WS(' ', id, '|', name, surname) AS full_name, id")
+//                    )->lists('full_name', 'id');
+//            return [null => Lang::get("olabs.oims::lang.plugin.please_select")] + $usersList;
+//        } else {
+//            return [
+//                null => "Firstly install Rainlab User plugin"
+//            ];
+//        }
+//    }
 
     /**
      * OBSOLETE 12.11.2016 
@@ -264,13 +265,15 @@ class Quote extends BaseModel {
         // Create invoice html
         $oimsSetting = \Olabs\Oims\Models\Settings::instance();
         
+        if($this->quote_type == 'material'){
+            $template_style = str_replace("\r\n", "", $oimsSetting->po_template_style);
+            $template_content = str_replace("\r\n", "", $oimsSetting->po_template_content);
+        }else {
+            $template_style = str_replace("\r\n", "", $oimsSetting->invoice_template_style);
+            $template_content = str_replace("\r\n", "", $oimsSetting->invoice_template_content);
+        }
         
         
-        $template_style = str_replace("\r\n", "", $oimsSetting->invoice_template_style);
-
-        
-        
-        $template_content = str_replace("\r\n", "", $oimsSetting->invoice_template_content);
         $template_content = str_replace("\t", "", $template_content);
 
         $html = "";
@@ -418,6 +421,27 @@ class Quote extends BaseModel {
         
         $temp = empty($this->operational_terms) ? "N/A" : $this->operational_terms;
         $html = str_replace("{{operational_terms}}", $temp, $html);
+        
+        $temp = empty($this->meta['supplier_quote_date']) ? "" : $this->meta['supplier_quote_date'];
+        $html = str_replace("{{supplier_quote_date}}", $temp, $html);
+        
+        $temp = empty($this->meta['challan_days']) ? "N/A" : $this->meta['challan_days'];
+        $html = str_replace("{{challan_days}}", $temp, $html);
+        
+        $temp = empty($this->meta['payment_days']) ? "N/A" : $this->meta['payment_days'];
+        $html = str_replace("{{payment_days}}", $temp, $html);
+        
+        $temp = empty($this->meta['material_delivery_days']) ? "N/A" : $this->meta['material_delivery_days'];
+        $html = str_replace("{{material_delivery_days}}", $temp, $html);
+        
+        $temp = empty($this->meta['advance_payment']) ? "N/A" : $this->meta['advance_payment'];
+        $html = str_replace("{{advance_payment}}", $temp, $html);
+        
+        $temp = empty($this->meta['first_installment']) ? "N/A" : $this->meta['first_installment'];
+        $html = str_replace("{{first_installment}}", $temp, $html);
+        
+        $temp = empty($this->meta['second_installment']) ? "N/A" : $this->meta['second_installment'];
+        $html = str_replace("{{second_installment}}", $temp, $html);
 
         $html = str_replace("{{quote_id}}", $this->id, $html);
 
@@ -465,6 +489,7 @@ class Quote extends BaseModel {
 
         $html = str_replace("{{total_price}}", $oimsSetting->getPriceFormattedWithoutCurrency($this->total_price), $html);
         $html = str_replace("{{total_tax}}", $oimsSetting->getPriceFormattedWithoutCurrency($this->total_tax), $html);
+        $html = str_replace("{{total_price_in_word}}", $oimsSetting->getIndianCurrency($this->total_price), $html);
 
         // products + shipping
         $htmlProducts = "";
@@ -561,7 +586,9 @@ class Quote extends BaseModel {
         }
         
         $html = str_replace($taxTemplate,$taxTableRow, $html);
-
+        echo $html;
+        exit();
+        
         // Generate invoice
         $fileName = 'invoice_' . $this->id . '_' . time();
         $invoiceTempFile = temp_path() . "/" . $fileName . ".pdf";

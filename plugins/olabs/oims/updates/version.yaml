@@ -703,3 +703,6 @@
 1.11.55:
     - 'Updated table olabs_oims_units'
     - builder_table_update_olabs_oims_units_3.php
+1.11.56:
+    - 'Updated table olabs_oims_quotes'
+    - builder_table_update_olabs_oims_quotes_20.php

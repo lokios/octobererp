@@ -1,0 +1,382 @@
+<html>
+    <head>
+        <style>
+            @page { margin: 0px; }    
+            .invoice-box {
+                max-width: 800px;
+                /*border: 1px solid #eee;*/
+                line-height: 16px;
+                font-family: 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif';
+                color: #555;
+                position: relative;
+                margin: 15px;
+                background: #FFFFFF;
+                font-size: 12px;
+                width: 100%;
+            }
+            .invoice-box td {
+                vertical-align: top;
+            }
+            .tac {
+                text-align: center !important;
+            }
+            
+            .tal {
+                text-align: left !important;
+            }
+
+            .tline {
+
+                text-decoration: underline;
+            }
+
+            .fb{
+                font-weight: bold;
+            }
+
+            .items th,
+            .items td {
+                /*padding: 7px;*/
+                /*background: #fff;*/
+                text-align: center;
+                border-bottom: 1px solid #eee;
+            }
+            .invoice_detail_table {
+                width: 100%;
+                border-collapse: collapse;
+                border-spacing: 0;
+                font-size: 1.0em;
+                margin-bottom: 20px;
+            }
+
+            .invoice_detail_table .heading-full {
+                width: 100%;
+                text-align: left;
+                /*border-bottom: 1px solid #c2c2c2;*/
+                padding-bottom: 5px;
+                /*color: #555;*/
+            }
+            
+            .invoice_detail_table .heading {
+                width: 75%;
+                text-align: left;
+                /*border-bottom: 1px solid #c2c2c2;*/
+                padding-bottom: 5px;
+                /*color: #555;*/
+            }
+
+            .invoice_detail_table .content {
+                text-align: left;
+                border-bottom: 1px solid #c2c2c2;
+                padding-bottom: 5px;
+                /*color: #555;*/
+            }
+
+            .authorize_signatory_table .td {
+                width: 100%;
+                text-align: left;
+                /*border-bottom: 1px solid #c2c2c2;*/
+                padding: 10px;
+                color: #555;
+            }
+
+/*            .authorize_signatory_table .content {
+                text-align: left;
+                border-bottom: 1px solid #c2c2c2;
+                padding: 10px;
+                color: #555;
+            }*/
+            .footer {
+                color: #777777;
+                width: 100%;
+                height: 30px;
+                position: fixed;
+                bottom: 0px;
+                border-top: 1px solid #AAAAAA;
+                padding: 8px 0;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <!--Header-->
+        <table class="invoice-box header">
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="tac">
+                            <h2 class="fb tline">VSS GROUP OF COMPANIES</h2>
+                            <h3 class="fb ">{{company_name}}</h3>
+                            <h2 class="fb tline"><strong>PURCHASE ORDER</strong></h2>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+       
+        <!--Invoice Details-->
+        <table class="invoice-box">
+            <tbody>
+                <tr>
+                    <td>
+                        <br>
+                    </td>
+                    <td>
+                        <div class="invoice">
+                            <div>PO No: {{order_id}}</div>
+                            <div>Date: {{context_date}}</div>
+                            <br>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:49%">
+                        <div class="client">
+                            <div class="fb">TO,</div>
+                            <div class="name">M/S {{supplier}}d</div>
+                            <div class="address">Add: {{supplier_full_address}}</div>
+                            <div class="email">Email: <a href="mailto:{{supplier_contact_email}}">{{supplier_contact_email}}</a></div>
+                            <div>Contact Person: {{supplier_contact_person}}</div>
+                            <div>Contact No.: {{supplier_contact_phone}}</div>
+                            <div>GST No.: {{supplier_gst_number}}</div>
+                                
+                        </div>
+                        
+                    </td>
+                    <td>
+                        
+                        <div class="invoice">
+                            <div class="fb">FROM,</div>
+                            <div class="name">{{company_name}}</div>
+                            <div class="address">Regd Off: {{company_full_address}}</div>
+                            <div class="email">Email: <a href="mailto:{{company_contact_email}}">{{company_contact_email}}</a></div>
+                            <div>Contract Person: {{company_contact_phone}}</div>
+                            <div>Contact No:{{company_contact_phone}}</div>
+                            <div>GST No.: {{project_gst_number}}</div>
+                            
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td>
+                        <div class="invoice">
+                            <div class="fb">Material Delivery & Billing Address.</div>
+                            <div class="name">Site: {{project_name}}</div>
+                            <div class="address">Address: {{project_full_address}}</div>
+                            <div>Contract Person: {{project_contact_person}}</div>
+                            <div>Contact No:{{project_contact_phone}}</div>
+                            
+                           
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        
+       
+        
+        
+        <!--Subjects-->
+
+        <table class="invoice-box">
+            <tbody>
+                <tr>
+                    <td>
+                        <!--<div class="subject">Please prepare challan / bill in the name of: {{challan_name}}</div>-->
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="subject">
+
+                            <h4>Subject : {{subject}}</h4>
+
+                            <p>Dear Sir,
+                                <br>With reference to your quotation dated {{supplier_quote_date}} and subsequent discussion and negotiation regarding  
+                                quantity and rates to we are pleased to place order for supply of materials to above mention site. 
+                            The quantity rates and terms & condition for supply as agreed or as under.
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!--Descriptions-->
+
+        <table class="invoice-box items">
+            <thead>
+                <tr>
+                    <th class="no">S.No.</th>
+                    <th class="desc">MATERIAL DESCRIPTION</th>
+                    <th class="unit">UNIT</th>
+                    <th class="qty">QUANTITY</th>
+                    <th class="unit">RATE/UNIT</th>
+                    <th class="tax">TAX %</th>
+                    <th class="total">AMOUNT</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="products_row">
+                    <td class="no">{{product_sno}}</td>
+                    <td class="desc">{{product_title}}</td>
+                    <td class="unit">{{product_unit}}</td>
+                    <td class="qty">{{product_qty}}</td>
+                    <td class="tax">{{product_rate}}</td>
+                    <td class="total">{{product_total_tax}}</td>
+                    <td class="total">{{product_total_price}}</td>
+                </tr>
+                
+                <tr>
+                    <td colspan="4">
+                        <br>
+                    </td>
+                    <td class="summary_heading" colspan="2">TOTAL GST AMOUNT</td>
+                    <td class="summary_heading">{{total_tax}}</td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <br>
+                    </td>
+                    <td class="summary_heading" colspan="2">TOTAL NET AMOUNT</td>
+                    <td class="summary_heading">{{total_price}}</td>
+                </tr>
+                <tr>
+                    <td colspan="7" class="tal" >
+                        In words Rs.: {{total_price_in_word}} Only.
+                    </td>
+                    
+                </tr>
+                
+            </tbody>
+        </table>
+        
+        
+        
+        
+        <!--Footer-->
+        <table class="invoice-box">
+            <tbody>
+                <tr>
+                    <td>
+                        <table class="invoice_detail_table">
+                            <tbody>
+                                <tr>
+                                    <td colspan="2" class="heading-full fb">Terms &amp; Conditions:</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="heading-full">1) Material to be supplied will be of specified quality and quantity.</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="heading-full">2) Delivery of materials will be within specified period/urgent.</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="heading-full">3) Delivery of materials at site will be along with bill and challan.</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="heading-full">4) Purchase order No. and date will be mentioned in the bill.</td>
+                                </tr>
+                                <tr>
+                                    <td class="heading">5) GST payment challan will be submitted at site within days of payment.</td>
+                                    <td class="content">{{challan_days}}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="heading-full">6) Payment terms:</td>
+                                </tr>
+                                <tr>
+                                    <td class="heading">&nbsp;&nbsp;a) Advance payment along with purchase order.</td>
+                                    <td class="content">{{advance_payment}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="heading">&nbsp;&nbsp;b) Payment after Days of delivery of material at site.</td>
+                                    <td class="content">{{payment_days}}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="heading-full">&nbsp;&nbsp;c) Payment in installments</td>
+                                </tr>
+                                <tr>
+                                    <td class="heading">&nbsp;&nbsp;&nbsp;&nbsp;1st installment...</td>
+                                    <td class="content">{{first_installment}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="heading">&nbsp;&nbsp;&nbsp;&nbsp;2nd Installment...</td>
+                                    <td class="content">{{second_installment}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="heading">7) GST as applicable will be inclusive /extra</td>
+                                    <td class="content">{{tax_method}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="heading">8) Loading will be inclusive/extra</td>
+                                    <td class="content">{{loading}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="heading">9) Road freight will be inclusive /extra</td>
+                                    <td class="content">{{freight}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="heading">10) Delivery of materials at site will be days after purchase order/Payment</td>
+                                    <td class="content">{{material_delivery_days}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="heading">11) Test certificate will be furnished if required.</td>
+                                    <td class="content">{{test_certificate}}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="heading-full fb">12) ANY DISPUTES ARISING OUT WILL BE SUBJECT TO DELHI JURISDICTION ONLY.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        
+        <table class="invoice-box authorize_signatory_table">
+
+            <tbody>
+                <tr>
+                    <td class="fb">AUTHORISED SIGNATORY</td>
+                </tr>
+                <tr>
+                    <td><br></td>
+                </tr>
+                <tr>
+                    <td class="fb">{{company_name}}</td>
+                </tr>
+                <tr>
+                    <td class="fb">Copy to:</td>
+                </tr>
+                <tr>
+                    <td>1) Site Incharge</td>
+                </tr>
+                <tr>
+                    <td>2) Site Account (HO)</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        
+        
+        
+
+<!--        <table class="invoice-box">
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="footer">Invoice was created on a computer and is valid without the signature and seal.</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>-->
+
+    </body>
+</html>

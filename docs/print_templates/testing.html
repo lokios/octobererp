@@ -1,0 +1,572 @@
+<html>
+
+    <head>
+        <style>
+            @page {
+                margin: 0px;
+            }
+
+
+
+            /*    table { width: 100%; border-collapse: collapse;}                td, th { border: 1px solid #ccc; }*/
+
+            /*        
+                    
+                    .logo {
+                        float: left;
+                        margin-top: 2px;
+                        width: 80px;
+                    }
+                    
+                    .logo img {
+                        height: 60px;
+                    }
+                    
+                    
+                    
+                    .billings {
+                        text-align: right;
+                    }
+                    
+                    .client {
+                        padding-left: 6px;
+                        max-width: 460px;
+                    }
+                    
+                    .client .to {
+                        color: #777777;
+                    }
+                    
+                    .invoice {
+                        float: left;
+                        text-align: left;
+                    }
+                    
+                    .invoice h1 {
+                        color: #0087C3;
+                        font-size: 1.4em;
+                        line-height: 1em;
+                        font-weight: normal;
+                        margin: 0 0 5px 0;
+                    }
+                    
+                    .invoice .date {
+                        font-size: 1.1em;
+                        color: #555;
+                        margin-bottom: 7px;
+                    }
+                    
+                    .subject {
+                        padding-left: 6px;
+                        border-left: 6px;
+                    }
+                    
+                    .clearfix:after {
+                        content: "";
+                        display: table;
+                        clear: both;
+                    }
+                    
+                    a {
+                        color: #0087C3;
+                        text-decoration: none;
+                    }
+                    border-bottom: 1px solid #eee; margin-bottom: 10px;
+                    
+                    .header {
+                        padding: 10px 0;
+                        margin-bottom: 10px;
+                        border-bottom: 1px solid #AAAAAA;
+                    }
+                    
+                    .details {
+                        margin-bottom: 10px;
+                    }
+                    
+                    h2.name {
+                        font-size: 1.4em;
+                        font-weight: normal;
+                        margin: 0;
+                        border-bottom: 1px solid #000;
+                    }
+                    
+                    h4.name {
+                        font-size: 1.0em;
+                        font-weight: normal;
+                        margin: 0;
+                    }
+                    
+                    .items {
+                        width: 100%;
+                        border-collapse: collapse;
+                        border-spacing: 0;
+                        margin-bottom: 20px;
+                    }
+                    
+                    .items th,
+                    .items td {
+                        padding: 10px;
+                        background: #fff;
+                        text-align: center;
+                        border-bottom: 1px solid #eee;
+                    }
+                    
+                    .items th {
+                        white-space: nowrap;
+                        font-weight: bold;
+                    }
+                    
+                    .items td {
+                        text-align: right;
+                    }
+                    
+                    .items td h3 {
+                        color: #57B223;
+                        font-size: 1.2em;
+                        font-weight: normal;
+                        margin: 0 0 0.2em 0;
+                    }
+                    
+                    .items .summary_heading {
+                        white-space: nowrap;
+                        font-weight: bold;
+                    }
+                    
+                    .items .no {
+                                color: #FFFFFF;                        font-size: 1.6em;                        background: #57B223;
+                    }
+                    
+                    .items .desc {
+                        text-align: left;
+                    }
+                    
+                    .items .unit {
+                        background: #DDDDDD;
+                    }
+                    
+                    .items .qty {}
+                    
+                    .items .total {
+                                background: #57B223;                        color: #FFFFFF;
+                    }
+                    
+                    .items td.unit,
+                    .items td.qty,
+                    .items td.total {
+                        font-size: 1.0em;
+                    }
+                    
+                    .items tbody tr:last-child td {
+                        border: none;
+                    }
+                    
+                    .items tfoot td {
+                        padding: 10px 20px;
+                        background: #FFFFFF;
+                        border-bottom: none;
+                        font-size: 1.2em;
+                        white-space: nowrap;
+                        border-top: 1px solid #AAAAAA;
+                    }
+                    
+                    .items tfoot tr:first-child td {
+                        border-top: none;
+                    }
+                    
+                    .items tfoot tr:last-child td {
+                        color: #57B223;
+                        font-size: 1.4em;
+                        border-top: 1px solid #57B223;
+                    }
+                    
+                    .items tfoot tr td:first-child {
+                        border: none;
+                    }
+                    
+                    .invoice_details {
+                        margin-bottom: 10px;
+                    }
+                    
+                    .invoice_detail_left {
+                        float: left;
+                        width: 48%
+                    }
+                    
+                    .invoice_detail_right {
+                        float: right;
+                        width: 48%
+                    }
+                    
+                    .invoice_detail_table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        border-spacing: 0;
+                        font-size: 1.0em;
+                        margin-bottom: 20px;
+                    }
+                    
+                    .invoice_detail_table th {
+                        width: 75%;
+                        text-align: left;
+                        border-bottom: 1px solid #c2c2c2;
+                        padding: 10px;
+                        color: #555;
+                    }
+                    
+                    .invoice_detail_table td {
+                        text-align: left;
+                        border-bottom: 1px solid #c2c2c2;
+                        padding: 10px;
+                        color: #555;
+                    }
+                    
+                    .authorize_signatory_table th {
+                        width: 160px;
+                        text-align: left;
+                        border-bottom: 1px solid #c2c2c2;
+                        padding: 10px;
+                        color: #555;
+                    }
+                    
+                    .authorize_signatory_table td {
+                        text-align: left;
+                        border-bottom: 1px solid #c2c2c2;
+                        padding: 10px;
+                        color: #555;
+                    }
+                    
+                    #thanks {
+                        font-size: 2em;
+                        margin-bottom: 50px;
+                    }
+                    
+                    #notices {
+                        padding-left: 6px;
+                        border-left: 6px solid #0087C3;
+                    }
+                    
+                    #notices .notice {
+                        font-size: 1.2em;
+                    }*/
+
+            .invoice-box {
+                max-width: 800px;
+                /*border: 1px solid #eee;*/
+                line-height: 16px;
+                font-family: 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif';
+                color: #555;
+                position: relative;
+                margin: 10px;
+                background: #FFFFFF;
+                font-size: 12px;
+                width: 100%;
+            }
+            .invoice-box td {
+                vertical-align: top;
+            }
+            .tac {
+                text-align: center;
+            }
+
+            .tline {
+
+                text-decoration: underline;
+            }
+
+            .fb{
+                font-weight: bold;
+            }
+
+            .items th,
+            .items td {
+                /*padding: 7px;*/
+                /*background: #fff;*/
+                text-align: center;
+                border-bottom: 1px solid #eee;
+            }
+            .invoice_detail_table {
+                width: 100%;
+                border-collapse: collapse;
+                border-spacing: 0;
+                font-size: 1.0em;
+                margin-bottom: 20px;
+            }
+
+            .invoice_detail_table th {
+                width: 75%;
+                text-align: left;
+                /*border-bottom: 1px solid #c2c2c2;*/
+                padding-bottom: 5px;
+                /*color: #555;*/
+            }
+
+            .invoice_detail_table td {
+                text-align: left;
+                border-bottom: 1px solid #c2c2c2;
+                padding-bottom: 5px;
+                /*color: #555;*/
+            }
+
+            .authorize_signatory_table th {
+                width: 160px;
+                text-align: left;
+                /*border-bottom: 1px solid #c2c2c2;*/
+                padding: 10px;
+                color: #555;
+            }
+
+            .authorize_signatory_table td {
+                text-align: left;
+                border-bottom: 1px solid #c2c2c2;
+                padding: 10px;
+                color: #555;
+            }
+            .footer {
+                color: #777777;
+                width: 100%;
+                height: 30px;
+                position: fixed;
+                bottom: 0px;
+                border-top: 1px solid #AAAAAA;
+                padding: 8px 0;
+                text-align: center;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!--Header-->
+        <table class="invoice-box header">
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="tac">
+                            <h2 class="fb tline">VSS GROUP OF COMPANIES</h2>
+                            <h3 class="fb ">VSS Buildcon Pvt. Ltd.</h3>
+                            <h2 class="fb tline"><strong>PURCHASE ORDER</strong></h2>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!--Invoice Details-->
+        <table class="invoice-box">
+            <tbody>
+                <tr>
+                    <td>
+                        <br>
+                    </td>
+                    <td>
+                        <div class="invoice">
+                            <div>PO No: /VSS-001/000148</div>
+                            <div>Date: 20/07/2019</div>
+                            <br>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:49%">
+                        <div class="client">
+                            <div class="fb">TO,</div>
+                            <div class="name">M/S Nath Bricks Field</div>
+                            <div class="address">Add: </div>
+                            <div class="email">Email:
+                                <a href="mailto:"></a>
+                            </div>
+                            <div>Contact Person: Shikhar Mishra</div>
+                            <div>Contact No.: </div>
+                            <div>GST No.: </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="invoice">
+                            <div class="fb">FROM,</div>
+                            <div class="name">VSS Buildcon Pvt. Ltd.</div>
+                            <div class="address">Regd Off: 205, 2nd Floor, Vardhman Mayur Market, Pocket 6, Mayur Vihar-3, New Delhi - 110096</div>
+                            <div class="email">Email: <a href="mailto:info@vssbuildcon.com">info@vssbuildcon.com</a></div>
+                            <div>Contract Person: (011) 47282243</div>
+                            <div>Contact No:(011) 47282243</div>
+                            <div>GST No.: 09AAECV1608G1ZF</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td>
+                        <div class="invoice">
+                            <div class="fb">Material Delivery &amp; Billing Address.</div>
+                            <div class="name">Site: VSS 001  (AWAS VIKAS KANPUR)</div>
+                            <div class="address">Address: Kanpur, U.P AVAS EVAM VIKAS PARISHAD SECTOR-1 NEAR-AMBEDKARPURAM KALYANPUR,KANPUR, KANPUR (U.P), INDIA</div>
+                            <div>Contract Person: Mr. Rahul Pathak</div>
+                            <div>Contact No:9839985663</div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!--Subjects-->
+        <table class="invoice-box">
+            <tbody>
+
+                <tr>
+                    <td>
+                        <div class="subject">
+                            <h4>Subject : Purchasing Order for  BRICKS at our site
+                                Ganga Enclave Ambedkarpurm Awas Vikas3
+                                Klyanpur Kanpur</h4>
+                            <p>Dear Sir,
+                                <br>With reference to your quotation dated {{supplier_quote_date}} and subsequent discussion and negotiation regarding quantity and rates to we are pleased to place order for supply of materials to above mention site. The quantity rates and terms &amp; condition for supply as agreed or as under.</p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!--Descriptions-->
+        <table class="invoice-box items">
+            <thead>
+                <tr>
+                    <th class="no">S.No.</th>
+                    <th class="desc">MATERIAL DESCRIPTION</th>
+                    <th class="unit">UNIT</th>
+                    <th class="qty">QUANTITY</th>
+                    <th class="unit">RATE/UNIT</th>
+                    <th class="tax">TAX %</th>
+                    <th class="total">AMOUNT</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="products_row">
+                    <td class="no">1</td>
+                    <td class="desc">BRICKS</td>
+                    <td class="unit">nos</td>
+                    <td class="qty">2500.00</td>
+                    <td class="tax">6.00</td>
+                    <td class="total">0.00</td>
+                    <td class="total">15,000.00</td>
+                </tr>
+
+                <tr>
+                    <td colspan="4">
+                        <br>
+                    </td>
+                    <td class="summary_heading" colspan="2">TOTAL GST AMOUNT</td>
+                    <td class="summary_heading">0.00</td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <br>
+                    </td>
+                    <td class="summary_heading" colspan="2">TOTAL NET AMOUNT</td>
+                    <td class="summary_heading">15,000.00</td>
+                </tr>
+                <tr>
+                    <td class="summary_heading" colspan="7" style="text-align: left;">In words Rs.: {{total_price_in_word}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <!--Footer-->
+        <table class="invoice-box">
+            <tbody>
+                <tr>
+                    <td>
+                        <table class="invoice_detail_table">
+                            <tbody>
+                                <tr>
+                                    <th>Terms &amp; Conditions:</th>
+                                </tr>
+                                <tr>
+                                    <th>1) Material to be supplied will be of specified quality and quantity.</th>
+                                </tr>
+                                <tr>
+                                    <th>2) Delivery of materials will be within specified period/urgent.</th>
+                                </tr>
+                                <tr>
+                                    <th>3) Delivery of materials at site will be along with bill and challan.</th>
+                                </tr>
+                                <tr>
+                                    <th>4) Purchase order No. and date will be mentioned in the bill.</th>
+                                </tr>
+                                <tr>
+                                    <th>5) GST payment challan will be submitted at site within days of payment.</th>
+                                    <td>{{challan_days}}</td>
+                                </tr>
+                                <tr>
+                                    <th>6) Payment terms:</th>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;&nbsp;a) Advance payment along with purchase order.</th>
+                                    <td>{{challan_days}}</td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;&nbsp;b) Payment after Days of delivery of material at site.</th>
+                                    <td>{{payment_days}}</td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;&nbsp;c) Payment in installments</th>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;&nbsp;&nbsp;&nbsp;1st installment...</th>
+                                    <td>{{first_installment}}</td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;&nbsp;&nbsp;&nbsp;2nd Installment...</th>
+                                    <td>{{second_installment}}</td>
+                                </tr>
+                                <tr>
+                                    <th>7) GST as applicable will be inclusive /extra</th>
+                                    <td>N/A</td>
+                                </tr>
+                                <tr>
+                                    <th>8) Loading will be inclusive/extra</th>
+                                    <td>Inclusive</td>
+                                </tr>
+                                <tr>
+                                    <th>9) Road freight will be inclusive /extra</th>
+                                    <td>Inclusive</td>
+                                </tr>
+                                <tr>
+                                    <th>10) Delivery of materials at site will be days after purchase order/Payment</th>
+                                    <td>{{material_delivery_days}}</td>
+                                </tr>
+                                <tr>
+                                    <th>11) Test certificate will be furnished if required.</th>
+                                    <td>N/A</td>
+                                </tr>
+                                <tr>
+                                    <th>12) <strong>ANY DISPUTES ARISING OUT WILL BE SUBJECT TO DELHI JURISDICTION ONLY.</strong></th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="invoice-box authorize_signatory_table">
+
+            <tbody>
+                <tr>
+                    <th>AUTHORISED SIGNATORY</th>
+                </tr>
+                <tr>
+                    <th>VSS Buildcon Pvt. Ltd.</th>
+                </tr>
+                <tr>
+                    <th>Copy to:</th>
+                </tr>
+                <tr>
+                    <th>1) Site Incharge</th>
+                </tr>
+                <tr>
+                    <th>2) Site Account (HO)</th>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+
+</html>

@@ -324,6 +324,19 @@ tabs:
 #            tab: 'olabs.oims::lang.settings.stripe'
 #            type: partial
 #            path: $/olabs/oims/models/settings/_stripe_help_debug_field.htm
+        po_template_style:
+            tab: 'olabs.oims::lang.settings.po_template'
+            label: 'olabs.oims::lang.settings.po_template_style'
+            span: full
+            type: textarea
+            size: giant
+        po_template_content:
+            tab: 'olabs.oims::lang.settings.po_template'
+            label: 'olabs.oims::lang.settings.po_template_content'
+            span: full
+            type: richeditor
+            size: giant
+        
         invoice_template_style:
             tab: 'olabs.oims::lang.settings.invoice_template'
             label: 'olabs.oims::lang.settings.invoice_template_style'
