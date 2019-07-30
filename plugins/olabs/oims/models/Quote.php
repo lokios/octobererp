@@ -586,8 +586,8 @@ class Quote extends BaseModel {
         }
         
         $html = str_replace($taxTemplate,$taxTableRow, $html);
-        echo $html;
-        exit();
+//        echo $html;
+//        exit();
         
         // Generate invoice
         $fileName = 'invoice_' . $this->id . '_' . time();
