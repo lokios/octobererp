@@ -22,4 +22,17 @@ class Vehicles extends Controller
         parent::__construct();
         BackendMenu::setContext('Olabs.Oims', 'oims_projects', 'vehicles');
     }
+    
+    public function update($recordId = null, $context = null) {
+        parent::update($recordId, $context);
+        //check if form is editable
+        $model = \Olabs\Oims\Models\Vehicle::find($recordId);
+        if (!$model->isEditable()) {
+            Flash::warning('You are not permitted for update record!');
+//            redirect('purchases');
+            $redirectUrl = 'olabs/oims/vehicles'; // . $id;
+            return Backend::redirect($redirectUrl);
+        }
+//        var_dump();exit();
+    }
 }

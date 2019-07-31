@@ -115,6 +115,37 @@ class Vehicle extends BaseModel
         return isset($list[$this->vehicle_type]) ? $list[$this->vehicle_type] : $this->vehicle_type;
     }
     
+    
+    /**
+     * Check recored is editable
+     * @return boolean
+     */
+    public function isEditable() {
+
+        $user = BackendAuth::getUser();
+
+        $access_projects = $this->getProjectOptions();
+        $access_projects = array_keys($access_projects);
+//        //project permission check
+//        if (!in_array($this->project_id, $access_projects)) {
+//            return FALSE;
+//        }
+
+        //IF user have permission
+        if ($user->hasAccess('olabs.oims.vehicle_record_update')) {
+            return true;
+        }
+
+        
+
+        //In any case Admin should be able to update it
+        if ($user->isAdmin()) {
+            return true;
+        }
+
+        return FALSE;
+    }
+    
     public function getTotalCapacity(){
         $lenght = $this->lenght > 0 ? $this->lenght : 0;
         $width = $this->widght > 0 ? $this->widht : 0;

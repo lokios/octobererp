@@ -5,7 +5,7 @@ if ($formModel->vehicle) :
     $conversions = $formModel->getVehicleCapacity();
     $list = [];
     foreach($conversions as $conversion){
-        $list[] = $conversion['value'] . " " . $conversion['name'];
+        $list[] = \Olabs\Oims\Models\Settings::getQuantityFormatted($conversion['value'],4) . " " . $conversion['name'];
     }
 
     ?>

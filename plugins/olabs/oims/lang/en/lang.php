@@ -40,6 +40,7 @@ return [
         
         'access_statuses' => 'Access into Statuses',
         'access_vehicles' => 'Access into Vehicles',
+        'access_vehicle_record_update' => 'Access into Vehicle Record Updates',
         'access_units' => 'Access into Units',
         'access_workgroups' => 'Access into Work Groups',
         'access_project_workgroups' => 'Access into Project Workgroups',

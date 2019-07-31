@@ -866,10 +866,20 @@ class Purchase extends BaseModel {
         $lenght = $this->vehicle_meta['length']  > 0 ? $this->vehicle_meta['length']  : 0;
         $width = $this->vehicle_meta['width']  > 0 ? $this->vehicle_meta['width']  : 0;
         $height = $this->vehicle_meta['height']  > 0 ? $this->vehicle_meta['height']  : 0;
+        $unit_code = $this->vehicle_meta['unit'] ;
+        
+        $model_unit = Unit::where('slug', $unit_code)->first();
         
         $volumn = $lenght * $width * $height;
         
+        if($model_unit){
+            return $model_unit->getConversions($volumn);
+        }
+        
+        
+        
         return $this->vehicle->getConversions($volumn);
+        
         
     }
     

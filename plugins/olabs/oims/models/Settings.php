@@ -142,8 +142,8 @@ class Settings extends Model {
         return $newDate;
     }
 
-    public static function getQuantityFormatted($quantity) {
-        $fQuantity = number_format($quantity, 2, ".", "");
+    public static function getQuantityFormatted($quantity, $decimal_places = 2) {
+        $fQuantity = number_format($quantity, $decimal_places, ".", "");
         return $fQuantity;
     }
 

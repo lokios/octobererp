@@ -11,12 +11,18 @@ columns:
     reference_number:
         label: Registration Number
         type: text
+        searchable: true
+        sortable: true 
     name:
         label: Vehicle Name
         type: text
+        searchable: true
+        sortable: true 
     model:
         label: Vehicle Model
         type: text
+        searchable: true
+        sortable: true 
     
     
     context_date:
