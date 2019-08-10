@@ -39,7 +39,7 @@ $overallDetail = Db::table('olabs_oims_vouchers')
 
 $thisMonthDetail = Db::table('olabs_oims_vouchers')
 ->select(Db::raw('count(*) as total_count, sum(total_price) as price_total, project_id'))
-->whereBetween("created_at", [$monthStartDate, $today])
+->whereBetween("context_date", [$monthStartDate, $today])
 ->whereIn('project_id', array_keys($assigned_projects))
 ->groupBy('project_id')
 ->get(); 
@@ -61,19 +61,20 @@ $new = \Olabs\Oims\Models\Voucher::where("status",\Olabs\Oims\Models\Status::STA
 $submited = \Olabs\Oims\Models\Voucher::where("status",\Olabs\Oims\Models\Status::STATUS_SUBMITTED)->whereIn('project_id', array_keys($assigned_projects))->count();
 
 
-}else{
-
-$vouchersCount = \Olabs\Oims\Models\Voucher::count();
-$vouchersPending = \Olabs\Oims\Models\Voucher::where("paid_date", null)->count();
-
-
-$approved = \Olabs\Oims\Models\Voucher::where("status",\Olabs\Oims\Models\Status::STATUS_APPROVED)->count();
-$rejected = \Olabs\Oims\Models\Voucher::where("status",\Olabs\Oims\Models\Status::STATUS_REJECTED)->count();
-$new = \Olabs\Oims\Models\Voucher::where("status",\Olabs\Oims\Models\Status::STATUS_NEW)->count();
-$submited = \Olabs\Oims\Models\Voucher::where("status",\Olabs\Oims\Models\Status::STATUS_SUBMITTED)->count();
-
-
 }
+//else{
+//
+//$vouchersCount = \Olabs\Oims\Models\Voucher::count();
+//$vouchersPending = \Olabs\Oims\Models\Voucher::where("paid_date", null)->count();
+//
+//
+//$approved = \Olabs\Oims\Models\Voucher::where("status",\Olabs\Oims\Models\Status::STATUS_APPROVED)->count();
+//$rejected = \Olabs\Oims\Models\Voucher::where("status",\Olabs\Oims\Models\Status::STATUS_REJECTED)->count();
+//$new = \Olabs\Oims\Models\Voucher::where("status",\Olabs\Oims\Models\Status::STATUS_NEW)->count();
+//$submited = \Olabs\Oims\Models\Voucher::where("status",\Olabs\Oims\Models\Status::STATUS_SUBMITTED)->count();
+//
+//
+//}
 
  
 $thisMonthFrom = date('d-m-Y', strtotime($monthStartDate)); 

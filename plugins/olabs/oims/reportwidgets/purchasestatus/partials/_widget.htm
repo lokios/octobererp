@@ -17,14 +17,14 @@ if (count($assigned_projects)) {
 
     $thisMonthDetail = Db::table('olabs_oims_purchases')
             ->select(Db::raw('count(*) as total_count, sum(total_price) as price_total, project_id'))
-            ->whereBetween("created_at", [$monthStartDate, $today])
+            ->whereBetween("context_date", [$monthStartDate, $today])
             ->whereIn('project_id', array_keys($assigned_projects))
             ->groupBy('project_id')
             ->get();
 
     $todayDetail = Db::table('olabs_oims_purchases')
             ->select(Db::raw('count(*) as total_count, sum(total_price) as price_total, project_id'))
-            ->whereBetween("created_at", [$yesterday, $today])
+            ->whereBetween("context_date", [$yesterday, $today])
             ->whereIn('project_id', array_keys($assigned_projects))
             ->groupBy('project_id')
             ->get();

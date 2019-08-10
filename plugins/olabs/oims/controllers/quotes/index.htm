@@ -15,11 +15,11 @@ $previousMonthStartDate = Carbon\Carbon::now()->startOfMonth()->addDay(-1)->star
 
 if ($assigned_projects) {
 
-    $quotesCountThis = \Olabs\Oims\Models\Quote::whereBetween("created_at", [$monthStartDate, $today])->whereIn('project_id', array_keys($assigned_projects))->count();
-    $quotesValueThis = \Olabs\Oims\Models\Quote::whereBetween("created_at", [$monthStartDate, $today])->whereIn('project_id', array_keys($assigned_projects))->sum("total_price");
+    $quotesCountThis = \Olabs\Oims\Models\Quote::whereBetween("context_date", [$monthStartDate, $today])->whereIn('project_id', array_keys($assigned_projects))->count();
+    $quotesValueThis = \Olabs\Oims\Models\Quote::whereBetween("context_date", [$monthStartDate, $today])->whereIn('project_id', array_keys($assigned_projects))->sum("total_price");
     
-    $quotesCountLast = \Olabs\Oims\Models\Quote::whereBetween("created_at", [$previousMonthStartDate, $previousMonthEndDate])->whereIn('project_id', array_keys($assigned_projects))->count();
-    $quotesValueLast = \Olabs\Oims\Models\Quote::whereBetween("created_at", [$previousMonthStartDate, $previousMonthEndDate])->whereIn('project_id', array_keys($assigned_projects))->sum("total_price");
+    $quotesCountLast = \Olabs\Oims\Models\Quote::whereBetween("context_date", [$previousMonthStartDate, $previousMonthEndDate])->whereIn('project_id', array_keys($assigned_projects))->count();
+    $quotesValueLast = \Olabs\Oims\Models\Quote::whereBetween("context_date", [$previousMonthStartDate, $previousMonthEndDate])->whereIn('project_id', array_keys($assigned_projects))->sum("total_price");
     
     
 
