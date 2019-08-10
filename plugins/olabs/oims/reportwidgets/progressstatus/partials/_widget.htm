@@ -1,0 +1,109 @@
+<?php
+$assigned_projects = false;
+$baseModel = new \Olabs\Oims\Models\BaseModel();
+$assigned_projects = $baseModel->getProjectOptions();
+
+$today = Carbon\Carbon::now();
+$yesterday = Carbon\Carbon::yesterday()->startOfDay();
+
+$monthStartDate = Carbon\Carbon::now()->startOfMonth()->startOfDay();
+
+$thisMonthDetail = array();
+$todayDetail = array();
+
+$list = array();
+
+if (count($assigned_projects)) {
+
+    $thisMonthDetail = Db::table('olabs_oims_project_progress')
+            ->select(Db::raw('count(*) as total_count, sum(total_price) as price_total, project_id'))
+            ->whereBetween("created_at", [$monthStartDate, $today])
+            ->whereIn('project_id', array_keys($assigned_projects))
+            ->groupBy('project_id')
+            ->get();
+
+    $todayDetail = Db::table('olabs_oims_project_progress')
+            ->select(Db::raw('count(*) as total_count, sum(total_price) as price_total, project_id'))
+            ->whereBetween("created_at", [$yesterday, $today])
+            ->whereIn('project_id', array_keys($assigned_projects))
+            ->groupBy('project_id')
+            ->get();
+
+    foreach ($assigned_projects as $project_id => $project_name) {
+        $temp = [];
+        $temp['id'] = $project_id;
+        $temp['name'] = $project_name;
+        $temp['month_count'] = '';
+        $temp['month_value'] = '';
+        $temp['today_count'] = '';
+        $temp['today_value'] = '';
+        $list[$project_id] = $temp;
+    }
+
+    foreach ($thisMonthDetail as $row) {
+        if (isset($list[$row->project_id])) {
+            $list[$row->project_id]['month_count'] = $row->total_count;
+            $list[$row->project_id]['month_value'] = $row->price_total;
+        }
+    }
+    foreach ($todayDetail as $row) {
+        if (isset($list[$row->project_id])) {
+            $list[$row->project_id]['month_count'] = $row->total_count;
+            $list[$row->project_id]['month_value'] = $row->price_total;
+        }
+    }
+}
+$oimsSetting = \Olabs\Oims\Models\Settings::instance();
+?>
+
+
+<div class="report-widget widget-welcome">
+    <h3><?= e(trans($this->property('title'))) ?></h3>
+    <table class="table table-bordered">
+        <thead> 
+            <tr> 
+                <th>Project</th> 
+                <th>This Month</th> 
+
+                <th>Today(-1)</th> 
+
+            </tr> 
+
+        </thead> 
+        <tbody>
+            <? foreach ($list as $row) { ?>
+                <? if ($row['month_count'] != "") { ?>
+                    <tr>
+                        <td><?= $row['name'] ?></td>
+                        <td><?= $row['month_count'] ?> <?= $row['month_count'] != "" ? "(" . $oimsSetting->getPriceFormattedWithoutCurrency($row['month_value']) . ")" : "" ?></td>
+                        <td><?= $row['today_count'] ?> <?= $row['today_count'] != "" ? "(" . $oimsSetting->getPriceFormattedWithoutCurrency($row['today_value']) . ")" : "" ?></td>
+
+
+                    </tr>
+                <? } ?>
+            <? } ?>
+        </tbody>
+    </table>
+
+
+    <?php /* if(count($list)){ ?>
+      <div
+      class="control-chart wrap-legend col-md-5"
+      data-control="chart-bar"
+      data-height="100"
+      data-full-width="1">
+      <ul>
+      <?php foreach($list as $row){
+      //      $projectName = isset($assigned_projects[$detail->project_id]) ? $assigned_projects[$detail->project_id] : "";
+      if($row['month_count'] != "") {
+      ?>
+      <li><?=$row['name']?> <span><?=$row['month_count']?></span></li>
+      <?php } }?>
+      </ul>
+      <p><center><strong> Overall Material Receipt Report </strong></center></p>
+      </div>
+      <?php } */ ?>
+
+
+
+</div>

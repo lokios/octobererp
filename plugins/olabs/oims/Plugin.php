@@ -603,6 +603,18 @@ class Plugin extends PluginBase {
                 'label' => 'Labour Cost Summary',
                 'context' => 'dashboard'
             ],
+            'Olabs\Oims\ReportWidgets\PurchaseStatus' => [
+                'label' => 'Project MR Summary',
+                'context' => 'dashboard'
+            ],
+            'Olabs\Oims\ReportWidgets\VoucherStatus' => [
+                'label' => 'Project Voucher Summary',
+                'context' => 'dashboard'
+            ],
+            'Olabs\Oims\ReportWidgets\ProgressStatus' => [
+                'label' => 'Project Progress Summary',
+                'context' => 'dashboard'
+            ],
         ];
     }
 

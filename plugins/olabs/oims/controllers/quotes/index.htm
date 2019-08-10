@@ -1,68 +1,69 @@
-<?php 
-
+<?php
 $assigned_projects = false;
-if(!$this->user->isAdmin()){
-    $baseModel = new \Olabs\Oims\Models\BaseModel();
-    $assigned_projects = $baseModel->getProjectOptions();
+//if(!$this->user->isAdmin()){
+//    $baseModel = new \Olabs\Oims\Models\BaseModel();
+//    $assigned_projects = $baseModel->getProjectOptions();
+//    
+//}
+$baseModel = new \Olabs\Oims\Models\BaseModel();
+$assigned_projects = $baseModel->getProjectOptions();
+
+$today = Carbon\Carbon::now();
+$monthStartDate = Carbon\Carbon::now()->startOfMonth()->startOfDay();
+$previousMonthEndDate = Carbon\Carbon::now()->startOfMonth()->addDay(-1)->endOfDay();
+$previousMonthStartDate = Carbon\Carbon::now()->startOfMonth()->addDay(-1)->startOfMonth()->startOfDay();
+
+if ($assigned_projects) {
+
+    $quotesCountThis = \Olabs\Oims\Models\Quote::whereBetween("created_at", [$monthStartDate, $today])->whereIn('project_id', array_keys($assigned_projects))->count();
+    $quotesValueThis = \Olabs\Oims\Models\Quote::whereBetween("created_at", [$monthStartDate, $today])->whereIn('project_id', array_keys($assigned_projects))->sum("total_price");
     
+    $quotesCountLast = \Olabs\Oims\Models\Quote::whereBetween("created_at", [$previousMonthStartDate, $previousMonthEndDate])->whereIn('project_id', array_keys($assigned_projects))->count();
+    $quotesValueLast = \Olabs\Oims\Models\Quote::whereBetween("created_at", [$previousMonthStartDate, $previousMonthEndDate])->whereIn('project_id', array_keys($assigned_projects))->sum("total_price");
+    
+    
+
+    $approved = \Olabs\Oims\Models\Quote::where("status", \Olabs\Oims\Models\Status::STATUS_APPROVED)->whereIn('project_id', array_keys($assigned_projects))->count();
+    $rejected = \Olabs\Oims\Models\Quote::where("status", \Olabs\Oims\Models\Status::STATUS_REJECTED)->whereIn('project_id', array_keys($assigned_projects))->count();
+    $new = \Olabs\Oims\Models\Quote::where("status", \Olabs\Oims\Models\Status::STATUS_NEW)->whereIn('project_id', array_keys($assigned_projects))->count();
+    $submited = \Olabs\Oims\Models\Quote::where("status", \Olabs\Oims\Models\Status::STATUS_SUBMITTED)->whereIn('project_id', array_keys($assigned_projects))->count();
 }
 
-if($assigned_projects){
-$quotesCount = \Olabs\Oims\Models\Quote::whereIn('project_id', array_keys($assigned_projects))->count();
-$quotesPending = \Olabs\Oims\Models\Quote::where("paid_date", null)->whereIn('project_id', array_keys($assigned_projects))->count();
 
-$quotesCountThis = \Olabs\Oims\Models\Quote::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->whereIn('project_id', array_keys($assigned_projects))->count();
-$quotesCountLast = \Olabs\Oims\Models\Quote::whereBetween("created_at", [Carbon\Carbon::now()->addDay(-60), Carbon\Carbon::now()->addDay(-30)])->whereIn('project_id', array_keys($assigned_projects))->count();
-$quotesValueThis = \Olabs\Oims\Models\Quote::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->whereIn('project_id', array_keys($assigned_projects))->sum("total_price");
-$quotesValueLast = \Olabs\Oims\Models\Quote::whereBetween("created_at", [Carbon\Carbon::now()->addDay(-60), Carbon\Carbon::now()->addDay(-30)])->whereIn('project_id', array_keys($assigned_projects))->sum("total_price");
-
-$approved = \Olabs\Oims\Models\Quote::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_APPROVED)->whereIn('project_id', array_keys($assigned_projects))->count();
-$rejected = \Olabs\Oims\Models\Quote::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_REJECTED)->whereIn('project_id', array_keys($assigned_projects))->count();
-$new = \Olabs\Oims\Models\Quote::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_NEW)->whereIn('project_id', array_keys($assigned_projects))->count();
-$submited = \Olabs\Oims\Models\Quote::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_SUBMITTED)->whereIn('project_id', array_keys($assigned_projects))->count();
-
-
-}else{
-$quotesCount = \Olabs\Oims\Models\Quote::count();
-$quotesPending = \Olabs\Oims\Models\Quote::where("paid_date", null)->count();
-
-$quotesCountThis = \Olabs\Oims\Models\Quote::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->count();
-$quotesCountLast = \Olabs\Oims\Models\Quote::whereBetween("created_at", [Carbon\Carbon::now()->addDay(-60), Carbon\Carbon::now()->addDay(-30)])->count();
-$quotesValueThis = \Olabs\Oims\Models\Quote::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->sum("total_price");
-$quotesValueLast = \Olabs\Oims\Models\Quote::whereBetween("created_at", [Carbon\Carbon::now()->addDay(-60), Carbon\Carbon::now()->addDay(-30)])->sum("total_price");
-
-$approved = \Olabs\Oims\Models\Quote::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_APPROVED)->count();
-$rejected = \Olabs\Oims\Models\Quote::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_REJECTED)->count();
-$new = \Olabs\Oims\Models\Quote::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_NEW)->count();
-$submited = \Olabs\Oims\Models\Quote::where("created_at",">=", Carbon\Carbon::now()->addDay(-30))->where("status",\Olabs\Oims\Models\Status::STATUS_SUBMITTED)->count();
-
-
+$quotesCountClass = "positive";
+if ($quotesCountThis < $quotesCountLast) {
+    $quotesCountClass = "negative";
+}
+$quotesValueClass = "positive";
+if ($quotesValueThis < $quotesValueLast) {
+    $quotesValueClass = "negative";
 }
 
-$quotesCountClass = "positive"; if ($quotesCountThis < $quotesCountLast) { $quotesCountClass = "negative";  }
-$quotesValueClass = "positive"; if ($quotesValueThis < $quotesValueLast) { $quotesValueClass = "negative";  }
+$oimsSetting = \Olabs\Oims\Models\Settings::instance();
 ?>
 
 <div>
     <div class="scoreboard-item control-chart col-md-4" data-control="chart-pie">
         <ul>
-            <li data-color="#4caf50">Approved <span><?= $approved  ?></span></li>
+            <li data-color="#4caf50">Approved <span><?= $approved ?></span></li>
             <li data-color="#3f51b5">New <span><?= $new ?></span></li>
             <li data-color=" #ff9800">Submitted <span><?= $submited ?></span></li>
             <li data-color="#f44336">Rejected <span><?= $rejected ?></span></li>
         </ul>
     </div>
     <div class="scoreboard-item title-value col-md-4">
-        <h4><?= Lang::get("olabs.oims::lang.quotes.quotes_30_days")?></h4>
+        <h4>Total Count</h4>
+        <h4><?= Lang::get("olabs.oims::lang.quotes.quotes_this_month") ?></h4>
         <p class="<?= $quotesCountClass ?>"><?= $quotesCountThis ?></p>
-        <p class="description"><?= Lang::get("olabs.oims::lang.quotes.sales_30_days")?>: <?= $quotesCountLast ?></p>
+        <p class="description"><?= Lang::get("olabs.oims::lang.quotes.quotes_previous_month") ?>: <?= $quotesCountLast ?></p>
     </div>
     <div class="scoreboard-item title-value col-md-4">
-        <h4><?= Lang::get("olabs.oims::lang.quotes.previous_30_days")?></h4>
-        <p class="<?= $quotesValueClass ?>"><?= $quotesValueThis ?></p>
-        <p class="description"><?= Lang::get("olabs.oims::lang.quotes.previous_30_days")?>: <?= $quotesValueLast ?></p>
+        <h4>Total Value</h4>
+        <h4><?= Lang::get("olabs.oims::lang.quotes.quotes_this_month") ?></h4>
+        <p class="<?= $quotesValueClass ?>"><?= $oimsSetting->getPriceFormattedWithoutCurrency($quotesValueThis) ?></p>
+        <p class="description"><?= Lang::get("olabs.oims::lang.quotes.quotes_previous_month") ?>: <?= $oimsSetting->getPriceFormattedWithoutCurrency($quotesValueLast) ?></p>
     </div>    
-    
+
     <div class="clearfix"></div>
 </div>
 

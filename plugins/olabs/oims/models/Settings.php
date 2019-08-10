@@ -60,6 +60,9 @@ class Settings extends Model {
      * @return type
      */
     public function getPriceFormatted($price) {
+        if($price == ""){
+            return $price;
+        }
         $fPrice = number_format($price, $this->number_format_decimals, $this->number_format_dec_point, $this->number_format_thousands_sep);
         if ($this->currency_char_position == 1) {
             return $this->currency_char . $fPrice;
@@ -69,6 +72,9 @@ class Settings extends Model {
     }
 
     public function getPriceFormattedWithoutCurrency($price) {
+        if($price == ""){
+            return $price;
+        }
         $fPrice = number_format($price, $this->number_format_decimals, $this->number_format_dec_point, $this->number_format_thousands_sep);
         return $fPrice;
     }

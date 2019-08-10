@@ -6,7 +6,7 @@ $assigned_projects = $baseModel->getProjectOptions();
 //}
 
 $today = Carbon\Carbon::now();
-$monthStartDate = Carbon\Carbon::now()->startOfMonth();
+$monthStartDate = Carbon\Carbon::now()->startOfMonth()->startOfDay();
 
 /*
   $monthStartInstance = Carbon\Carbon::now()->startOfMonth();
