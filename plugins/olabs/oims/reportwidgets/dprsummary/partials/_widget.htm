@@ -1,4 +1,4 @@
-<?php 
+<?php
 $report_months = $this->property('report_months') != "" ? $this->property('report_months') : 'this month';
 
 
@@ -18,129 +18,123 @@ $search_to_date = $today > $d ? $d->format('Y-m-d') : $today->format('Y-m-d');
 
 $from_date = false;
 if ($search_from_date != '') {
-$from_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_from_date); //date('Y-m-d 00:00:00', strtotime($from_date));
+    $from_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_from_date); //date('Y-m-d 00:00:00', strtotime($from_date));
 }
 
 $to_date = false;
 if ($search_to_date != '') {
-$timeFormat = '23:59:59';
-$to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
+    $timeFormat = '23:59:59';
+    $to_date = \Olabs\Oims\Models\Settings::convertToDBDate($search_to_date, $timeFormat);
 }
 
 $summary = array();
 $params = array();
 $total_days = 0;
 
-if(count($assigned_projects)){
-foreach($assigned_projects as $project_id => $project) {
-$details = array();
+if (count($assigned_projects)) {
+    foreach ($assigned_projects as $project_id => $project) {
+        $details = array();
 
-$projectModal = \Olabs\Oims\Models\Project::find($project_id);
-$fix_expense = $projectModal['fix_expense'];
+        $projectModal = \Olabs\Oims\Models\Project::find($project_id);
+        $fix_expense = $projectModal['fix_expense'];
 
-$datetime1 = new DateTime($from_date);
-$datetime2 = new DateTime($to_date);
-$interval = $datetime1->diff($datetime2);
-$total_days = $interval->format('%d') + 1;//to add current date 
-
+        $datetime1 = new DateTime($from_date);
+        $datetime2 = new DateTime($to_date);
+        $interval = $datetime1->diff($datetime2);
+        $total_days = $interval->format('%d') + 1; //to add current date 
 //calculate final total expense
-$fix_expense = $fix_expense > 0 ? $fix_expense * $total_days : 0;
+        $fix_expense = $fix_expense > 0 ? $fix_expense * $total_days : 0;
 
 //set filter params
-$params['project_id'] = $project_id;
+        $params['project_id'] = $project_id;
 
 //Calculate Project Progress Expenses
-$projectprogress = \Olabs\Oims\Models\ProjectProgress::where($params)
-->whereBetween('start_date', [$from_date, $to_date])
-->get();
-$grand_total = 0;
-foreach($projectprogress as $progress){  
-$products = $progress->products ? $progress->products : array();
-$total_price = 0;
-foreach($products as $product){
-$total_price += $product->total_price;
-}
-$grand_total += $total_price;
-}
+        $projectprogress = \Olabs\Oims\Models\ProjectProgress::where($params)
+                ->whereBetween('start_date', [$from_date, $to_date])
+                ->get();
+        $grand_total = 0;
+        foreach ($projectprogress as $progress) {
+            $products = $progress->products ? $progress->products : array();
+            $total_price = 0;
+            foreach ($products as $product) {
+                $total_price += $product->total_price;
+            }
+            $grand_total += $total_price;
+        }
 
 //update in details
-$details['project'] = $project;
-$details['fix_expense'] = $fix_expense;
-$details['progress_total'] = $grand_total;
+        $details['project'] = $project;
+        $details['fix_expense'] = $fix_expense;
+        $details['progress_total'] = $grand_total;
 
 
 //Calculating other Expenses
-$grand_total = 0;
+        $grand_total = 0;
 
-$expenses = \Olabs\Oims\Models\Manpower::where($params)
-->whereBetween('context_date', [$from_date, $to_date])
-->get();
+        $expenses = \Olabs\Oims\Models\Manpower::where($params)
+                ->whereBetween('context_date', [$from_date, $to_date])
+                ->get();
 
-foreach($expenses as $expense){
-$grand_total += $expense->total_price;
-}
+        foreach ($expenses as $expense) {
+            $grand_total += $expense->total_price;
+        }
 
-$expenses = \Olabs\Oims\Models\Machinery::where($params)
-->whereBetween('context_date', [$from_date, $to_date])
-->get();
+        $expenses = \Olabs\Oims\Models\Machinery::where($params)
+                ->whereBetween('context_date', [$from_date, $to_date])
+                ->get();
 
-foreach($expenses as $expense){
-$grand_total += $expense->total_price;
-}
+        foreach ($expenses as $expense) {
+            $grand_total += $expense->total_price;
+        }
 
-$expenses = \Olabs\Oims\Models\ExpenseOnMaterial::where($params)
-->whereBetween('context_date', [$from_date, $to_date])
-->get();
+        $expenses = \Olabs\Oims\Models\ExpenseOnMaterial::where($params)
+                ->whereBetween('context_date', [$from_date, $to_date])
+                ->get();
 
-foreach($expenses as $expense){
-$grand_total += $expense->total_price;
-}
+        foreach ($expenses as $expense) {
+            $grand_total += $expense->total_price;
+        }
 
-$expenses = \Olabs\Oims\Models\ExpenseOnPc::where($params)
-->whereBetween('context_date', [$from_date, $to_date])
-->get();
+        $expenses = \Olabs\Oims\Models\ExpenseOnPc::where($params)
+                ->whereBetween('context_date', [$from_date, $to_date])
+                ->get();
 
-foreach($expenses as $expense){
-$grand_total += $expense->total_price;
-}
+        foreach ($expenses as $expense) {
+            $grand_total += $expense->total_price;
+        }
 
 //update in details
-$details['expenses'] = $grand_total;
+        $details['expenses'] = $grand_total;
 
 
 
 
-$details['expenses'] = $grand_total;
+        $details['expenses'] = $grand_total;
 
 
 
-$row_class = '';
-$fix_expense = $details['fix_expense'];
-$total_expense = $fix_expense + $details['expenses'];
-$net_profit = $details['progress_total'] - $total_expense;
-$profit_percentage = 0;
-if($total_expense > 0) {
-$profit_percentage = $net_profit / $total_expense * 100;
+        $row_class = '';
+        $fix_expense = $details['fix_expense'];
+        $total_expense = $fix_expense + $details['expenses'];
+        $net_profit = $details['progress_total'] - $total_expense;
+        $profit_percentage = 0;
+        if ($total_expense > 0) {
+            $profit_percentage = $net_profit / $total_expense * 100;
+        }
+        if ($net_profit > 0) {
+            $row_class = 'profit-positive';
+        }
+        if ($net_profit < 0) {
+            $row_class = 'profit-negative';
+        }
+        $details['total_expense'] = $total_expense;
+        $details['net_profit'] = $net_profit;
+        $details['profit_percentage'] = $profit_percentage;
+        $details['row_class'] = $row_class;
+
+        $summary[] = $details;
+    }
 }
-if($net_profit > 0){
-$row_class = 'profit-positive';
-}
-if($net_profit < 0){
-$row_class = 'profit-negative';
-}
-$details['total_expense'] = $total_expense;
-$details['net_profit'] = $net_profit;
-$details['profit_percentage'] = $profit_percentage;
-$details['row_class'] = $row_class;
-
-$summary[] = $details;
-
-}
-
-
-
-}
-
 ?>
 <style>
     .profit-positive{
@@ -152,7 +146,7 @@ $summary[] = $details;
 </style>
 <div class="report-widget widget-welcome">
     <h3><?= e(trans($this->property('title'))) ?></h3>
-    <h5>From : <b><?= \Olabs\Oims\Models\Settings::convertToDisplayDate($search_from_date) ?></b> To : <b><?= \Olabs\Oims\Models\Settings::convertToDisplayDate($search_to_date) ?></b> for <b><?=$total_days?></b> days</h5>
+    <h5>From : <b><?= \Olabs\Oims\Models\Settings::convertToDisplayDate($search_from_date) ?></b> To : <b><?= \Olabs\Oims\Models\Settings::convertToDisplayDate($search_to_date) ?></b> for <b><?= $total_days ?></b> days</h5>
     <table class="table table-bordered">
         <thead> 
             <tr> 
@@ -166,16 +160,18 @@ $summary[] = $details;
             </tr> 
         </thead> 
         <tbody>
-            <? foreach($summary as $row) { ?>
-            <tr>
-                <td><?=$row['project']?></td>
-                <td><?= $oimsSetting->getPriceFormattedWithoutCurrency($row['expenses']) ?></td>
-                <td><?= $oimsSetting->getPriceFormattedWithoutCurrency($row['fix_expense']) ?></td> 
-                <td><?= $oimsSetting->getPriceFormattedWithoutCurrency($row['total_expense']) ?></td>
-                <td><?= $oimsSetting->getPriceFormattedWithoutCurrency($row['progress_total']) ?></td>
-                <td><span class="<?=$row['row_class']?>"><?= $oimsSetting->getPriceFormattedWithoutCurrency($row['net_profit']) ?></span></td>
-                <td><span class="<?=$row['row_class']?>"><?= $oimsSetting->getPriceFormattedWithoutCurrency($row['profit_percentage']) ?> %</span></td>
-            </tr>
+            <? foreach ($summary as $row) { ?>
+                <? if ($row['expenses'] > 0) { ?>
+                    <tr>
+                        <td><?= $row['project'] ?></td>
+                        <td><?= $oimsSetting->getPriceFormattedWithoutCurrency($row['expenses']) ?></td>
+                        <td><?= $oimsSetting->getPriceFormattedWithoutCurrency($row['fix_expense']) ?></td> 
+                        <td><?= $oimsSetting->getPriceFormattedWithoutCurrency($row['total_expense']) ?></td>
+                        <td><?= $oimsSetting->getPriceFormattedWithoutCurrency($row['progress_total']) ?></td>
+                        <td><span class="<?= $row['row_class'] ?>"><?= $oimsSetting->getPriceFormattedWithoutCurrency($row['net_profit']) ?></span></td>
+                        <td><span class="<?= $row['row_class'] ?>"><?= $oimsSetting->getPriceFormattedWithoutCurrency($row['profit_percentage']) ?> %</span></td>
+                    </tr>
+                <? } ?>
             <? } ?>
         </tbody>
     </table>
