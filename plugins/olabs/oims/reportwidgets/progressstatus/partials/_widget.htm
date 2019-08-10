@@ -48,8 +48,8 @@ if (count($assigned_projects)) {
     }
     foreach ($todayDetail as $row) {
         if (isset($list[$row->project_id])) {
-            $list[$row->project_id]['month_count'] = $row->total_count;
-            $list[$row->project_id]['month_value'] = $row->price_total;
+            $list[$row->project_id]['today_count'] = $row->total_count;
+            $list[$row->project_id]['today_value'] = $row->price_total;
         }
     }
 }
