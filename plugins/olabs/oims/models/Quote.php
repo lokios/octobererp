@@ -516,6 +516,7 @@ class Quote extends BaseModel {
                 $productRate = $oimsSetting->getPriceFormattedWithoutCurrency($product->unit_price);
                 $totalPrice = $oimsSetting->getPriceFormattedWithoutCurrency($product->total_price);
                 $totalTax = $oimsSetting->getPriceFormattedWithoutCurrency($product->total_tax);
+                $productRateWithoutTax = $oimsSetting->getPriceFormattedWithoutCurrency($product->pre_tax_retail_price);
 
                 $productFields = array(
                     '{{product_sno}}' => $serialNumber,
@@ -524,6 +525,7 @@ class Quote extends BaseModel {
                     '{{product_tax_percent}}' => $productTaxPercent,
                     '{{product_qty}}' => $qty,
                     '{{product_rate}}' => $productRate,
+                    '{{product_rate_before_tax}}' => $productRateWithoutTax,
                     '{{product_total_price}}' => $totalPrice,
                     '{{product_total_tax}}' => $totalTax
                 );
