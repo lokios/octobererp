@@ -1,17 +1,17 @@
 [
     {
         "name": "composer/installers",
-        "version": "v1.6.0",
-        "version_normalized": "1.6.0.0",
+        "version": "v1.7.0",
+        "version_normalized": "1.7.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/composer/installers.git",
-            "reference": "cfcca6b1b60bc4974324efb5783c13dca6932b5b"
+            "reference": "141b272484481432cda342727a427dc1e206bfa0"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/composer/installers/zipball/cfcca6b1b60bc4974324efb5783c13dca6932b5b",
-            "reference": "cfcca6b1b60bc4974324efb5783c13dca6932b5b",
+            "url": "https://api.github.com/repos/composer/installers/zipball/141b272484481432cda342727a427dc1e206bfa0",
+            "reference": "141b272484481432cda342727a427dc1e206bfa0",
             "shasum": ""
         },
         "require": {
@@ -25,7 +25,7 @@
             "composer/composer": "1.0.*@dev",
             "phpunit/phpunit": "^4.8.36"
         },
-        "time": "2018-08-27T06:10:37+00:00",
+        "time": "2019-08-12T15:00:31+00:00",
         "type": "composer-plugin",
         "extra": {
             "class": "Composer\\Installers\\Plugin",
@@ -69,6 +69,7 @@
             "RadPHP",
             "SMF",
             "Thelia",
+            "Whmcs",
             "WolfCMS",
             "agl",
             "aimeos",
@@ -91,6 +92,7 @@
             "installer",
             "itop",
             "joomla",
+            "known",
             "kohana",
             "laravel",
             "lavalite",
@@ -586,23 +588,26 @@
     },
     {
         "name": "doctrine/lexer",
-        "version": "v1.0.1",
-        "version_normalized": "1.0.1.0",
+        "version": "1.0.2",
+        "version_normalized": "1.0.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/doctrine/lexer.git",
-            "reference": "83893c552fd2045dd78aef794c31e694c37c0b8c"
+            "reference": "1febd6c3ef84253d7c815bed85fc622ad207a9f8"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/lexer/zipball/83893c552fd2045dd78aef794c31e694c37c0b8c",
-            "reference": "83893c552fd2045dd78aef794c31e694c37c0b8c",
+            "url": "https://api.github.com/repos/doctrine/lexer/zipball/1febd6c3ef84253d7c815bed85fc622ad207a9f8",
+            "reference": "1febd6c3ef84253d7c815bed85fc622ad207a9f8",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.2"
         },
-        "time": "2014-09-09T13:34:57+00:00",
+        "require-dev": {
+            "phpunit/phpunit": "^4.5"
+        },
+        "time": "2019-06-08T11:03:04+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -611,8 +616,8 @@
         },
         "installation-source": "dist",
         "autoload": {
-            "psr-0": {
-                "Doctrine\\Common\\Lexer\\": "lib/"
+            "psr-4": {
+                "Doctrine\\Common\\Lexer\\": "lib/Doctrine/Common/Lexer"
             }
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -633,26 +638,29 @@
                 "email": "schmittjoh@gmail.com"
             }
         ],
-        "description": "Base library for a lexer that can be used in Top-Down, Recursive Descent Parsers.",
-        "homepage": "http://www.doctrine-project.org",
+        "description": "PHP Doctrine Lexer parser library that can be used in Top-Down, Recursive Descent Parsers.",
+        "homepage": "https://www.doctrine-project.org/projects/lexer.html",
         "keywords": [
+            "annotations",
+            "docblock",
             "lexer",
-            "parser"
+            "parser",
+            "php"
         ]
     },
     {
         "name": "egulias/email-validator",
-        "version": "2.1.7",
-        "version_normalized": "2.1.7.0",
+        "version": "2.1.9",
+        "version_normalized": "2.1.9.0",
         "source": {
             "type": "git",
             "url": "https://github.com/egulias/EmailValidator.git",
-            "reference": "709f21f92707308cdf8f9bcfa1af4cb26586521e"
+            "reference": "128cc721d771ec2c46ce59698f4ca42b73f71b25"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/709f21f92707308cdf8f9bcfa1af4cb26586521e",
-            "reference": "709f21f92707308cdf8f9bcfa1af4cb26586521e",
+            "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/128cc721d771ec2c46ce59698f4ca42b73f71b25",
+            "reference": "128cc721d771ec2c46ce59698f4ca42b73f71b25",
             "shasum": ""
         },
         "require": {
@@ -667,7 +675,7 @@
         "suggest": {
             "ext-intl": "PHP Internationalization Libraries are required to use the SpoofChecking validation"
         },
-        "time": "2018-12-04T22:38:24+00:00",
+        "time": "2019-06-23T10:14:27+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1032,18 +1040,65 @@
         ]
     },
     {
-        "name": "laravel/framework",
-        "version": "v5.5.45",
-        "version_normalized": "5.5.45.0",
+        "name": "kylekatarnls/update-helper",
+        "version": "1.2.0",
+        "version_normalized": "1.2.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/laravel/framework.git",
-            "reference": "52c79ecf54b6168a54730ccb6c4c9f3561732a80"
+            "url": "https://github.com/kylekatarnls/update-helper.git",
+            "reference": "5786fa188e0361b9adf9e8199d7280d1b2db165e"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/laravel/framework/zipball/52c79ecf54b6168a54730ccb6c4c9f3561732a80",
-            "reference": "52c79ecf54b6168a54730ccb6c4c9f3561732a80",
+            "url": "https://api.github.com/repos/kylekatarnls/update-helper/zipball/5786fa188e0361b9adf9e8199d7280d1b2db165e",
+            "reference": "5786fa188e0361b9adf9e8199d7280d1b2db165e",
+            "shasum": ""
+        },
+        "require": {
+            "composer-plugin-api": "^1.1.0 || ^2.0.0",
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "codeclimate/php-test-reporter": "dev-master",
+            "composer/composer": "2.0.x-dev || ^2.0.0-dev",
+            "phpunit/phpunit": ">=4.8.35 <6.0"
+        },
+        "time": "2019-07-29T11:03:54+00:00",
+        "type": "composer-plugin",
+        "extra": {
+            "class": "UpdateHelper\\ComposerPlugin"
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "UpdateHelper\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Kyle",
+                "email": "kylekatarnls@gmail.com"
+            }
+        ],
+        "description": "Update helper"
+    },
+    {
+        "name": "laravel/framework",
+        "version": "v5.5.46",
+        "version_normalized": "5.5.46.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/laravel/framework.git",
+            "reference": "85b2a5218088b0f60bf6e8c3a62891ba275a7269"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/laravel/framework/zipball/85b2a5218088b0f60bf6e8c3a62891ba275a7269",
+            "reference": "85b2a5218088b0f60bf6e8c3a62891ba275a7269",
             "shasum": ""
         },
         "require": {
@@ -1133,7 +1188,7 @@
             "symfony/dom-crawler": "Required to use most of the crawler integration testing tools (~3.3).",
             "symfony/psr-http-message-bridge": "Required to psr7 bridging features (~1.0)."
         },
-        "time": "2019-01-28T20:53:19+00:00",
+        "time": "2019-07-09T14:00:53+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1234,27 +1289,29 @@
     },
     {
         "name": "leafo/scssphp",
-        "version": "v0.7.7",
-        "version_normalized": "0.7.7.0",
+        "version": "v0.8.4",
+        "version_normalized": "0.8.4.0",
         "source": {
             "type": "git",
             "url": "https://github.com/leafo/scssphp.git",
-            "reference": "1d656f8c02a3a69404bba6b28ec4e06edddf0f49"
+            "reference": "b9cdea3e42c3bcb1a9faafd04ccce4e8ec860ad9"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/leafo/scssphp/zipball/1d656f8c02a3a69404bba6b28ec4e06edddf0f49",
-            "reference": "1d656f8c02a3a69404bba6b28ec4e06edddf0f49",
+            "url": "https://api.github.com/repos/leafo/scssphp/zipball/b9cdea3e42c3bcb1a9faafd04ccce4e8ec860ad9",
+            "reference": "b9cdea3e42c3bcb1a9faafd04ccce4e8ec860ad9",
             "shasum": ""
         },
         "require": {
-            "php": ">=5.4.0"
+            "php": "^5.4.0 || ^7"
         },
         "require-dev": {
             "phpunit/phpunit": "~4.6",
-            "squizlabs/php_codesniffer": "~2.5"
+            "squizlabs/php_codesniffer": "~2.5",
+            "twbs/bootstrap": "~4.3",
+            "zurb/foundation": "~6.5"
         },
-        "time": "2018-07-22T01:22:08+00:00",
+        "time": "2019-06-18T21:15:44+00:00",
         "bin": [
             "bin/pscss"
         ],
@@ -1347,17 +1404,17 @@
     },
     {
         "name": "league/flysystem",
-        "version": "1.0.51",
-        "version_normalized": "1.0.51.0",
+        "version": "1.0.53",
+        "version_normalized": "1.0.53.0",
         "source": {
             "type": "git",
             "url": "https://github.com/thephpleague/flysystem.git",
-            "reference": "755ba7bf3fb9031e6581d091db84d78275874396"
+            "reference": "08e12b7628f035600634a5e76d95b5eb66cea674"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/755ba7bf3fb9031e6581d091db84d78275874396",
-            "reference": "755ba7bf3fb9031e6581d091db84d78275874396",
+            "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/08e12b7628f035600634a5e76d95b5eb66cea674",
+            "reference": "08e12b7628f035600634a5e76d95b5eb66cea674",
             "shasum": ""
         },
         "require": {
@@ -1387,7 +1444,7 @@
             "spatie/flysystem-dropbox": "Allows you to use Dropbox storage",
             "srmklive/flysystem-dropbox-v2": "Allows you to use Dropbox storage for PHP 5 applications"
         },
-        "time": "2019-03-30T13:22:34+00:00",
+        "time": "2019-06-18T20:09:29+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1618,33 +1675,36 @@
     },
     {
         "name": "nesbot/carbon",
-        "version": "1.37.1",
-        "version_normalized": "1.37.1.0",
+        "version": "1.39.0",
+        "version_normalized": "1.39.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/briannesbitt/Carbon.git",
-            "reference": "5be4fdf97076a685b23efdedfc2b73ad0c5eab70"
+            "reference": "dd62a58af4e0775a45ea5f99d0363d81b7d9a1e0"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/5be4fdf97076a685b23efdedfc2b73ad0c5eab70",
-            "reference": "5be4fdf97076a685b23efdedfc2b73ad0c5eab70",
+            "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/dd62a58af4e0775a45ea5f99d0363d81b7d9a1e0",
+            "reference": "dd62a58af4e0775a45ea5f99d0363d81b7d9a1e0",
             "shasum": ""
         },
         "require": {
+            "kylekatarnls/update-helper": "^1.1",
             "php": ">=5.3.9",
             "symfony/translation": "~2.6 || ~3.0 || ~4.0"
         },
         "require-dev": {
+            "composer/composer": "^1.2",
+            "friendsofphp/php-cs-fixer": "~2",
             "phpunit/phpunit": "^4.8.35 || ^5.7"
         },
-        "suggest": {
-            "friendsofphp/php-cs-fixer": "Needed for the `composer phpcs` command. Allow to automatically fix code style.",
-            "phpstan/phpstan": "Needed for the `composer phpstan` command. Allow to detect potential errors."
-        },
-        "time": "2019-04-19T10:27:42+00:00",
+        "time": "2019-06-11T09:07:59+00:00",
+        "bin": [
+            "bin/upgrade-carbon"
+        ],
         "type": "library",
         "extra": {
+            "update-helper": "Carbon\\Upgrade",
             "laravel": {
                 "providers": [
                     "Carbon\\Laravel\\ServiceProvider"
@@ -1678,17 +1738,17 @@
     },
     {
         "name": "nikic/php-parser",
-        "version": "v4.2.1",
-        "version_normalized": "4.2.1.0",
+        "version": "v4.2.2",
+        "version_normalized": "4.2.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/nikic/PHP-Parser.git",
-            "reference": "5221f49a608808c1e4d436df32884cbc1b821ac0"
+            "reference": "1bd73cc04c3843ad8d6b0bfc0956026a151fc420"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/5221f49a608808c1e4d436df32884cbc1b821ac0",
-            "reference": "5221f49a608808c1e4d436df32884cbc1b821ac0",
+            "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/1bd73cc04c3843ad8d6b0bfc0956026a151fc420",
+            "reference": "1bd73cc04c3843ad8d6b0bfc0956026a151fc420",
             "shasum": ""
         },
         "require": {
@@ -1698,7 +1758,7 @@
         "require-dev": {
             "phpunit/phpunit": "^6.5 || ^7.0"
         },
-        "time": "2019-02-16T20:54:15+00:00",
+        "time": "2019-05-25T20:07:01+00:00",
         "bin": [
             "bin/php-parse"
         ],
@@ -1731,17 +1791,17 @@
     },
     {
         "name": "october/backend",
-        "version": "v1.0.454",
-        "version_normalized": "1.0.454.0",
+        "version": "v1.0.456",
+        "version_normalized": "1.0.456.0",
         "source": {
             "type": "git",
             "url": "https://github.com/octoberrain/backend.git",
-            "reference": "a1592533b2b0287d60cbca793855331b74a1548f"
+            "reference": "4ddfcab8e4d79b56a94031f1b7b3f5f6e7052117"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/octoberrain/backend/zipball/a1592533b2b0287d60cbca793855331b74a1548f",
-            "reference": "a1592533b2b0287d60cbca793855331b74a1548f",
+            "url": "https://api.github.com/repos/octoberrain/backend/zipball/4ddfcab8e4d79b56a94031f1b7b3f5f6e7052117",
+            "reference": "4ddfcab8e4d79b56a94031f1b7b3f5f6e7052117",
             "shasum": ""
         },
         "require": {
@@ -1749,7 +1809,7 @@
             "october/rain": "~1.0",
             "php": ">=7.0"
         },
-        "time": "2019-05-04T01:08:12+00:00",
+        "time": "2019-05-26T06:07:47+00:00",
         "type": "october-module",
         "extra": {
             "branch-alias": {
@@ -1792,17 +1852,17 @@
     },
     {
         "name": "october/cms",
-        "version": "v1.0.454",
-        "version_normalized": "1.0.454.0",
+        "version": "v1.0.456",
+        "version_normalized": "1.0.456.0",
         "source": {
             "type": "git",
             "url": "https://github.com/octoberrain/cms.git",
-            "reference": "6a78c3f8337226e8a0502a3b5b9d9dc7adfce1a6"
+            "reference": "4d6d326b75377bbfcd67dd320f637fc447c0ab00"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/octoberrain/cms/zipball/6a78c3f8337226e8a0502a3b5b9d9dc7adfce1a6",
-            "reference": "6a78c3f8337226e8a0502a3b5b9d9dc7adfce1a6",
+            "url": "https://api.github.com/repos/octoberrain/cms/zipball/4d6d326b75377bbfcd67dd320f637fc447c0ab00",
+            "reference": "4d6d326b75377bbfcd67dd320f637fc447c0ab00",
             "shasum": ""
         },
         "require": {
@@ -1810,7 +1870,7 @@
             "october/rain": "~1.0",
             "php": ">=7.0"
         },
-        "time": "2019-05-03T15:51:44+00:00",
+        "time": "2019-06-01T04:28:34+00:00",
         "type": "october-module",
         "extra": {
             "branch-alias": {
@@ -1853,17 +1913,17 @@
     },
     {
         "name": "october/rain",
-        "version": "v1.0.454",
-        "version_normalized": "1.0.454.0",
+        "version": "v1.0.457",
+        "version_normalized": "1.0.457.0",
         "source": {
             "type": "git",
             "url": "https://github.com/octobercms/library.git",
-            "reference": "997d644060da1185830d9ab050d7835fbf4e2277"
+            "reference": "00c016969b96dc02035c6400b5c0ec5c505510cf"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/octobercms/library/zipball/997d644060da1185830d9ab050d7835fbf4e2277",
-            "reference": "997d644060da1185830d9ab050d7835fbf4e2277",
+            "url": "https://api.github.com/repos/octobercms/library/zipball/00c016969b96dc02035c6400b5c0ec5c505510cf",
+            "reference": "00c016969b96dc02035c6400b5c0ec5c505510cf",
             "shasum": ""
         },
         "require": {
@@ -1913,7 +1973,7 @@
             "symfony/css-selector": "~3.1",
             "symfony/dom-crawler": "~3.1"
         },
-        "time": "2019-05-03T23:06:14+00:00",
+        "time": "2019-07-15T14:01:46+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1954,17 +2014,17 @@
     },
     {
         "name": "october/system",
-        "version": "v1.0.454",
-        "version_normalized": "1.0.454.0",
+        "version": "v1.0.456",
+        "version_normalized": "1.0.456.0",
         "source": {
             "type": "git",
             "url": "https://github.com/octoberrain/system.git",
-            "reference": "9615bc4d842228c07c4c62f97b0d60cb9ffdeb08"
+            "reference": "33a4008dddb7236b82d947325fe7d4cff6884630"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/octoberrain/system/zipball/9615bc4d842228c07c4c62f97b0d60cb9ffdeb08",
-            "reference": "9615bc4d842228c07c4c62f97b0d60cb9ffdeb08",
+            "url": "https://api.github.com/repos/octoberrain/system/zipball/33a4008dddb7236b82d947325fe7d4cff6884630",
+            "reference": "33a4008dddb7236b82d947325fe7d4cff6884630",
             "shasum": ""
         },
         "require": {
@@ -1972,7 +2032,7 @@
             "october/rain": "~1.0",
             "php": ">=7.0"
         },
-        "time": "2019-05-03T15:51:44+00:00",
+        "time": "2019-06-01T04:28:34+00:00",
         "type": "october-module",
         "extra": {
             "branch-alias": {
@@ -3620,17 +3680,17 @@
     },
     {
         "name": "twig/twig",
-        "version": "v2.10.0",
-        "version_normalized": "2.10.0.0",
+        "version": "v2.11.3",
+        "version_normalized": "2.11.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/twigphp/Twig.git",
-            "reference": "5240e21982885b76629552d83b4ebb6d41ccde6b"
+            "reference": "699ed2342557c88789a15402de5eb834dedd6792"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/twigphp/Twig/zipball/5240e21982885b76629552d83b4ebb6d41ccde6b",
-            "reference": "5240e21982885b76629552d83b4ebb6d41ccde6b",
+            "url": "https://api.github.com/repos/twigphp/Twig/zipball/699ed2342557c88789a15402de5eb834dedd6792",
+            "reference": "699ed2342557c88789a15402de5eb834dedd6792",
             "shasum": ""
         },
         "require": {
@@ -3641,13 +3701,13 @@
         "require-dev": {
             "psr/container": "^1.0",
             "symfony/debug": "^2.7",
-            "symfony/phpunit-bridge": "^3.4.19|^4.1.8"
+            "symfony/phpunit-bridge": "^3.4.19|^4.1.8|^5.0"
         },
-        "time": "2019-05-14T12:03:52+00:00",
+        "time": "2019-06-18T15:37:11+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "2.10-dev"
+                "dev-master": "2.11-dev"
             }
         },
         "installation-source": "dist",

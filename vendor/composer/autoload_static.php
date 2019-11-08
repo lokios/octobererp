@@ -102,6 +102,7 @@ class ComposerStaticInitce290a037d2cbd6fc6b8d537449d0ac2
         'D' => 
         array (
             'Dotenv\\' => 7,
+            'Doctrine\\Common\\Lexer\\' => 22,
             'Doctrine\\Common\\Inflector\\' => 26,
             'Doctrine\\Common\\Cache\\' => 22,
             'Doctrine\\Common\\Annotations\\' => 28,
@@ -284,6 +285,10 @@ class ComposerStaticInitce290a037d2cbd6fc6b8d537449d0ac2
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
         ),
+        'Doctrine\\Common\\Lexer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer',
+        ),
         'Doctrine\\Common\\Inflector\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
@@ -323,6 +328,13 @@ class ComposerStaticInitce290a037d2cbd6fc6b8d537449d0ac2
     );
 
     public static $prefixesPsr0 = array (
+        'U' => 
+        array (
+            'UpdateHelper\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/kylekatarnls/update-helper/src',
+            ),
+        ),
         'T' => 
         array (
             'Twig_' => 
@@ -353,10 +365,6 @@ class ComposerStaticInitce290a037d2cbd6fc6b8d537449d0ac2
             'Doctrine\\DBAL\\' => 
             array (
                 0 => __DIR__ . '/..' . '/doctrine/dbal/lib',
-            ),
-            'Doctrine\\Common\\Lexer\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/doctrine/lexer/lib',
             ),
             'Doctrine\\Common\\Collections\\' => 
             array (

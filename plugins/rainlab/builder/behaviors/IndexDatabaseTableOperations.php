@@ -107,22 +107,33 @@ class IndexDatabaseTableOperations extends IndexOperationsBehaviorBase
             $this->controller->widget->versionList->refreshActivePlugin()
         );
 
-        $widget = $this->makeBaseFormWidget($table);
-        $this->vars['tableName'] = $table;
+        if ($operation === 'delete') {
+            $result['builderResponseData'] = [
+                'builderObjectName' => $table,
+                'tabId' => $this->getTabId($table),
+                'tabTitle' => $table,
+                'tableName' => $table,
+                'operation' => $operation,
+                'pluginCode' => $pluginCode->toCode()
+            ];
+        } else {
+            $widget = $this->makeBaseFormWidget($table);
+            $this->vars['tableName'] = $table;
 
-        $result['builderResponseData'] = [
-            'builderObjectName'=>$table,
-            'tabId' => $this->getTabId($table),
-            'tabTitle' => $table,
-            'tableName' => $table,
-            'operation' => $operation,
-            'pluginCode' => $pluginCode->toCode(),
-            'tab' => $this->makePartial('tab', [
-                'form'  => $widget,
-                'pluginCode' => $this->getPluginCode()->toCode(),
-                'tableName' => $table
-            ])
-        ];
+            $result['builderResponseData'] = [
+                'builderObjectName' => $table,
+                'tabId' => $this->getTabId($table),
+                'tabTitle' => $table,
+                'tableName' => $table,
+                'operation' => $operation,
+                'pluginCode' => $pluginCode->toCode(),
+                'tab' => $this->makePartial('tab', [
+                    'form'  => $widget,
+                    'pluginCode' => $this->getPluginCode()->toCode(),
+                    'tableName' => $table
+                ])
+            ];
+        }
 
         return $result;
     }
@@ -198,7 +209,7 @@ class IndexDatabaseTableOperations extends IndexOperationsBehaviorBase
 
         $booleanColumns = ['unsigned', 'allow_null', 'auto_increment', 'primary_key'];
         foreach ($postData['columns'] as &$row) {
-            foreach ($row as $column=>$value) {
+            foreach ($row as $column => $value) {
                 if (in_array($column, $booleanColumns) && $value == 'false') {
                     $row[$column] = false;
                 }

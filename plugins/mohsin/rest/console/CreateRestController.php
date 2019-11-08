@@ -31,13 +31,11 @@ class CreateRestController extends GeneratorCommand
      */
     protected $stubs = [
         'http/config_rest.stub'   => 'http/{{lower_name}}/config_rest.yaml',
-        'http/controller.stub'    => 'http/{{studly_name}}.php',
-        'http/routes.stub'        => 'routes.php'
+        'http/controller.stub'    => 'http/{{studly_name}}.php'
     ];
 
     /**
      * Prepare variables for stubs.
-     *
      * return @array
      */
     protected function prepareVars()
@@ -69,7 +67,6 @@ class CreateRestController extends GeneratorCommand
 
     /**
      * Get the console command arguments.
-     *
      * @return array
      */
     protected function getArguments()
@@ -82,7 +79,6 @@ class CreateRestController extends GeneratorCommand
 
     /**
      * Get the console command options.
-     *
      * @return array
      */
     protected function getOptions()

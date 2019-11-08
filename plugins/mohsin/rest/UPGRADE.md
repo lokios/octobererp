@@ -1,5 +1,12 @@
 # Upgrade guide
 
+- [Upgrading to 1.0.4 from 1.0.3](#upgrade-1.0.4)
+
+<a name="upgrade-1.0.4"></a>
+## Upgrading To 1.0.4
+
+Read the updated documentation on how to register API nodes and switch to the newer format if you want to keep using your RESTful APIs as you have. The way you define the API configuration and routes.php will change in the future update in favour of a better API management system.
+
 - [Upgrading to 1.0.2 from 1.0.1](#upgrade-1.0.2)
 
 <a name="upgrade-1.0.2"></a>

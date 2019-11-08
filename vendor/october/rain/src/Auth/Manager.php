@@ -349,7 +349,8 @@ class Manager implements \Illuminate\Contracts\Auth\StatefulGuard
      * @throws AuthException If authentication fails
      * @return Models\User The successfully logged in user
      */
-    public function attempt(array $credentials = [], $remember = false, $autoLogin = True)
+//    public function attempt(array $credentials = [], $remember = false) //Updated by Amit : PHP Fatal error
+    public function attempt(array $credentials = [], $remember = false, $login = true)
     {
         return !!$this->authenticate($credentials, $remember);
     }
@@ -543,7 +544,7 @@ class Manager implements \Illuminate\Contracts\Auth\StatefulGuard
      */
     public function id()
     {
-        if ($user == $this->getUser()) {
+        if ($user = $this->getUser()) {
             return $user->getAuthIdentifier();
         }
 
