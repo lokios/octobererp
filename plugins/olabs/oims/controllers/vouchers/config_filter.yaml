@@ -16,7 +16,13 @@ scopes:
         nameFrom: name
         options: getProjectOptions
         conditions: project_id in (:filtered)
-        
+    
+    paymenttype:
+        label: olabs.oims::lang.vouchers.paymenttype
+        modelClass: Olabs\Oims\Models\LedgerType
+        nameFrom: name
+        conditions: payment_type in (:filtered)
+    
     context_date:
         label: Date
         type: date

@@ -97,18 +97,36 @@ $oimsSetting = \Olabs\Oims\Models\Settings::instance();
     </div>
 
     <div class="scoreboard-item title-value col-md-9">
-        <?php if(count($overallDetail)){ ?>
-        <div class="scoreboard-item title-value col-md-6">
-            <table class="table table-bordered table-condensed" style="font-size: 0.8em;">
-                <tr> <th rowspan="2">Project</th> <th colspan="2" >Overall Report till today</td> </th>
-                <tr> <th>Count</th> <th>Total Price</th> </tr>
-                <?php foreach($overallDetail as $detail){ 
-                $projectName = isset($assigned_projects[$detail->project_id]) ? $assigned_projects[$detail->project_id] : "";
-                ?>
-                <tr> <th><?=$projectName?></th> <td><?=$detail->total_count?></td> <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($detail->price_total)?></td> </tr>
-                <?php } ?>
-
-            </table>
+        <?php if (count($overallDetail)) { ?>
+            <div class="scoreboard-item title-value col-md-6">
+            
+            
+           <table class="table table-bordered table-condensed" style="font-size: 0.8em;">
+                    
+                    <tbody style="display: block; max-height: 200px; overflow: auto;">
+                        <tr> 
+                            <th rowspan="2">Projects</th> 
+                            <th colspan="2" >Overall Report till Today</th>
+                        </tr>
+                        <tr> 
+                            <th>Count</th> 
+                            <th>Total Price</th> 
+                        </tr>
+                        <?php
+                        foreach ($overallDetail as $detail) {
+                            $projectName = isset($assigned_projects[$detail->project_id]) ? $assigned_projects[$detail->project_id] : "";
+                            ?>
+                            <tr> 
+                                <th><?= $projectName ?></th> 
+                                <td><?= $detail->total_count ?></td> 
+                                <td><?= $oimsSetting->getPriceFormattedWithoutCurrency($detail->price_total) ?></td> 
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            
+            
+            
 
             
 
@@ -120,14 +138,30 @@ $oimsSetting = \Olabs\Oims\Models\Settings::instance();
         <div class="scoreboard-item title-value col-md-6">
 
             <table class="table table-bordered table-condensed" style="font-size: 0.8em;">
-                <tr> <th rowspan="2">Project</th> <th colspan="2" ><?php echo "From ".$thisMonthFrom." To ".$thisMonthTo  ?></th>
-                <tr> <th>Count</th> <th>Total Price</th> </tr>
-                <?php foreach($thisMonthDetail as $detail){ 
-                $projectName = isset($assigned_projects[$detail->project_id]) ? $assigned_projects[$detail->project_id] : "";
-                ?>
-                <tr> <th><?=$projectName?></th> <td><?=$detail->total_count?></td> <td><?=$oimsSetting->getPriceFormattedWithoutCurrency($detail->price_total)?></td> </tr>
-                <?php } ?> 
-            </table>
+                    <tbody style="display: block; max-height: 200px; overflow: auto;">
+                        <tr> 
+                            <th rowspan="2">Projects</th> 
+                            <th colspan="2" ><?= "From " . $thisMonthFrom . " To " . $thisMonthTo ?></th>
+                        </tr>
+                        <tr> 
+                            <th>Count</th> 
+                            <th>Total Price</th> 
+                        </tr>
+                    <?php
+                    foreach ($thisMonthDetail as $detail) {
+                        $projectName = isset($assigned_projects[$detail->project_id]) ? $assigned_projects[$detail->project_id] : "";
+                        ?>
+                        <tr> 
+                            <th><?= $projectName ?></th> 
+                            <td><?= $detail->total_count ?></td> 
+                            <td><?= $oimsSetting->getPriceFormattedWithoutCurrency($detail->price_total) ?></td> 
+                        </tr>
+                    <?php } ?> 
+                    </tbody>
+                </table>
+            
+            
+           
 
 
             

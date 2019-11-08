@@ -89,13 +89,26 @@ columns:
         searchable: false
         sortable: false 
         
-    payment_type:
+    paymenttype:
         label: Payment Type
-        type: relation
-        select: name
-        relation: ledger_type
-        searchable: true
-        sortable: true    
+        type: partial
+        path: ~/plugins/olabs/oims/models/voucher/_payment_type_column.htm
+        searchable: false
+        sortable: false  
+    
+#    payment_type:
+#        label: Payment Type
+#        type: text
+#        searchable: false
+#        sortable: false 
+        
+#    payment_type:
+#        label: Payment Type
+#        type: relation
+#        select: name
+#        relation: ledger_type
+#        searchable: true
+#        sortable: true    
         
     paid_date:
         label: olabs.oims::lang.vouchers.paid_date

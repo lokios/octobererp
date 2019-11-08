@@ -32,7 +32,7 @@ class LedgerType extends BaseModel {
 //            'required',
             'alpha_dash',
             'between:1,255',
-            'unique:olabs_oims_units',
+            'unique:olabs_oims_ledger_types',
         ],
     ];
     protected $primaryKey = 'slug';

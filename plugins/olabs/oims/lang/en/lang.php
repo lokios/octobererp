@@ -831,6 +831,7 @@ return [
         'btn_new' => "New Cash Voucher",
         'paid' => "Paid",
         'pending' => "Pending",
+        'paymenttype' => "Payment Type",
         'quotes_30_days' => "Quotes 30 days",
         'purchases_30_days' => "M.R. 30 days",
         'sales_30_days' => "Sales 30 days",
