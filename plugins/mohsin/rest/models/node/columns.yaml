@@ -1,0 +1,14 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    path:
+        label: Node path
+        searchable: true
+
+    is_enabled:
+        label: Node Enabled
+        type: partial
+        path: is_enabled
+        sortable: false

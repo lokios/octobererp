@@ -1,0 +1,15 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Setting
+
+# Model Form Field configuration
+form: $/mohsin/rest/models/setting/fields.yaml
+
+# Model Class name
+modelClass: Mohsin\Rest\Models\Setting
+
+# Default redirect location
+defaultRedirect: mohsin/rest/settings
