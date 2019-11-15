@@ -24,7 +24,8 @@ trait PreferenceMaker
      * @param mixed $value The value to store.
      * @return void
      */
-    public function putUserPreference(string $key, $value): void
+//    public function putUserPreference(string $key, $value): void //Comment : Amit => Bug fix on grid preference change
+    public function putUserPreference(string $key, $value)
     {
         $preferences = $this->getUserPreferences();
         $preferences[$key] = $value;
